@@ -22,7 +22,7 @@ define( function( require ) {
     Screen.call( this, titleString, null /* no icon, single-screen sim */,
       function() { return new FaradaysLawModel(); },
       function( model ) { return new FaradaysLawView( model ); },
-      { backgroundColor: 'black' }
+      { backgroundColor: '#e1f2f1' }
     );
   }
 
