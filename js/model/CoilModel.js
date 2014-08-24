@@ -15,7 +15,6 @@ define( function( require ) {
 
 
   function CoilModel( x, y, N, magnetModel ) {
-    console.log(x,y)
     PropertySet.call( this, {
       position: new Vector2( x, y ),
       emf: 0, //signal strength in coil = "electromotive force"
