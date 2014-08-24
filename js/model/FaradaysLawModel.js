@@ -23,9 +23,14 @@ define( function( require ) {
     this.height = height;
 
     PropertySet.call( this, {
+      coilNumber:1, // number of coils - 1 or 2
+      showFieldLines: false,
     } );
 
   }
 
-  return inherit( PropertySet, FaradaysLawModel, {} );
+  return inherit( PropertySet, FaradaysLawModel, {
+    step: function(dt) {
+    }
+  } );
 } );
