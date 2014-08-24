@@ -16,6 +16,12 @@ define( function( require ) {
 
   function CoilModel( x, y, N, magnetModel ) {
 
+    PropertySet.call( this, {
+      position: new Vector2( x, y ),
+      emf: 0, //signal strength in coil = "electromotive force"
+      s: 0 //sense of magnet = +1 or -1,  simulates flipping of magnet
+    } );
+
     this.magnetModel = magnetModel;
 
     //TODO review this model
@@ -25,21 +31,12 @@ define( function( require ) {
     this.rTrue = this.position.distanceSquared( magnetModel.position ) / (this.A * this.A);  //normalized distance from magnet to coil,
     // squared for better performance
 
-    this.k = (40 / 30) / 1000; // in original model 30ms interval corresponds to 40ms in math model, dt*k = math model time, seconds
     this.B = 0; //current value of magnetic field
     this.BLast = 0; //previous value of magnetic field
-
-    PropertySet.call( this, {
-      position: new Vector2( x, y ),
-      emf: 0, //signal strength in coil = "electromotive force"
-      s: 0 //sense of magnet = +1 or -1,  simulates flipping of magnet
-    } );
-
   }
 
   return inherit( PropertySet, CoilModel, {
     step: function( dt ) {
-      dt = this.k * dt;//dt time for math model, s
       this.rTrue = this.position.distanceSquared( this.magnetModel.position ) / (this.A * this.A);  //normalized distance from coil to magnet
 
       if ( this.rTrue < 1 ) {  //if magnet is very close to coil, then B field is at max value = 1;
