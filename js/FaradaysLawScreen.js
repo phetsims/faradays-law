@@ -14,13 +14,14 @@ define( function( require ) {
   var FaradaysLawModel = require( 'FARADAYS_LAW/model/FaradaysLawModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
+  var ScreenView = require( 'JOIST/ScreenView' );
 
   // strings
   var titleString = require( 'string!FARADAYS_LAW/faradays-law.name' );
 
   function MoleculesAndLightScreen() {
     Screen.call( this, titleString, null /* no icon, single-screen sim */,
-      function() { return new FaradaysLawModel(); },
+      function() { return new FaradaysLawModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
       function( model ) { return new FaradaysLawView( model ); },
       { backgroundColor: '#e1f2f1' }
     );
