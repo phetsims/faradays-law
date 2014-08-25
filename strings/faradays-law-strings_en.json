@@ -1,12 +1,7 @@
 {
   "faradays-law.name": "Faraday's Law",
-  "moveMe": "Move me!",
   "n": "N",
   "s": "S",
   "voltage": "voltage",
-  "oneCoil": "1 Coil",
-  "twoCoils": "2 Coils",
-  "noSound": "No sound",
-  "showFieldLines": "Field lines",
-  "flipMagnet": "Flip magnet"
+  "showFieldLines": "Field lines"
 }
