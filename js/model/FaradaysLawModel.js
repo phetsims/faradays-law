@@ -29,7 +29,7 @@ define( function( require ) {
       showSecondCoil: false, // number of coils - 1 or 2
     } );
 
-    this.magnetModel = new MagnetModel( 0.75 * width, 0.23 * height );
+    this.magnetModel = new MagnetModel(645, 220 );
 
     this.coil1 = new CoilModel( 0.40 * width, 0.6 * height, 2, this.magnetModel );
     this.coil2 = new CoilModel( 0.40 * width, 0.15 * height, 1, this.magnetModel );

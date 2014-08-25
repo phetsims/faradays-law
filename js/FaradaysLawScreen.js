@@ -19,13 +19,15 @@ define( function( require ) {
   // strings
   var titleString = require( 'string!FARADAYS_LAW/faradays-law.name' );
 
-  function MoleculesAndLightScreen() {
+  function FaradaysLawScreen() {
     Screen.call( this, titleString, null /* no icon, single-screen sim */,
-      function() { return new FaradaysLawModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
+      function() { return new FaradaysLawModel( ScreenView.UPDATED_LAYOUT_BOUNDS.width, ScreenView.UPDATED_LAYOUT_BOUNDS.height ); },
       function( model ) { return new FaradaysLawView( model ); },
-      { backgroundColor: '#e1f2f1' }
+      {
+        backgroundColor: '#e1f2f1'
+      }
     );
   }
 
-  return inherit( Screen, MoleculesAndLightScreen );
+  return inherit( Screen, FaradaysLawScreen );
 } );
