@@ -18,33 +18,26 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var nString = require( 'string!FARADAYS_LAW/faradays-law.n' );
   var sString = require( 'string!FARADAYS_LAW/faradays-law.s' );
 
-  //constants
-  var MAGNET_WIDTH = 140;
-  var MAGNET_HEIGHT = 30;
-  var PHET_FONT = new PhetFont( 24 );
-  var DX = 4; //dx offset for 3d back part
-  var DY = 2; //dy offset for 3d back part
-
-
   // draw half of magnet
-  var drawHalfMagnetNode = function( label, backgroundColor, shadeColor, options ) {
+  var drawHalfMagnetNode = function( label, backgroundColor, options ) {
     var node = new Node();
 
     // front part
-    node.addChild( new Rectangle( -MAGNET_WIDTH / 4, -MAGNET_HEIGHT / 2, MAGNET_WIDTH / 2, MAGNET_HEIGHT, {
+    node.addChild( new Rectangle( -options.width / 4, -options.height / 2, options.width / 2, options.height, {
       fill: backgroundColor
     } ) );
 
     // label
     node.addChild( new Text( label, {
-      centerY: 1,
+      centerY: 0,
       centerX: 0,
-      font: PHET_FONT,
+      font: options.font,
       fill: 'white'
     } ) );
 
@@ -52,67 +45,49 @@ define( function( require ) {
 
     //add 3d looking
     node.addChild( new Path( new Shape()
-      .moveTo( -MAGNET_WIDTH / 4, -MAGNET_HEIGHT / 2 )
-      .lineTo( -MAGNET_WIDTH / 4 + DX, -MAGNET_HEIGHT / 2 - DY )
-      .lineTo( MAGNET_WIDTH / 4 + DX, -MAGNET_HEIGHT / 2 - DY )
-      .lineTo( MAGNET_WIDTH / 4 + DX, MAGNET_HEIGHT / 2 - DY )
-      .lineTo( MAGNET_WIDTH / 4, MAGNET_HEIGHT / 2 )
-      .lineTo( MAGNET_WIDTH / 4, -MAGNET_HEIGHT / 2 )
+      .moveTo( -options.width / 4, -options.height / 2 )
+      .lineTo( -options.width / 4 + options.dx, -options.height / 2 - options.dy )
+      .lineTo( options.width / 4 + options.dx, -options.height / 2 - options.dy )
+      .lineTo( options.width / 4 + options.dx, options.height / 2 - options.dy )
+      .lineTo( options.width / 4, options.height / 2 )
+      .lineTo( options.width / 4, -options.height / 2 )
       .close(), {
-      fill: shadeColor
+      fill: backgroundColor.colorUtilsDarker( 0.4 )
     } ) );
 
     return node;
   };
 
-  function MagnetNode( magnetModel ) {
-    var self = this;
-    Node.call( this, {cursor:'pointer'});
+  function MagnetNode( flipped, options ) {
+    Node.call( this );
 
-    var northPole = drawHalfMagnetNode( nString, '#db1e21', '#a00e10', {
-      centerY: 0
-    } );
+    options = _.extend( {
+      width: 140,
+      height: 30,
+      dx: 4,
+      dy: 2,
+      font: new PhetFont( 24 )
+    }, options );
 
-    var southPole = drawHalfMagnetNode( sString, '#354d9a', '#1d2a63', {
+    var northPole = drawHalfMagnetNode( nString, new Color( '#db1e21' ), _.extend({
+      left: -options.width / 2,
       centerY: 0
-    } );
+    },options) );
+
+    var southPole = drawHalfMagnetNode( sString, new Color( '#354d9a' ), _.extend({
+      left: 0,
+      centerY: 0
+    },options) );
 
     this.addChild( northPole );
     this.addChild( southPole );
 
-    magnetModel.flippedProperty.link( function( flipped ) {
-      if ( flipped ) {
-        northPole.left = 0;
-        southPole.left = -MAGNET_WIDTH / 2;
-        northPole.moveToFront();
-      }
-      else {
-        southPole.left = 0;
-        northPole.left = -MAGNET_WIDTH / 2;
-        southPole.moveToFront();
-      }
-    } );
+    if ( flipped ) {
+      northPole.left = 0;
+      southPole.left = -options.width / 2;
+      northPole.moveToFront();
+    }
 
-    magnetModel.positionProperty.link( function( position ) {
-      self.translation = position;
-    } );
-
-    var magnetOffset = {};
-    var magnetDragHandler = new SimpleDragHandler( {
-      //When dragging across it in a mobile device, pick it up
-      allowTouchSnag: true,
-      start: function( event ) {
-        magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
-        magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - event.currentTarget.y;
-      },
-      end: function() {},
-      //Translate on drag events
-      drag: function( event ) {
-        magnetModel.position = self.globalToParentPoint( event.pointer.point ).subtract( magnetOffset );
-      }
-    } );
-
-    this.addInputListener( magnetDragHandler );
   }
 
   return inherit( Node, MagnetNode );

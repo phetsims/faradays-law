@@ -14,7 +14,8 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var MagnetNode = require( 'FARADAYS_LAW/view/MagnetNode' );
+  var MagnetNodeWithField = require( 'FARADAYS_LAW/view/MagnetNodeWithField' );
+  var ControlPanelNode = require( 'FARADAYS_LAW/view/ControlPanelNode' );
 
   // images
   var twoLoopBack = require( 'image!FARADAYS_LAW/images/two-loop-back.png' );
@@ -49,7 +50,9 @@ define( function( require ) {
     } );
     this.addChild(coil2Node);
 
-    this.addChild(new MagnetNode(model.magnetModel));
+    this.addChild(new ControlPanelNode(model));
+
+    this.addChild(new MagnetNodeWithField(model.magnetModel));
 
 
   }
