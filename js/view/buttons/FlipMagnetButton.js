@@ -31,7 +31,7 @@ define( function( require ) {
     //arc
     var shape = new Shape();
     shape.moveTo( (radius + lineWidth / 2) * Math.cos( arcStartAngle ), (radius + lineWidth / 2) * Math.sin( arcStartAngle ) ); // Inner edge of end.
-    shape.ellipticalArc( 0, 0, radius, radius, 0, arcStartAngle, arcEndAngle, false ); // Outer curve.
+    shape.arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
     node.addChild( new Path( shape, {
       stroke: '#000',
       lineWidth: lineWidth

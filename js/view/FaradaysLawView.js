@@ -17,13 +17,14 @@ define( function( require ) {
   var MagnetNodeWithField = require( 'FARADAYS_LAW/view/MagnetNodeWithField' );
   var ControlPanelNode = require( 'FARADAYS_LAW/view/ControlPanelNode' );
   var BulbNode = require( 'FARADAYS_LAW/view/BulbNode' );
+  var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
 
   // images
   var twoLoopBack = require( 'image!FARADAYS_LAW/images/two-loop-back.png' );
   var twoLoopFront = require( 'image!FARADAYS_LAW/images/two-loop-front.png' );
   var fourLoopBack = require( 'image!FARADAYS_LAW/images/four-loop-back.png' );
   var fourLoopFront = require( 'image!FARADAYS_LAW/images/four-loop-front.png' );
-  var backImage = require('image!FARADAYS_LAW/images/image06.png');
+  var backImage = require( 'image!FARADAYS_LAW/images/image06.png' );
 
   /**
    * @param {gameModel} model - Faradays law simulation model object
@@ -36,29 +37,33 @@ define( function( require ) {
     } );
 
     this.addChild( new Image( backImage, {
-      opacity:0.5
-    }) );
+      opacity: 0.5
+    } ) );
 
-    this.addChild(new BulbNode(model.voltMeterModel.signalProperty, {
-      x:145,
-      y:244
-    }));
+    this.addChild( new CoilsWiresNode( model.showSecondCoilProperty ) );
+
+    this.addChild( new BulbNode( model.voltMeterModel.signalProperty, {
+      x: 145,
+      y: 244
+    } ) );
 
     var coil1Node = new CoilNode( fourLoopBack, fourLoopFront, {
       x: model.coil1.position.x,
       y: model.coil1.position.y
     } );
-    this.addChild(coil1Node);
+    this.addChild( coil1Node );
 
     var coil2Node = new CoilNode( twoLoopBack, twoLoopFront, {
       x: model.coil2.position.x,
       y: model.coil2.position.y
     } );
-    this.addChild(coil2Node);
+    this.addChild( coil2Node );
+    model.showSecondCoilProperty.linkAttribute( coil2Node, "visible" );
 
-    this.addChild(new ControlPanelNode(model));
 
-    this.addChild(new MagnetNodeWithField(model.magnetModel));
+    this.addChild( new ControlPanelNode( model ) );
+
+    this.addChild( new MagnetNodeWithField( model.magnetModel ) );
 
 
   }

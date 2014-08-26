@@ -19,6 +19,7 @@ define( function( require ) {
     Node.call( this, {cursor:'pointer'});
 
     magnetModel.flippedProperty.link( function( flipped ) {
+      self.removeAllChildren();
       self.addChild(new MagnetNode(flipped));
     } );
 
