@@ -31,8 +31,8 @@ define( function( require ) {
 
     this.magnetModel = new MagnetModel(647, 219 );
 
-    this.coil1 = new CoilModel( 0.40 * width, 0.6 * height, 2, this.magnetModel );
-    this.coil2 = new CoilModel( 0.40 * width, 0.15 * height, 1, this.magnetModel );
+    this.coil1 = new CoilModel(448, 318, 2, this.magnetModel );
+    this.coil2 = new CoilModel( 422, 140, 1, this.magnetModel );
 
     this.voltMeterModel = new VoltMeterModel( this );
   }
