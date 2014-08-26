@@ -18,6 +18,7 @@ define( function( require ) {
   var ControlPanelNode = require( 'FARADAYS_LAW/view/ControlPanelNode' );
   var BulbNode = require( 'FARADAYS_LAW/view/BulbNode' );
   var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
+  var VoltMeterWiresNode = require( 'FARADAYS_LAW/view/VoltMeterWiresNode' );
 
   // images
   var twoLoopBack = require( 'image!FARADAYS_LAW/images/two-loop-back.png' );
@@ -41,6 +42,7 @@ define( function( require ) {
     } ) );
 
     this.addChild( new CoilsWiresNode( model.showSecondCoilProperty ) );
+    this.addChild( new VoltMeterWiresNode() );
 
     this.addChild( new BulbNode( model.voltMeterModel.signalProperty, {
       x: 145,

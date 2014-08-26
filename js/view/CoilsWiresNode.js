@@ -21,21 +21,21 @@ define( function( require ) {
     var wireColor = "#7f3521";
     var wireWidth = 3;
 
-    var firstWireX = 175; //x coordinate for left most vertical wire, also used for top coil wire
-    var secondWireX = 202; //x coordinate for second vertical wire, also used for top coil wire to make arc
+    var leftWireX = 175; //x coordinate for left most vertical wire, also used for top coil wire
+    var rightWireX = 202; //x coordinate for second vertical wire, also used for top coil wire to make arc
 
     //bottom coil, static wires
     this.addChild( new Path( new Shape()
-      .moveTo( firstWireX, 250 )
-      .lineTo( firstWireX, 324 )
+      .moveTo( leftWireX, 250 )
+      .lineTo( leftWireX, 324 )
       .lineTo( 520, 324 ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
 
     this.addChild( new Path( new Shape()
-      .moveTo( secondWireX, 250 )
-      .lineTo( secondWireX, 308 )
+      .moveTo( rightWireX, 250 )
+      .lineTo( rightWireX, 308 )
       .lineTo( 450, 308 ), {
       stroke: wireColor,
       lineWidth: wireWidth
@@ -43,7 +43,7 @@ define( function( require ) {
 
     //top coil wires, must be hidden if coil is hidden
     var secondCoilsWire1 = new Path( new Shape()
-      .moveTo( secondWireX, 260 )
+      .moveTo( rightWireX, 260 )
       .lineTo( 335, 260 )
       .lineTo( 335, 131 )
       .lineTo( 450, 131 ), {
@@ -53,9 +53,9 @@ define( function( require ) {
     this.addChild( secondCoilsWire1 );
 
     var secondCoilsWire2 = new Path( new Shape()
-      .moveTo( firstWireX, 277 )
-      .lineTo( secondWireX-8, 277 )
-      .arc( secondWireX, 277, 8, Math.PI, 0, true )
+      .moveTo( leftWireX, 277 )
+      .lineTo( rightWireX-8, 277 )
+      .arc( rightWireX, 277, 8, Math.PI, 0, true )
       .lineTo( 350, 277 )
       .lineTo( 350, 147 )
       .lineTo( 480, 147 ), {
