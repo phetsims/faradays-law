@@ -16,6 +16,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/view/MagnetNodeWithField' );
   var ControlPanelNode = require( 'FARADAYS_LAW/view/ControlPanelNode' );
+  var BulbNode = require( 'FARADAYS_LAW/view/BulbNode' );
 
   // images
   var twoLoopBack = require( 'image!FARADAYS_LAW/images/two-loop-back.png' );
@@ -37,6 +38,11 @@ define( function( require ) {
     this.addChild( new Image( backImage, {
       opacity:0.5
     }) );
+
+    this.addChild(new BulbNode(model.voltMeterModel.signalProperty, {
+      x:145,
+      y:244
+    }));
 
     var coil1Node = new CoilNode( fourLoopBack, fourLoopFront, {
       x: model.coil1.position.x,
