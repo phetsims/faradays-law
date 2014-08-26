@@ -16,6 +16,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FlipMagnetButton = require( 'FARADAYS_LAW/view/buttons/FlipMagnetButton' );
+  var ShowCoilsButtonGroup = require( 'FARADAYS_LAW/view/buttons/ShowCoilsButtonGroup' );
 
   // strings
   var showFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
@@ -42,10 +43,16 @@ define( function( require ) {
     } ) );
 
     // show field lines
-    this.addChild( new CheckBox( new Text( showFieldLinesString, {font: new PhetFont( 16 )} ), model.magnetModel.showFieldLinesProperty , {
+    this.addChild( new CheckBox( new Text( showFieldLinesString, {font: new PhetFont( 16 )} ), model.magnetModel.showFieldLinesProperty, {
       x: 174,
-      bottom: model.height-37
-    } ));
+      bottom: model.height - 37
+    } ) );
+
+    // show field lines
+    this.addChild( new ShowCoilsButtonGroup( model.showSecondCoilProperty, {
+      x: 250,
+      bottom: model.height - 37
+    } ) );
 
 
   }
