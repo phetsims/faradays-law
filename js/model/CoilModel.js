@@ -15,12 +15,18 @@ define( function( require ) {
 
 
   function CoilModel( x, y, N, magnetModel ) {
+    var self = this;
+    this.s = 1; //sense of magnet = +1 or -1,  simulates flipping of magnet
+
     PropertySet.call( this, {
       position: new Vector2( x, y ),
-      emf: 0, //signal strength in coil = "electromotive force"
-      s: 0 //sense of magnet = +1 or -1,  simulates flipping of magnet
+      emf: 0, //signal strength in coil = 'electromotive force'
+      s: 0
     } );
 
+    magnetModel.flippedProperty.link( function( flipped ) {
+      self.s = flipped ? -1 : 1;
+    } );
 
     this.magnetModel = magnetModel;
 
@@ -37,6 +43,7 @@ define( function( require ) {
 
   return inherit( PropertySet, CoilModel, {
     step: function( dt ) {
+
       this.rTrue = this.position.distanceSquared( this.magnetModel.position ) / (this.A * this.A);  //normalized distance from coil to magnet
 
       if ( this.rTrue < 1 ) {  //if magnet is very close to coil, then B field is at max value = 1;
@@ -51,7 +58,8 @@ define( function( require ) {
         var dx = this.magnetModel.position.x - this.position.x;
         this.B = this.s * (3 * dx * dx - this.rTrue) / (this.rTrue * this.rTrue);
       }
-      this.emf = this.N * (this.B - this.BLast) / this.dt;    //emf = (nbr coils)*(change in B)/(change in t)
+
+      this.emf = this.N * (this.B - this.BLast) / dt;    //emf = (nbr coils)*(change in B)/(change in t)
       this.BLast = this.B;
     }
   } );

@@ -32,7 +32,7 @@ define( function( require ) {
 
     var showFourCoilsButton = new SimpleToggleButton( showSecondCoilProperty, true, new VBox( {
       children: [
-        new CoilNode( CoilTypeEnum.TWO_COIL),
+        new CoilNode( CoilTypeEnum.TWO_COIL ),
         new CoilNode( CoilTypeEnum.FOUR_COIL, {} )
       ],
       spacing: 10,

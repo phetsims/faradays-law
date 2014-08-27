@@ -16,11 +16,11 @@ define( function( require ) {
 
   function MagnetNodeWithField( magnetModel ) {
     var self = this;
-    Node.call( this, {cursor:'pointer'});
+    Node.call( this, {cursor: 'pointer'} );
 
     magnetModel.flippedProperty.link( function( flipped ) {
       self.removeAllChildren();
-      self.addChild(new MagnetNode(flipped));
+      self.addChild( new MagnetNode( flipped ) );
     } );
 
     magnetModel.positionProperty.link( function( position ) {

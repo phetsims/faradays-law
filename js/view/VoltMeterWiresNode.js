@@ -20,7 +20,7 @@ define( function( require ) {
   //creates measuring pad, with gradients
   var createPad = function( options ) {
 
-    var baseColor = new Color("#b4b5b5");
+    var baseColor = new Color( "#b4b5b5" );
     var transparentColor = new Color( baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 0 );
     var radius = 7;
     var gradientLength = 2;
@@ -36,7 +36,7 @@ define( function( require ) {
       .addColorStop( 1, baseColor.colorUtilsBrighter( 0.7 ) );
 
     var shadowFill = new RadialGradient( -gradientOffset, -gradientOffset, innerGradientRadius, -gradientOffset, -gradientOffset, outerGradientRadius )
-      .addColorStop( 0, transparentColor)
+      .addColorStop( 0, transparentColor )
       .addColorStop( 1, baseColor.colorUtilsDarker( 0.5 ) );
 
     var baseCircle = new Circle( radius, {fill: highlightFill} );

@@ -29,5 +29,5 @@ define( function( require ) {
 
   }
 
-  return inherit( PropertySet, MagnetModel);
+  return inherit( PropertySet, MagnetModel );
 } );

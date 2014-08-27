@@ -29,9 +29,9 @@ define( function( require ) {
       showSecondCoil: false // number of coils - 1 or 2
     } );
 
-    this.magnetModel = new MagnetModel(647, 219 );
+    this.magnetModel = new MagnetModel( 647, 219 );
 
-    this.coil1 = new CoilModel(448, 318, 2, this.magnetModel );
+    this.coil1 = new CoilModel( 448, 318, 2, this.magnetModel );
     this.coil2 = new CoilModel( 422, 141, 1, this.magnetModel );
 
     this.voltMeterModel = new VoltMeterModel( this );
@@ -39,7 +39,7 @@ define( function( require ) {
 
   return inherit( PropertySet, FaradaysLawModel, {
     reset: function() {
-      PropertySet.prototype.reset.call(this);
+      PropertySet.prototype.reset.call( this );
       this.magnetModel.reset();
     },
     step: function( dt ) {

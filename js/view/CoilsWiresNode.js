@@ -15,11 +15,10 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
 
-
   function CoilsWiresNode( showSecondCoilProperty ) {
     Node.call( this );
 
-    var wireColor = "#7f3521";
+    var wireColor = '#7f3521';
     var wireWidth = 3;
 
     var leftWireX = 175; //x coordinate for left most vertical wire, also used for top coil wire
@@ -55,7 +54,7 @@ define( function( require ) {
 
     var secondCoilsWire2 = new Path( new Shape()
       .moveTo( leftWireX, 277 )
-      .lineTo( rightWireX-8, 277 )
+      .lineTo( rightWireX - 8, 277 )
       .arc( rightWireX, 277, 8, Math.PI, 0, true )
       .lineTo( 350, 277 )
       .lineTo( 350, 147 )
@@ -65,7 +64,7 @@ define( function( require ) {
     } );
     this.addChild( secondCoilsWire2 );
 
-    showSecondCoilProperty.linkAttribute( secondCoilsWire1, "visible" );
+    showSecondCoilProperty.linkAttribute( secondCoilsWire1, 'visible' );
     showSecondCoilProperty.linkAttribute( secondCoilsWire2, "visible" );
 
   }

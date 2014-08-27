@@ -40,7 +40,7 @@ define( function( require ) {
       whiteRectangleWidth: 132,
       textColor: 'yellow', //color of 'voltage' text
       terminalSize: 18, //size of terminals at the bottom of the voltmeter
-      terminalSignSize :  new Dimension2( 12, 2 ) //size of plus and minus signs
+      terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
     var baseColor = new Color( "#232674" );
@@ -107,7 +107,7 @@ define( function( require ) {
 
     //plus and minus terminals at the bottom
     var plusNode = new Node();
-    plusNode.addChild( new Rectangle( -options.terminalSize/2, -options.terminalSize/2, options.terminalSize, options.terminalSize, 3, 3, {
+    plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
       fill: '#999999'
     } ) );
     plusNode.addChild( new PlusNode( {
@@ -116,10 +116,10 @@ define( function( require ) {
       size: options.terminalSignSize
     } ) );
     this.addChild( plusNode );
-    plusNode.center = new Vector2( options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2);
+    plusNode.center = new Vector2( options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
 
     var minusNode = new Node();
-    minusNode.addChild( new Rectangle( -options.terminalSize/2, -options.terminalSize/2, options.terminalSize, options.terminalSize, 3, 3, {
+    minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
       fill: '#999999'
     } ) );
     minusNode.addChild( new MinusNode( {
@@ -128,7 +128,7 @@ define( function( require ) {
       size: options.terminalSignSize
     } ) );
     this.addChild( minusNode );
-    minusNode.center = new Vector2( -options.terminalSize+3, options.rectangleHeight / 2 + options.terminalSize / 2 );
+    minusNode.center = new Vector2( -options.terminalSize + 3, options.rectangleHeight / 2 + options.terminalSize / 2 );
   }
 
   return inherit( Node, CoilNode );

@@ -71,12 +71,12 @@ define( function( require ) {
       fill: options.needleColor,
       lineWidth: 0
     } );
-    this.addChild(needle);
+    this.addChild( needle );
 
 
-    needleAngleProperty.link(function(angle){
+    needleAngleProperty.link( function( angle ) {
       needle.rotation = angle;
-    });
+    } );
 
 
     this.mutate( options );

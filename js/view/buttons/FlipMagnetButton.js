@@ -20,7 +20,7 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   //curved arrow shape
-  var createCurvedArrow = function(options) {
+  var createCurvedArrow = function( options ) {
     var node = new Node();
 
     var radius = 20;
@@ -45,7 +45,7 @@ define( function( require ) {
       y: (radius + lineWidth / 2) * Math.sin( arcEndAngle )
     } );
     node.addChild( arrow );
-    node.mutate(options);
+    node.mutate( options );
     return node;
   };
 
@@ -57,7 +57,7 @@ define( function( require ) {
         height: 16,
         font: new PhetFont( 14 )
       } ),
-      createCurvedArrow({rotation:Math.PI})
+      createCurvedArrow( {rotation: Math.PI} )
     ];
 
     var contentNode = new VBox( {

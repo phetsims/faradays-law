@@ -69,15 +69,15 @@ define( function( require ) {
       font: new PhetFont( 24 )
     }, options );
 
-    var northPole = drawHalfMagnetNode( nString, new Color( '#db1e21' ), _.extend({
+    var northPole = drawHalfMagnetNode( nString, new Color( '#db1e21' ), _.extend( {
       left: -options.width / 2,
       centerY: 0
-    },options) );
+    }, options ) );
 
-    var southPole = drawHalfMagnetNode( sString, new Color( '#354d9a' ), _.extend({
+    var southPole = drawHalfMagnetNode( sString, new Color( '#354d9a' ), _.extend( {
       left: 0,
       centerY: 0
-    },options) );
+    }, options ) );
 
     this.addChild( northPole );
     this.addChild( southPole );
