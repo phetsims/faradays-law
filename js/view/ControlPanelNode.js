@@ -38,8 +38,7 @@ define( function( require ) {
         model.magnetModel.flipped = !model.magnetModel.flipped;
       },
       bottom: model.height - 8,
-      right: model.width - 110,
-      opacity: 0.5
+      right: model.width - 110
     } ) );
 
     // show field lines

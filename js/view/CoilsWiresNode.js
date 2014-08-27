@@ -15,6 +15,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
 
+
   function CoilsWiresNode( showSecondCoilProperty ) {
     Node.call( this );
 
