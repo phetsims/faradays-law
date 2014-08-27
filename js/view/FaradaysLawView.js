@@ -13,6 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
+  var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
   var Image = require( 'SCENERY/nodes/Image' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/view/MagnetNodeWithField' );
   var ControlPanelNode = require( 'FARADAYS_LAW/view/ControlPanelNode' );
@@ -20,11 +21,7 @@ define( function( require ) {
   var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
   var VoltMeterWiresNode = require( 'FARADAYS_LAW/view/VoltMeterWiresNode' );
 
-  // images
-  var twoLoopBack = require( 'image!FARADAYS_LAW/images/two-loop-back.png' );
-  var twoLoopFront = require( 'image!FARADAYS_LAW/images/two-loop-front.png' );
-  var fourLoopBack = require( 'image!FARADAYS_LAW/images/four-loop-back.png' );
-  var fourLoopFront = require( 'image!FARADAYS_LAW/images/four-loop-front.png' );
+
   var backImage = require( 'image!FARADAYS_LAW/images/image06.png' );
 
   /**
@@ -49,13 +46,13 @@ define( function( require ) {
       y: 244
     } ) );
 
-    var coil1Node = new CoilNode( fourLoopBack, fourLoopFront, {
+    var coil1Node = new CoilNode( CoilTypeEnum.FOUR_COIL, {
       x: model.coil1.position.x,
       y: model.coil1.position.y
     } );
     this.addChild( coil1Node );
 
-    var coil2Node = new CoilNode( twoLoopBack, twoLoopFront, {
+    var coil2Node = new CoilNode( CoilTypeEnum.TWO_COIL, {
       x: model.coil2.position.x,
       y: model.coil2.position.y
     } );

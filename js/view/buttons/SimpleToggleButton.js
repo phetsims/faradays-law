@@ -17,15 +17,16 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   //curved arrow shape
-  var SimpleToggleButton = function( booleanProperty, contentNode, options ) {
+  var SimpleToggleButton = function( targetProperty, onValue, contentNode, options ) {
     var self = this;
     Node.call( this );
 
     options = _.extend( {
-      width: 75,
-      height: 75,
+      width: 69,
+      height: 69,
       stroke: "#000",
       lineWidth: 3,
+      margin: 5,
       dashedLineWidth: 2,
       lineDashOffset: 5.5,
       lineDash: [4, 3],
@@ -53,13 +54,14 @@ define( function( require ) {
     } );
     this.addChild( dashedLine );
 
-    this.addChild( contentNode, {
-      centerX: 0,
-      centerY: 0
-    } );
+    this.addChild( contentNode );
+    var scaleFactor = Math.min( (options.width - options.margin) / contentNode.width, (options.height - options.margin) / contentNode.height );
+    contentNode.scale( scaleFactor, scaleFactor );
+    contentNode.center = new Vector2( 0, 0 );
 
-    booleanProperty.link( function( value ) {
-      if ( value ) {
+
+    targetProperty.link( function( value ) {
+      if ( value === onValue ) {
         self.opacity = 0.5;
         dashedLine.lineDash = options.lineDash;
         dashedLine.lineWidth = options.dashedLineWidth;
@@ -75,7 +77,7 @@ define( function( require ) {
 
     this.addInputListener( {
       up: function() {
-        booleanProperty.value = true;
+        targetProperty.value = onValue;
       }
     } );
 

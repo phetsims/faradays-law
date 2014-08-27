@@ -37,7 +37,7 @@ define( function( require ) {
       listener: function() {
         model.magnetModel.flipped = !model.magnetModel.flipped;
       },
-      bottom: model.height - 9,
+      bottom: model.height - 8,
       right: model.width - 110,
       opacity: 0.5
     } ) );
@@ -48,10 +48,10 @@ define( function( require ) {
       bottom: model.height - 37
     } ) );
 
-    // show field lines
+    // show/hide second coil
     this.addChild( new ShowCoilsButtonGroup( model.showSecondCoilProperty, {
-      x: 250,
-      bottom: model.height - 37
+      x: 377,
+      bottom: model.height - 8
     } ) );
 
 
