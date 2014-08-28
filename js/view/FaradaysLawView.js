@@ -38,7 +38,7 @@ define( function( require ) {
     this.addChild( new CoilsWiresNode( model.showSecondCoilProperty ) );
     this.addChild( new VoltMeterWiresNode() );
 
-    this.addChild( new BulbNode( model.voltMeterModel.signalProperty, {
+    this.addChild( new BulbNode( model.voltMeterModel.thetaProperty, {
       x: 145,
       y: 244
     } ) );
