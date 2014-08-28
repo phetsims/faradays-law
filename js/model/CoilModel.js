@@ -44,7 +44,7 @@ define( function( require ) {
   return inherit( PropertySet, CoilModel, {
     step: function( dt ) {
 
-      this.rTrue = this.position.distanceSquared( this.magnetModel.position ) / (this.A * this.A);  //normalized distance from coil to magnet
+      this.rTrue = this.position.distanceSquared( this.magnetModel.position )/(this.A*this.A);  //  squared distance from coil to magnet
 
       if ( this.rTrue < 1 ) {  //if magnet is very close to coil, then B field is at max value = 1;
         this.B = this.s * 2;
@@ -55,7 +55,7 @@ define( function( require ) {
         // s - +-1 - sign for position of magnet
         // r - normalized distance between magner and coil
         // dx - //x-displacement from coil to magnet
-        var dx = this.magnetModel.position.x - this.position.x;
+        var dx = (this.magnetModel.position.x - this.position.x)/this.A;
         this.B = this.s * (3 * dx * dx - this.rTrue) / (this.rTrue * this.rTrue);
       }
 

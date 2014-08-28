@@ -75,7 +75,7 @@ define( function( require ) {
 
 
     needleAngleProperty.link( function( angle ) {
-      needle.rotation = angle;
+      needle.rotation = Math.min( Math.max( -Math.PI/2, angle ), Math.PI/2 );
     } );
 
 

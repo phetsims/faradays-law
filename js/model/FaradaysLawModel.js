@@ -29,6 +29,10 @@ define( function( require ) {
       showSecondCoil: false // number of coils - 1 or 2
     } );
 
+    this.timeInterval = 0; //time since last model step
+    this.targetTickTime = 0.03; //seconds, from original model, next step in model after targetTick time
+    this.modelTickTime = 0.04;//seconds, from original model, the time for model step, not equal targetTick time
+
     this.magnetModel = new MagnetModel( 647, 219 );
 
     this.coil1 = new CoilModel( 448, 318, 2, this.magnetModel );
@@ -43,13 +47,16 @@ define( function( require ) {
       this.magnetModel.reset();
     },
     step: function( dt ) {
-      dt = dt * 0.00133; // in original model 30ms interval corresponds to 40ms in math model, we apply this and get dt in seconds
-
-      this.coil1.step( dt );
-      if ( this.showSecondCoil ) {
-        this.coil2.step( dt );
+      this.timeInterval += dt;
+      if ( this.timeInterval > this.targetTickTime ) {
+        this.timeInterval-=this.targetTickTime;
+        this.coil1.step( this.modelTickTime );
+        if ( this.showSecondCoil ) {
+          this.coil2.step( this.modelTickTime );
+        }
+        this.voltMeterModel.step( this.modelTickTime );
       }
-      this.voltMeterModel.step( dt );
     }
   } );
-} );
+} )
+;
