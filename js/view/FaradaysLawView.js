@@ -21,6 +21,8 @@ define( function( require ) {
   var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
   var VoltMeterWiresNode = require( 'FARADAYS_LAW/view/VoltMeterWiresNode' );
   var VoltMeterNode = require( 'FARADAYS_LAW/view/VoltMeterNode' );
+  var Vector2 = require('DOT/Vector2');
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
 
   var backImage = require( 'image!FARADAYS_LAW/images/image06.png' );
@@ -58,12 +60,21 @@ define( function( require ) {
 
 
     this.addChild( new ControlPanelNode( model ) );
-    this.addChild( new MagnetNodeWithField( model.magnetModel ) );
+    this.addChild( new MagnetNodeWithField( model ) );
 
     var voltMeterNode = new VoltMeterNode( model.voltMeterModel.thetaProperty, {} );
     voltMeterNode.top = 16;
     voltMeterNode.left = 105;
     this.addChild( voltMeterNode );
+
+    //move coils to front
+    coil2Node.frontImage.detach();
+    this.addChild(coil2Node.frontImage);
+    coil2Node.frontImage.center = model.coil2.position;
+
+    coil1Node.frontImage.detach();
+    this.addChild(coil1Node.frontImage);
+    coil1Node.frontImage.center = model.coil1.position;
 
   }
 

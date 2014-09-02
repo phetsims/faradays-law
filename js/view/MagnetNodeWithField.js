@@ -15,16 +15,19 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/view/MagnetFieldLines' );
 
-  function MagnetNodeWithField( magnetModel ) {
+  function MagnetNodeWithField( model ) {
     var self = this;
     Node.call( this );
 
     // field lines
-    this.addChild( new MagnetFieldLines( magnetModel.flippedProperty ) );
+    this.addChild( new MagnetFieldLines( model.magnetModel ) );
 
     // magnet
-    this.magnetNode = new MagnetNode( magnetModel.flipped );
-    this.addChild(this.magnetNode);
+    this.magnetNode = new MagnetNode( model.magnetModel.flipped, {
+      width: model.magnetModel.width,
+      height: model.magnetModel.height
+    } );
+    this.addChild( this.magnetNode );
 
     // handler
     var magnetOffset = {};
@@ -38,21 +41,31 @@ define( function( require ) {
       end: function() {},
       //Translate on drag events
       drag: function( event ) {
-        magnetModel.position = self.globalToParentPoint( event.pointer.point ).subtract( magnetOffset );
+        var point = self.globalToParentPoint( event.pointer.point );
+        var desiredPosition = point.subtract( magnetOffset );
+        if ( model.possiblePositionForMagnet( desiredPosition ) ) {
+          model.magnetModel.position = desiredPosition;
+        } else {
+          magnetOffset.x = point.x - self.centerX;
+          magnetOffset.y = point.y - self.centerY;
+        }
       }
     } );
 
     this.magnetNode.addInputListener( magnetDragHandler );
 
     // observers
-    magnetModel.flippedProperty.link( function( flipped ) {
+    model.magnetModel.flippedProperty.link( function( flipped ) {
       self.magnetNode.detach();
-      self.magnetNode = new MagnetNode( flipped );
+      self.magnetNode = new MagnetNode( model.magnetModel.flipped, {
+        width: model.magnetModel.width,
+        height: model.magnetModel.height
+      } );
       self.addChild( self.magnetNode );
       self.magnetNode.addInputListener( magnetDragHandler );
     } );
 
-    magnetModel.positionProperty.link( function( position ) {
+    model.magnetModel.positionProperty.link( function( position ) {
       self.translation = position;
     } );
   }

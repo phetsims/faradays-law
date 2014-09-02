@@ -19,12 +19,15 @@ define( function( require ) {
    * @param y
    * @constructor
    */
-  function MagnetModel( x, y ) {
+  function MagnetModel( x, y, width, height ) {
+
+    this.width = width;
+    this.height = height;
 
     PropertySet.call( this, {
       position: new Vector2( x, y ),
       flipped: true,
-      showFieldLines: true
+      showFieldLines: false
     } );
 
   }

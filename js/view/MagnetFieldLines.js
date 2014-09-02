@@ -88,18 +88,20 @@ define( function( require ) {
     return node;
   };
 
-  function MagnetFieldLines( flippedProperty ) {
-    var self = this;
+  function MagnetFieldLines( magnetModel ) {
     Node.call( this );
 
     // top field lines
-    var topLines = createSideFieldLines( flippedProperty );
+    var topLines = createSideFieldLines( magnetModel.flippedProperty );
     this.addChild( topLines );
 
     // bottom field lines
-    var bottomLines = createSideFieldLines( flippedProperty );
+    var bottomLines = createSideFieldLines( magnetModel.flippedProperty );
     bottomLines.rotation = Math.PI;
     this.addChild( bottomLines );
+
+    magnetModel.showFieldLinesProperty.linkAttribute( this, 'visible' );
+
   }
 
   return inherit( Node, MagnetFieldLines );
