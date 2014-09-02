@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
- *
+ * Wires for both coils.
+ * 'Faradays Law' simulation.
  * @author Vasily Shakhov (MLearner)
  */
 define( function( require ) {
@@ -14,7 +14,10 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-
+  /**
+   * @param showSecondCoilProperty
+   * @constructor
+   */
   function CoilsWiresNode( showSecondCoilProperty ) {
     Node.call( this );
 

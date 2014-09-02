@@ -15,8 +15,10 @@ define( function( require ) {
 
   /**
    *
-   * @param x
-   * @param y
+   * @param x - x position of magnet
+   * @param y - y position of magnet
+   * @param width - width of magnet
+   * @param height - height of magnet
    * @constructor
    */
   function MagnetModel( x, y, width, height ) {
@@ -26,10 +28,9 @@ define( function( require ) {
 
     PropertySet.call( this, {
       position: new Vector2( x, y ),
-      flipped: true,
-      showFieldLines: false
+      flipped: true, //is magnet flipped
+      showFieldLines: false // show field lines for magnet
     } );
-
   }
 
   return inherit( PropertySet, MagnetModel );

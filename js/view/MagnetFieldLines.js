@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Magnet Node, draggable.
+ * Magnet field lines for 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -15,10 +15,11 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // costants
+  // constants
   var ARROW_WIDTH = 16;
   var ARROW_HEIGHT = 18;
 
+  // describes ellipse lines properties (sizes + arrows)
   var LINE_DESCRIPTION = [
     {a: 90, b: 25, arrowPositions: [Math.PI / 2]},
     {a: 180, b: 50, arrowPositions: [Math.PI / 2]},
@@ -26,6 +27,11 @@ define( function( require ) {
     {a: 600, b: 300, arrowPositions: [Math.PI / 2]}
   ];
 
+  /**
+   * Create single arrow
+   * @param options
+   * @returns {Path}
+   */
   var createArrow = function( options ) {
     return new Path( new Shape()
       .moveTo( -ARROW_WIDTH / 2, -ARROW_HEIGHT )
@@ -37,6 +43,15 @@ define( function( require ) {
     );
   };
 
+  /**
+   * Create ellipse with arrows on it.
+   * @param a - major axis of ellipse
+   * @param b - minor axis of ellipse
+   * @param arrowPositions - array of angle positions of arrows on ellipse
+   * @param flippedProperty - is magnet flipped
+   * @param options
+   * @returns {Node}
+   */
   var createArcWithArrow = function( a, b, arrowPositions, flippedProperty, options ) {
     var node = new Node();
     options = _.extend( {
@@ -44,7 +59,6 @@ define( function( require ) {
       lineWidth: 3
     }, options );
 
-    //ellipticalArc( centerX, centerY, radiusX, radiusy, rotation, startAngle, endAngle, anticlockwise )
     //arc
     node.addChild( new Path( new Shape()
       .ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI ), {
@@ -52,9 +66,8 @@ define( function( require ) {
       lineWidth: options.lineWidth
     } ) );
 
+    //arrows on arc
     arrowPositions.forEach( function( angle ) {
-
-
       // calculate arrow position in terms of x,y
       var r = a * b / (Math.sqrt( b * b * Math.cos( angle ) * Math.cos( angle ) + a * a * Math.sin( angle ) * Math.sin( angle ) ));
       var x = r * Math.cos( angle );
@@ -76,6 +89,11 @@ define( function( require ) {
     return node;
   };
 
+  /**
+   * create half of all magnet field lines (top by default)
+   * @param flippedProperty is magnet flipped
+   * @returns {Node}
+   */
   var createSideFieldLines = function( flippedProperty ) {
     var node = new Node();
 
@@ -88,6 +106,10 @@ define( function( require ) {
     return node;
   };
 
+  /**
+   * @param magnetModel - magnet model of 'Faradays Law' simulation
+   * @constructor
+   */
   function MagnetFieldLines( magnetModel ) {
     Node.call( this );
 

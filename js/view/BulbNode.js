@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Bulb node for 'Faradays Law' simulation
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -17,9 +17,16 @@ define( function( require ) {
   // images
   var bulbImage = require( 'image!FARADAYS_LAW/images/light-bulb.png' );
 
+  /**
+   *
+   * @param needleAngleProperty - value of voltage meter.
+   * @param options
+   * @constructor
+   */
   function BulbNode( needleAngleProperty, options ) {
     Node.call( this );
 
+    //shining of bulb
     var haloNode = new Node();
     haloNode.addChild( new Circle( 5, {
       fill: 'white',
@@ -37,7 +44,7 @@ define( function( require ) {
 
     //from flash simulation  if angle === 1 radian, haloNode must be 200x200 px
     needleAngleProperty.link( function( angle ) {
-      var targetScaleFactor = 20 * angle; //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px)
+      var targetScaleFactor = 20 * angle; //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
       if ( targetScaleFactor === 0 ) {
         haloNode.visible = false;
       }
@@ -48,13 +55,12 @@ define( function( require ) {
       }
     } );
 
-
+    //bulb image
     this.bulbImage = new Image( bulbImage, {
       centerX: 0,
       centerY: 0
     } );
     this.addChild( this.bulbImage );
-
 
     this.mutate( options );
   }

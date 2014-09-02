@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Control panel for 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -21,10 +21,15 @@ define( function( require ) {
   // strings
   var showFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
+  /**
+   *
+   * @param model - 'Faradays Law' simulation model
+   * @constructor
+   */
   function ControlPanelNode( model ) {
     Node.call( this );
 
-    // reset
+    // reset button
     this.addChild( new ResetAllButton( {
       listener: model.reset.bind( model ),
       right: model.width - 10,
@@ -52,8 +57,6 @@ define( function( require ) {
       x: 377,
       bottom: model.height - 8
     } ) );
-
-
   }
 
   return inherit( Node, ControlPanelNode );

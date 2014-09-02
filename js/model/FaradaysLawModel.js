@@ -31,11 +31,15 @@ define( function( require ) {
     } );
 
     this.timeInterval = 0; //time since last model step
+    /*
+     In original simulation each tick lasts 0.03 seconds, but model 'thinks' that 0.04 seconds passed
+     */
     this.targetTickTime = 0.03; //seconds, from original model, next step in model after targetTick time
     this.modelTickTime = 0.04;//seconds, from original model, the time for model step, not equal targetTick time
 
     this.magnetModel = new MagnetModel( 647, 219, 140, 30 );
 
+    // coils
     this.coil1 = new CoilModel( 448, 318, 2, this.magnetModel );
     this.coil2 = new CoilModel( 422, 141, 1, this.magnetModel );
 
@@ -56,6 +60,10 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       this.magnetModel.reset();
     },
+    /**
+     * evolve model over time, if dt > targetTickTime calculate next step in model
+     * @param dt
+     */
     step: function( dt ) {
       this.timeInterval += dt;
       if ( this.timeInterval > this.targetTickTime ) {
@@ -67,6 +75,10 @@ define( function( require ) {
         this.voltMeterModel.step( this.modelTickTime );
       }
     },
+    /**
+     * @param position position of magnet
+     * @returns {boolean} return whether magnet can be placed into position or not
+     */
     possiblePositionForMagnet: function( position ) {
       var magnetBounds = new Bounds2( position.x - this.magnetModel.width / 2, position.y - this.magnetModel.height / 2, position.x + this.magnetModel.width / 2, position.y + this.magnetModel.height / 2 );
 

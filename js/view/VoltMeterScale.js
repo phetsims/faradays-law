@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Voltmeter scale for 'Faradays Law' simulation model
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -19,7 +19,12 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
-
+  /**
+   *
+   * @param needleAngleProperty - angle of needle in voltmeter
+   * @param options
+   * @constructor
+   */
   function VoltMeterScale( needleAngleProperty, options ) {
     Node.call( this );
 
@@ -32,8 +37,7 @@ define( function( require ) {
       needleTipWidth: 15
     }, options );
 
-
-    //scale
+    // scale
     var scale = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( 0, -options.arcRadius )
@@ -46,7 +50,7 @@ define( function( require ) {
     } );
     this.addChild( scale );
 
-    //plus and minus signs
+    // plus and minus signs
     this.addChild( new PlusNode( {
       centerX: options.arcRadius / 2.3,
       centerY: -options.arcRadius / 2.5,
@@ -58,12 +62,12 @@ define( function( require ) {
       size: new Dimension2( 12, 2 )
     } ) );
 
-    //needle base
+    // needle base
     this.addChild( new Circle( 4, {
       fill: options.needleColor
     } ) );
 
-    //needle
+    // needle
     var needle = new ArrowNode( 0, 0, 0, -options.needleHeight, {
       headHeight: options.needleTipHeght,
       headWidth: options.needleTipWidth,
@@ -73,11 +77,10 @@ define( function( require ) {
     } );
     this.addChild( needle );
 
-
+    // observers
     needleAngleProperty.link( function( angle ) {
       needle.rotation = Math.min( Math.max( -Math.PI / 2, angle ), Math.PI / 2 );
     } );
-
 
     this.mutate( options );
   }

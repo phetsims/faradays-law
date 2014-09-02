@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Magnet Node, draggable.
+ * Magnet Node with field lines, draggable.
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -15,6 +15,11 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/view/MagnetFieldLines' );
 
+  /**
+   *
+   * @param model - 'Faradays Law' simulation model
+   * @constructor
+   */
   function MagnetNodeWithField( model ) {
     var self = this;
     Node.call( this );
@@ -53,7 +58,6 @@ define( function( require ) {
         }
       }
     } );
-
     this.magnetNode.addInputListener( magnetDragHandler );
 
     // observers

@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
- *
+ * Container for two buttons show one/two coils.
+ * 'Faradays Law' simulation.
  * @author Vasily Shakhov (MLearner)
  */
 define( function( require ) {
@@ -17,7 +17,11 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var SimpleToggleButton = require( 'FARADAYS_LAW/view/buttons/SimpleToggleButton' );
 
-  //curved arrow shape
+  /**
+   * @param showSecondCoilProperty - boolean property
+   * @param options
+   * @constructor
+   */
   var ShowCoilsButton = function( showSecondCoilProperty, options ) {
     Node.call( this );
 

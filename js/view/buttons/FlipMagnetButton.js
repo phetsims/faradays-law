@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Flip Magnet button for 'Faradays Law' simulation, contains magnet image node.
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -19,10 +19,15 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
-  //curved arrow shape
-  var createCurvedArrow = function( options ) {
+  /**
+   * Create curved arrow for button
+   * @param options
+   * @returns {Node}
+   */
+    var createCurvedArrow = function( options ) {
     var node = new Node();
 
+    // variables for arrow and arc
     var radius = 20;
     var lineWidth = 2;
     var arcStartAngle = -Math.PI * 0.92;
@@ -45,10 +50,15 @@ define( function( require ) {
       y: (radius + lineWidth / 2) * Math.sin( arcEndAngle )
     } );
     node.addChild( arrow );
+
     node.mutate( options );
     return node;
   };
 
+  /**
+   * @param options
+   * @constructor
+   */
   function FlipMagnetButton( options ) {
     var children = [
       createCurvedArrow(),

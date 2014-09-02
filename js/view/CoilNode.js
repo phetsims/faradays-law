@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Coil node for 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -25,7 +25,12 @@ define( function( require ) {
     backImage: require( 'image!FARADAYS_LAW/images/four-loop-back.png' )
   };
 
-
+  /**
+   *
+   * @param coilType - determines which picture must we add to show coil
+   * @param options
+   * @constructor
+   */
   function CoilNode( coilType, options ) {
     Node.call( this );
 

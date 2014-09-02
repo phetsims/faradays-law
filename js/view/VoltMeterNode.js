@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Voltmeter for 'Faradays Law' simulation model
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -26,10 +26,16 @@ define( function( require ) {
   // strings
   var voltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
 
-  function CoilNode( needleAngleProperty, options ) {
+  /**
+   * @param needleAngleProperty - angle of needle in voltmeter
+   * @param options
+   * @constructor
+   */
+  function VoltMeterNode( needleAngleProperty, options ) {
     Node.call( this );
 
     options = _.extend( {
+      baseColor : new Color( "#232674" ),
       rectangleWidth: 170,
       rectangleHeight: 107,
       marginTop: 7,
@@ -43,16 +49,15 @@ define( function( require ) {
       terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
-    var baseColor = new Color( "#232674" );
-    var transparentColor = new Color( baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 0 );
+    var transparentColor = new Color( options.baseColor.getRed(), options.baseColor.getGreen(), options.baseColor.getBlue(), 0 );
 
     // adding outer rectangle, background + vertical gradient
     this.addChild( new Rectangle( 0, 0, options.rectangleWidth, options.rectangleHeight, 10, 10, {
       fill: new LinearGradient( 0, 0, 0, options.rectangleHeight )
-        .addColorStop( 0, baseColor.colorUtilsDarker( 0.35 ) )
-        .addColorStop( 0.25, baseColor.colorUtilsBrighter( 0.3 ) )
-        .addColorStop( 0.75, baseColor.colorUtilsBrighter( 0.3 ) )
-        .addColorStop( 1, baseColor.colorUtilsDarker( 0.35 ) ),
+        .addColorStop( 0, options.baseColor.colorUtilsDarker( 0.35 ) )
+        .addColorStop( 0.25, options.baseColor.colorUtilsBrighter( 0.3 ) )
+        .addColorStop( 0.75, options.baseColor.colorUtilsBrighter( 0.3 ) )
+        .addColorStop( 1, options.baseColor.colorUtilsDarker( 0.35 ) ),
       centerX: 0,
       centerY: 0
     } ) );
@@ -60,20 +65,20 @@ define( function( require ) {
     // now rectangle for horizontal gradient
     this.addChild( new Rectangle( 0, 0, options.rectangleWidth, options.rectangleHeight, 10, 10, {
       fill: new LinearGradient( 0, 0, options.rectangleWidth, 0 )
-        .addColorStop( 0, baseColor.colorUtilsDarker( 0.35 ) )
+        .addColorStop( 0, options.baseColor.colorUtilsDarker( 0.35 ) )
         .addColorStop( 0.1, transparentColor )
         .addColorStop( 0.9, transparentColor )
-        .addColorStop( 1, baseColor.colorUtilsDarker( 0.35 ) ),
+        .addColorStop( 1, options.baseColor.colorUtilsDarker( 0.35 ) ),
       centerX: 0,
       centerY: 0
     } ) );
 
     // inner rectangle
     this.addChild( new Rectangle( 0, 0, options.rectangleWidth - (options.marginLeft + options.marginRight), options.rectangleHeight - (options.marginTop + options.marginBottom), 5, 5, {
-      fill: baseColor,
+      fill: options.baseColor,
       stroke: new LinearGradient( 0, 0, 0, options.rectangleHeight )
-        .addColorStop( 0, baseColor.colorUtilsBrighter( 0.2 ) )
-        .addColorStop( 0.15, baseColor.colorUtilsBrighter( 0.05 ) ),
+        .addColorStop( 0, options.baseColor.colorUtilsBrighter( 0.2 ) )
+        .addColorStop( 0.15, options.baseColor.colorUtilsBrighter( 0.05 ) ),
       centerX: 0,
       centerY: (options.marginTop - options.marginBottom) / 2
     } ) );
@@ -131,6 +136,6 @@ define( function( require ) {
     minusNode.center = new Vector2( -options.terminalSize + 3, options.rectangleHeight / 2 + options.terminalSize / 2 );
   }
 
-  return inherit( Node, CoilNode );
+  return inherit( Node, VoltMeterNode );
 } )
 ;

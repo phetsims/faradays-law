@@ -14,7 +14,6 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/view/MagnetNodeWithField' );
   var ControlPanelNode = require( 'FARADAYS_LAW/view/ControlPanelNode' );
   var BulbNode = require( 'FARADAYS_LAW/view/BulbNode' );
@@ -33,14 +32,17 @@ define( function( require ) {
       layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
     } );
 
+    // wires
     this.addChild( new CoilsWiresNode( model.showSecondCoilProperty ) );
     this.addChild( new VoltMeterWiresNode() );
 
+    // bulb
     this.addChild( new BulbNode( model.voltMeterModel.thetaProperty, {
       x: 145,
       y: 244
     } ) );
 
+    // coils
     var coil1Node = new CoilNode( CoilTypeEnum.FOUR_COIL, {
       x: model.coil1.position.x,
       y: model.coil1.position.y
@@ -54,16 +56,19 @@ define( function( require ) {
     this.addChild( coil2Node );
     model.showSecondCoilProperty.linkAttribute( coil2Node, "visible" );
 
-
+    // control panel
     this.addChild( new ControlPanelNode( model ) );
+
+    // magnet
     this.addChild( new MagnetNodeWithField( model ) );
 
+    // voltmeter
     var voltMeterNode = new VoltMeterNode( model.voltMeterModel.thetaProperty, {} );
     voltMeterNode.top = 16;
     voltMeterNode.left = 105;
     this.addChild( voltMeterNode );
 
-    //move coils to front
+    // move coils to front
     coil1Node.frontImage.detach();
     this.addChild( coil1Node.frontImage );
     coil1Node.frontImage.center = model.coil1.position;

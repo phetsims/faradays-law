@@ -1,8 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
- *
+ * Possible Coil types in 'Faradays Law' simulation.
  * @author Vasily Shakhov (MLearner)
  */
 define( function( require ) {

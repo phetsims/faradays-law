@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Simple toggle button with custom behavior, change border and opacity when off
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -16,7 +16,14 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  //curved arrow shape
+  /**
+   *
+   * @param targetProperty - property to link value of button
+   * @param onValue - value of targetProperty, when button is 'on'
+   * @param contentNode
+   * @param options
+   * @constructor
+   */
   var SimpleToggleButton = function( targetProperty, onValue, contentNode, options ) {
     var self = this;
     Node.call( this );
@@ -53,12 +60,12 @@ define( function( require ) {
       lineDashOffset: options.lineDashOffset
     } );
     this.addChild( dashedLine );
-
     this.addChild( contentNode );
+
+    //scale contentNode
     var scaleFactor = Math.min( (options.width - options.margin) / contentNode.width, (options.height - options.margin) / contentNode.height );
     contentNode.scale( scaleFactor, scaleFactor );
     contentNode.center = new Vector2( 0, 0 );
-
 
     targetProperty.link( function( value ) {
       if ( value === onValue ) {

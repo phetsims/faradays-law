@@ -1,8 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Magnet Node, draggable.
- *
+ * Magnet Node for 'Faradays Law' simulation.
  * @author Vasily Shakhov (MLearner)
  */
 define( function( require ) {
@@ -24,7 +23,12 @@ define( function( require ) {
   var nString = require( 'string!FARADAYS_LAW/faradays-law.n' );
   var sString = require( 'string!FARADAYS_LAW/faradays-law.s' );
 
-  // draw half of magnet
+  /**
+   * @param label - label on half of magnet
+   * @param backgroundColor
+   * @param options
+   * @returns {Node}
+   */
   var drawHalfMagnetNode = function( label, backgroundColor, options ) {
     var node = new Node();
 
@@ -43,7 +47,7 @@ define( function( require ) {
 
     node.mutate( options );
 
-    //add 3d looking
+    //3d looking
     node.addChild( new Path( new Shape()
       .moveTo( -options.width / 4, -options.height / 2 )
       .lineTo( -options.width / 4 + options.dx, -options.height / 2 - options.dy )
@@ -58,6 +62,12 @@ define( function( require ) {
     return node;
   };
 
+  /**
+   *
+   * @param flipped - is magnet flipped
+   * @param options
+   * @constructor
+   */
   function MagnetNode( flipped, options ) {
     Node.call( this );
 
@@ -69,17 +79,18 @@ define( function( require ) {
       font: new PhetFont( 24 )
     }, options );
 
+    //create north pole magnet
     var northPole = drawHalfMagnetNode( nString, new Color( '#db1e21' ), _.extend( {
       left: -options.width / 2,
       centerY: 0
     }, options ) );
+    this.addChild( northPole );
 
+    //create south pole magnet
     var southPole = drawHalfMagnetNode( sString, new Color( '#354d9a' ), _.extend( {
       left: 0,
       centerY: 0
     }, options ) );
-
-    this.addChild( northPole );
     this.addChild( southPole );
 
     if ( flipped ) {

@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Voltmeter wires for 'Faradays Law' simulation model
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -17,9 +17,14 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Color = require( 'SCENERY/util/Color' );
 
-  //creates measuring pad, with gradients
+  /**
+   * Creates measure pad.
+   * @param options
+   * @returns {Node}
+   */
   var createPad = function( options ) {
 
+    // params
     var baseColor = new Color( "#b4b5b5" );
     var transparentColor = new Color( baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 0 );
     var radius = 7;
@@ -39,9 +44,11 @@ define( function( require ) {
       .addColorStop( 0, transparentColor )
       .addColorStop( 1, baseColor.colorUtilsDarker( 0.5 ) );
 
+    // base circle with white gradient
     var baseCircle = new Circle( radius, {fill: highlightFill} );
     pad.addChild( baseCircle );
 
+    // black gradient
     var overlayForShadowGradient = new Circle( radius, {fill: shadowFill} );
     pad.addChild( overlayForShadowGradient );
 
@@ -49,13 +56,14 @@ define( function( require ) {
     return pad;
   };
 
-
+  /**
+   * @constructor
+   */
   function VoltMeterWiresNode() {
     Node.call( this );
 
     var wireColor = "#353a89";
     var wireWidth = 3;
-
     var wiresTopY = 140;
 
     // variables, used for measuring pads too
