@@ -42,12 +42,13 @@ define( function( require ) {
       //Translate on drag events
       drag: function( event ) {
         var point = self.globalToParentPoint( event.pointer.point );
-        var desiredPosition = point.subtract( magnetOffset );
+        var desiredPosition = point.copy().subtract( magnetOffset );
         if ( model.possiblePositionForMagnet( desiredPosition ) ) {
           model.magnetModel.position = desiredPosition;
         } else {
           magnetOffset.x = point.x - self.centerX;
           magnetOffset.y = point.y - self.centerY;
+
         }
       }
     } );
