@@ -21,11 +21,7 @@ define( function( require ) {
   var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
   var VoltMeterWiresNode = require( 'FARADAYS_LAW/view/VoltMeterWiresNode' );
   var VoltMeterNode = require( 'FARADAYS_LAW/view/VoltMeterNode' );
-  var Vector2 = require('DOT/Vector2');
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-
-
-  var backImage = require( 'image!FARADAYS_LAW/images/image06.png' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {gameModel} model - Faradays law simulation model object
@@ -68,14 +64,14 @@ define( function( require ) {
     this.addChild( voltMeterNode );
 
     //move coils to front
-    coil2Node.frontImage.detach();
-    this.addChild(coil2Node.frontImage);
-    coil2Node.frontImage.center = model.coil2.position;
-
     coil1Node.frontImage.detach();
-    this.addChild(coil1Node.frontImage);
+    this.addChild( coil1Node.frontImage );
     coil1Node.frontImage.center = model.coil1.position;
 
+    coil2Node.frontImage.detach();
+    this.addChild( coil2Node.frontImage );
+    coil2Node.frontImage.center = model.coil2.position;
+    model.showSecondCoilProperty.linkAttribute( coil2Node.frontImage, "visible" );
   }
 
   return inherit( ScreenView, FaradaysLawView, {
