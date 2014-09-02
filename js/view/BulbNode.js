@@ -32,19 +32,20 @@ define( function( require ) {
     haloNode.addChild( new Circle( 2, {
       fill: 'white'
     } ) );
-    this.addChild( haloNode);
+    this.addChild( haloNode );
     haloNode.centerX = -25; //center of the bulb
 
     //from flash simulation  if angle === 1 radian, haloNode must be 200x200 px
     needleAngleProperty.link( function( angle ) {
       var targetScaleFactor = 20 * angle; //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px)
-     if(targetScaleFactor===0) {
-       haloNode.visible = false;
-     } else {
-       haloNode.visible = true;
-       var scale = targetScaleFactor / haloNode.transform.matrix.scaleVector.x;
-       haloNode.scale( scale, scale );
-     }
+      if ( targetScaleFactor === 0 ) {
+        haloNode.visible = false;
+      }
+      else {
+        haloNode.visible = true;
+        var scale = targetScaleFactor / haloNode.transform.matrix.scaleVector.x;
+        haloNode.scale( scale, scale );
+      }
     } );
 
 

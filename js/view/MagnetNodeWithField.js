@@ -45,7 +45,8 @@ define( function( require ) {
         var desiredPosition = point.copy().subtract( magnetOffset );
         if ( model.possiblePositionForMagnet( desiredPosition ) ) {
           model.magnetModel.position = desiredPosition;
-        } else {
+        }
+        else {
           magnetOffset.x = point.x - self.centerX;
           magnetOffset.y = point.y - self.centerY;
 
