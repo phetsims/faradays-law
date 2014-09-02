@@ -23,8 +23,8 @@ define( function( require ) {
 
     PropertySet.call( this, {
       position: new Vector2( x, y ),
-      flipped: false,
-      showFieldLines: false
+      flipped: true,
+      showFieldLines: true
     } );
 
   }
