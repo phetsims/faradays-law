@@ -68,7 +68,7 @@ define( function( require ) {
     this.addChild( secondCoilsWire2 );
 
     showSecondCoilProperty.linkAttribute( secondCoilsWire1, 'visible' );
-    showSecondCoilProperty.linkAttribute( secondCoilsWire2, "visible" );
+    showSecondCoilProperty.linkAttribute( secondCoilsWire2, 'visible' );
 
   }
 

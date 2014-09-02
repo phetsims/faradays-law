@@ -31,14 +31,14 @@ define( function( require ) {
     options = _.extend( {
       width: 69,
       height: 69,
-      stroke: "#000",
+      stroke: '#000',
       lineWidth: 3,
       margin: 5,
       dashedLineWidth: 2,
       lineDashOffset: 5.5,
       lineDash: [4, 3],
       borderRadius: 5,
-      fill: "#999999"
+      fill: '#999999'
     }, options );
 
     var background = new Rectangle( 0, 0, options.width, options.height, 5, 5, {

@@ -54,7 +54,7 @@ define( function( require ) {
       y: model.coil2.position.y
     } );
     this.addChild( coil2Node );
-    model.showSecondCoilProperty.linkAttribute( coil2Node, "visible" );
+    model.showSecondCoilProperty.linkAttribute( coil2Node, 'visible' );
 
     // control panel
     this.addChild( new ControlPanelNode( model ) );
@@ -76,7 +76,7 @@ define( function( require ) {
     coil2Node.frontImage.detach();
     this.addChild( coil2Node.frontImage );
     coil2Node.frontImage.center = model.coil2.position;
-    model.showSecondCoilProperty.linkAttribute( coil2Node.frontImage, "visible" );
+    model.showSecondCoilProperty.linkAttribute( coil2Node.frontImage, 'visible' );
   }
 
   return inherit( ScreenView, FaradaysLawView, {

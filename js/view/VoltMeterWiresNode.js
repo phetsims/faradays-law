@@ -25,7 +25,7 @@ define( function( require ) {
   var createPad = function( options ) {
 
     // params
-    var baseColor = new Color( "#b4b5b5" );
+    var baseColor = new Color( '#b4b5b5' );
     var transparentColor = new Color( baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 0 );
     var radius = 7;
     var gradientLength = 2;
@@ -62,7 +62,7 @@ define( function( require ) {
   function VoltMeterWiresNode() {
     Node.call( this );
 
-    var wireColor = "#353a89";
+    var wireColor = '#353a89';
     var wireWidth = 3;
     var wiresTopY = 140;
 

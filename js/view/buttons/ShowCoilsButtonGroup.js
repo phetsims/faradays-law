@@ -31,7 +31,7 @@ define( function( require ) {
         new CoilNode( CoilTypeEnum.FOUR_COIL, {} )
       ],
       spacing: 10,
-      align: "left"
+      align: 'left'
     } ) );
 
     var showFourCoilsButton = new SimpleToggleButton( showSecondCoilProperty, true, new VBox( {
@@ -40,7 +40,7 @@ define( function( require ) {
         new CoilNode( CoilTypeEnum.FOUR_COIL, {} )
       ],
       spacing: 10,
-      align: "left"
+      align: 'left'
     } ) );
 
     this.addChild( new HBox( {

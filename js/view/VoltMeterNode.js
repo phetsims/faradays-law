@@ -35,7 +35,7 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-      baseColor : new Color( "#232674" ),
+      baseColor : new Color( '#232674' ),
       rectangleWidth: 170,
       rectangleHeight: 107,
       marginTop: 7,

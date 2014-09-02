@@ -30,7 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       arcRadius: 55, // radius of voltmeter scale
-      needleColor: "#3954a5",
+      needleColor: '#3954a5',
       needleHeight: 53,
       needleWidth: 2,
       needleTipHeght: 12,
