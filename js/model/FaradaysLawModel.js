@@ -27,7 +27,7 @@ define( function( require ) {
     this.height = height;
 
     PropertySet.call( this, {
-      showSecondCoil: true // number of coils - 1 or 2
+      showSecondCoil: false // number of coils - 1 or 2
     } );
 
     this.timeInterval = 0; //time since last model step
