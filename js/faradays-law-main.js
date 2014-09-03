@@ -18,11 +18,9 @@ define( function( require ) {
     credits: {}
   };
 
+  //Create and start the sim
   SimLauncher.launch( function() {
-    //Create and start the sim
-    SimLauncher.launch( function() {
-      var sim = new Sim( simTitle, [ new FaradaysLawScreen() ], simOptions );
-      sim.start();
-    } );
+    var sim = new Sim( simTitle, [ new FaradaysLawScreen() ], simOptions );
+    sim.start();
   } );
 } );
