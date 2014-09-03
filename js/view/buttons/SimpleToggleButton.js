@@ -68,17 +68,17 @@ define( function( require ) {
     contentNode.center = new Vector2( 0, 0 );
 
     targetProperty.link( function( value ) {
-      if ( value === onValue ) {
+      if ( value !== onValue ) {
         self.opacity = 0.5;
         dashedLine.lineDash = options.lineDash;
         dashedLine.lineWidth = options.dashedLineWidth;
-        self.cursor = 'default';
+        self.cursor = 'pointer';
       }
       else {
         self.opacity = 1;
         dashedLine.lineDash = [];
         dashedLine.lineWidth = options.lineWidth;
-        self.cursor = 'pointer';
+        self.cursor = 'default';
       }
     } );
 
