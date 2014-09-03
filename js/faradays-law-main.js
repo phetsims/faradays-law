@@ -10,8 +10,6 @@ define( function( require ) {
   var FaradaysLawScreen = require( 'FARADAYS_LAW/FaradaysLawScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var simTitle = require( 'string!FARADAYS_LAW/faradays-law.name' );

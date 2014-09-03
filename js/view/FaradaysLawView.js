@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
@@ -20,7 +19,6 @@ define( function( require ) {
   var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
   var VoltMeterWiresNode = require( 'FARADAYS_LAW/view/VoltMeterWiresNode' );
   var VoltMeterNode = require( 'FARADAYS_LAW/view/VoltMeterNode' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {gameModel} model - Faradays law simulation model object
