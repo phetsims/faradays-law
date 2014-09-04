@@ -1,0 +1,8 @@
+Dubson suggestions on HTML5 Faraday’s Law sim 1.0.0-dev.1
+1)	Round corners of wires at 90 degree bends, very slightly.   Wires don’t have sharp corners when they are bent.
+2)	On voltmeter, the semi-circle of the read-out should be centered in the white frame.  So should be moved down slightly.
+3)	Arrow head on voltmeter needle should be made a little more narrow.  See original sim.
+4)	Lighten grey terminals of voltmeter a little to improve contrast between +/- signs and terminal body.
+5)	When bulb lights, grey body of light bulb should become white.  Currently, when bulb lights, the bulb itself remain dark.
+6)	The 1-coil/2-coil control looks too dark.  There is poor contrast between the coil icons and the background.      
+7)	Field lines should be approximately equally spaced where they enter/exit the magnet. Currently, pairs of lines converge to a single point on the end of the magnet.
