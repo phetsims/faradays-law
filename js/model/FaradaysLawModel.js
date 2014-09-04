@@ -22,6 +22,7 @@ define( function( require ) {
    * @constructor
    */
   function FaradaysLawModel( width, height ) {
+    var self = this;
 
     this.width = width;
     this.height = height;
@@ -53,6 +54,14 @@ define( function( require ) {
     ];
 
     this.voltMeterModel = new VoltMeterModel( this );
+
+    //if show second coil and magnet over it, reset magnet
+    this.showSecondCoilProperty.link( function( show ) {
+      if ( show && !self.possiblePositionForMagnet( self.magnetModel.position ) ) {
+        self.magnetModel.positionProperty.reset();
+      }
+    } );
+
   }
 
   return inherit( PropertySet, FaradaysLawModel, {
