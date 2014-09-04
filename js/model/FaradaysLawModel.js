@@ -27,6 +27,8 @@ define( function( require ) {
     this.width = width;
     this.height = height;
 
+    this.bounds = new Bounds2(0,0,width,height);
+
     PropertySet.call( this, {
       showSecondCoil: false // number of coils - 1 or 2
     } );
@@ -90,6 +92,11 @@ define( function( require ) {
      */
     possiblePositionForMagnet: function( position ) {
       var magnetBounds = new Bounds2( position.x - this.magnetModel.width / 2, position.y - this.magnetModel.height / 2, position.x + this.magnetModel.width / 2, position.y + this.magnetModel.height / 2 );
+
+      //out or simulation bounds
+      if(!this.bounds.containsBounds(magnetBounds)) {
+        return false;
+      }
 
       //intersection with first coil
       if ( magnetBounds.intersectsBounds( this.restricted[2] ) || magnetBounds.intersectsBounds( this.restricted[3] || magnetBounds.containsBounds( this.restricted[2] ) || magnetBounds.containsBounds( this.restricted[3] ) ) ) {
