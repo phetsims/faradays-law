@@ -14,6 +14,9 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
+  // constants
+  var ARC_RADIUS = 7;
+
   /**
    * @param showSecondCoilProperty
    * @constructor
@@ -30,7 +33,8 @@ define( function( require ) {
     //bottom coil, static wires
     this.addChild( new Path( new Shape()
       .moveTo( leftWireX, 250 )
-      .lineTo( leftWireX, 324 )
+      .lineTo( leftWireX, 324 - ARC_RADIUS )
+      .quadraticCurveTo( leftWireX, 324, leftWireX + ARC_RADIUS, 324 )
       .lineTo( 520, 324 ), {
       stroke: wireColor,
       lineWidth: wireWidth
@@ -38,7 +42,8 @@ define( function( require ) {
 
     this.addChild( new Path( new Shape()
       .moveTo( rightWireX, 250 )
-      .lineTo( rightWireX, 308 )
+      .lineTo( rightWireX, 308 - ARC_RADIUS )
+      .quadraticCurveTo( rightWireX, 308, rightWireX + ARC_RADIUS, 308 )
       .lineTo( 450, 308 ), {
       stroke: wireColor,
       lineWidth: wireWidth
@@ -47,8 +52,10 @@ define( function( require ) {
     //top coil wires, must be hidden if coil is hidden
     var secondCoilsWire1 = new Path( new Shape()
       .moveTo( rightWireX, 260 )
-      .lineTo( 335, 260 )
-      .lineTo( 335, 131 )
+      .lineTo( 335 - ARC_RADIUS, 260 )
+      .quadraticCurveTo( 335, 260, 335, 260 - ARC_RADIUS )
+      .lineTo( 335, 131 + ARC_RADIUS )
+      .quadraticCurveTo( 335, 131, 335 + ARC_RADIUS, 131 )
       .lineTo( 450, 131 ), {
       stroke: wireColor,
       lineWidth: wireWidth
@@ -59,8 +66,10 @@ define( function( require ) {
       .moveTo( leftWireX, 277 )
       .lineTo( rightWireX - 8, 277 )
       .arc( rightWireX, 277, 8, Math.PI, 0, true )
-      .lineTo( 350, 277 )
-      .lineTo( 350, 147 )
+      .lineTo( 350 - ARC_RADIUS, 277 )
+      .quadraticCurveTo( 350, 277, 350, 277 - ARC_RADIUS )
+      .lineTo( 350, 147 + ARC_RADIUS )
+      .quadraticCurveTo( 350, 147, 350 + ARC_RADIUS, 147 )
       .lineTo( 480, 147 ), {
       stroke: wireColor,
       lineWidth: wireWidth
