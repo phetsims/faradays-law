@@ -17,7 +17,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   /**
-   *
    * @param targetProperty - property to link value of button
    * @param onValue - value of targetProperty, when button is 'on'
    * @param contentNode
@@ -38,7 +37,7 @@ define( function( require ) {
       lineDashOffset: 5.5,
       lineDash: [4, 3],
       borderRadius: 5,
-      fill: '#999999'
+      fill: '#C0C0C0'
     }, options );
 
     var background = new Rectangle( 0, 0, options.width, options.height, 5, 5, {
