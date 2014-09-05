@@ -21,10 +21,11 @@ define( function( require ) {
 
   // describes ellipse lines properties (sizes + arrows)
   var LINE_DESCRIPTION = [
-    {a: 90, b: 25, arrowPositions: [Math.PI / 2]},
-    {a: 180, b: 50, arrowPositions: [Math.PI / 2]},
+    {a: 600, b: 300, arrowPositions: [Math.PI / 2]},
     {a: 350, b: 125, arrowPositions: [Math.PI / 2]},
-    {a: 600, b: 300, arrowPositions: [Math.PI / 2]}
+    {a: 180, b: 50, arrowPositions: [Math.PI / 2]},
+    {a: 90, b: 25, arrowPositions: [Math.PI / 2]}
+
   ];
 
   /**
@@ -97,9 +98,12 @@ define( function( require ) {
   var createSideFieldLines = function( flippedProperty ) {
     var node = new Node();
 
-    LINE_DESCRIPTION.forEach( function( line ) {
+    var dy = 3;
+    //each ellipse change a bit position to show a near constant field
+
+    LINE_DESCRIPTION.forEach( function( line, index ) {
       var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, flippedProperty );
-      arc.bottom = 0;
+      arc.bottom = 2-index*dy;
       arc.centerX = 0;
       node.addChild( arc );
     } );
