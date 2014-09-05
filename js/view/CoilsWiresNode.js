@@ -27,6 +27,9 @@ define( function( require ) {
     var wireColor = '#7f3521';
     var wireWidth = 3;
 
+    // TODO: (from @jbphet) - This code contains a lot of 'magic numbers' that should be cleaned up.  These values
+    // should relate to the positions of the light bulb and the coils in the view.
+
     var leftWireX = 175; //x coordinate for left most vertical wire, also used for top coil wire
     var rightWireX = 202; //x coordinate for second vertical wire, also used for top coil wire to make arc
 
