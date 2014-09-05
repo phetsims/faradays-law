@@ -28,14 +28,12 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-      width: 69,
-      height: 69,
+      width: 75,
+      height: 75,
       stroke: '#000',
       lineWidth: 3,
-      margin: 5,
-      dashedLineWidth: 2,
-      lineDashOffset: 5.5,
-      lineDash: [4, 3],
+      margin: 10,
+      deselectedLineWidth: 1,
       borderRadius: 5,
       fill: '#C0C0C0'
     }, options );
@@ -47,18 +45,16 @@ define( function( require ) {
     } );
     this.addChild( background );
 
-    var dashedLine = new Path( new Shape()
+    var outline = new Path( new Shape()
       .arc( -options.width / 2 + options.borderRadius, -options.height / 2 + options.borderRadius, options.borderRadius, -Math.PI, -Math.PI / 2, false )
       .arc( options.width / 2 - options.borderRadius, -options.height / 2 + options.borderRadius, options.borderRadius, -Math.PI / 2, 0, false )
       .arc( options.width / 2 - options.borderRadius, options.height / 2 - options.borderRadius, options.borderRadius, 0, Math.PI / 2, false )
       .arc( -options.width / 2 + options.borderRadius, options.height / 2 - options.borderRadius, options.borderRadius, Math.PI / 2, Math.PI, false )
       .lineTo( -options.width / 2, -options.height / 2 + options.borderRadius ), {
       stroke: options.stroke,
-      lineWidth: options.dashedLineWidth,
-      lineDash: options.lineDash,
-      lineDashOffset: options.lineDashOffset
+      lineWidth: options.deselectedLineWidth
     } );
-    this.addChild( dashedLine );
+    this.addChild( outline );
     this.addChild( contentNode );
 
     //scale contentNode
@@ -69,14 +65,13 @@ define( function( require ) {
     targetProperty.link( function( value ) {
       if ( value !== onValue ) {
         self.opacity = 0.5;
-        dashedLine.lineDash = options.lineDash;
-        dashedLine.lineWidth = options.dashedLineWidth;
+        self.lineWidth = options.lineWidth;
+        outline.lineWidth = options.deselectedLineWidth;
         self.cursor = 'pointer';
       }
       else {
         self.opacity = 1;
-        dashedLine.lineDash = [];
-        dashedLine.lineWidth = options.lineWidth;
+        outline.lineWidth = options.lineWidth;
         self.cursor = 'default';
       }
     } );
@@ -86,7 +81,6 @@ define( function( require ) {
         targetProperty.value = onValue;
       }
     } );
-
   };
 
   return inherit( Node, SimpleToggleButton );
