@@ -33,8 +33,8 @@ define( function( require ) {
       needleColor: '#3954a5',
       needleHeight: 53,
       needleWidth: 2,
-      needleTipHeght: 12,
-      needleTipWidth: 15
+      needleTipHeight: 12,
+      needleTipWidth: 8
     }, options );
 
     // scale
@@ -69,7 +69,7 @@ define( function( require ) {
 
     // needle
     var needle = new ArrowNode( 0, 0, 0, -options.needleHeight, {
-      headHeight: options.needleTipHeght,
+      headHeight: options.needleTipHeight,
       headWidth: options.needleTipWidth,
       tailWidth: options.needleWidth,
       fill: options.needleColor,
