@@ -34,9 +34,9 @@ define( function( require ) {
    */
   var createArrow = function( options ) {
     return new Path( new Shape()
-      .moveTo( -ARROW_WIDTH / 2, -ARROW_HEIGHT )
+      .moveTo( -ARROW_WIDTH / 2, ARROW_HEIGHT )
       .lineTo( 0, 0 )
-      .lineTo( +ARROW_WIDTH / 2, -ARROW_HEIGHT ), {
+      .lineTo( ARROW_WIDTH / 2, ARROW_HEIGHT ), {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       }
@@ -119,7 +119,7 @@ define( function( require ) {
 
     // bottom field lines
     var bottomLines = createSideFieldLines( magnetModel.flippedProperty );
-    bottomLines.rotation = Math.PI;
+    bottomLines.scale(1,-1);
     this.addChild( bottomLines );
 
     magnetModel.showFieldLinesProperty.linkAttribute( this, 'visible' );
