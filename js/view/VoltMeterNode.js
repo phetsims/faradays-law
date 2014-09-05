@@ -26,6 +26,9 @@ define( function( require ) {
   // strings
   var voltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
 
+  // constates
+  var TERMINAL_COLOR = '#C0C0C0';
+
   /**
    * @param needleAngleProperty - angle of needle in voltmeter
    * @param options
@@ -113,7 +116,7 @@ define( function( require ) {
     //plus and minus terminals at the bottom
     var plusNode = new Node();
     plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
-      fill: '#999999'
+      fill: TERMINAL_COLOR
     } ) );
     plusNode.addChild( new PlusNode( {
       centerX: 0,
@@ -125,7 +128,7 @@ define( function( require ) {
 
     var minusNode = new Node();
     minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
-      fill: '#999999'
+      fill: TERMINAL_COLOR
     } ) );
     minusNode.addChild( new MinusNode( {
       centerX: 0,
