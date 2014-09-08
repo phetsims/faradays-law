@@ -95,7 +95,7 @@ define( function( require ) {
 
     //scale + needle
     whiteRectangle.addChild( new VoltMeterScale( needleAngleProperty, {
-      bottom: -10
+      bottom: -6
     } ) );
 
     // rectangle + text
