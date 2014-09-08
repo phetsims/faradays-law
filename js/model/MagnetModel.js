@@ -28,7 +28,7 @@ define( function( require ) {
 
     PropertySet.call( this, {
       position: new Vector2( x, y ),
-      flipped: true, //is magnet flipped
+      flipped: false, //is magnet flipped
       showFieldLines: false // show field lines for magnet
     } );
   }

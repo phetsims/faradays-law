@@ -21,8 +21,8 @@ define( function( require ) {
 
   // describes ellipse lines properties (sizes + arrows)
   var LINE_DESCRIPTION = [
-    {a: 600, b: 300, arrowPositions: [Math.PI / 2]},
-    {a: 350, b: 125, arrowPositions: [Math.PI / 2]},
+    {a: 600, b: 300, arrowPositions: [-Math.PI / 6, Math.PI + Math.PI / 6]},
+    {a: 350, b: 125, arrowPositions: [-Math.PI / 20, Math.PI + Math.PI / 20]},
     {a: 180, b: 50, arrowPositions: [Math.PI / 2]},
     {a: 90, b: 25, arrowPositions: [Math.PI / 2]}
 
@@ -35,9 +35,9 @@ define( function( require ) {
    */
   var createArrow = function( options ) {
     return new Path( new Shape()
-      .moveTo( -ARROW_WIDTH / 2, ARROW_HEIGHT )
+      .moveTo( -ARROW_WIDTH, -ARROW_HEIGHT / 2 )
       .lineTo( 0, 0 )
-      .lineTo( ARROW_WIDTH / 2, ARROW_HEIGHT ), {
+      .lineTo( -ARROW_WIDTH, ARROW_HEIGHT / 2 ), {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       }
@@ -77,11 +77,18 @@ define( function( require ) {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       } );
-      arrow.bottom = y;
-      arrow.centerX = x;
-      arrow.rotateAround( new Vector2( x, y ), Math.PI - angle );
 
-      flippedProperty.link( function( flipped ) {
+      arrow.right = x;
+      arrow.centerY = y;
+
+      var rotationAngle = Math.atan( x * b * b / (y * a * a) ); //angle of tangent to an ellipse
+      if ( y > 0 ) {
+        rotationAngle += Math.PI;
+      }
+
+      arrow.rotateAround( new Vector2( x, y ), -rotationAngle );
+
+      flippedProperty.lazyLink( function( flipped ) {
         arrow.rotateAround( new Vector2( x, y ), Math.PI );
       } );
       node.addChild( arrow );
@@ -103,7 +110,7 @@ define( function( require ) {
 
     LINE_DESCRIPTION.forEach( function( line, index ) {
       var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, flippedProperty );
-      arc.bottom = 2-index*dy;
+      arc.bottom = 2 - index * dy;
       arc.centerX = 0;
       node.addChild( arc );
     } );
@@ -123,7 +130,7 @@ define( function( require ) {
 
     // bottom field lines
     var bottomLines = createSideFieldLines( magnetModel.flippedProperty );
-    bottomLines.scale(1,-1);
+    bottomLines.scale( 1, -1 );
     this.addChild( bottomLines );
 
     magnetModel.showFieldLinesProperty.linkAttribute( this, 'visible' );
