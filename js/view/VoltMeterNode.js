@@ -26,7 +26,7 @@ define( function( require ) {
   // strings
   var voltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
 
-  // constates
+  // constants
   var TERMINAL_COLOR = '#C0C0C0';
 
   /**
@@ -38,7 +38,7 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-      baseColor : new Color( '#232674' ),
+      baseColor: new Color( '#232674' ),
       rectangleWidth: 170,
       rectangleHeight: 107,
       marginTop: 7,
