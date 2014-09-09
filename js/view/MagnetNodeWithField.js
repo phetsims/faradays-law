@@ -51,11 +51,6 @@ define( function( require ) {
         if ( model.possiblePositionForMagnet( desiredPosition ) ) {
           model.magnetModel.position = desiredPosition;
         }
-        else {
-          magnetOffset.x = point.x - self.centerX;
-          magnetOffset.y = point.y - self.centerY;
-
-        }
       }
     } );
     this.magnetNode.addInputListener( magnetDragHandler );

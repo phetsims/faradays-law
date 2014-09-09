@@ -27,7 +27,7 @@ define( function( require ) {
     this.width = width;
     this.height = height;
 
-    this.bounds = new Bounds2(0,0,width,height);
+    this.bounds = new Bounds2( 0, 0, width, height );
 
     PropertySet.call( this, {
       showSecondCoil: false // number of coils - 1 or 2
@@ -54,6 +54,8 @@ define( function( require ) {
       new Bounds2( 410, 241, 475, 251 ),
       new Bounds2( 420, 384, 480, 394 )
     ];
+    //see this.possiblePositionForMagnet method, we use this to extend bounds
+    this.extendedRestricted = null;
 
     this.voltMeterModel = new VoltMeterModel( this );
 
@@ -94,25 +96,52 @@ define( function( require ) {
       var magnetBounds = new Bounds2( position.x - this.magnetModel.width / 2, position.y - this.magnetModel.height / 2, position.x + this.magnetModel.width / 2, position.y + this.magnetModel.height / 2 );
 
       //out or simulation bounds
-      if(!this.bounds.containsBounds(magnetBounds)) {
+      if ( !this.bounds.containsBounds( magnetBounds ) ) {
         return false;
       }
 
-      //intersection with first coil
-      if ( magnetBounds.intersectsBounds( this.restricted[2] ) || magnetBounds.intersectsBounds( this.restricted[3] || magnetBounds.containsBounds( this.restricted[2] ) || magnetBounds.containsBounds( this.restricted[3] ) ) ) {
-        return false;
-      }
+      //check intersection with any restricted areas
+      var i = this.showSecondCoil ? 0 : 2; // if first coil not visible, check only second coil restrictions
+      for ( ; i < this.restricted.length; i++ ) {
+        var restricted = this.restricted[i];
+        if ( magnetBounds.intersectsBounds( restricted ) ) {
+          //extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
+          var movingDelta = position.minus( this.magnetModel.position );
+          this.extendedRestricted = restricted.copy();
+          if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
+            if ( movingDelta.y > 0 ) { //bottom
+              this.extendedRestricted.maxY = this.height;
+            }
+            else { //top
+              this.extendedRestricted.minY = 0;
+            }
+          }
+          else { //horizontal
+            if ( movingDelta.x > 0 ) { //right
+              this.extendedRestricted.maxX = this.width;
+            }
+            else { //left
+              this.extendedRestricted.minX = 0;
+            }
+          }
 
-      //intersection with second coil
-      if ( this.showSecondCoil ) {
-        if ( magnetBounds.intersectsBounds( this.restricted[0] ) || magnetBounds.intersectsBounds( this.restricted[1] || magnetBounds.containsBounds( this.restricted[0] ) || magnetBounds.containsBounds( this.restricted[1] ) ) ) {
           return false;
         }
       }
 
+      if ( this.extendedRestricted ) {
+        if ( magnetBounds.intersectsBounds( this.extendedRestricted ) || magnetBounds.intersectsBounds( this.extendedRestricted ) ) {
+          return false;
+        }
+      }
+
+
+      this.extendedRestricted = null;
+
       //no intersection
       return true;
     }
-  } );
+  } )
+    ;
 } )
 ;
