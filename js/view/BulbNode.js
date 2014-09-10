@@ -44,7 +44,7 @@ define( function( require ) {
 
     //from flash simulation  if angle === 1 radian, haloNode must be 200x200 px
     needleAngleProperty.link( function( angle ) {
-      var targetScaleFactor = 20 * angle; //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
+      var targetScaleFactor = 20 * Math.abs(angle); //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
       if ( targetScaleFactor < 0.1 ) {
         haloNode.visible = false;
       }
