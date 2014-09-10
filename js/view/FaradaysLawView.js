@@ -21,7 +21,7 @@ define( function( require ) {
   var VoltMeterNode = require( 'FARADAYS_LAW/view/VoltMeterNode' );
 
   /**
-   * @param {gameModel} model - Faradays law simulation model object
+   * @param {gameModel} model - Faraday's Law simulation model object
    * @constructor
    */
   function FaradaysLawView( model ) {
@@ -36,8 +36,8 @@ define( function( require ) {
 
     // bulb
     this.addChild( new BulbNode( model.voltMeterModel.thetaProperty, {
-      x: 145,
-      y: 244
+      right: 208,
+      centerY: 244
     } ) );
 
     // coils
