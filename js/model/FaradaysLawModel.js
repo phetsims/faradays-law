@@ -110,21 +110,21 @@ define( function( require ) {
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
               if ( movingDelta.y > 0 ) { //bottom
                 this.intersectedBounds.movingDirection = 'bottom';
-                this.intersectedBounds.setMaxY( this.bounds.maxY );
+                this.intersectedBounds.setMaxY( 3000 );
               }
               else { //top
                 this.intersectedBounds.movingDirection = 'top';
-                this.intersectedBounds.setMinY( this.bounds.y );
+                this.intersectedBounds.setMinY( -3000 );
               }
             }
             else { //horizontal
               if ( movingDelta.x > 0 ) { //right
                 this.intersectedBounds.movingDirection = 'right';
-                this.intersectedBounds.setMaxX( this.bounds.maxX );
+                this.intersectedBounds.setMaxX( 3000 );
               }
               else { //left
                 this.intersectedBounds.movingDirection = 'left';
-                this.intersectedBounds.setMinX( this.bounds.x );
+                this.intersectedBounds.setMinX( -3000 );
               }
             }
             break;
