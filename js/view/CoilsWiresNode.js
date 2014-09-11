@@ -36,18 +36,18 @@ define( function( require ) {
     //bottom coil, static wires
     this.addChild( new Path( new Shape()
       .moveTo( leftWireX, 250 )
-      .lineTo( leftWireX, 324 - ARC_RADIUS )
-      .quadraticCurveTo( leftWireX, 324, leftWireX + ARC_RADIUS, 324 )
-      .lineTo( 520, 324 ), {
+      .lineTo( leftWireX, 334 - ARC_RADIUS )
+      .quadraticCurveTo( leftWireX, 334, leftWireX + ARC_RADIUS, 334 )
+      .lineTo( 520, 334 ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
 
     this.addChild( new Path( new Shape()
       .moveTo( rightWireX, 250 )
-      .lineTo( rightWireX, 308 - ARC_RADIUS )
-      .quadraticCurveTo( rightWireX, 308, rightWireX + ARC_RADIUS, 308 )
-      .lineTo( 450, 308 ), {
+      .lineTo( rightWireX, 318 - ARC_RADIUS )
+      .quadraticCurveTo( rightWireX, 318, rightWireX + ARC_RADIUS, 318 )
+      .lineTo( 450, 318 ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
@@ -57,9 +57,9 @@ define( function( require ) {
       .moveTo( rightWireX, 260 )
       .lineTo( 335 - ARC_RADIUS, 260 )
       .quadraticCurveTo( 335, 260, 335, 260 - ARC_RADIUS )
-      .lineTo( 335, 131 + ARC_RADIUS )
-      .quadraticCurveTo( 335, 131, 335 + ARC_RADIUS, 131 )
-      .lineTo( 450, 131 ), {
+      .lineTo( 335, 121 + ARC_RADIUS )
+      .quadraticCurveTo( 335, 121, 335 + ARC_RADIUS, 121 )
+      .lineTo( 450, 121 ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } );
@@ -71,9 +71,9 @@ define( function( require ) {
       .arc( rightWireX, 277, 8, Math.PI, 0, true )
       .lineTo( 350 - ARC_RADIUS, 277 )
       .quadraticCurveTo( 350, 277, 350, 277 - ARC_RADIUS )
-      .lineTo( 350, 147 + ARC_RADIUS )
-      .quadraticCurveTo( 350, 147, 350 + ARC_RADIUS, 147 )
-      .lineTo( 480, 147 ), {
+      .lineTo( 350, 137 + ARC_RADIUS )
+      .quadraticCurveTo( 350, 137, 350 + ARC_RADIUS, 137 )
+      .lineTo( 480, 137 ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } );

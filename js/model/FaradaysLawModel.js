@@ -43,16 +43,16 @@ define( function( require ) {
     this.magnetModel = new MagnetModel( 647, 219, 140, 30 );
 
     // coils
-    this.coil1 = new CoilModel( 448, 318, 2, this.magnetModel );
-    this.coil2 = new CoilModel( 422, 141, 1, this.magnetModel );
+    this.coil1 = new CoilModel( 448, 328, 2, this.magnetModel );
+    this.coil2 = new CoilModel( 422, 131, 1, this.magnetModel );
 
     //restricted zones for magnet because of coils borders
     //first 2 for top coil
     this.restricted = [
-      new Bounds2( 405, 65, 435, 75 ),
-      new Bounds2( 415, 208, 445, 218 ),
-      new Bounds2( 410, 241, 475, 251 ),
-      new Bounds2( 420, 384, 480, 394 )
+      new Bounds2( 405, 55, 435, 65 ),
+      new Bounds2( 415, 198, 445, 208 ),
+      new Bounds2( 410, 251, 475, 261 ),
+      new Bounds2( 420, 394, 480, 404 )
     ];
     //see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
