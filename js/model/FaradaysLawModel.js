@@ -64,6 +64,7 @@ define( function( require ) {
       if ( show && !self.moveMagnetToPosition( self.magnetModel.position ) ) {
         self.magnetModel.positionProperty.reset();
       }
+      self.intersectedBounds = null;
     } );
 
   }
