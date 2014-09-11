@@ -24,7 +24,15 @@ define( function( require ) {
       function() { return new FaradaysLawModel( ScreenView.UPDATED_LAYOUT_BOUNDS.width, ScreenView.UPDATED_LAYOUT_BOUNDS.height ); },
       function( model ) { return new FaradaysLawView( model ); },
       {
-        backgroundColor: '#e1f2f1'
+        // TODO: Get rid of these spare colors once color scheme is worked out.
+//        backgroundColor: '#e1f2f1'
+//        backgroundColor: '#FFFFB7'
+//        backgroundColor: '#FCdd4D'
+//        backgroundColor: '#FDE168'
+//        backgroundColor: 'rgb( 254, 255, 153 )'
+//        backgroundColor: 'rgb( 255, 255, 93 )'
+//        backgroundColor: 'rgb( 242, 233, 22 )'
+        backgroundColor: 'rgb( 151, 208, 255 )'
       }
     );
   }

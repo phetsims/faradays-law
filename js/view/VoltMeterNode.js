@@ -116,7 +116,8 @@ define( function( require ) {
     //plus and minus terminals at the bottom
     var plusNode = new Node();
     plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
-      fill: TERMINAL_COLOR
+      fill: TERMINAL_COLOR,
+      stroke: 'black'
     } ) );
     plusNode.addChild( new PlusNode( {
       centerX: 0,
@@ -128,7 +129,8 @@ define( function( require ) {
 
     var minusNode = new Node();
     minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
-      fill: TERMINAL_COLOR
+      fill: TERMINAL_COLOR,
+      stroke: 'black'
     } ) );
     minusNode.addChild( new MinusNode( {
       centerX: 0,

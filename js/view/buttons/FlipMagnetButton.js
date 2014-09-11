@@ -77,7 +77,10 @@ define( function( require ) {
 
     RectangularPushButton.call( this, _.extend( {
       content: contentNode,
-      baseColor: '#a3cada',
+      // TODO: Get rid of these spare colors once color scheme is worked out.
+//      baseColor: '#a3cada',
+//      baseColor: '#D2F6B1',
+      baseColor: '#9beab3',
       minWidth: 118,
       minHeight: 65
     }, options ) );
