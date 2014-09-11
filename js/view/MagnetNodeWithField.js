@@ -48,9 +48,7 @@ define( function( require ) {
       drag: function( event ) {
         var point = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = point.copy().subtract( magnetOffset );
-        if ( model.possiblePositionForMagnet( desiredPosition ) ) {
-          model.magnetModel.position = desiredPosition;
-        }
+        model.moveMagnetToPosition( desiredPosition );
       }
     } );
     this.magnetNode.addInputListener( magnetDragHandler );

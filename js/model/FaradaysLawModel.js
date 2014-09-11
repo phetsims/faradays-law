@@ -54,14 +54,14 @@ define( function( require ) {
       new Bounds2( 410, 241, 475, 251 ),
       new Bounds2( 420, 384, 480, 394 )
     ];
-    //see this.possiblePositionForMagnet method, we use this to extend bounds
-    this.extendedRestricted = null;
+    //see this.moveMagnetToPosition method, we use this to calculate magnet position
+    this.intersectedBounds = null;
 
     this.voltMeterModel = new VoltMeterModel( this );
 
     //if show second coil and magnet over it, reset magnet
     this.showSecondCoilProperty.link( function( show ) {
-      if ( show && !self.possiblePositionForMagnet( self.magnetModel.position ) ) {
+      if ( show && !self.moveMagnetToPosition( self.magnetModel.position ) ) {
         self.magnetModel.positionProperty.reset();
       }
     } );
@@ -69,10 +69,12 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, FaradaysLawModel, {
+
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.magnetModel.reset();
     },
+
     /**
      * evolve model over time, if dt > targetTickTime calculate next step in model
      * @param dt
@@ -88,60 +90,75 @@ define( function( require ) {
         this.voltMeterModel.step( this.modelTickTime );
       }
     },
+
     /**
      * @param position position of magnet
-     * @returns {boolean} return whether magnet can be placed into position or not
      */
-    possiblePositionForMagnet: function( position ) {
+    moveMagnetToPosition: function( position ) {
+      var movingDirection;
       var magnetBounds = new Bounds2( position.x - this.magnetModel.width / 2, position.y - this.magnetModel.height / 2, position.x + this.magnetModel.width / 2, position.y + this.magnetModel.height / 2 );
 
-      //out or simulation bounds
-      if ( !this.bounds.containsBounds( magnetBounds ) ) {
-        return false;
-      }
-
-      //check intersection with any restricted areas
-      var i = this.showSecondCoil ? 0 : 2; // if first coil not visible, check only second coil restrictions
-      for ( ; i < this.restricted.length; i++ ) {
-        var restricted = this.restricted[i];
-        if ( magnetBounds.intersectsBounds( restricted ) ) {
-          //extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-          var movingDelta = position.minus( this.magnetModel.position );
-          this.extendedRestricted = restricted.copy();
-          if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
-            if ( movingDelta.y > 0 ) { //bottom
-              this.extendedRestricted.maxY = this.height;
+      //check intersection with any restricted areas if not intersected yet
+      if ( this.intersectedBounds === null ) {
+        var i = this.showSecondCoil ? 0 : 2; // if first coil not visible, check only second coil restrictions
+        for ( ; i < this.restricted.length; i++ ) {
+          var restricted = this.restricted[i];
+          if ( magnetBounds.intersectsBounds( restricted ) ) {
+            //extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
+            var movingDelta = position.minus( this.magnetModel.position );
+            this.intersectedBounds = restricted.copy();
+            if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
+              if ( movingDelta.y > 0 ) { //bottom
+                this.intersectedBounds.movingDirection = 'bottom';
+                this.intersectedBounds.setMaxY( this.bounds.maxY );
+              }
+              else { //top
+                this.intersectedBounds.movingDirection = 'top';
+                this.intersectedBounds.setMinY( this.bounds.y );
+              }
             }
-            else { //top
-              this.extendedRestricted.minY = 0;
+            else { //horizontal
+              if ( movingDelta.x > 0 ) { //right
+                this.intersectedBounds.movingDirection = 'right';
+                this.intersectedBounds.setMaxX( this.bounds.maxX );
+              }
+              else { //left
+                this.intersectedBounds.movingDirection = 'left';
+                this.intersectedBounds.setMinX( this.bounds.x );
+              }
             }
+            break;
           }
-          else { //horizontal
-            if ( movingDelta.x > 0 ) { //right
-              this.extendedRestricted.maxX = this.width;
-            }
-            else { //left
-              this.extendedRestricted.minX = 0;
-            }
-          }
-
-          return false;
         }
       }
 
-      if ( this.extendedRestricted ) {
-        if ( magnetBounds.intersectsBounds( this.extendedRestricted ) || magnetBounds.intersectsBounds( this.extendedRestricted ) ) {
-          return false;
+      //intersection with any bounds
+      if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
+        switch( this.intersectedBounds.movingDirection ) {
+          case 'bottom' :
+            position.y = this.intersectedBounds.y - this.magnetModel.height / 2;
+            break;
+          case 'top' :
+            position.y = this.intersectedBounds.maxY + this.magnetModel.height / 2;
+            break;
+          case 'left' :
+            position.x = this.intersectedBounds.maxX + this.magnetModel.width / 2;
+            break;
+          case 'right' :
+            position.x = this.intersectedBounds.x - this.magnetModel.width / 2;
+            break;
         }
       }
+      else {
+        this.intersectedBounds = null;
 
-
-      this.extendedRestricted = null;
-
-      //no intersection
-      return true;
+        //out or simulation bounds
+        if ( !this.bounds.containsBounds( magnetBounds ) ) {
+          position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnetModel.width / 2 ), this.bounds.x + this.magnetModel.width / 2 );
+          position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnetModel.height / 2 ), this.bounds.y + this.magnetModel.height / 2 );
+        }
+      }
+      this.magnetModel.position = position;
     }
-  } )
-    ;
-} )
-;
+  } );
+} );
