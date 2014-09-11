@@ -57,14 +57,14 @@ define( function( require ) {
     // control panel
     this.addChild( new ControlPanelNode( model ) );
 
-    // magnet
-    this.addChild( new MagnetNodeWithField( model ) );
-
     // voltmeter
     var voltMeterNode = new VoltMeterNode( model.voltMeterModel.thetaProperty, {} );
     voltMeterNode.top = 16;
     voltMeterNode.left = 105;
     this.addChild( voltMeterNode );
+
+    // magnet
+    this.addChild( new MagnetNodeWithField( model ) );
 
     // move coils to front
     coil1Node.frontImage.detach();
