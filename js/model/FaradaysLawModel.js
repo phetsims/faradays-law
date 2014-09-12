@@ -96,7 +96,6 @@ define( function( require ) {
      * @param position position of magnet
      */
     moveMagnetToPosition: function( position ) {
-      var movingDirection;
       var magnetBounds = new Bounds2( position.x - this.magnetModel.width / 2, position.y - this.magnetModel.height / 2, position.x + this.magnetModel.width / 2, position.y + this.magnetModel.height / 2 );
 
       //check intersection with any restricted areas if not intersected yet
