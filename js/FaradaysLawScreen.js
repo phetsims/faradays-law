@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/FaradaysLawConstants' );
   var FaradaysLawView = require( 'FARADAYS_LAW/view/FaradaysLawView' );
   var FaradaysLawModel = require( 'FARADAYS_LAW/model/FaradaysLawModel' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -21,7 +22,7 @@ define( function( require ) {
 
   function FaradaysLawScreen() {
     Screen.call( this, titleString, null /* no icon, single-screen sim */,
-      function() { return new FaradaysLawModel( ScreenView.UPDATED_LAYOUT_BOUNDS.width, ScreenView.UPDATED_LAYOUT_BOUNDS.height ); },
+      function() { return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS.width, FaradaysLawConstants.LAYOUT_BOUNDS.height ); },
       function( model ) { return new FaradaysLawView( model ); },
       {
         // TODO: Get rid of these spare colors once color scheme is worked out.

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
@@ -27,7 +28,7 @@ define( function( require ) {
   function FaradaysLawView( model ) {
     ScreenView.call( this, {
       renderer: 'svg',
-      layoutBounds: ScreenView.UPDATED_LAYOUT_BOUNDS
+      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
 
     // wires
