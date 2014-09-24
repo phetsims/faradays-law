@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var FaradaysLawConstants = require( 'FARADAYS_LAW/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
@@ -70,11 +71,11 @@ define( function( require ) {
     // move coils to front
     coil1Node.frontImage.detach();
     this.addChild( coil1Node.frontImage );
-    coil1Node.frontImage.center = model.coil1.position;
+    coil1Node.frontImage.center = model.coil1.position.plus( new Vector2( -16, 0 ) );
 
     coil2Node.frontImage.detach();
     this.addChild( coil2Node.frontImage );
-    coil2Node.frontImage.center = model.coil2.position;
+    coil2Node.frontImage.center = model.coil2.position.plus( new Vector2( -16 + CoilNode.twoOffset, 0 ) );
     model.showSecondCoilProperty.linkAttribute( coil2Node.frontImage, 'visible' );
   }
 

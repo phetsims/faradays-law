@@ -15,7 +15,6 @@ define( function( require ) {
   var FaradaysLawModel = require( 'FARADAYS_LAW/model/FaradaysLawModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
-  var ScreenView = require( 'JOIST/ScreenView' );
 
   // strings
   var titleString = require( 'string!FARADAYS_LAW/faradays-law.name' );

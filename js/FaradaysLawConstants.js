@@ -1,6 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 define( function( require ) {
+  'use strict';
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );

@@ -34,20 +34,26 @@ define( function( require ) {
   function CoilNode( coilType, options ) {
     Node.call( this );
 
+    var xOffset = coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0;
+
     this.backImage = new Image( images_Map[coilType].backImage, {
-      centerX: 0,
-      centerY: 0
+      centerX: 16 + xOffset,
+      centerY: 0,
+      scale: 1 / 3
     } );
     this.addChild( this.backImage );
 
     this.frontImage = new Image( images_Map[coilType].frontImage, {
-      centerX: 0,
-      centerY: 0
+      centerX: -16 + xOffset,
+      centerY: 0,
+      scale: 1 / 3
     } );
     this.addChild( this.frontImage );
 
     this.mutate( options );
   }
+
+  CoilNode.twoOffset = 8;
 
   return inherit( Node, CoilNode );
 } )
