@@ -16,6 +16,15 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/view/MagnetFieldLines' );
 
+  // Create single MagnetNode View
+  var createMagnetNode = function(magnetModel) {
+    return new MagnetNode( magnetModel.flipped, {
+      width: magnetModel.width,
+      height: magnetModel.height,
+      showArrows: true
+    } );
+  };
+
   /**
    *
    * @param model - 'Faradays Law' simulation model
@@ -33,12 +42,8 @@ define( function( require ) {
     this.addChild( draggableNode );
 
     // magnet
-    this.magnetNode = new MagnetNode( model.magnetModel.flipped, {
-      width: model.magnetModel.width,
-      height: model.magnetModel.height,
-      showArrows: true
-    } );
-    draggableNode.addChild( this.magnetNode );
+    self.magnetNode = createMagnetNode( model.magnetModel );
+    draggableNode.addChild( self.magnetNode );
 
     var magnetArrowOptions = {
       fill: 'hsl(120,90%,85%)',
@@ -107,13 +112,8 @@ define( function( require ) {
     // observers
     model.magnetModel.flippedProperty.link( function( flipped ) {
       self.magnetNode.detach();
-      //REVIEW: duplicated code with what we call on the constructor, ideally we should have a function for creating the proper node in one place
-      self.magnetNode = new MagnetNode( model.magnetModel.flipped, {
-        width: model.magnetModel.width,
-        height: model.magnetModel.height,
-        showArrows: true
-      } );
-      draggableNode.addChild( self.magnetNode );
+      self.magnetNode = createMagnetNode( model.magnetModel );
+      draggableNode.addChild( createMagnetNode( model.magnetModel ) );
     } );
 
     model.magnetModel.positionProperty.link( function( position ) {
