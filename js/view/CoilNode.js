@@ -59,17 +59,17 @@ define( function( require ) {
     var sizeScale = ( options && options.isSmall ) ? 6 : 1;
     var sizeField = ( options && options.isSmall ) ? 'small' : 'normal';
 
-    var xOffset = coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0;
+    var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
     this.backImage = new Image( imageMap[coilType].backImage[sizeField], {
-      centerX: 16 + xOffset,
+      centerX: xOffset,
       centerY: 0,
       scale: sizeScale / 3
     } );
     this.addChild( this.backImage );
 
     this.frontImage = new Image( imageMap[coilType].frontImage[sizeField], {
-      centerX: -16 + xOffset,
+      centerX: xOffset,
       centerY: 0,
       scale: sizeScale / 3
     } );
@@ -80,6 +80,7 @@ define( function( require ) {
 
   // extra offset is applied to the two-coil image to align with the wires
   CoilNode.twoOffset = 8;
+  CoilNode.xOffset = 8;
 
   return inherit( Node, CoilNode );
 } )

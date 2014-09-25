@@ -71,11 +71,11 @@ define( function( require ) {
     // move coils to front
     coil1Node.frontImage.detach();
     this.addChild( coil1Node.frontImage );
-    coil1Node.frontImage.center = model.coil1.position.plus( new Vector2( -16, 0 ) );
+    coil1Node.frontImage.center = model.coil1.position.plus( new Vector2( CoilNode.xOffset, 0 ) );
 
     coil2Node.frontImage.detach();
     this.addChild( coil2Node.frontImage );
-    coil2Node.frontImage.center = model.coil2.position.plus( new Vector2( -16 + CoilNode.twoOffset, 0 ) );
+    coil2Node.frontImage.center = model.coil2.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
     model.showSecondCoilProperty.linkAttribute( coil2Node.frontImage, 'visible' );
   }
 
