@@ -36,9 +36,6 @@ define( function( require ) {
       deselectedLineWidth: 1,
       borderRadius: 5,
       fill: '#cdd5f6'
-      // TODO: Get rid of these spare colors once color scheme is worked out.
-//      fill: '#C0C0C0'
-//      fill: '#FFFF66'
     }, options );
 
     var background = new Rectangle( 0, 0, options.width, options.height, 5, 5, {

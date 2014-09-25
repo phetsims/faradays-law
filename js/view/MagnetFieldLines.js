@@ -56,8 +56,6 @@ define( function( require ) {
   var createArcWithArrow = function( a, b, arrowPositions, flippedProperty, options ) {
     var node = new Node();
     options = _.extend( {
-      // TODO: Get rid of these spare colors once color scheme is worked out.
-//      stroke: '#FF9999',
       stroke: '#ffffff',
       lineWidth: 3
     }, options );
