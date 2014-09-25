@@ -45,6 +45,7 @@ define( function( require ) {
     //arrow
     var arrow = new ArrowNode( 0, 0, 0, 5, {
       headWidth: 5,
+      tailWidth: 0,
       rotation: arcEndAngle,
       x: (radius) * Math.cos( arcEndAngle ),
       y: (radius + lineWidth / 2) * Math.sin( arcEndAngle )
