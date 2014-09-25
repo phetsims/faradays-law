@@ -13,6 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var MagnetNode = require( 'FARADAYS_LAW/view/MagnetNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/view/MagnetFieldLines' );
 
   /**
@@ -27,12 +28,54 @@ define( function( require ) {
     // field lines
     this.addChild( new MagnetFieldLines( model.magnetModel ) );
 
+    // the draggable container for the magnet and arrows
+    var draggableNode = new Node( { cursor: 'pointer' } );
+    this.addChild( draggableNode );
+
     // magnet
     this.magnetNode = new MagnetNode( model.magnetModel.flipped, {
       width: model.magnetModel.width,
-      height: model.magnetModel.height
+      height: model.magnetModel.height,
+      showArrows: true
     } );
-    this.addChild( this.magnetNode );
+    draggableNode.addChild( this.magnetNode );
+
+    var magnetArrowOptions = {
+      fill: 'hsl(120,90%,85%)',
+      tailWidth: 10,
+      headWidth: 22,
+      headHeight: 18
+    };
+    var magnetArrowXOffset = 10; // how far the horizontal arrows are from the magnet
+    var magnetArrowYOffset = 10; // how far the vertical arrows are from the magent
+    var magnetArrowLength = 30;
+    var magnetTopArrow = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
+                                        this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, magnetArrowOptions );
+    var magnetBottomArrow = new ArrowNode( this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowYOffset,
+                                           this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, magnetArrowOptions );
+    var magnetRightArrow = new ArrowNode( this.magnetNode.right + magnetArrowXOffset, this.magnetNode.centerY,
+                                          this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
+    var magnetLeftArrow = new ArrowNode( this.magnetNode.left - magnetArrowXOffset, this.magnetNode.centerY,
+                                         this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
+    draggableNode.addChild( magnetTopArrow );
+    draggableNode.addChild( magnetBottomArrow );
+    draggableNode.addChild( magnetRightArrow );
+    draggableNode.addChild( magnetLeftArrow );
+
+    magnetTopArrow.touchArea = magnetTopArrow.localBounds.dilated( 6 );
+    magnetBottomArrow.touchArea = magnetBottomArrow.localBounds.dilated( 6 );
+    magnetRightArrow.touchArea = magnetRightArrow.localBounds.dilated( 6 );
+    magnetLeftArrow.touchArea = magnetLeftArrow.localBounds.dilated( 6 );
+
+    // update the arrow visibility as needed
+    var arrowsVisible = model.showCoilArrowsProperty;
+    arrowsVisible.link( function() {
+      var visible = arrowsVisible.get();
+      magnetTopArrow.visible = visible;
+      magnetBottomArrow.visible = visible;
+      magnetRightArrow.visible = visible;
+      magnetLeftArrow.visible = visible;
+    } );
 
     // handler
     var magnetOffset = {};
@@ -42,8 +85,16 @@ define( function( require ) {
       start: function( event ) {
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
+
+        // if the user starts the drag on the magnet itself (not on the arrows), we make the arrows invisible
+        if ( event.target !== magnetTopArrow && event.target !== magnetBottomArrow && event.target !== magnetRightArrow && event.target !== magnetLeftArrow ) {
+          arrowsVisible.set( false );
+        }
       },
-      end: function() {},
+      end: function() {
+        // arrows always are turned invisible when the user stops dragging the magnet
+        arrowsVisible.set( false );
+      },
       //Translate on drag events
       drag: function( event ) {
         var point = self.globalToParentPoint( event.pointer.point );
@@ -51,17 +102,17 @@ define( function( require ) {
         model.moveMagnetToPosition( desiredPosition );
       }
     } );
-    this.magnetNode.addInputListener( magnetDragHandler );
+    draggableNode.addInputListener( magnetDragHandler );
 
     // observers
     model.magnetModel.flippedProperty.link( function( flipped ) {
       self.magnetNode.detach();
+      //REVIEW: duplicated code with what we call on the constructor, ideally we should have a function for creating the proper node in one place
       self.magnetNode = new MagnetNode( model.magnetModel.flipped, {
         width: model.magnetModel.width,
         height: model.magnetModel.height
       } );
-      self.addChild( self.magnetNode );
-      self.magnetNode.addInputListener( magnetDragHandler );
+      draggableNode.addChild( self.magnetNode );
     } );
 
     model.magnetModel.positionProperty.link( function( position ) {

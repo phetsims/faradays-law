@@ -57,6 +57,8 @@ define( function( require ) {
       fill: backgroundColor.colorUtilsDarker( 0.4 )
     } ) );
 
+    node.touchArea = node.localBounds.dilated( 10 );
+
     return node;
   };
 
