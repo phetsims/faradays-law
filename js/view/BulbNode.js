@@ -113,7 +113,7 @@ define( function( require ) {
       else {
         haloNode.visible = true;
         var scale = targetScaleFactor / haloNode.transform.matrix.scaleVector.x;
-        haloNode.scale( scale, scale );
+        haloNode.scale( scale );
       }
     } );
 
