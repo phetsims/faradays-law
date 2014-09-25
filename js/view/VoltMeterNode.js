@@ -52,7 +52,7 @@ define( function( require ) {
       terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
-    var transparentColor = new Color( options.baseColor.getRed(), options.baseColor.getGreen(), options.baseColor.getBlue(), 0 );
+    var transparentColor = options.baseColor.withAlpha( 0 );
 
     // adding outer rectangle, background + vertical gradient
     this.addChild( new Rectangle( 0, 0, options.rectangleWidth, options.rectangleHeight, 10, 10, {
