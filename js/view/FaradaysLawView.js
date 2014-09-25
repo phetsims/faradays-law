@@ -43,18 +43,18 @@ define( function( require ) {
     } ) );
 
     // coils
-    var coil1Node = new CoilNode( CoilTypeEnum.FOUR_COIL, {
-      x: model.coil1.position.x,
-      y: model.coil1.position.y
+    var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
+      x: model.bottomCoil.position.x,
+      y: model.bottomCoil.position.y
     } );
-    this.addChild( coil1Node );
+    this.addChild( bottomCoilNode );
 
-    var coil2Node = new CoilNode( CoilTypeEnum.TWO_COIL, {
-      x: model.coil2.position.x,
-      y: model.coil2.position.y
+    var topCoilNode = new CoilNode( CoilTypeEnum.TWO_COIL, {
+      x: model.topCoil.position.x,
+      y: model.topCoil.position.y
     } );
-    this.addChild( coil2Node );
-    model.showSecondCoilProperty.linkAttribute( coil2Node, 'visible' );
+    this.addChild( topCoilNode );
+    model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
     this.addChild( new ControlPanelNode( model ) );
@@ -69,14 +69,14 @@ define( function( require ) {
     this.addChild( new MagnetNodeWithField( model ) );
 
     // move coils to front
-    coil1Node.frontImage.detach();
-    this.addChild( coil1Node.frontImage );
-    coil1Node.frontImage.center = model.coil1.position.plus( new Vector2( CoilNode.xOffset, 0 ) );
+    bottomCoilNode.frontImage.detach();
+    this.addChild( bottomCoilNode.frontImage );
+    bottomCoilNode.frontImage.center = model.bottomCoil.position.plus( new Vector2( CoilNode.xOffset, 0 ) );
 
-    coil2Node.frontImage.detach();
-    this.addChild( coil2Node.frontImage );
-    coil2Node.frontImage.center = model.coil2.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
-    model.showSecondCoilProperty.linkAttribute( coil2Node.frontImage, 'visible' );
+    topCoilNode.frontImage.detach();
+    this.addChild( topCoilNode.frontImage );
+    topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
+    model.showSecondCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
   }
 
   return inherit( ScreenView, FaradaysLawView, {

@@ -44,8 +44,8 @@ define( function( require ) {
     this.magnetModel = new MagnetModel( 647, 219, 140, 30 );
 
     // coils
-    this.coil1 = new CoilModel( 448, 328, 2, this.magnetModel );
-    this.coil2 = new CoilModel( 422, 131, 1, this.magnetModel );
+    this.bottomCoil = new CoilModel( 448, 328, 2, this.magnetModel );
+    this.topCoil = new CoilModel( 422, 131, 1, this.magnetModel );
 
     //restricted zones for magnet because of coils borders
     //first 2 for top coil
@@ -86,9 +86,9 @@ define( function( require ) {
       this.timeInterval += dt;
       if ( this.timeInterval > this.targetTickTime ) {
         this.timeInterval -= this.targetTickTime;
-        this.coil1.step( this.modelTickTime );
+        this.bottomCoil.step( this.modelTickTime );
         if ( this.showSecondCoil ) {
-          this.coil2.step( this.modelTickTime );
+          this.topCoil.step( this.modelTickTime );
         }
         this.voltMeterModel.step( this.modelTickTime );
       }
