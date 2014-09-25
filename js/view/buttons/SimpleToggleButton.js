@@ -65,7 +65,6 @@ define( function( require ) {
     targetProperty.link( function( value ) {
       if ( value !== onValue ) {
         self.opacity = 0.5;
-        self.lineWidth = options.lineWidth;
         outline.lineWidth = options.deselectedLineWidth;
         self.cursor = 'pointer';
       }
