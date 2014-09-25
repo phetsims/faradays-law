@@ -27,8 +27,8 @@ define( function( require ) {
 
     var showTwoCoilsButton = new SimpleToggleButton( showSecondCoilProperty, false, new VBox( {
       children: [
-        new CoilNode( CoilTypeEnum.TWO_COIL, {visible: false} ),
-        new CoilNode( CoilTypeEnum.FOUR_COIL, {} )
+        new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true, visible: false } ),
+        new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
       ],
       spacing: 10,
       align: 'left'
@@ -36,8 +36,8 @@ define( function( require ) {
 
     var showFourCoilsButton = new SimpleToggleButton( showSecondCoilProperty, true, new VBox( {
       children: [
-        new CoilNode( CoilTypeEnum.TWO_COIL ),
-        new CoilNode( CoilTypeEnum.FOUR_COIL, {} )
+        new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true } ),
+        new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
       ],
       spacing: 10,
       align: 'left'

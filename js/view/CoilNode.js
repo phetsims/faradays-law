@@ -15,14 +15,35 @@ define( function( require ) {
   var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
 
   // images
-  var images_Map = {};
-  images_Map[CoilTypeEnum.TWO_COIL] = {
-    frontImage: require( 'image!FARADAYS_LAW/images/two-loop-front.png' ),
-    backImage: require( 'image!FARADAYS_LAW/images/two-loop-back.png' )
+  var twoLoopFrontImage = require( 'image!FARADAYS_LAW/images/two-loop-front.png' );
+  var twoLoopBackImage = require( 'image!FARADAYS_LAW/images/two-loop-back.png' );
+  var fourLoopFrontImage = require( 'image!FARADAYS_LAW/images/four-loop-front.png' );
+  var fourLoopBackImage = require( 'image!FARADAYS_LAW/images/four-loop-back.png' );
+  var twoLoopFrontSmallImage = require( 'image!FARADAYS_LAW/images/two-loop-front-small.png' );
+  var twoLoopBackSmallImage = require( 'image!FARADAYS_LAW/images/two-loop-back-small.png' );
+  var fourLoopFrontSmallImage = require( 'image!FARADAYS_LAW/images/four-loop-front-small.png' );
+  var fourLoopBackSmallImage = require( 'image!FARADAYS_LAW/images/four-loop-back-small.png' );
+
+  var imageMap = {};
+  imageMap[CoilTypeEnum.TWO_COIL] = {
+    frontImage: {
+      normal: twoLoopFrontImage,
+      small: twoLoopFrontSmallImage
+    },
+    backImage: {
+      normal: twoLoopBackImage,
+      small: twoLoopBackSmallImage
+    },
   };
-  images_Map[CoilTypeEnum.FOUR_COIL] = {
-    frontImage: require( 'image!FARADAYS_LAW/images/four-loop-front.png' ),
-    backImage: require( 'image!FARADAYS_LAW/images/four-loop-back.png' )
+  imageMap[CoilTypeEnum.FOUR_COIL] = {
+    frontImage: {
+      normal: fourLoopFrontImage,
+      small: fourLoopFrontSmallImage
+    },
+    backImage: {
+      normal: fourLoopBackImage,
+      small: fourLoopBackSmallImage
+    },
   };
 
   /**
@@ -34,25 +55,30 @@ define( function( require ) {
   function CoilNode( coilType, options ) {
     Node.call( this );
 
+    // support smaller images, so it isn't crazily aliased in Firefox. They are 1/6th the size of the normal images.
+    var sizeScale = ( options && options.isSmall ) ? 6 : 1;
+    var sizeField = ( options && options.isSmall ) ? 'small' : 'normal';
+
     var xOffset = coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0;
 
-    this.backImage = new Image( images_Map[coilType].backImage, {
+    this.backImage = new Image( imageMap[coilType].backImage[sizeField], {
       centerX: 16 + xOffset,
       centerY: 0,
-      scale: 1 / 3
+      scale: sizeScale / 3
     } );
     this.addChild( this.backImage );
 
-    this.frontImage = new Image( images_Map[coilType].frontImage, {
+    this.frontImage = new Image( imageMap[coilType].frontImage[sizeField], {
       centerX: -16 + xOffset,
       centerY: 0,
-      scale: 1 / 3
+      scale: sizeScale / 3
     } );
     this.addChild( this.frontImage );
 
     this.mutate( options );
   }
 
+  // extra offset is applied to the two-coil image to align with the wires
   CoilNode.twoOffset = 8;
 
   return inherit( Node, CoilNode );
