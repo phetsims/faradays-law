@@ -38,7 +38,7 @@ define( function( require ) {
 
     //from flash simulation
     this.A = 50; //near-field radius in pixels, set size for transition from B=constant to B=power law
-    this.N = N;  //number of turns in coil (equal to half the number of turns in the graphic image)
+    this.N = N/2;  //number of turns in coil (equal to half the number of turns in the graphic image)
 
     this.B = 0; //current value of magnetic field
     this.BLast = 0; //previous value of magnetic field

@@ -44,8 +44,8 @@ define( function( require ) {
     this.magnetModel = new MagnetModel( 647, 219, 140, 30 );
 
     // coils
-    this.bottomCoil = new CoilModel( 448, 328, 2, this.magnetModel );
-    this.topCoil = new CoilModel( 422, 131, 1, this.magnetModel );
+    this.bottomCoil = new CoilModel( 448, 328, 4, this.magnetModel );
+    this.topCoil = new CoilModel( 422, 131, 2, this.magnetModel );
 
     //restricted zones for magnet because of coils borders
     //first 2 for top coil
