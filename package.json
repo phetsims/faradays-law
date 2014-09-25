@@ -15,6 +15,6 @@
     "uglify-js": "~2.4.0",
     "requirejs": "~2.1.8"
   },
-  "requirejsNamespace": "FARADAYS-LAW",
-  "simTitleStringKey": "FARADAYS-LAW/faradays-law.name"
+  "requirejsNamespace": "FARADAYS_LAW",
+  "simTitleStringKey": "FARADAYS_LAW/faradays-law.name"
 }
