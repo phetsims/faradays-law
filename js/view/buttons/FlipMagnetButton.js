@@ -24,7 +24,7 @@ define( function( require ) {
    * @param options
    * @returns {Node}
    */
-    var createCurvedArrow = function( options ) {
+  var createCurvedArrow = function( options ) {
     var node = new Node();
 
     // variables for arrow and arc
