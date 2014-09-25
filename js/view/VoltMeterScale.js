@@ -14,6 +14,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var Util = require( 'DOT/Util' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var MinusNode = require( 'SCENERY_PHET/MinusNode' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
@@ -79,12 +80,11 @@ define( function( require ) {
 
     // observers
     needleAngleProperty.link( function( angle ) {
-      needle.rotation = Math.min( Math.max( -Math.PI / 2, angle ), Math.PI / 2 );
+      needle.rotation = Util.clamp( angle, -Math.PI / 2, Math.PI / 2 );
     } );
 
     this.mutate( options );
   }
 
   return inherit( Node, VoltMeterScale );
-} )
-;
+} );
