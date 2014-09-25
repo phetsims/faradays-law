@@ -26,7 +26,7 @@ define( function( require ) {
 
     // params
     var baseColor = new Color( '#b4b5b5' );
-    var transparentColor = new Color( baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 0 );
+    var transparentColor = baseColor.withAlpha( 0 );
     var radius = 7;
     var gradientLength = 2;
     var innerGradientRadius = radius - gradientLength / 2;
