@@ -12,15 +12,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Color = require( 'SCENERY/util/Color' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var VoltMeterScale = require( 'FARADAYS_LAW/view/VoltMeterScale' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var MinusNode = require( 'SCENERY_PHET/MinusNode' );
+  var Pseudo3DRoundedRectangle = require( 'SCENERY_PHET/Pseudo3DRoundedRectangle' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
   // strings
@@ -52,38 +53,10 @@ define( function( require ) {
       terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
-    var transparentColor = options.baseColor.withAlpha( 0 );
-
-    // adding outer rectangle, background + vertical gradient
-    this.addChild( new Rectangle( 0, 0, options.rectangleWidth, options.rectangleHeight, 10, 10, {
-      fill: new LinearGradient( 0, 0, 0, options.rectangleHeight )
-        .addColorStop( 0, options.baseColor.colorUtilsDarker( 0.35 ) )
-        .addColorStop( 0.25, options.baseColor.colorUtilsBrighter( 0.3 ) )
-        .addColorStop( 0.75, options.baseColor.colorUtilsBrighter( 0.3 ) )
-        .addColorStop( 1, options.baseColor.colorUtilsDarker( 0.35 ) ),
-      centerX: 0,
-      centerY: 0
-    } ) );
-
-    // now rectangle for horizontal gradient
-    this.addChild( new Rectangle( 0, 0, options.rectangleWidth, options.rectangleHeight, 10, 10, {
-      fill: new LinearGradient( 0, 0, options.rectangleWidth, 0 )
-        .addColorStop( 0, options.baseColor.colorUtilsDarker( 0.35 ) )
-        .addColorStop( 0.1, transparentColor )
-        .addColorStop( 0.9, transparentColor )
-        .addColorStop( 1, options.baseColor.colorUtilsDarker( 0.35 ) ),
-      centerX: 0,
-      centerY: 0
-    } ) );
-
-    // inner rectangle
-    this.addChild( new Rectangle( 0, 0, options.rectangleWidth - (options.marginLeft + options.marginRight), options.rectangleHeight - (options.marginTop + options.marginBottom), 5, 5, {
-      fill: options.baseColor,
-      stroke: new LinearGradient( 0, 0, 0, options.rectangleHeight )
-        .addColorStop( 0, options.baseColor.colorUtilsBrighter( 0.2 ) )
-        .addColorStop( 0.15, options.baseColor.colorUtilsBrighter( 0.05 ) ),
-      centerX: 0,
-      centerY: (options.marginTop - options.marginBottom) / 2
+    this.addChild( new Pseudo3DRoundedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
+      cornerRadius: 10,
+      baseColor: options.baseColor,
+      center: Vector2.ZERO
     } ) );
 
     // white rectangle + controls inside
