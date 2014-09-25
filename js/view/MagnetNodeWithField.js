@@ -110,7 +110,8 @@ define( function( require ) {
       //REVIEW: duplicated code with what we call on the constructor, ideally we should have a function for creating the proper node in one place
       self.magnetNode = new MagnetNode( model.magnetModel.flipped, {
         width: model.magnetModel.width,
-        height: model.magnetModel.height
+        height: model.magnetModel.height,
+        showArrows: true
       } );
       draggableNode.addChild( self.magnetNode );
     } );
