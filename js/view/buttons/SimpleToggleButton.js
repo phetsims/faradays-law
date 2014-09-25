@@ -38,7 +38,7 @@ define( function( require ) {
       fill: '#cdd5f6'
     }, options );
 
-    var background = new Rectangle( 0, 0, options.width, options.height, 5, 5, {
+    var background = new Rectangle( 0, 0, options.width, options.height, options.borderRadius, options.borderRadius, {
       fill: options.fill,
       centerX: 0,
       centerY: 0
