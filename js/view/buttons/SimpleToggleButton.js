@@ -62,7 +62,7 @@ define( function( require ) {
 
     //scale contentNode
     var scaleFactor = Math.min( (options.width - options.margin) / contentNode.width, (options.height - options.margin) / contentNode.height );
-    contentNode.scale( scaleFactor, scaleFactor );
+    contentNode.scale( scaleFactor );
     contentNode.center = new Vector2( 0, 0 );
 
     targetProperty.link( function( value ) {
