@@ -57,6 +57,7 @@ define( function( require ) {
     ];
     //see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
+    this.magnetMovingDirection = null; // moving direction of the magnet when intersecting coils
 
     this.voltMeterModel = new VoltMeterModel( this );
 
@@ -110,21 +111,21 @@ define( function( require ) {
             this.intersectedBounds = restricted.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
               if ( movingDelta.y > 0 ) { //bottom
-                this.intersectedBounds.movingDirection = 'bottom';
+                this.magnetMovingDirection = 'bottom';
                 this.intersectedBounds.setMaxY( 3000 );
               }
               else { //top
-                this.intersectedBounds.movingDirection = 'top';
+                this.magnetMovingDirection = 'top';
                 this.intersectedBounds.setMinY( -3000 );
               }
             }
             else { //horizontal
               if ( movingDelta.x > 0 ) { //right
-                this.intersectedBounds.movingDirection = 'right';
+                this.magnetMovingDirection = 'right';
                 this.intersectedBounds.setMaxX( 3000 );
               }
               else { //left
-                this.intersectedBounds.movingDirection = 'left';
+                this.magnetMovingDirection = 'left';
                 this.intersectedBounds.setMinX( -3000 );
               }
             }
@@ -135,7 +136,7 @@ define( function( require ) {
 
       //intersection with any bounds
       if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
-        switch( this.intersectedBounds.movingDirection ) {
+        switch( this.magnetMovingDirection ) {
           case 'bottom' :
             position.y = this.intersectedBounds.y - this.magnetModel.height / 2;
             break;
