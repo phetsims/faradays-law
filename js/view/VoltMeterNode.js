@@ -21,7 +21,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var MinusNode = require( 'SCENERY_PHET/MinusNode' );
-  var Pseudo3DRoundedRectangle = require( 'SCENERY_PHET/Pseudo3DRoundedRectangle' );
+  var ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
   // strings
@@ -53,7 +53,7 @@ define( function( require ) {
       terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
-    this.addChild( new Pseudo3DRoundedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
+    this.addChild( new ShadedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
       cornerRadius: 10,
       baseColor: options.baseColor,
       center: Vector2.ZERO
