@@ -63,7 +63,7 @@ define( function( require ) {
 
     //if show second coil and magnet over it, reset magnet
     this.showSecondCoilProperty.link( function( show ) {
-      if ( show && !self.moveMagnetToPosition( self.magnetModel.position ) ) {
+      if ( show && self.intersectionWithSecondCoil() ) {
         self.magnetModel.positionProperty.reset();
       }
       self.intersectedBounds = null;
@@ -92,6 +92,16 @@ define( function( require ) {
         }
         this.voltMeterModel.step( this.modelTickTime );
       }
+    },
+
+    /**
+     *  return if Magnet intersects coil bounds
+     * @param magnetBounds
+     * @returns {boolean}
+     */
+    intersectionWithSecondCoil: function() {
+      var magnetBounds = Bounds2.point( this.magnetModel.position ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
+      return magnetBounds.intersectsBounds( this.restricted[1] );
     },
 
     /**
