@@ -17,7 +17,7 @@ define( function( require ) {
   var MagnetFieldLines = require( 'FARADAYS_LAW/view/MagnetFieldLines' );
 
   // Create single MagnetNode View
-  var createMagnetNode = function(magnetModel) {
+  var createMagnetNode = function( magnetModel ) {
     return new MagnetNode( magnetModel.flipped, {
       width: magnetModel.width,
       height: magnetModel.height,
@@ -55,13 +55,13 @@ define( function( require ) {
     var magnetArrowYOffset = 10; // how far the vertical arrows are from the magent
     var magnetArrowLength = 30;
     var magnetTopArrow = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
-                                        this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, magnetArrowOptions );
+      this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, magnetArrowOptions );
     var magnetBottomArrow = new ArrowNode( this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowYOffset,
-                                           this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, magnetArrowOptions );
+      this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, magnetArrowOptions );
     var magnetRightArrow = new ArrowNode( this.magnetNode.right + magnetArrowXOffset, this.magnetNode.centerY,
-                                          this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
+      this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
     var magnetLeftArrow = new ArrowNode( this.magnetNode.left - magnetArrowXOffset, this.magnetNode.centerY,
-                                         this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
+      this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
     draggableNode.addChild( magnetTopArrow );
     draggableNode.addChild( magnetBottomArrow );
     draggableNode.addChild( magnetRightArrow );

@@ -21,6 +21,7 @@ define( function( require ) {
   var CoilsWiresNode = require( 'FARADAYS_LAW/view/CoilsWiresNode' );
   var VoltMeterWiresNode = require( 'FARADAYS_LAW/view/VoltMeterWiresNode' );
   var VoltMeterNode = require( 'FARADAYS_LAW/view/VoltMeterNode' );
+  var Aligner = require( 'FARADAYS_LAW/view/Aligner' );
 
   /**
    * @param {gameModel} model - Faraday's Law simulation model object
@@ -32,37 +33,44 @@ define( function( require ) {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
 
-    // wires
-    this.addChild( new CoilsWiresNode( model.showSecondCoilProperty ) );
-    this.addChild( new VoltMeterWiresNode() );
-
-    // bulb
-    this.addChild( new BulbNode( model.voltMeterModel.thetaProperty, {
-      right: 208,
-      centerY: 244
-    } ) );
-
     // coils
     var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
       x: model.bottomCoil.position.x,
       y: model.bottomCoil.position.y
     } );
-    this.addChild( bottomCoilNode );
 
     var topCoilNode = new CoilNode( CoilTypeEnum.TWO_COIL, {
       x: model.topCoil.position.x,
       y: model.topCoil.position.y
     } );
+
+    // aligner
+    this.aligner = new Aligner( model, bottomCoilNode.endRelativePositions, topCoilNode.endRelativePositions );
+
+    // voltmeter and bulb created
+    var voltMeterNode = new VoltMeterNode( model.voltMeterModel.thetaProperty, {} );
+    var bulbNode = new BulbNode( model.voltMeterModel.thetaProperty, {
+      centerX: this.aligner.bulbPosition.x,
+      centerY: this.aligner.bulbPosition.y
+    } );
+
+    // wires
+    this.addChild( new CoilsWiresNode( this.aligner, model.showSecondCoilProperty ) );
+    this.addChild( new VoltMeterWiresNode( this.aligner, voltMeterNode ) );
+
+    // bulb added
+    this.addChild( bulbNode );
+
+    // coils added
+    this.addChild( bottomCoilNode );
     this.addChild( topCoilNode );
     model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
     this.addChild( new ControlPanelNode( model ) );
 
-    // voltmeter
-    var voltMeterNode = new VoltMeterNode( model.voltMeterModel.thetaProperty, {} );
-    voltMeterNode.top = 16;
-    voltMeterNode.left = 105;
+    // voltmeter added
+    voltMeterNode.center = this.aligner.voltmeterPosition;
     this.addChild( voltMeterNode );
 
     // magnet

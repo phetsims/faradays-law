@@ -28,7 +28,7 @@ define( function( require ) {
    */
   function ControlPanelNode( model ) {
     var self = this;
-    Node.call( this);
+    Node.call( this );
 
     // reset button
     this.addChild( new ResetAllButton( {
@@ -59,7 +59,7 @@ define( function( require ) {
       centerY: self.centerY
     } ) );
 
-    this.bottom = model.height-10;
+    this.bottom = model.height - 10;
   }
 
   return inherit( Node, ControlPanelNode );

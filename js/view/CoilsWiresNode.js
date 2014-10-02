@@ -13,15 +13,18 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ARC_RADIUS = 7;
 
-  /**
+  /*
+   * @param aligner
    * @param showSecondCoilProperty
    * @constructor
    */
-  function CoilsWiresNode( showSecondCoilProperty ) {
+  function CoilsWiresNode( aligner, showSecondCoilProperty ) {
+
     Node.call( this );
 
     var wireColor = '#7f3521';
@@ -30,57 +33,92 @@ define( function( require ) {
     // TODO: (from @jbphet) - This code contains a lot of 'magic numbers' that should be cleaned up.  These values
     // should relate to the positions of the light bulb and the coils in the view.
 
-    var leftWireX = 175; //x coordinate for left most vertical wire, also used for top coil wire
-    var rightWireX = 202; //x coordinate for second vertical wire, also used for top coil wire to make arc
+    var leftWireBulbStart = new Vector2( aligner.bulbPosition.x - 15, aligner.bulbPosition.y ); //start point for left wire from bulb
+    var rightWireBulbStart = new Vector2( aligner.bulbPosition.x + 10, aligner.bulbPosition.y ); //start point for right wire from bulb
 
     //bottom coil, static wires
+
+    // bottom coil, left bottom wire
+    var keyPoints = [
+      leftWireBulbStart, // bottom coil, left bottom wire, bulbs start
+      new Vector2( leftWireBulbStart.x, aligner.bottomCoilEndPositions.bottomEnd.y ), // bottom coil, left bottom wire, corner point
+      aligner.bottomCoilEndPositions.bottomEnd  // bottom coil, left bottom wire, coils end
+    ];
     this.addChild( new Path( new Shape()
-      .moveTo( leftWireX, 250 )
-      .lineTo( leftWireX, 334 - ARC_RADIUS )
-      .quadraticCurveTo( leftWireX, 334, leftWireX + ARC_RADIUS, 334 )
-      .lineTo( 520, 334 ), {
+      .moveTo( keyPoints[0].x, keyPoints[0].y )
+      .lineTo( keyPoints[1].x, keyPoints[1].y - ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[1].x, keyPoints[1].y, keyPoints[1].x + ARC_RADIUS, keyPoints[1].y )
+      .lineTo( keyPoints[2].x, keyPoints[2].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
 
+    // bottom coil, right top wire
+    keyPoints = [
+      rightWireBulbStart, // bottom coil, right top, bulbs start
+      new Vector2( rightWireBulbStart.x, aligner.bottomCoilEndPositions.topEnd.y ), // bottom coil, right top wire, corner point
+      aligner.bottomCoilEndPositions.topEnd  // bottom coil, right top wire, coils end
+    ];
     this.addChild( new Path( new Shape()
-      .moveTo( rightWireX, 250 )
-      .lineTo( rightWireX, 318 - ARC_RADIUS )
-      .quadraticCurveTo( rightWireX, 318, rightWireX + ARC_RADIUS, 318 )
-      .lineTo( 450, 318 ), {
+      .moveTo( keyPoints[0].x, keyPoints[0].y )
+      .lineTo( keyPoints[1].x, keyPoints[1].y - ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[1].x, keyPoints[1].y, keyPoints[1].x + ARC_RADIUS, keyPoints[1].y )
+      .lineTo( keyPoints[2].x, keyPoints[2].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
 
     //top coil wires, must be hidden if coil is hidden
-    var secondCoilsWire1 = new Path( new Shape()
-      .moveTo( rightWireX, 260 )
-      .lineTo( 335 - ARC_RADIUS, 260 )
-      .quadraticCurveTo( 335, 260, 335, 260 - ARC_RADIUS )
-      .lineTo( 335, 121 + ARC_RADIUS )
-      .quadraticCurveTo( 335, 121, 335 + ARC_RADIUS, 121 )
-      .lineTo( 450, 121 ), {
+
+    // top coil, top wire
+    var lengthRatio = 0.5; // at length ratio wire change direction to top
+    var horizontalLength = aligner.topCoilEndPositions.topEnd.x - rightWireBulbStart.x; // horizontal length of the top wire
+    var yMarginFromBulb = 18; // top margin from bulb y position
+    keyPoints = [
+      rightWireBulbStart.plusXY( 0, yMarginFromBulb ), // top coil, top wire, wire start point
+      rightWireBulbStart.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ), // top coil, top wire, bottom corner point
+      new Vector2( rightWireBulbStart.x + horizontalLength * lengthRatio, aligner.topCoilEndPositions.topEnd.y ), // top coil, top wire, top corner point
+      aligner.topCoilEndPositions.topEnd // top coil, top wire end
+    ];
+    var topCoilsWire1 = new Path( new Shape()
+      .moveTo( keyPoints[0].x, keyPoints[0].y )
+      .lineTo( keyPoints[1].x - ARC_RADIUS, keyPoints[1].y )
+      .quadraticCurveTo( keyPoints[1].x, keyPoints[1].y, keyPoints[1].x, keyPoints[1].y - ARC_RADIUS )
+      .lineTo( keyPoints[2].x, keyPoints[2].y + ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[2].x, keyPoints[2].y, keyPoints[2].x + ARC_RADIUS, keyPoints[2].y )
+      .lineTo( keyPoints[3].x, keyPoints[3].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } );
-    this.addChild( secondCoilsWire1 );
+    this.addChild( topCoilsWire1 );
 
-    var secondCoilsWire2 = new Path( new Shape()
-      .moveTo( leftWireX, 277 )
-      .lineTo( rightWireX - 8, 277 )
-      .arc( rightWireX, 277, 8, Math.PI, 0, true )
-      .lineTo( 350 - ARC_RADIUS, 277 )
-      .quadraticCurveTo( 350, 277, 350, 277 - ARC_RADIUS )
-      .lineTo( 350, 137 + ARC_RADIUS )
-      .quadraticCurveTo( 350, 137, 350 + ARC_RADIUS, 137 )
-      .lineTo( 480, 137 ), {
+    // top coil, bottom wire
+    horizontalLength = aligner.topCoilEndPositions.bottomEnd.x - leftWireBulbStart.x; // horizontal length of the bottom wire
+    lengthRatio = 0.55; // at length ratio wire change direction to top
+    yMarginFromBulb = 35; // vertical margin from center of the bulb for bottom wire of top coil
+    keyPoints = [
+      leftWireBulbStart.plusXY( 0, yMarginFromBulb ), // top coil, bottom wire, wire start point
+      new Vector2( rightWireBulbStart.x, leftWireBulbStart.y + yMarginFromBulb ), // top coil, bottom wire, center of crossing with another wire
+      leftWireBulbStart.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ), // top coil, bottom wire, bottom corner point
+      new Vector2( leftWireBulbStart.x + horizontalLength * lengthRatio, aligner.topCoilEndPositions.bottomEnd.y ), // top coil, bottom wire, top corner point
+      aligner.topCoilEndPositions.bottomEnd // top coil, bottom wire end
+    ];
+    var topCoilsWire2 = new Path( new Shape()
+      .moveTo( keyPoints[0].x, keyPoints[0].y )
+      .lineTo( keyPoints[1].x - ARC_RADIUS, keyPoints[1].y )
+      .arc( keyPoints[1].x, keyPoints[1].y, ARC_RADIUS, Math.PI, 0, true )
+      .lineTo( keyPoints[2].x - ARC_RADIUS, keyPoints[2].y )
+      .quadraticCurveTo( keyPoints[2].x, keyPoints[2].y, keyPoints[2].x, keyPoints[2].y - ARC_RADIUS )
+      .lineTo( keyPoints[3].x, keyPoints[3].y + ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[3].x, keyPoints[3].y, keyPoints[3].x + ARC_RADIUS, keyPoints[3].y )
+      .lineTo( keyPoints[4].x, keyPoints[4].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } );
-    this.addChild( secondCoilsWire2 );
+    this.addChild( topCoilsWire2 );
 
-    showSecondCoilProperty.linkAttribute( secondCoilsWire1, 'visible' );
-    showSecondCoilProperty.linkAttribute( secondCoilsWire2, 'visible' );
+    showSecondCoilProperty.linkAttribute( topCoilsWire1, 'visible' );
+    showSecondCoilProperty.linkAttribute( topCoilsWire2, 'visible' );
 
   }
 

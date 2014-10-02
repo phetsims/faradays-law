@@ -30,7 +30,7 @@ define( function( require ) {
     this.bounds = new Bounds2( 0, 0, width, height );
 
     PropertySet.call( this, {
-      showSecondCoil: false, // number of coils - 1 or 2
+      showSecondCoil: true, // number of coils - 1 or 2
       showCoilArrows: true
     } );
 

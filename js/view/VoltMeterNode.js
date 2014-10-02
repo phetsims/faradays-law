@@ -32,7 +32,7 @@ define( function( require ) {
   var TERMINAL_STROKE = '#000000';
   var TERMINAL_BORDER_RADIUS = 3;
   var OUTER_BORDER_RADIUS = 10;
-  var DEFAULT_FONT = new PhetFont(18);
+  var DEFAULT_FONT = new PhetFont( 18 );
 
   /*
    * @param needleAngleProperty - angle of needle in voltmeter
@@ -92,31 +92,31 @@ define( function( require ) {
     } ) );
 
     //plus and minus terminals at the bottom
-    var plusNode = new Node();
-    plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
+    this.plusNode = new Node();
+    this.plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
       stroke: TERMINAL_STROKE
     } ) );
-    plusNode.addChild( new PlusNode( {
+    this.plusNode.addChild( new PlusNode( {
       centerX: 0,
       centerY: 0,
       size: options.terminalSignSize
     } ) );
-    this.addChild( plusNode );
-    plusNode.center = new Vector2( options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
+    this.addChild( this.plusNode );
+    this.plusNode.center = new Vector2( options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
 
-    var minusNode = new Node();
-    minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
+    this.minusNode = new Node();
+    this.minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
       stroke: TERMINAL_STROKE
     } ) );
-    minusNode.addChild( new MinusNode( {
+    this.minusNode.addChild( new MinusNode( {
       centerX: 0,
       centerY: 0,
       size: options.terminalSignSize
     } ) );
-    this.addChild( minusNode );
-    minusNode.center = new Vector2( -options.terminalSize + 3, options.rectangleHeight / 2 + options.terminalSize / 2 );
+    this.addChild( this.minusNode );
+    this.minusNode.center = new Vector2( -options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
   }
 
   return inherit( Node, VoltMeterNode );

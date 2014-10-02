@@ -28,6 +28,7 @@ define( function( require ) {
   var BULB_BASE_WIDTH = 36;
   var NUM_FILAMENT_ZIG_ZAGS = 8;
   var FILAMENT_ZIG_ZAG_SPAN = 8;
+  var BULB_X_DISPLACEMENT = -45; // Bulb dx relative to center position
 
   /**
    *
@@ -106,7 +107,7 @@ define( function( require ) {
 
     // Update the halo as the needle angle changes.
     needleAngleProperty.link( function( angle ) {
-      var targetScaleFactor = 20 * Math.abs(angle); //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
+      var targetScaleFactor = 20 * Math.abs( angle ); //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
       if ( targetScaleFactor < 0.1 ) {
         haloNode.visible = false;
       }
@@ -131,6 +132,8 @@ define( function( require ) {
     haloNode.center = filament.center;
 
     this.mutate( options );
+
+    this.centerX = this.centerX + BULB_X_DISPLACEMENT;
   }
 
   return inherit( Node, BulbNode );

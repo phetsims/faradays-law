@@ -13,6 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // images
   var twoLoopFrontImage = require( 'image!FARADAYS_LAW/images/two-loop-front.png' );
@@ -46,6 +47,18 @@ define( function( require ) {
     }
   };
 
+  // each coil have 2 ends, coordinates of each end relative to center of the coil
+  var coilEndCoordinatesMap = {};
+  coilEndCoordinatesMap[CoilTypeEnum.TWO_COIL] = {
+    topEnd: new Vector2( 30, -10 ),
+    bottomEnd: new Vector2( 60, 6 )
+  };
+  coilEndCoordinatesMap[CoilTypeEnum.FOUR_COIL] = {
+    topEnd: new Vector2( 0, -10 ),
+    bottomEnd: new Vector2( 70, 6 )
+  };
+
+
   /**
    *
    * @param coilType - determines which picture must we add to show coil
@@ -76,6 +89,8 @@ define( function( require ) {
       scale: sizeScale / 3
     } );
     this.addChild( this.frontImage );
+
+    this.endRelativePositions = coilEndCoordinatesMap[coilType];
 
     this.mutate( options );
   }

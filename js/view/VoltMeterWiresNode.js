@@ -17,6 +17,9 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Color = require( 'SCENERY/util/Color' );
 
+  // constants
+  var WIRES_DELTA_X = 18; //displacement from the center of the voltmeter
+
   /**
    * Creates measure pad.
    * @param options
@@ -56,31 +59,34 @@ define( function( require ) {
     return pad;
   };
 
-  /**
+  /*
+   * @param aligner
+   * @param voltMeterBottom - y coordinate of the bottom of voltmeter
    * @constructor
    */
-  function VoltMeterWiresNode() {
+  function VoltMeterWiresNode( aligner, voltMeterNode ) {
     Node.call( this );
 
     var wireColor = '#353a89';
     var wireWidth = 3;
-    var wiresTopY = 140;
 
     // variables, used for measuring pads too
-    var leftWireX = 175;
-    var rightWireX = 208;
-    var leftWireBottom = 221;
-    var rightWireBottom = 234;
+    var leftWireX = aligner.voltmeterPosition.x + voltMeterNode.minusNode.centerX;
+    var rightWireX = aligner.voltmeterPosition.x + voltMeterNode.plusNode.centerX;
+    var wireTop = aligner.voltmeterPosition.y + voltMeterNode.height / 2;
+    // wires goes not to exactly to bulb position, need small deltas
+    var leftWireBottom = aligner.bulbPosition.y - 23;
+    var rightWireBottom = aligner.bulbPosition.y - 10;
 
     this.addChild( new Path( new Shape()
-      .moveTo( leftWireX, wiresTopY )
+      .moveTo( leftWireX, wireTop )
       .lineTo( leftWireX, leftWireBottom ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
 
     this.addChild( new Path( new Shape()
-      .moveTo( rightWireX, wiresTopY )
+      .moveTo( rightWireX, wireTop )
       .lineTo( rightWireX, rightWireBottom ), {
       stroke: wireColor,
       lineWidth: wireWidth
