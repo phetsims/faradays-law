@@ -21,11 +21,10 @@ define( function( require ) {
 
   // describes ellipse lines properties (sizes + arrows)
   var LINE_DESCRIPTION = [
-    {a: 600, b: 300, arrowPositions: [-Math.PI / 6, Math.PI + Math.PI / 6]},
-    {a: 350, b: 125, arrowPositions: [-Math.PI / 20, Math.PI + Math.PI / 20]},
-    {a: 180, b: 50, arrowPositions: [Math.PI / 2]},
-    {a: 90, b: 25, arrowPositions: [Math.PI / 2]}
-
+    {a: 600, b: 300, arrowPositions: [Math.PI / 3.5, Math.PI - Math.PI / 3.5]},
+    {a: 350, b: 125, arrowPositions: [Math.PI / 7, Math.PI - Math.PI / 7]},
+    {a: 180, b: 50, arrowPositions: [-Math.PI / 2]},
+    {a: 90, b: 25, arrowPositions: [-Math.PI / 2]}
   ];
 
   /**
@@ -61,35 +60,33 @@ define( function( require ) {
     }, options );
 
     //arc
-    node.addChild( new Path( new Shape()
-      .ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI ), {
+    var elliplicalShape = new Shape().ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI );
+    node.addChild( new Path( elliplicalShape, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } ) );
 
     //arrows on arc
     arrowPositions.forEach( function( angle ) {
-      // calculate arrow position in terms of x,y
-      var r = a * b / (Math.sqrt( b * b * Math.cos( angle ) * Math.cos( angle ) + a * a * Math.sin( angle ) * Math.sin( angle ) ));
-      var x = r * Math.cos( angle );
-      var y = -r * Math.sin( angle );
       var arrow = createArrow( {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       } );
+      var arrowPosition = elliplicalShape.getLastSegment().positionAtAngle( angle );
+      arrow.right = arrowPosition.x;
+      arrow.centerY = arrowPosition.y;
 
-      arrow.right = x;
-      arrow.centerY = y;
+      var arrowTangent = elliplicalShape.getLastSegment().tangentAtAngle( angle );
+      var rotationAngle = Math.atan( arrowTangent.y / arrowTangent.x ); //angle of tangent to an ellipse
 
-      var rotationAngle = Math.atan( x * b * b / (y * a * a) ); //angle of tangent to an ellipse
-      if ( y > 0 ) {
+      if ( arrowPosition.y > 0 ) {
         rotationAngle += Math.PI;
       }
 
-      arrow.rotateAround( new Vector2( x, y ), -rotationAngle );
+      arrow.rotateAround( arrowPosition, rotationAngle );
 
       flippedProperty.lazyLink( function( flipped ) {
-        arrow.rotateAround( new Vector2( x, y ), Math.PI );
+        arrow.rotateAround( arrowPosition, Math.PI );
       } );
       node.addChild( arrow );
     } );
