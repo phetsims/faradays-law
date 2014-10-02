@@ -49,11 +49,13 @@ define( function( require ) {
 
     //restricted zones for magnet because of coils borders
     //first 2 for top coil
+    var TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
+    var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
     this.restricted = [
-      new Bounds2( 405, 55, 435, 65 ),
-      new Bounds2( 415, 198, 445, 208 ),
-      new Bounds2( 410, 251, 475, 261 ),
-      new Bounds2( 420, 394, 480, 404 )
+      TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
+      TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x, this.topCoil.position.y + 67 ),
+      FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
+      FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
     ];
     //see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
