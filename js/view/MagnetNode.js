@@ -21,40 +21,47 @@ define( function( require ) {
   var nString = require( 'string!FARADAYS_LAW/faradays-law.n' );
   var sString = require( 'string!FARADAYS_LAW/faradays-law.s' );
 
+  // constants for magnet
+  // offset for 3D looking, calculated as width*MAGNET_OFFSET_DX_RATIO
+  var MAGNET_OFFSET_DX_RATIO = 1 / 35;
+  var MAGNET_OFFSET_DY_RATIO = 1 / 15;
+  var MAGNET_3D_SHADOW = 0.4;
+
   /**
+   * @param width - width of Magnet
+   * @param height - height of Magnet
    * @param label - label on half of magnet
    * @param backgroundColor
    * @param options
    * @returns {Node}
    */
-  var drawHalfMagnetNode = function( label, backgroundColor, options ) {
+  var drawHalfMagnetNode = function( width, height, label, backgroundColor, options ) {
     var node = new Node();
 
     // front part
-    node.addChild( new Rectangle( -options.width / 4, -options.height / 2, options.width / 2, options.height, {
+    node.addChild( new Rectangle( -width / 4, -height / 2, width / 2, height, {
       fill: backgroundColor
     } ) );
 
     // label
-    node.addChild( new Text( label, {
-      centerY: 0,
+    node.addChild( label );
+    label.mutate( {
       centerX: 0,
-      font: options.font,
-      fill: 'white'
-    } ) );
+      centerY: 0
+    } );
 
     node.mutate( options );
 
     //3d looking
     node.addChild( new Path( new Shape()
-      .moveTo( -options.width / 4, -options.height / 2 )
-      .lineTo( -options.width / 4 + options.dx, -options.height / 2 - options.dy )
-      .lineTo( options.width / 4 + options.dx, -options.height / 2 - options.dy )
-      .lineTo( options.width / 4 + options.dx, options.height / 2 - options.dy )
-      .lineTo( options.width / 4, options.height / 2 )
-      .lineTo( options.width / 4, -options.height / 2 )
+      .moveTo( -width / 4, -height / 2 )
+      .lineTo( -width / 4 + width * MAGNET_OFFSET_DX_RATIO, -height / 2 - height * MAGNET_OFFSET_DY_RATIO )
+      .lineTo( width / 4 + width * MAGNET_OFFSET_DX_RATIO, -height / 2 - height * MAGNET_OFFSET_DY_RATIO )
+      .lineTo( width / 4 + width * MAGNET_OFFSET_DX_RATIO, height / 2 - height * MAGNET_OFFSET_DY_RATIO )
+      .lineTo( width / 4, height / 2 )
+      .lineTo( width / 4, -height / 2 )
       .close(), {
-      fill: backgroundColor.colorUtilsDarker( 0.4 )
+      fill: backgroundColor.colorUtilsDarker( MAGNET_3D_SHADOW )
     } ) );
 
     node.touchArea = node.localBounds.dilated( 10 );
@@ -71,26 +78,34 @@ define( function( require ) {
   function MagnetNode( flipped, options ) {
     Node.call( this, {cursor: 'pointer'} );
 
+    // options of magnetNode
     options = _.extend( {
       width: 140,
       height: 30,
-      dx: 4,
-      dy: 2,
-      font: new PhetFont( 24 )
+      font: new PhetFont( 24 ),
+      fontColor: 'white'
     }, options );
 
     //create north pole magnet
-    var northPole = drawHalfMagnetNode( nString, new Color( '#db1e21' ), _.extend( {
+    var northPoleLabel = new Text( nString, {
+      font: options.font,
+      fill: options.fontColor
+    } );
+    var northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
       left: -options.width / 2,
       centerY: 0
-    }, options ) );
+    } );
     this.addChild( northPole );
 
     //create south pole magnet
-    var southPole = drawHalfMagnetNode( sString, new Color( '#354d9a' ), _.extend( {
+    var southPoleLabel = new Text( sString, {
+      font: options.font,
+      fill: options.fontColor
+    } );
+    var southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
       left: 0,
       centerY: 0
-    }, options ) );
+    } );
     this.addChild( southPole );
 
     if ( flipped ) {
