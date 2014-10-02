@@ -59,7 +59,7 @@ define( function( require ) {
     return pad;
   };
 
-  /*
+  /**
    * @param aligner
    * @param voltMeterBottom - y coordinate of the bottom of voltmeter
    * @constructor

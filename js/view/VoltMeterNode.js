@@ -34,7 +34,7 @@ define( function( require ) {
   var OUTER_BORDER_RADIUS = 10;
   var DEFAULT_FONT = new PhetFont( 18 );
 
-  /*
+  /**
    * @param needleAngleProperty - angle of needle in voltmeter
    * @param options
    * @constructor

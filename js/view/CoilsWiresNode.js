@@ -18,7 +18,7 @@ define( function( require ) {
   // constants
   var ARC_RADIUS = 7;
 
-  /*
+  /**
    * @param aligner
    * @param showSecondCoilProperty
    * @constructor
