@@ -29,8 +29,12 @@ define( function( require ) {
 
   // constants
   var TERMINAL_COLOR = '#C0C0C0';
+  var TERMINAL_STROKE = '#000000';
+  var TERMINAL_BORDER_RADIUS = 3;
+  var OUTER_BORDER_RADIUS = 10;
+  var DEFAULT_FONT = new PhetFont(18);
 
-  /**
+  /*
    * @param needleAngleProperty - angle of needle in voltmeter
    * @param options
    * @constructor
@@ -48,20 +52,21 @@ define( function( require ) {
       marginBottom: 3,
       whiteRectangleHeight: 72,
       whiteRectangleWidth: 132,
+      whiteRectangleBorderRadius: 5,
       textColor: 'yellow', //color of 'voltage' text
       terminalSize: 18, //size of terminals at the bottom of the voltmeter
       terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
     this.addChild( new ShadedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
-      cornerRadius: 10,
+      cornerRadius: OUTER_BORDER_RADIUS,
       baseColor: options.baseColor,
       center: Vector2.ZERO
     } ) );
 
     // white rectangle + controls inside
     var whiteRectangle = new Node();
-    whiteRectangle.addChild( new Rectangle( -options.whiteRectangleWidth, -options.whiteRectangleHeight, options.whiteRectangleWidth, options.whiteRectangleHeight, 5, 5, {
+    whiteRectangle.addChild( new Rectangle( -options.whiteRectangleWidth, -options.whiteRectangleHeight, options.whiteRectangleWidth, options.whiteRectangleHeight, options.whiteRectangleBorderRadius, options.whiteRectangleBorderRadius, {
       fill: '#FFF',
       centerX: 0
     } ) );
@@ -76,7 +81,7 @@ define( function( require ) {
       children: [
         whiteRectangle,
         new Text( voltageString, {
-          font: new PhetFont( 18 ),
+          font: DEFAULT_FONT,
           fill: options.textColor,
           centerX: 0
         } )
@@ -88,9 +93,9 @@ define( function( require ) {
 
     //plus and minus terminals at the bottom
     var plusNode = new Node();
-    plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
+    plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
-      stroke: 'black'
+      stroke: TERMINAL_STROKE
     } ) );
     plusNode.addChild( new PlusNode( {
       centerX: 0,
@@ -101,9 +106,9 @@ define( function( require ) {
     plusNode.center = new Vector2( options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
 
     var minusNode = new Node();
-    minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, 3, 3, {
+    minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
-      stroke: 'black'
+      stroke: TERMINAL_STROKE
     } ) );
     minusNode.addChild( new MinusNode( {
       centerX: 0,
