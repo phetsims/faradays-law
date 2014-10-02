@@ -15,6 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var ButtonListener = require( 'SCENERY/input/ButtonListener' );
 
   /**
    * @param targetProperty - property to link value of button
@@ -75,11 +76,11 @@ define( function( require ) {
       }
     } );
 
-    this.addInputListener( {
-      up: function() {
+    this.addInputListener( new ButtonListener( {
+      fire: function() {
         targetProperty.value = onValue;
       }
-    } );
+    } ) );
   };
 
   return inherit( Node, SimpleToggleButton );
