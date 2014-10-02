@@ -27,13 +27,14 @@ define( function( require ) {
    * @constructor
    */
   function ControlPanelNode( model ) {
-    Node.call( this );
+    var self = this;
+    Node.call( this);
 
     // reset button
     this.addChild( new ResetAllButton( {
       listener: model.reset.bind( model ),
       right: model.width - 10,
-      bottom: model.height - 10,
+      bottom: 0,
       scale: 0.75
     } ) );
 
@@ -42,21 +43,23 @@ define( function( require ) {
       listener: function() {
         model.magnetModel.flipped = !model.magnetModel.flipped;
       },
-      bottom: model.height - 8,
+      bottom: 0,
       right: model.width - 110
-    } ) );
-
-    // show field lines
-    this.addChild( new CheckBox( new Text( showFieldLinesString, {font: new PhetFont( 16 )} ), model.magnetModel.showFieldLinesProperty, {
-      x: 174,
-      bottom: model.height - 37
     } ) );
 
     // show/hide second coil
     this.addChild( new ShowCoilsButtonGroup( model.showSecondCoilProperty, {
       x: 377,
-      bottom: model.height - 8
+      bottom: 0
     } ) );
+
+    // show field lines
+    this.addChild( new CheckBox( new Text( showFieldLinesString, {font: new PhetFont( 16 )} ), model.magnetModel.showFieldLinesProperty, {
+      x: 174,
+      centerY: self.centerY
+    } ) );
+
+    this.bottom = model.height-10;
   }
 
   return inherit( Node, ControlPanelNode );
