@@ -84,7 +84,11 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.timeInterval += dt;
-      if ( this.timeInterval > this.targetTickTime ) {
+      if ( this.timeInterval >= 2 * this.targetTickTime ) {
+        // prevent incorrect behaviour when running in background
+        this.timeInterval = this.targetTickTime;
+      }
+      if ( this.timeInterval >= this.targetTickTime ) {
         this.timeInterval -= this.targetTickTime;
         this.bottomCoil.step( this.modelTickTime );
         if ( this.showSecondCoil ) {
