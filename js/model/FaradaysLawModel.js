@@ -107,7 +107,7 @@ define( function( require ) {
      */
     intersectionWithSecondCoil: function() {
       var magnetBounds = Bounds2.point( this.magnetModel.position ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
-      return magnetBounds.intersectsBounds( this.restricted[1] );
+      return magnetBounds.intersectsBounds( this.restricted[1] ) || magnetBounds.intersectsBounds( this.restricted[0] );
     },
 
     /**
