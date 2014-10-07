@@ -13,7 +13,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ARROW_WIDTH = 16;

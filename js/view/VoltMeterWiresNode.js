@@ -17,9 +17,6 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Color = require( 'SCENERY/util/Color' );
 
-  // constants
-  var WIRES_DELTA_X = 18; //displacement from the center of the voltmeter
-
   /**
    * Creates measure pad.
    * @param options
