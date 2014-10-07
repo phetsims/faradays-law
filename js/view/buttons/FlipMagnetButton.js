@@ -80,7 +80,9 @@ define( function( require ) {
       content: contentNode,
       baseColor: '#9beab3',
       minWidth: 118,
-      minHeight: 65
+      minHeight: 65,
+      xTouchExpansion:10,
+      yTouchExpansion:10
     }, options ) );
 
   }
