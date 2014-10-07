@@ -30,9 +30,6 @@ define( function( require ) {
     var wireColor = '#7f3521';
     var wireWidth = 3;
 
-    // TODO: (from @jbphet) - This code contains a lot of 'magic numbers' that should be cleaned up.  These values
-    // should relate to the positions of the light bulb and the coils in the view.
-
     var leftWireBulbStart = new Vector2( aligner.bulbPosition.x - 15, aligner.bulbPosition.y ); //start point for left wire from bulb
     var rightWireBulbStart = new Vector2( aligner.bulbPosition.x + 10, aligner.bulbPosition.y ); //start point for right wire from bulb
 
