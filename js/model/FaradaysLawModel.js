@@ -69,6 +69,7 @@ define( function( require ) {
         self.magnetModel.positionProperty.reset();
       }
       self.intersectedBounds = null;
+      self.topCoil.reset();
     } );
 
   }
