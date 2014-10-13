@@ -76,8 +76,10 @@ define( function( require ) {
   return inherit( PropertySet, FaradaysLawModel, {
 
     reset: function() {
-      PropertySet.prototype.reset.call( this );
       this.magnetModel.reset();
+      PropertySet.prototype.reset.call( this );
+      this.bottomCoil.reset();
+      this.topCoil.reset();
     },
 
     /**
