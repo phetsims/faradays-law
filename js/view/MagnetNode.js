@@ -64,6 +64,10 @@ define( function( require ) {
       fill: backgroundColor.colorUtilsDarker( MAGNET_3D_SHADOW )
     } ) );
 
+    node.addChild( Rectangle.bounds( node.localBounds.dilated( 1 ), {
+      fill: 'rgba(0,0,0,0)'
+    } ) );
+
     node.touchArea = node.localBounds.dilated( 10 );
 
     return node;
