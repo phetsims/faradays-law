@@ -1,6 +1,6 @@
 {
   "chipper": {
-    "sha": "a84588375f18998c4b1e83fffbde76bd3432023d",
+    "sha": "388c6f67013ee662c8a07eb70f340ba496996c1f",
     "branch": "master"
   },
   "vibe": {
@@ -12,23 +12,23 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "51a95bed5abc696a4504983c38dc1476761bcdd8",
+    "sha": "1ae2669e10ec9370721b64cc41bda78c14c3a0c1",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "882251086effdfc1bb17c7a8f4c6c269ffec95a0",
+    "sha": "e867171adea6bfb7ec5fcfe78668c67b22a04e5b",
     "branch": "master"
   },
   "scenery": {
-    "sha": "dde2d37329bcff74e385a81217cce529dec21e9f",
+    "sha": "267034d8a97d8cb3d9e30e9a1a2956f2b60de656",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "d08374e32129e5116ccd1af229abb765fb021331",
+    "sha": "1bfd46f1f42c6cb305ba70f281d195211bc4ac00",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "4d530954bf53807e30a53ab98a1f9d3c6aadf57e",
+    "sha": "f85bb6811986ce5d9cc0b3cfae7f258b02557701",
     "branch": "master"
   },
   "kite": {
@@ -36,11 +36,11 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "09e5bf9d2f9aeccc73b4faf7bb4944a20c505671",
+    "sha": "7f13613a077b9a6783d89d1bc2ec9ac6ae1325e7",
     "branch": "master"
   },
   "dot": {
-    "sha": "d60d763449f92351c4f886c4d9b3f558a9b2f14c",
+    "sha": "500ba1b9d16de1d069e921d5c64309acdac7e93d",
     "branch": "master"
   },
   "brand": {
@@ -56,8 +56,8 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "c786e990719efbb458e39e3fcf169e3abbf086cf",
+    "sha": "16b8a3e2e6f9f324e2fb59f99cca0a2e9de00a56",
     "branch": "1.0"
   },
-  "comment": "# faradays-law 1.0.0-rc.1 Tue Oct 07 2014 11:26:47 GMT-0600 (Mountain Daylight Time)"
+  "comment": "# faradays-law 1.0.0-rc.2 Wed Oct 22 2014 11:27:02 GMT-0600 (Mountain Daylight Time)"
 }
