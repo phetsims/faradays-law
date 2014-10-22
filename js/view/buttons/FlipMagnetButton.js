@@ -55,7 +55,8 @@ define( function( require ) {
 
     RectangularPushButton.call( this, _.extend( {
       content: contentNode,
-      baseColor: '#eee',
+      // baseColor: 'rgb(155,234,179)',
+      baseColor: 'rgb(205,244,215)',
       minWidth: 118,
       minHeight: 65,
       xTouchExpansion: 10,
