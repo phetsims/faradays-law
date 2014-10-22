@@ -69,6 +69,7 @@ define( function( require ) {
         self.magnetModel.positionProperty.reset();
       }
       self.intersectedBounds = null;
+      self.topCoil.reset();
     } );
 
   }
@@ -76,8 +77,10 @@ define( function( require ) {
   return inherit( PropertySet, FaradaysLawModel, {
 
     reset: function() {
-      PropertySet.prototype.reset.call( this );
       this.magnetModel.reset();
+      PropertySet.prototype.reset.call( this );
+      this.bottomCoil.reset();
+      this.topCoil.reset();
     },
 
     /**
@@ -114,7 +117,12 @@ define( function( require ) {
      * @param position position of magnet
      */
     moveMagnetToPosition: function( position ) {
-      var magnetBounds = Bounds2.point( position ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
+      var magnetBounds = new Bounds2(
+        Math.min( position.x, this.magnetModel.position.x ),
+        Math.min( position.y, this.magnetModel.position.y ),
+        Math.max( position.x, this.magnetModel.position.x ),
+        Math.max( position.y, this.magnetModel.position.y )
+      ).dilatedXY( this.magnetModel.width / 2-1, this.magnetModel.height / 2-1 );
 
       //check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
@@ -177,6 +185,7 @@ define( function( require ) {
         }
       }
       this.magnetModel.position = position;
+
     }
   } );
 } );

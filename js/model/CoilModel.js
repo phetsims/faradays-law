@@ -24,9 +24,11 @@ define( function( require ) {
   function CoilModel( x, y, N, magnetModel ) {
     var self = this;
     this.s = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign, from flash origin
+    this.position = new Vector2( x, y );
 
     PropertySet.call( this, {
-      position: new Vector2( x, y ),
+      B: 0, //current value of magnetic field
+      BLast: 0, //previous value of magnetic field
       emf: 0 //signal strength in coil = 'electromotive force'
     } );
 
@@ -39,17 +41,16 @@ define( function( require ) {
     //from flash simulation
     this.A = 50; //near-field radius in pixels, set size for transition from B=constant to B=power law
     this.N = N / 2;  //number of turns in coil (equal to half the number of turns in the graphic image)
-
-    this.B = 0; //current value of magnetic field
-    this.BLast = 0; //previous value of magnetic field
   }
 
   return inherit( PropertySet, CoilModel, {
-    /**
-     * evolution of emf in coil over time
-     * @param dt - time in seconds
-     */
-    step: function( dt ) {
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.calculateB();
+      this.BLast = this.B;
+    },
+    // Calculate magnetic field with current magnet position
+    calculateB : function() {
       var rSquared = this.position.distanceSquared( this.magnetModel.position ) / (this.A * this.A);  // normalized squared distance from coil to magnet
 
       if ( rSquared < 1 ) {  //if magnet is very close to coil, then B field is at max value;
@@ -64,7 +65,13 @@ define( function( require ) {
         var dx = (this.magnetModel.position.x - this.position.x) / this.A;
         this.B = this.s * (3 * dx * dx - rSquared) / (rSquared * rSquared);
       }
-
+    },
+    /**
+     * evolution of emf in coil over time
+     * @param dt - time in seconds
+     */
+    step: function( dt ) {
+      this.calculateB();
       this.emf = this.N * (this.B - this.BLast) / dt;    //emf = (nbr coils)*(change in B)/(change in t)
       this.BLast = this.B;
     }
