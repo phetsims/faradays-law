@@ -113,7 +113,7 @@ define( function( require ) {
     model.magnetModel.flippedProperty.link( function( flipped ) {
       self.magnetNode.detach();
       self.magnetNode = createMagnetNode( model.magnetModel );
-      draggableNode.addChild( createMagnetNode( model.magnetModel ) );
+      draggableNode.addChild( self.magnetNode );
     } );
 
     model.magnetModel.positionProperty.link( function( position ) {
