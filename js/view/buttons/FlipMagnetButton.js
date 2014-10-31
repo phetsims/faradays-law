@@ -10,43 +10,66 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var MagnetNode = require( 'FARADAYS_LAW/view/MagnetNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var CurvedArrowShape = require( 'SCENERY_PHET/CurvedArrowShape' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+
+  /**
+   * Create curved arrow for button
+   * @param options
+   * @returns {Node}
+   */
+  var createCurvedArrow = function( options ) {
+    var node = new Node();
+
+    // variables for arrow and arc
+    var radius = 20;
+    var lineWidth = 2;
+    var arcStartAngle = -Math.PI * 0.92;
+    var arcEndAngle = -Math.PI * 0.15;
+
+    //arc
+    var shape = new Shape();
+    shape.moveTo( (radius + lineWidth / 2) * Math.cos( arcStartAngle ), (radius + lineWidth / 2) * Math.sin( arcStartAngle ) ); // Inner edge of end.
+    shape.arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
+    node.addChild( new Path( shape, {
+      stroke: '#000',
+      lineWidth: lineWidth
+    } ) );
+
+    //arrow
+    var arrow = new ArrowNode( 0, 0, 0, 5, {
+      headWidth: 5,
+      tailWidth: 0,
+      rotation: arcEndAngle,
+      x: (radius) * Math.cos( arcEndAngle ),
+      y: (radius + lineWidth / 2) * Math.sin( arcEndAngle )
+    } );
+    node.addChild( arrow );
+
+    node.mutate( options );
+    return node;
+  };
 
   /**
    * @param options
    * @constructor
    */
   function FlipMagnetButton( options ) {
-
-    var arrowRadius = 20;
-    var arcStartAngle = -Math.PI * 0.92;
-    var arcEndAngle = -Math.PI * 0.18;
-    var arrowShapeOptions = {
-      headWidth: 5,
-      headHeight: 5,
-      tailWidth: 0
-    };
-    var arrowPathOptions = {
-      stroke: '#000',
-      lineWidth: 2,
-      fill: '#000'
-    };
-
     var children = [
-      new Path( new CurvedArrowShape( arrowRadius, arcStartAngle, arcEndAngle, arrowShapeOptions ), arrowPathOptions ),
+      createCurvedArrow(),
       new MagnetNode( false /*flipped*/, {
         width: 74,
         height: 16,
         font: new PhetFont( 14 )
       } ),
-      new Path( new CurvedArrowShape( arrowRadius, arcStartAngle, arcEndAngle, arrowShapeOptions ), _.extend( {rotation: Math.PI}, arrowPathOptions ) )
+      createCurvedArrow( {rotation: Math.PI} )
     ];
-
 
     var contentNode = new VBox( {
       children: children,
@@ -58,10 +81,9 @@ define( function( require ) {
       baseColor: 'rgb(205,254,195)',
       minWidth: 118,
       minHeight: 65,
-      xTouchExpansion: 10,
-      yTouchExpansion: 10
+      xTouchExpansion:10,
+      yTouchExpansion:10
     }, options ) );
-
 
   }
 
