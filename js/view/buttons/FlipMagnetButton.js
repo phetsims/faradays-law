@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
@@ -17,7 +18,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   /**
    * Create curved arrow for button
@@ -29,9 +29,9 @@ define( function( require ) {
 
     // variables for arrow and arc
     var radius = 20;
-    var lineWidth = 2;
-    var arcStartAngle = -Math.PI * 0.92;
-    var arcEndAngle = -Math.PI * 0.15;
+    var lineWidth = 2.3;
+    var arcStartAngle = -Math.PI * 0.90;
+    var arcEndAngle = -Math.PI * 0.18;
 
     //arc
     var shape = new Shape();
@@ -42,15 +42,15 @@ define( function( require ) {
       lineWidth: lineWidth
     } ) );
 
-    //arrow
-    var arrow = new ArrowNode( 0, 0, 0, 5, {
-      headWidth: 5,
-      tailWidth: 0,
-      rotation: arcEndAngle,
-      x: (radius) * Math.cos( arcEndAngle ),
-      y: (radius + lineWidth / 2) * Math.sin( arcEndAngle )
-    } );
-    node.addChild( arrow );
+    // arrow head
+    var headShape = new Shape().moveTo( 0, 8 )
+                               .lineTo( 4, 0 )
+                               .lineTo( -4, 0 )
+                               .close();
+    headShape = headShape.transformed( Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) ).timesMatrix( Matrix3.rotation2( arcEndAngle ) ) );
+    node.addChild( new Path( headShape, {
+      fill: '#000'
+    } ) );
 
     node.mutate( options );
     return node;
@@ -68,7 +68,7 @@ define( function( require ) {
         height: 16,
         font: new PhetFont( 14 )
       } ),
-      createCurvedArrow( {rotation: Math.PI} )
+      createCurvedArrow( { rotation: Math.PI } )
     ];
 
     var contentNode = new VBox( {
@@ -81,8 +81,8 @@ define( function( require ) {
       baseColor: 'rgb(205,254,195)',
       minWidth: 118,
       minHeight: 65,
-      xTouchExpansion:10,
-      yTouchExpansion:10
+      xTouchExpansion: 10,
+      yTouchExpansion: 10
     }, options ) );
 
   }
