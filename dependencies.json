@@ -1,6 +1,6 @@
 {
   "chipper": {
-    "sha": "388c6f67013ee662c8a07eb70f340ba496996c1f",
+    "sha": "9cdce9583242bd8008d9511c5555106114ae896c",
     "branch": "master"
   },
   "vibe": {
@@ -16,7 +16,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "e867171adea6bfb7ec5fcfe78668c67b22a04e5b",
+    "sha": "97c48d4238cf17be0ec038fafe8587fc91517b99",
     "branch": "master"
   },
   "scenery": {
@@ -40,7 +40,7 @@
     "branch": "master"
   },
   "dot": {
-    "sha": "500ba1b9d16de1d069e921d5c64309acdac7e93d",
+    "sha": "78fa399bde69424d771b8b268b1afea29550222d",
     "branch": "master"
   },
   "brand": {
@@ -56,8 +56,8 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "16b8a3e2e6f9f324e2fb59f99cca0a2e9de00a56",
+    "sha": "9ee4516cc218bf0e6d7cb3479a82a67888de109c",
     "branch": "1.0"
   },
-  "comment": "# faradays-law 1.0.0-rc.2 Wed Oct 22 2014 11:27:02 GMT-0600 (Mountain Daylight Time)"
+  "comment": "# faradays-law 1.0.0-rc.3 Thu Oct 30 2014 22:39:33 GMT-0600 (Mountain Daylight Time)"
 }
