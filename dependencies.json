@@ -1,63 +1,63 @@
 {
   "chipper": {
     "sha": "9cdce9583242bd8008d9511c5555106114ae896c",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "vibe": {
     "sha": "1df0fd08d6c312b628e8f2006f8c7466d0ab1d7f",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "883cbc33dac82a7146c8bd4f66633097d9b62c4c",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "1ae2669e10ec9370721b64cc41bda78c14c3a0c1",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "97c48d4238cf17be0ec038fafe8587fc91517b99",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "267034d8a97d8cb3d9e30e9a1a2956f2b60de656",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "1bfd46f1f42c6cb305ba70f281d195211bc4ac00",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "f85bb6811986ce5d9cc0b3cfae7f258b02557701",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "c262daa0938f79862e5ef5cf6780197091d9b6d6",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "joist": {
     "sha": "7f13613a077b9a6783d89d1bc2ec9ac6ae1325e7",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "78fa399bde69424d771b8b268b1afea29550222d",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "8be52066aa533f58f118abd34d73f2609c844d48",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "37c22f512524abfd3b4e4b15825d59a3546f8782",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "assert": {
     "sha": "e4595f5eae375c15fa9aaba9511c52dbc1b0f2c6",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "dc3fe8e9bb3b5096fc85cbf07190e86384c355e2",
+    "sha": "c8de302f7591b169451c98fa795691e8b1904071",
     "branch": "1.0"
   },
-  "comment": "# faradays-law 1.0.0 Fri Oct 31 2014 09:57:09 GMT-0600 (Mountain Daylight Time)"
+  "comment": "# faradays-law 1.0.1 Sun Nov 02 2014 00:37:11 GMT-0600 (Mountain Daylight Time)"
 }
