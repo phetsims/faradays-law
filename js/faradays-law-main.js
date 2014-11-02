@@ -15,7 +15,13 @@ define( function( require ) {
   var simTitle = require( 'string!FARADAYS_LAW/faradays-law.name' );
 
   var simOptions = {
-    credits: {}
+    credits: {
+      leadDesign: 'Michael Dubson, Bryce Gruneich',
+      softwareDevelopment: 'John Blanco, Jonathan Olson',
+      team: 'Michael Dubson, Ariel Paul, Kathy Perkins, Amy Rouinfar',
+      thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
+              'to convert this simulation to HTML5.'
+    }
   };
 
   //Create and start the sim
