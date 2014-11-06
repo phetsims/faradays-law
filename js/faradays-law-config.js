@@ -23,7 +23,6 @@ require.config( {
     DOT: '../../dot/js',
     JOIST: '../../joist/js',
     KITE: '../../kite/js',
-    NITROGLYCERIN: '../../nitroglycerin/js',
     PHETCOMMON: '../../phetcommon/js',
     PHET_CORE: '../../phet-core/js',
     SCENERY: '../../scenery/js',
