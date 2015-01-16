@@ -44,7 +44,7 @@ define( function( require ) {
     } ) );
 
     this.addChild( new HBox( {
-      children: [showTwoCoilsButton, showFourCoilsButton],
+      children: [ showTwoCoilsButton, showFourCoilsButton ],
       spacing: 18
     } ) );
 

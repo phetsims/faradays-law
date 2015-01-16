@@ -36,7 +36,7 @@ define( function( require ) {
       right: model.width - 10,
       bottom: 0,
       scale: 0.75,
-      touchExpansion:10
+      touchExpansion: 10
     } ) );
 
     // flip magnet button
@@ -55,11 +55,11 @@ define( function( require ) {
     } ) );
 
     // show field lines
-    var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, {font: new PhetFont( 16 )} ), model.magnetModel.showFieldLinesProperty, {
+    var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
       x: 174,
       centerY: self.centerY
     } );
-    showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated(8);
+    showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );
 
     this.bottom = model.height - 10;

@@ -80,7 +80,7 @@ define( function( require ) {
    * @constructor
    */
   function MagnetNode( flipped, options ) {
-    Node.call( this, {cursor: 'pointer'} );
+    Node.call( this, { cursor: 'pointer' } );
 
     // options of magnetNode
     options = _.extend( {

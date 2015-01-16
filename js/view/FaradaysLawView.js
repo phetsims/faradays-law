@@ -87,7 +87,6 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
   }
 
-  return inherit( ScreenView, FaradaysLawView, {
-  } );
+  return inherit( ScreenView, FaradaysLawView, {} );
 } )
 ;

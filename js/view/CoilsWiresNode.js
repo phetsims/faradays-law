@@ -42,10 +42,10 @@ define( function( require ) {
       aligner.bottomCoilEndPositions.bottomEnd  // bottom coil, left bottom wire, coils end
     ];
     this.addChild( new Path( new Shape()
-      .moveTo( keyPoints[0].x, keyPoints[0].y )
-      .lineTo( keyPoints[1].x, keyPoints[1].y - ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[1].x, keyPoints[1].y, keyPoints[1].x + ARC_RADIUS, keyPoints[1].y )
-      .lineTo( keyPoints[2].x, keyPoints[2].y ), {
+      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
+      .lineTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y - ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y, keyPoints[ 1 ].x + ARC_RADIUS, keyPoints[ 1 ].y )
+      .lineTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
@@ -57,10 +57,10 @@ define( function( require ) {
       aligner.bottomCoilEndPositions.topEnd  // bottom coil, right top wire, coils end
     ];
     this.addChild( new Path( new Shape()
-      .moveTo( keyPoints[0].x, keyPoints[0].y )
-      .lineTo( keyPoints[1].x, keyPoints[1].y - ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[1].x, keyPoints[1].y, keyPoints[1].x + ARC_RADIUS, keyPoints[1].y )
-      .lineTo( keyPoints[2].x, keyPoints[2].y ), {
+      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
+      .lineTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y - ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y, keyPoints[ 1 ].x + ARC_RADIUS, keyPoints[ 1 ].y )
+      .lineTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } ) );
@@ -78,12 +78,12 @@ define( function( require ) {
       aligner.topCoilEndPositions.topEnd // top coil, top wire end
     ];
     var topCoilsWire1 = new Path( new Shape()
-      .moveTo( keyPoints[0].x, keyPoints[0].y )
-      .lineTo( keyPoints[1].x - ARC_RADIUS, keyPoints[1].y )
-      .quadraticCurveTo( keyPoints[1].x, keyPoints[1].y, keyPoints[1].x, keyPoints[1].y - ARC_RADIUS )
-      .lineTo( keyPoints[2].x, keyPoints[2].y + ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[2].x, keyPoints[2].y, keyPoints[2].x + ARC_RADIUS, keyPoints[2].y )
-      .lineTo( keyPoints[3].x, keyPoints[3].y ), {
+      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
+      .lineTo( keyPoints[ 1 ].x - ARC_RADIUS, keyPoints[ 1 ].y )
+      .quadraticCurveTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y, keyPoints[ 1 ].x, keyPoints[ 1 ].y - ARC_RADIUS )
+      .lineTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y + ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y, keyPoints[ 2 ].x + ARC_RADIUS, keyPoints[ 2 ].y )
+      .lineTo( keyPoints[ 3 ].x, keyPoints[ 3 ].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } );
@@ -101,14 +101,14 @@ define( function( require ) {
       aligner.topCoilEndPositions.bottomEnd // top coil, bottom wire end
     ];
     var topCoilsWire2 = new Path( new Shape()
-      .moveTo( keyPoints[0].x, keyPoints[0].y )
-      .lineTo( keyPoints[1].x - ARC_RADIUS, keyPoints[1].y )
-      .arc( keyPoints[1].x, keyPoints[1].y, ARC_RADIUS, Math.PI, 0, true )
-      .lineTo( keyPoints[2].x - ARC_RADIUS, keyPoints[2].y )
-      .quadraticCurveTo( keyPoints[2].x, keyPoints[2].y, keyPoints[2].x, keyPoints[2].y - ARC_RADIUS )
-      .lineTo( keyPoints[3].x, keyPoints[3].y + ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[3].x, keyPoints[3].y, keyPoints[3].x + ARC_RADIUS, keyPoints[3].y )
-      .lineTo( keyPoints[4].x, keyPoints[4].y ), {
+      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
+      .lineTo( keyPoints[ 1 ].x - ARC_RADIUS, keyPoints[ 1 ].y )
+      .arc( keyPoints[ 1 ].x, keyPoints[ 1 ].y, ARC_RADIUS, Math.PI, 0, true )
+      .lineTo( keyPoints[ 2 ].x - ARC_RADIUS, keyPoints[ 2 ].y )
+      .quadraticCurveTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y, keyPoints[ 2 ].x, keyPoints[ 2 ].y - ARC_RADIUS )
+      .lineTo( keyPoints[ 3 ].x, keyPoints[ 3 ].y + ARC_RADIUS )
+      .quadraticCurveTo( keyPoints[ 3 ].x, keyPoints[ 3 ].y, keyPoints[ 3 ].x + ARC_RADIUS, keyPoints[ 3 ].y )
+      .lineTo( keyPoints[ 4 ].x, keyPoints[ 4 ].y ), {
       stroke: wireColor,
       lineWidth: wireWidth
     } );

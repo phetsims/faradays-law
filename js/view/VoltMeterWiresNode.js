@@ -45,11 +45,11 @@ define( function( require ) {
       .addColorStop( 1, baseColor.colorUtilsDarker( 0.5 ) );
 
     // base circle with white gradient
-    var baseCircle = new Circle( radius, {fill: highlightFill} );
+    var baseCircle = new Circle( radius, { fill: highlightFill } );
     pad.addChild( baseCircle );
 
     // black gradient
-    var overlayForShadowGradient = new Circle( radius, {fill: shadowFill} );
+    var overlayForShadowGradient = new Circle( radius, { fill: shadowFill } );
     pad.addChild( overlayForShadowGradient );
 
     pad.mutate( options );

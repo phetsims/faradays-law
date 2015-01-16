@@ -110,7 +110,7 @@ define( function( require ) {
      */
     intersectionWithSecondCoil: function() {
       var magnetBounds = Bounds2.point( this.magnetModel.position ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
-      return magnetBounds.intersectsBounds( this.restricted[1] ) || magnetBounds.intersectsBounds( this.restricted[0] );
+      return magnetBounds.intersectsBounds( this.restricted[ 1 ] ) || magnetBounds.intersectsBounds( this.restricted[ 0 ] );
     },
 
     /**
@@ -122,13 +122,13 @@ define( function( require ) {
         Math.min( position.y, this.magnetModel.position.y ),
         Math.max( position.x, this.magnetModel.position.x ),
         Math.max( position.y, this.magnetModel.position.y )
-      ).dilatedXY( this.magnetModel.width / 2-1, this.magnetModel.height / 2-1 );
+      ).dilatedXY( this.magnetModel.width / 2 - 1, this.magnetModel.height / 2 - 1 );
 
       //check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
         var i = this.showSecondCoil ? 0 : 2; // if first coil not visible, check only second coil restrictions
         for ( ; i < this.restricted.length; i++ ) {
-          var restricted = this.restricted[i];
+          var restricted = this.restricted[ i ];
           if ( magnetBounds.intersectsBounds( restricted ) ) {
             //extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
             var movingDelta = position.minus( this.magnetModel.position );

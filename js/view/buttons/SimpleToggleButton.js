@@ -63,7 +63,7 @@ define( function( require ) {
     contentNode.scale( scaleFactor );
     contentNode.center = new Vector2( 0, 0 );
 
-    this.touchArea = this.localBounds.dilated(8);
+    this.touchArea = this.localBounds.dilated( 8 );
 
     targetProperty.link( function( value ) {
       if ( value !== onValue ) {

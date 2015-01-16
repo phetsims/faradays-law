@@ -44,9 +44,9 @@ define( function( require ) {
 
     // arrow head
     var headShape = new Shape().moveTo( 0, 8 )
-                               .lineTo( 4, 0 )
-                               .lineTo( -4, 0 )
-                               .close();
+      .lineTo( 4, 0 )
+      .lineTo( -4, 0 )
+      .close();
     headShape = headShape.transformed( Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) ).timesMatrix( Matrix3.rotation2( arcEndAngle ) ) );
     node.addChild( new Path( headShape, {
       fill: '#000'

@@ -26,7 +26,7 @@ define( function( require ) {
   var fourLoopBackSmallImage = require( 'image!FARADAYS_LAW/images/four-loop-back-small.png' );
 
   var imageMap = {};
-  imageMap[CoilTypeEnum.TWO_COIL] = {
+  imageMap[ CoilTypeEnum.TWO_COIL ] = {
     frontImage: {
       normal: twoLoopFrontImage,
       small: twoLoopFrontSmallImage
@@ -36,7 +36,7 @@ define( function( require ) {
       small: twoLoopBackSmallImage
     }
   };
-  imageMap[CoilTypeEnum.FOUR_COIL] = {
+  imageMap[ CoilTypeEnum.FOUR_COIL ] = {
     frontImage: {
       normal: fourLoopFrontImage,
       small: fourLoopFrontSmallImage
@@ -49,11 +49,11 @@ define( function( require ) {
 
   // each coil have 2 ends, coordinates of each end relative to center of the coil
   var coilEndCoordinatesMap = {};
-  coilEndCoordinatesMap[CoilTypeEnum.TWO_COIL] = {
+  coilEndCoordinatesMap[ CoilTypeEnum.TWO_COIL ] = {
     topEnd: new Vector2( 30, -10 ),
     bottomEnd: new Vector2( 60, 6 )
   };
-  coilEndCoordinatesMap[CoilTypeEnum.FOUR_COIL] = {
+  coilEndCoordinatesMap[ CoilTypeEnum.FOUR_COIL ] = {
     topEnd: new Vector2( 0, -10 ),
     bottomEnd: new Vector2( 70, 6 )
   };
@@ -74,7 +74,7 @@ define( function( require ) {
 
     var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
-    this.backImage = new Image( imageMap[coilType].backImage[sizeField], {
+    this.backImage = new Image( imageMap[ coilType ].backImage[ sizeField ], {
       centerX: xOffset,
       centerY: 0,
       scale: sizeScale / 3
@@ -83,14 +83,14 @@ define( function( require ) {
 
     // In FaradaysLawView front image detached from this Node and appended to front layer
     // because front of coil must be over magnet and backImage must be under it.
-    this.frontImage = new Image( imageMap[coilType].frontImage[sizeField], {
+    this.frontImage = new Image( imageMap[ coilType ].frontImage[ sizeField ], {
       centerX: xOffset,
       centerY: 0,
       scale: sizeScale / 3
     } );
     this.addChild( this.frontImage );
 
-    this.endRelativePositions = coilEndCoordinatesMap[coilType];
+    this.endRelativePositions = coilEndCoordinatesMap[ coilType ];
 
     this.mutate( options );
   }

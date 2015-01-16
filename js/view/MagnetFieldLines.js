@@ -20,10 +20,10 @@ define( function( require ) {
 
   // describes ellipse lines properties (sizes + arrows)
   var LINE_DESCRIPTION = [
-    {a: 600, b: 300, arrowPositions: [Math.PI / 3.5, Math.PI - Math.PI / 3.5]},
-    {a: 350, b: 125, arrowPositions: [Math.PI / 7, Math.PI - Math.PI / 7]},
-    {a: 180, b: 50, arrowPositions: [-Math.PI / 2]},
-    {a: 90, b: 25, arrowPositions: [-Math.PI / 2]}
+    { a: 600, b: 300, arrowPositions: [ Math.PI / 3.5, Math.PI - Math.PI / 3.5 ] },
+    { a: 350, b: 125, arrowPositions: [ Math.PI / 7, Math.PI - Math.PI / 7 ] },
+    { a: 180, b: 50, arrowPositions: [ -Math.PI / 2 ] },
+    { a: 90, b: 25, arrowPositions: [ -Math.PI / 2 ] }
   ];
 
   /**
@@ -33,9 +33,9 @@ define( function( require ) {
    */
   var createArrow = function( options ) {
     return new Path( new Shape()
-      .moveTo( -ARROW_WIDTH, -ARROW_HEIGHT / 2 )
-      .lineTo( 0, 0 )
-      .lineTo( -ARROW_WIDTH, ARROW_HEIGHT / 2 ), {
+        .moveTo( -ARROW_WIDTH, -ARROW_HEIGHT / 2 )
+        .lineTo( 0, 0 )
+        .lineTo( -ARROW_WIDTH, ARROW_HEIGHT / 2 ), {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       }

@@ -52,7 +52,7 @@ define( function( require ) {
       this.BLast = this.B;
     },
     // Calculate magnetic field with current magnet position
-    calculateB : function() {
+    calculateB: function() {
       var rSquared = this.position.distanceSquared( this.magnetModel.position ) / (this.A * this.A);  // normalized squared distance from coil to magnet
 
       if ( rSquared < 1 ) {  //if magnet is very close to coil, then B field is at max value;

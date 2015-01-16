@@ -6,7 +6,7 @@
  */
 require.config( {
 
-  deps: ['faradays-law-main'],
+  deps: [ 'faradays-law-main' ],
 
   paths: {
 
