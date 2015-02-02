@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var MagnetNode = require( 'FARADAYS_LAW/view/MagnetNode' );
+  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var MagnetFieldLines = require( 'FARADAYS_LAW/view/MagnetFieldLines' );
+  var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
 
   // Create single MagnetNode View
   var createMagnetNode = function( magnetModel ) {

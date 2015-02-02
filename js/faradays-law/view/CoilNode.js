@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
+  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // images

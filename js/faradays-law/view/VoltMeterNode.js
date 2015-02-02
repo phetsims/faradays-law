@@ -16,7 +16,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var VoltMeterScale = require( 'FARADAYS_LAW/view/VoltMeterScale' );
+  var VoltMeterScale = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterScale' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );

@@ -11,11 +11,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var CoilNode = require( 'FARADAYS_LAW/view/CoilNode' );
-  var CoilTypeEnum = require( 'FARADAYS_LAW/view/CoilTypeEnum' );
+  var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
+  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var SimpleToggleButton = require( 'FARADAYS_LAW/view/buttons/SimpleToggleButton' );
+  var SimpleToggleButton = require( 'FARADAYS_LAW/faradays-law/view/buttons/SimpleToggleButton' );
 
   /**
    * @param showSecondCoilProperty - boolean property

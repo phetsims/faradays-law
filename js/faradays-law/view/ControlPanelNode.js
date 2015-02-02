@@ -15,8 +15,8 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var FlipMagnetButton = require( 'FARADAYS_LAW/view/buttons/FlipMagnetButton' );
-  var ShowCoilsButtonGroup = require( 'FARADAYS_LAW/view/buttons/ShowCoilsButtonGroup' );
+  var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/buttons/FlipMagnetButton' );
+  var ShowCoilsButtonGroup = require( 'FARADAYS_LAW/faradays-law/view/buttons/ShowCoilsButtonGroup' );
 
   // strings
   var showFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );

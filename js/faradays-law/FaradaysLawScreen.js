@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FaradaysLawConstants = require( 'FARADAYS_LAW/FaradaysLawConstants' );
-  var FaradaysLawView = require( 'FARADAYS_LAW/view/FaradaysLawView' );
-  var FaradaysLawModel = require( 'FARADAYS_LAW/model/FaradaysLawModel' );
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  var FaradaysLawView = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawView' );
+  var FaradaysLawModel = require( 'FARADAYS_LAW/faradays-law/model/FaradaysLawModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
 

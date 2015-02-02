@@ -7,7 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FaradaysLawScreen = require( 'FARADAYS_LAW/FaradaysLawScreen' );
+  var FaradaysLawScreen = require( 'FARADAYS_LAW/faradays-law/FaradaysLawScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 

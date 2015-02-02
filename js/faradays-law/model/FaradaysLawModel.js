@@ -11,9 +11,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var CoilModel = require( 'FARADAYS_LAW/model/CoilModel' );
-  var MagnetModel = require( 'FARADAYS_LAW/model/MagnetModel' );
-  var VoltMeterModel = require( 'FARADAYS_LAW/model/VoltMeterModel' );
+  var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
+  var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
+  var VoltMeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltMeterModel' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   /**
