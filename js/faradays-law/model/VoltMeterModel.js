@@ -12,6 +12,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
+  // constants
+  var ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
+
   /**
    * @param faradaysLawModel - simulation model
    * @constructor
@@ -46,6 +49,16 @@ define( function( require ) {
       var omegaTemp = this.omega + this.alpha * dt;
       var alphaTemp = this.D * (this.signal - this.C * this.theta) - this.B * omegaTemp;
       this.omega = this.omega + 0.5 * dt * (this.alpha + alphaTemp); //angular velocity
+
+      // Clamp the needle angle when its position, velocity, and acceleration go below a threshold so that it doesn't
+      // oscillate forever.
+      if ( Math.abs( this.alpha ) !== 0 && Math.abs( this.alpha ) < ACTIVITY_THRESHOLD &&
+           Math.abs( this.omega ) !== 0 && Math.abs( this.omega ) < ACTIVITY_THRESHOLD &&
+           Math.abs( this.theta ) !== 0 && Math.abs( this.theta ) < ACTIVITY_THRESHOLD ) {
+        this.theta = 0;
+        this.omega = 0;
+        this.alpha = 0;
+      }
     }
   } );
 } );
