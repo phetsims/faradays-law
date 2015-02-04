@@ -32,5 +32,6 @@ require.config( {
     FARADAYS_LAW: '.'
   },
 
-  urlArgs: new Date().getTime()  // cache buster to make browser refresh load all included scripts
+  // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false
+  urlArgs: phet.phetcommon.getCacheBusterArgs()
 } );
