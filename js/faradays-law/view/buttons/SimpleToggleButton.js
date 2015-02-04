@@ -26,7 +26,7 @@ define( function( require ) {
    */
   var SimpleToggleButton = function( targetProperty, onValue, contentNode, options ) {
     var self = this;
-    Node.call( this );
+    Node.call( this, { focusable: true } );
 
     options = _.extend( {
       width: 75,
