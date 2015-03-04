@@ -29,7 +29,6 @@ define( function( require ) {
    */
   function FaradaysLawView( model ) {
     ScreenView.call( this, {
-      renderer: 'svg',
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
 
