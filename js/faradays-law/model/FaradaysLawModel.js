@@ -31,7 +31,7 @@ define( function( require ) {
 
     PropertySet.call( this, {
       showSecondCoil: false, // number of coils - 1 or 2
-      showCoilArrows: true
+      showMagnetArrows: true
     } );
 
     this.timeInterval = 0; //time since last model step

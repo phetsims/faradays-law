@@ -73,7 +73,7 @@ define( function( require ) {
     magnetLeftArrow.touchArea = magnetLeftArrow.localBounds.dilated( 6 );
 
     // update the arrow visibility as needed
-    var arrowsVisible = model.showCoilArrowsProperty;
+    var arrowsVisible = model.showMagnetArrowsProperty;
     arrowsVisible.link( function() {
       var visible = arrowsVisible.get();
       magnetTopArrow.visible = visible;
