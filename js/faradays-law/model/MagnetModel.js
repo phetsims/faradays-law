@@ -30,6 +30,10 @@ define( function( require ) {
       position: new Vector2( x, y ),
       flipped: false, //is magnet flipped
       showFieldLines: false // show field lines for magnet
+    }, {
+      componentIDMap: {
+        position: 'faradaysLawScreen.magnet.position'
+      }
     } );
   }
 
