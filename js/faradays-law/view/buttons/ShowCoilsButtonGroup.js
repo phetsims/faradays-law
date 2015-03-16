@@ -31,8 +31,11 @@ define( function( require ) {
         new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
       ],
       spacing: 10,
-      align: 'left'
-    } ) );
+      align: 'left',
+
+    } ), {
+      componentID: 'faradaysLawScreen.oneCoilRadioButton'
+    } );
 
     var showFourCoilsButton = new SimpleToggleButton( showSecondCoilProperty, true, new VBox( {
       children: [
@@ -41,7 +44,10 @@ define( function( require ) {
       ],
       spacing: 10,
       align: 'left'
-    } ) );
+
+    } ), {
+      componentID: 'faradaysLawScreen.twoCoilsRadioButton'
+    } );
 
     this.addChild( new HBox( {
       children: [ showTwoCoilsButton, showFourCoilsButton ],
