@@ -32,6 +32,10 @@ define( function( require ) {
     PropertySet.call( this, {
       showSecondCoil: false, // number of coils - 1 or 2
       showMagnetArrows: true
+    }, {
+      componentIDMap: {
+        showSecondCoil: 'faradaysLawScreen.showSecondCoil'
+      }
     } );
 
     this.timeInterval = 0; //time since last model step

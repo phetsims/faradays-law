@@ -36,7 +36,8 @@ define( function( require ) {
       margin: 10,
       deselectedLineWidth: 1,
       borderRadius: 5,
-      fill: '#cdd5f6'
+      fill: '#cdd5f6',
+      componentID: null
     }, options );
 
     var background = new Rectangle( 0, 0, options.width, options.height, options.borderRadius, options.borderRadius, {
@@ -80,7 +81,9 @@ define( function( require ) {
 
     this.addInputListener( new ButtonListener( {
       fire: function() {
+        var archID = arch && arch.start( 'user', options.componentID, 'fire' );
         targetProperty.value = onValue;
+        arch && arch.end( archID );
       }
     } ) );
   };

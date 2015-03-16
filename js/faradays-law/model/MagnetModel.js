@@ -32,7 +32,9 @@ define( function( require ) {
       showFieldLines: false // show field lines for magnet
     }, {
       componentIDMap: {
-        position: 'faradaysLawScreen.magnet.position'
+        position: 'faradaysLawScreen.magnet.position',
+        showFieldLines: 'faradaysLawScreen.showFieldLines',
+        flipped: 'faradaysLawScreen.magnet.flipped'
       }
     } );
   }

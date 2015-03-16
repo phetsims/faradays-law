@@ -29,11 +29,21 @@ define( function( require ) {
   var ComboBoxListItem = togetherTypes.ComboBoxListItem;
   var Color = togetherTypes.Color;
   var Node = togetherTypes.Node;
+  var CheckBox = togetherTypes.CheckBox;
+  var Boolean = togetherTypes.Boolean;
 
   // Use explicit names for id keys so they will match what researchers see in data files
   // Use id and type instead of componentID and typeID to simplify things for researchers
   // Use a map so that JS will help us check that there are no duplicate names.
   return togetherTypes.createSingleScreen( {
-    'faradaysLawScreen.magnet.position': { type: property( Vector2 ) }
+    'faradaysLawScreen.magnet.position': { type: property( Vector2 ) },
+    'faradaysLawScreen.showFieldCheckBox': { type: CheckBox },
+    'faradaysLawScreen.showFieldLines': { type: property( Boolean ) },
+    'faradaysLawScreen.oneCoilRadioButton': { type: RadioButton },
+    'faradaysLawScreen.twoCoilsRadioButton': { type: RadioButton },
+    'faradaysLawScreen.showSecondCoil': { type: property( Boolean ) },
+    'faradaysLawScreen.flipMagnetButton': { type: Button },
+    'faradaysLawScreen.magnet.flipped': { type: property( Boolean ) },
+    'faradaysLawScreen.resetAllButton': { type: ResetAllButton }
   } );
 } );
