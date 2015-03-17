@@ -21,14 +21,8 @@ define( function( require ) {
   var Button = togetherTypes.Button;
   var property = togetherTypes.property;
   var Vector2 = togetherTypes.Vector2;
-  var Slider = togetherTypes.Slider;
-  var Faucet = togetherTypes.Faucet;
   var ResetAllButton = togetherTypes.ResetAllButton;
   var RadioButton = togetherTypes.RadioButton;
-  var ComboBox = togetherTypes.ComboBox;
-  var ComboBoxListItem = togetherTypes.ComboBoxListItem;
-  var Color = togetherTypes.Color;
-  var Node = togetherTypes.Node;
   var CheckBox = togetherTypes.CheckBox;
   var Boolean = togetherTypes.Boolean;
 
