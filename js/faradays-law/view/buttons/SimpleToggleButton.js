@@ -39,6 +39,7 @@ define( function( require ) {
       fill: '#cdd5f6',
       componentID: null
     }, options );
+    this.componentID = options.componentID;
 
     var background = new Rectangle( 0, 0, options.width, options.height, options.borderRadius, options.borderRadius, {
       fill: options.fill,
@@ -86,6 +87,8 @@ define( function( require ) {
         arch && arch.end( archID );
       }
     } ) );
+
+    together && together.addComponent( this );
   };
 
   return inherit( Node, SimpleToggleButton );
