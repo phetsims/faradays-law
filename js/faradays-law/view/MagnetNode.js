@@ -121,5 +121,4 @@ define( function( require ) {
   }
 
   return inherit( Node, MagnetNode );
-} )
-;
+} );
