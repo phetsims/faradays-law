@@ -82,7 +82,7 @@ define( function( require ) {
 
     this.addInputListener( new ButtonListener( {
       fire: function() {
-        var messageIndex = arch && arch.start( 'user', options.componentID, 'fire' );
+        var messageIndex = arch && arch.start( 'user', options.componentID, 'fired' );
         targetProperty.value = onValue;
         arch && arch.end( messageIndex );
       }
