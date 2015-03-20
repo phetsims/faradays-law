@@ -25,6 +25,7 @@ define( function( require ) {
   var RadioButton = togetherTypes.RadioButton;
   var CheckBox = togetherTypes.CheckBox;
   var Boolean = togetherTypes.Boolean;
+  var DraggableNode = togetherTypes.DraggableNode;
 
   // Use explicit names for id keys so they will match what researchers see in data files
   // Use id and type instead of componentID and typeID to simplify things for researchers
@@ -38,6 +39,7 @@ define( function( require ) {
     'faradaysLawScreen.showSecondCoil': { type: property( Boolean ) },
     'faradaysLawScreen.flipMagnetButton': { type: Button },
     'faradaysLawScreen.magnet.flipped': { type: property( Boolean ) },
-    'faradaysLawScreen.resetAllButton': { type: ResetAllButton }
+    'faradaysLawScreen.resetAllButton': { type: ResetAllButton },
+    'faradaysLawScreen.magnet': { type: DraggableNode }
   } );
 } );

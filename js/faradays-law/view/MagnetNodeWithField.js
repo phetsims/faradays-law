@@ -88,6 +88,7 @@ define( function( require ) {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
+        var messageID = arch && arch.start( 'user', self.componentID, 'dragStarted' );
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
@@ -95,16 +96,25 @@ define( function( require ) {
         if ( event.target !== magnetTopArrow && event.target !== magnetBottomArrow && event.target !== magnetRightArrow && event.target !== magnetLeftArrow ) {
           arrowsVisible.set( false );
         }
+
+        arch && arch.end( messageID );
       },
       end: function() {
+        var messageID = arch && arch.start( 'user', self.componentID, 'dragEnded' );
         // arrows always are turned invisible when the user stops dragging the magnet
         arrowsVisible.set( false );
+
+        arch && arch.end( messageID );
       },
       //Translate on drag events
       drag: function( event ) {
+        var messageID = arch && arch.start( 'user', self.componentID, 'dragged' );
+
         var point = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = point.copy().subtract( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
+
+        arch && arch.end( messageID );
       }
     } );
     draggableNode.addInputListener( magnetDragHandler );
@@ -119,6 +129,9 @@ define( function( require ) {
     model.magnetModel.positionProperty.link( function( position ) {
       self.translation = position;
     } );
+
+    this.componentID = 'faradaysLawScreen.magnet';
+    together && together.addComponent( this );
   }
 
   return inherit( Node, MagnetNodeWithField );
