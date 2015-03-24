@@ -32,7 +32,7 @@ define( function( require ) {
    * @param height - height of Magnet
    * @param label - label on half of magnet
    * @param backgroundColor
-   * @param options
+   * @param {Object} [options]
    * @returns {Node}
    */
   var drawHalfMagnetNode = function( width, height, label, backgroundColor, options ) {
@@ -76,7 +76,7 @@ define( function( require ) {
   /**
    *
    * @param flipped - is magnet flipped
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function MagnetNode( flipped, options ) {

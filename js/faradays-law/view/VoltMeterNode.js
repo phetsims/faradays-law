@@ -36,7 +36,7 @@ define( function( require ) {
 
   /**
    * @param needleAngleProperty - angle of needle in voltmeter
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function VoltMeterNode( needleAngleProperty, options ) {

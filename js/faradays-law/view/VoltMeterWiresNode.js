@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    * Creates measure pad.
-   * @param options
+   * @param {Object} [options]
    * @returns {Node}
    */
   var createPad = function( options ) {

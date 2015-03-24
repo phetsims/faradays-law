@@ -33,7 +33,7 @@ define( function( require ) {
   /**
    *
    * @param needleAngleProperty - value of voltage meter.
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function BulbNode( needleAngleProperty, options ) {

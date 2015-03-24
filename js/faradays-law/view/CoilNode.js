@@ -62,7 +62,7 @@ define( function( require ) {
   /**
    *
    * @param coilType - determines which picture must we add to show coil
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function CoilNode( coilType, options ) {

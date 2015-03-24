@@ -21,7 +21,7 @@ define( function( require ) {
    * @param targetProperty - property to link value of button
    * @param onValue - value of targetProperty, when button is 'on'
    * @param contentNode
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   var SimpleToggleButton = function( targetProperty, onValue, contentNode, options ) {
