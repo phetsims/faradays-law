@@ -10,7 +10,6 @@ define( function( require ) {
   var FaradaysLawScreen = require( 'FARADAYS_LAW/faradays-law/FaradaysLawScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
-  var faradaysLawTogetherAPI = require( 'FARADAYS_LAW/faradays-law-together-api' );
 
   // strings
   var simTitle = require( 'string!FARADAYS_LAW/faradays-law.name' );
@@ -22,8 +21,7 @@ define( function( require ) {
       team: 'Michael Dubson, Ariel Paul, Kathy Perkins, Amy Rouinfar',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
-    },
-    togetherAPI: faradaysLawTogetherAPI
+    }
   };
 
   //Create and start the sim
