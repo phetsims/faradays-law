@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    * @param showSecondCoilProperty - boolean property
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   var ShowCoilsButton = function( showSecondCoilProperty, options ) {

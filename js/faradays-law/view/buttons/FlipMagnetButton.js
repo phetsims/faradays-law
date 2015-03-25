@@ -21,7 +21,7 @@ define( function( require ) {
 
   /**
    * Create curved arrow for button
-   * @param options
+   * @param {Object} [options]
    * @returns {Node}
    */
   var createCurvedArrow = function( options ) {
@@ -57,7 +57,7 @@ define( function( require ) {
   };
 
   /**
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function FlipMagnetButton( options ) {

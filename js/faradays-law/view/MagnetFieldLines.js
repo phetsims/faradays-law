@@ -28,7 +28,7 @@ define( function( require ) {
 
   /**
    * Create single arrow
-   * @param options
+   * @param {Object} [options]
    * @returns {Path}
    */
   var createArrow = function( options ) {
@@ -48,7 +48,7 @@ define( function( require ) {
    * @param b - minor axis of ellipse
    * @param arrowPositions - array of angle positions of arrows on ellipse
    * @param flippedProperty - is magnet flipped
-   * @param options
+   * @param {Object} [options]
    * @returns {Node}
    */
   var createArcWithArrow = function( a, b, arrowPositions, flippedProperty, options ) {
