@@ -31,7 +31,7 @@ define( function( require ) {
       flipped: false, //is magnet flipped
       showFieldLines: false // show field lines for magnet
     }, {
-      componentIDMap: {
+      togetherIDMap: {
         position: 'faradaysLawScreen.magnet.position',
         showFieldLines: 'faradaysLawScreen.showFieldLines',
         flipped: 'faradaysLawScreen.magnet.flipped'

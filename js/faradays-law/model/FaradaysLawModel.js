@@ -33,7 +33,7 @@ define( function( require ) {
       showSecondCoil: false, // number of coils - 1 or 2
       showMagnetArrows: true
     }, {
-      componentIDMap: {
+      togetherIDMap: {
         showSecondCoil: 'faradaysLawScreen.showSecondCoil'
       }
     } );
