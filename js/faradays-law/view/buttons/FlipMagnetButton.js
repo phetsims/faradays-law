@@ -83,7 +83,7 @@ define( function( require ) {
       minHeight: 65,
       xTouchExpansion: 10,
       yTouchExpansion: 10,
-      componentID: 'faradaysLawScreen.flipMagnetButton'
+      togetherID: 'faradaysLawScreen.flipMagnetButton'
     }, options ) );
 
   }

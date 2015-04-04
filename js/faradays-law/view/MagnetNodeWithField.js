@@ -88,7 +88,7 @@ define( function( require ) {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
-        var messageID = arch && arch.start( 'user', self.componentID, 'dragStarted' );
+        var messageID = arch && arch.start( 'user', self.togetherID, 'dragStarted' );
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
@@ -100,7 +100,7 @@ define( function( require ) {
         arch && arch.end( messageID );
       },
       end: function() {
-        var messageID = arch && arch.start( 'user', self.componentID, 'dragEnded' );
+        var messageID = arch && arch.start( 'user', self.togetherID, 'dragEnded' );
         // arrows always are turned invisible when the user stops dragging the magnet
         arrowsVisible.set( false );
 
@@ -108,7 +108,7 @@ define( function( require ) {
       },
       //Translate on drag events
       drag: function( event ) {
-        var messageID = arch && arch.start( 'user', self.componentID, 'dragged' );
+        var messageID = arch && arch.start( 'user', self.togetherID, 'dragged' );
 
         var point = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = point.copy().subtract( magnetOffset );
@@ -130,7 +130,7 @@ define( function( require ) {
       self.translation = position;
     } );
 
-    this.componentID = 'faradaysLawScreen.magnet';
+    this.togetherID = 'faradaysLawScreen.magnet';
     together && together.addComponent( this );
   }
 
