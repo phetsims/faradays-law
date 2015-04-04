@@ -33,7 +33,7 @@ define( function( require ) {
       spacing: 10,
       align: 'left'
     } ), {
-      componentID: 'faradaysLawScreen.oneCoilRadioButton'
+      togetherID: 'faradaysLawScreen.oneCoilRadioButton'
     } );
 
     var showFourCoilsButton = new SimpleToggleButton( showSecondCoilProperty, true, new VBox( {
@@ -44,7 +44,7 @@ define( function( require ) {
       spacing: 10,
       align: 'left'
     } ), {
-      componentID: 'faradaysLawScreen.twoCoilsRadioButton'
+      togetherID: 'faradaysLawScreen.twoCoilsRadioButton'
     } );
 
     this.addChild( new HBox( {

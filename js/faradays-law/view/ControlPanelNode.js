@@ -37,7 +37,7 @@ define( function( require ) {
       bottom: 0,
       scale: 0.75,
       touchExpansion: 10,
-      componentID: 'faradaysLawScreen.resetAllButton'
+      togetherID: 'faradaysLawScreen.resetAllButton'
     } ) );
 
     // flip magnet button
@@ -59,7 +59,7 @@ define( function( require ) {
     var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
       x: 174,
       centerY: self.centerY,
-      componentID: 'faradaysLawScreen.showFieldCheckBox'
+      togetherID: 'faradaysLawScreen.showFieldCheckBox'
     } );
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );

@@ -37,9 +37,9 @@ define( function( require ) {
       deselectedLineWidth: 1,
       borderRadius: 5,
       fill: '#cdd5f6',
-      componentID: null
+      togetherID: null
     }, options );
-    this.componentID = options.componentID;
+    this.togetherID = options.togetherID;
 
     var background = new Rectangle( 0, 0, options.width, options.height, options.borderRadius, options.borderRadius, {
       fill: options.fill,
@@ -82,7 +82,7 @@ define( function( require ) {
 
     this.addInputListener( new ButtonListener( {
       fire: function() {
-        var messageIndex = arch && arch.start( 'user', options.componentID, 'fired' );
+        var messageIndex = arch && arch.start( 'user', options.togetherID, 'fired' );
         targetProperty.value = onValue;
         arch && arch.end( messageIndex );
       }
