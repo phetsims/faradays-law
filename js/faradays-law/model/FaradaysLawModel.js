@@ -32,10 +32,6 @@ define( function( require ) {
     PropertySet.call( this, {
       showSecondCoil: false, // number of coils - 1 or 2
       showMagnetArrows: true
-    }, {
-      togetherIDMap: {
-        showSecondCoil: 'faradaysLawScreen.showSecondCoil'
-      }
     } );
 
     this.timeInterval = 0; //time since last model step
@@ -76,6 +72,8 @@ define( function( require ) {
       self.topCoil.reset();
     } );
 
+    // Together support
+    together && together.addComponent( this.showSecondCoilProperty, 'faradaysLawScreen.showSecondCoil' );
   }
 
   return inherit( PropertySet, FaradaysLawModel, {

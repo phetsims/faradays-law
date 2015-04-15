@@ -30,13 +30,12 @@ define( function( require ) {
       position: new Vector2( x, y ),
       flipped: false, //is magnet flipped
       showFieldLines: false // show field lines for magnet
-    }, {
-      togetherIDMap: {
-        position: 'faradaysLawScreen.magnet.position',
-        showFieldLines: 'faradaysLawScreen.showFieldLines',
-        flipped: 'faradaysLawScreen.magnet.flipped'
-      }
     } );
+
+    // Together support
+    together && together.addComponent( this.positionProperty, 'faradaysLawScreen.magnet.position' );
+    together && together.addComponent( this.showFieldLinesProperty, 'faradaysLawScreen.showFieldLines' );
+    together && together.addComponent( this.flippedProperty, 'faradaysLawScreen.magnet.flipped' );
   }
 
   return inherit( PropertySet, MagnetModel );

@@ -82,10 +82,8 @@ define( function( require ) {
       minWidth: 118,
       minHeight: 65,
       xTouchExpansion: 10,
-      yTouchExpansion: 10,
-      togetherID: 'faradaysLawScreen.flipMagnetButton'
+      yTouchExpansion: 10
     }, options ) );
-
   }
 
   return inherit( RectangularPushButton, FlipMagnetButton );

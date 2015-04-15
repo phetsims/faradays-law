@@ -31,23 +31,24 @@ define( function( require ) {
     Node.call( this );
 
     // reset button
-    this.addChild( new ResetAllButton( {
+    var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       right: model.width - 10,
       bottom: 0,
       scale: 0.75,
       touchExpansion: 10,
-      togetherID: 'faradaysLawScreen.resetAllButton'
-    } ) );
+    } );
+    this.addChild( resetAllButton );
 
     // flip magnet button
-    this.addChild( new FlipMagnetButton( {
+    var flipMagnetButton = new FlipMagnetButton( {
       listener: function() {
         model.magnetModel.flipped = !model.magnetModel.flipped;
       },
       bottom: 0,
       right: model.width - 110
-    } ) );
+    } );
+    this.addChild( flipMagnetButton );
 
     // show/hide second coil
     this.addChild( new ShowCoilsButtonGroup( model.showSecondCoilProperty, {
@@ -59,12 +60,16 @@ define( function( require ) {
     var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
       x: 174,
       centerY: self.centerY,
-      togetherID: 'faradaysLawScreen.showFieldCheckBox'
     } );
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );
 
     this.bottom = model.height - 10;
+
+    // Together support
+    together && together.addComponent( resetAllButton, 'faradaysLawScreen.resetAllButton' );
+    together && together.addComponent( showFieldCheckBox, 'faradaysLawScreen.showFieldCheckBox' );
+    together && together.addComponent( flipMagnetButton, 'faradaysLawScreen.flipMagnetButton' );
   }
 
   return inherit( Node, ControlPanelNode );

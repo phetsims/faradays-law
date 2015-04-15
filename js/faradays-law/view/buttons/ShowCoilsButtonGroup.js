@@ -32,9 +32,7 @@ define( function( require ) {
       ],
       spacing: 10,
       align: 'left'
-    } ), {
-      togetherID: 'faradaysLawScreen.oneCoilRadioButton'
-    } );
+    } ) );
 
     var showFourCoilsButton = new SimpleToggleButton( showSecondCoilProperty, true, new VBox( {
       children: [
@@ -43,9 +41,7 @@ define( function( require ) {
       ],
       spacing: 10,
       align: 'left'
-    } ), {
-      togetherID: 'faradaysLawScreen.twoCoilsRadioButton'
-    } );
+    } ) );
 
     this.addChild( new HBox( {
       children: [ showTwoCoilsButton, showFourCoilsButton ],
@@ -53,6 +49,10 @@ define( function( require ) {
     } ) );
 
     this.mutate( options );
+
+    // Together support
+    together && together.addComponent( showTwoCoilsButton, 'faradaysLawScreen.oneCoilRadioButton' );
+    together && together.addComponent( showFourCoilsButton, 'faradaysLawScreen.twoCoilsRadioButton' );
   };
 
   return inherit( Node, ShowCoilsButton );

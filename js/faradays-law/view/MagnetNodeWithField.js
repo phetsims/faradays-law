@@ -88,7 +88,7 @@ define( function( require ) {
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
-        var messageID = arch && arch.start( 'user', self.togetherID, 'dragStarted' );
+        self.trigger1( 'startedCallbacksForDragStarted', { x: self.centerX, y: self.centerY } );
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
@@ -97,24 +97,24 @@ define( function( require ) {
           arrowsVisible.set( false );
         }
 
-        arch && arch.end( messageID );
+        self.trigger1( 'endedCallbacksForDragStarted', { x: self.centerX, y: self.centerY } );
       },
       end: function() {
-        var messageID = arch && arch.start( 'user', self.togetherID, 'dragEnded' );
+        self.trigger1( 'startedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
         // arrows always are turned invisible when the user stops dragging the magnet
         arrowsVisible.set( false );
 
-        arch && arch.end( messageID );
+        self.trigger1( 'endedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
       },
       //Translate on drag events
       drag: function( event ) {
-        var messageID = arch && arch.start( 'user', self.togetherID, 'dragged' );
+        self.trigger1( 'startedCallbacksForDragged', { x: self.centerX, y: self.centerY } );
 
         var point = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = point.copy().subtract( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
 
-        arch && arch.end( messageID );
+        self.trigger1( 'endedCallbacksForDragged', { x: self.centerX, y: self.centerY } );
       }
     } );
     draggableNode.addInputListener( magnetDragHandler );
@@ -130,8 +130,8 @@ define( function( require ) {
       self.translation = position;
     } );
 
-    this.togetherID = 'faradaysLawScreen.magnet';
-    together && together.addComponent( this );
+    // Together support
+    together && together.addComponent( this, 'faradaysLawScreen.magnet' );
   }
 
   return inherit( Node, MagnetNodeWithField );

@@ -32,14 +32,11 @@ define( function( require ) {
     PropertySet.call( this, {
       theta: 0, // needle angle in radians
       signal: 0 // input voltage to meter
-    }, {
-      togetherIDMap: {
-
-        // This apparently drives both the needle location and the lightbulb brightness
-        theta: 'faradaysLawScreen.voltmeterNeedleAngle'
-      }
     } );
 
+    // Together support
+    // This apparently drives both the needle location and the lightbulb brightness
+    together && together.addComponent( this.thetaProperty, 'faradaysLawScreen.voltmeterNeedleAngle' );
   }
 
   return inherit( PropertySet, VoltMeterModel, {
