@@ -92,8 +92,10 @@ define( function( require ) {
     this.addChild( coilSelectionRadioButtonGroup );
 
     // together.js support
-    this.singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
-    this.doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
+    var singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
+    together && together.addComponent( singleCoilRadioButton, 'faradaysLawScreen.oneCoilRadioButton' );
+    var doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
+    together && together.addComponent( doubleCoilRadioButton, 'faradaysLawScreen.twoCoilsRadioButton' );
 
     // show field lines
     var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
