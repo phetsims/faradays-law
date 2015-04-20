@@ -9,6 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
+  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -16,7 +18,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/buttons/FlipMagnetButton' );
-  var ShowCoilsButtonGroup = require( 'FARADAYS_LAW/faradays-law/view/buttons/ShowCoilsButtonGroup' );
+  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var showFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
@@ -36,7 +39,7 @@ define( function( require ) {
       right: model.width - 10,
       bottom: 0,
       scale: 0.75,
-      touchExpansion: 10,
+      touchExpansion: 10
     } );
     this.addChild( resetAllButton );
 
@@ -50,16 +53,52 @@ define( function( require ) {
     } );
     this.addChild( flipMagnetButton );
 
-    // show/hide second coil
-    this.addChild( new ShowCoilsButtonGroup( model.showSecondCoilProperty, {
-      x: 377,
-      bottom: 0
-    } ) );
+    // add radio button group for showing/hiding the second coil
+    var coilButtonGroupOptions = {
+      spacing: 10,
+      align: 'left',
+      scale: 0.21
+    };
+
+    var coilButtonGroupContents = [ {
+      value: false,
+      node: new VBox( _.extend( {
+        children: [
+          new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true, visible: false } ),
+          new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
+        ]
+      }, coilButtonGroupOptions ) )
+    }, {
+      value: true,
+      node: new VBox( _.extend( {
+        children: [
+          new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true } ),
+          new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
+        ]
+      }, coilButtonGroupOptions ) )
+    } ];
+
+    var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
+      buttonContentXMargin: 20,
+      buttonContentYMargin: 4,
+      left: 377,
+      bottom: 0,
+      orientation: 'horizontal',
+      baseColor: '#cdd5f6', // lavender-ish
+      selectedLineWidth: 3,
+      deselectedLineWidth: 1
+    } );
+
+    this.addChild( coilSelectionRadioButtonGroup );
+
+    // together.js support
+    this.singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
+    this.doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
 
     // show field lines
     var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
       x: 174,
-      centerY: self.centerY,
+      centerY: self.centerY
     } );
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );
