@@ -30,7 +30,7 @@ define( function( require ) {
    * @param model - 'Faradays Law' simulation model
    * @constructor
    */
-  function MagnetNodeWithField( model ) {
+  function MagnetNodeWithField( model, tandem ) {
     var self = this;
     Node.call( this );
 
@@ -130,8 +130,8 @@ define( function( require ) {
       self.translation = position;
     } );
 
-    // Together support
-    together && together.addComponent( this, 'faradaysLawScreen.magnet' );
+    // tandem support
+    tandem.addInstance( this );
   }
 
   return inherit( Node, MagnetNodeWithField );

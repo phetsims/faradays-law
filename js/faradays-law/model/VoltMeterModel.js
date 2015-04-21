@@ -19,7 +19,7 @@ define( function( require ) {
    * @param faradaysLawModel - simulation model
    * @constructor
    */
-  function VoltMeterModel( faradaysLawModel ) {
+  function VoltMeterModel( faradaysLawModel, tandem ) {
 
     this.faradaysLawModel = faradaysLawModel;
 
@@ -32,11 +32,13 @@ define( function( require ) {
     PropertySet.call( this, {
       theta: 0, // needle angle in radians
       signal: 0 // input voltage to meter
-    } );
+    }, {
+      tandemSet: {
 
-    // Together support
-    // This apparently drives both the needle location and the lightbulb brightness
-    together && together.addComponent( this.thetaProperty, 'faradaysLawScreen.voltmeterNeedleAngle' );
+        // This apparently drives both the needle location and the lightbulb brightness
+        theta: tandem.createTandem( 'voltmeterNeedleAngle' )
+      }
+    } );
   }
 
   return inherit( PropertySet, VoltMeterModel, {

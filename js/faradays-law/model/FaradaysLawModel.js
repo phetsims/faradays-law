@@ -33,6 +33,11 @@ define( function( require ) {
     PropertySet.call( this, {
       showSecondCoil: false, // number of coils - 1 or 2
       showMagnetArrows: true
+    }, {
+      tandemSet: {
+        showSecondCoil: tandem.createTandem( 'showSecondCoil' ),
+        showMagnetArrows: tandem.createTandem( 'showMagnetArrows' )
+      }
     } );
 
     this.timeInterval = 0; //time since last model step
@@ -62,7 +67,7 @@ define( function( require ) {
     this.intersectedBounds = null;
     this.magnetMovingDirection = null; // moving direction of the magnet when intersecting coils
 
-    this.voltMeterModel = new VoltMeterModel( this );
+    this.voltMeterModel = new VoltMeterModel( this, tandem );
 
     //if show second coil and magnet over it, reset magnet
     this.showSecondCoilProperty.link( function( show ) {
@@ -72,9 +77,6 @@ define( function( require ) {
       self.intersectedBounds = null;
       self.topCoil.reset();
     } );
-
-    // Together support
-    together && together.addComponent( this.showSecondCoilProperty, 'faradaysLawScreen.showSecondCoil' );
   }
 
   return inherit( PropertySet, FaradaysLawModel, {

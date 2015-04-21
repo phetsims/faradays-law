@@ -73,7 +73,7 @@ define( function( require ) {
     this.addChild( voltMeterNode );
 
     // magnet
-    this.addChild( new MagnetNodeWithField( model ) );
+    this.addChild( new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) ) );
 
     // move coils to front
     bottomCoilNode.frontImage.detach();
