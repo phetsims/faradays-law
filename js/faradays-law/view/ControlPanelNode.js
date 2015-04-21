@@ -105,12 +105,12 @@ define( function( require ) {
 
     this.bottom = model.height - 10;
 
-    // Together support
+    // tandem/together support
     tandem && tandem.createTandem( 'singleCoilRadioButton' ).addInstance( singleCoilRadioButton );
     tandem && tandem.createTandem( 'doubleCoilRadioButton' ).addInstance( doubleCoilRadioButton );
-    together && together.addComponent( resetAllButton, 'faradaysLawScreen.resetAllButton' );
-    together && together.addComponent( showFieldCheckBox, 'faradaysLawScreen.showFieldCheckBox' );
-    together && together.addComponent( flipMagnetButton, 'faradaysLawScreen.flipMagnetButton' );
+    tandem && tandem.createTandem( 'resetAllButton' ).addInstance( resetAllButton );
+    tandem && tandem.createTandem( 'showFieldCheckBox' ).addInstance( showFieldCheckBox );
+    tandem && tandem.createTandem( 'flipMagnetButton' ).addInstance( flipMagnetButton );
   }
 
   return inherit( Node, ControlPanelNode );
