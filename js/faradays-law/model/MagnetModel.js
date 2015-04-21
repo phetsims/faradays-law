@@ -15,13 +15,14 @@ define( function( require ) {
 
   /**
    *
-   * @param x - x position of magnet
-   * @param y - y position of magnet
-   * @param width - width of magnet
-   * @param height - height of magnet
+   * @param {number} x - x position of magnet
+   * @param {number} y - y position of magnet
+   * @param {number} width - width of magnet
+   * @param {number} height - height of magnet
+   * @param {Tandem} tandem - support for exporting elements from the sim
    * @constructor
    */
-  function MagnetModel( x, y, width, height ) {
+  function MagnetModel( x, y, width, height, tandem ) {
 
     this.width = width;
     this.height = height;
@@ -30,12 +31,13 @@ define( function( require ) {
       position: new Vector2( x, y ),
       flipped: false, //is magnet flipped
       showFieldLines: false // show field lines for magnet
+    }, {
+      tandemSet: {
+        position: tandem.createTandem( 'position' ),
+        showFieldLines: tandem.createTandem( 'showFieldLines' ),
+        flipped: tandem.createTandem( 'flipped' )
+      }
     } );
-
-    // Together support
-    together && together.addComponent( this.positionProperty, 'faradaysLawScreen.magnet.position' );
-    together && together.addComponent( this.showFieldLinesProperty, 'faradaysLawScreen.showFieldLines' );
-    together && together.addComponent( this.flippedProperty, 'faradaysLawScreen.magnet.flipped' );
   }
 
   return inherit( PropertySet, MagnetModel );

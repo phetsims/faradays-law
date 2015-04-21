@@ -19,9 +19,10 @@ define( function( require ) {
   /**
    * @param {Number} width of Screen
    * @param {Number} height of Screen
+   * @param {Tandem} tandem - support for exporting elements from the sim
    * @constructor
    */
-  function FaradaysLawModel( width, height ) {
+  function FaradaysLawModel( width, height, tandem ) {
     var self = this;
 
     this.width = width;
@@ -41,7 +42,7 @@ define( function( require ) {
     this.targetTickTime = 0.03; //seconds, from original model, next step in model after targetTick time
     this.modelTickTime = 0.04;//seconds, from original model, the time for model step, not equal targetTick time
 
-    this.magnetModel = new MagnetModel( 647, 219, 140, 30 );
+    this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnet' ) );
 
     // coils
     this.bottomCoil = new CoilModel( 448, 328, 4, this.magnetModel );
