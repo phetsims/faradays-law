@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {gameModel} model - Faraday's Law simulation model object
    * @constructor
    */
-  function FaradaysLawView( model ) {
+  function FaradaysLawView( model, tandem ) {
     ScreenView.call( this, {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
@@ -66,7 +66,7 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
-    this.addChild( new ControlPanelNode( model ) );
+    this.addChild( new ControlPanelNode( model, tandem ) );
 
     // voltmeter added
     voltMeterNode.center = this.aligner.voltmeterPosition;

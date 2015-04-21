@@ -25,11 +25,11 @@ define( function( require ) {
   var showFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
   /**
-   *
    * @param model - 'Faradays Law' simulation model
+   * @param {Tandem} tandem - support for exporting elements from the sim
    * @constructor
    */
-  function ControlPanelNode( model ) {
+  function ControlPanelNode( model, tandem ) {
     var self = this;
     Node.call( this );
 
@@ -93,9 +93,7 @@ define( function( require ) {
 
     // together.js support
     var singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
-    together && together.addComponent( singleCoilRadioButton, 'faradaysLawScreen.oneCoilRadioButton' );
     var doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
-    together && together.addComponent( doubleCoilRadioButton, 'faradaysLawScreen.twoCoilsRadioButton' );
 
     // show field lines
     var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
@@ -108,6 +106,8 @@ define( function( require ) {
     this.bottom = model.height - 10;
 
     // Together support
+    tandem && tandem.createTandem( 'singleCoilRadioButton' ).addInstance( singleCoilRadioButton );
+    tandem && tandem.createTandem( 'doubleCoilRadioButton' ).addInstance( doubleCoilRadioButton );
     together && together.addComponent( resetAllButton, 'faradaysLawScreen.resetAllButton' );
     together && together.addComponent( showFieldCheckBox, 'faradaysLawScreen.showFieldCheckBox' );
     together && together.addComponent( flipMagnetButton, 'faradaysLawScreen.flipMagnetButton' );
