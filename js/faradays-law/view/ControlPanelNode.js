@@ -91,10 +91,6 @@ define( function( require ) {
 
     this.addChild( coilSelectionRadioButtonGroup );
 
-    // together.js support
-    var singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
-    var doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
-
     // show field lines
     var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
       x: 174,
@@ -105,12 +101,14 @@ define( function( require ) {
 
     this.bottom = model.height - 10;
 
-    // tandem/together support
-    tandem && tandem.createTandem( 'singleCoilRadioButton' ).addInstance( singleCoilRadioButton );
-    tandem && tandem.createTandem( 'doubleCoilRadioButton' ).addInstance( doubleCoilRadioButton );
-    tandem && tandem.createTandem( 'resetAllButton' ).addInstance( resetAllButton );
-    tandem && tandem.createTandem( 'showFieldCheckBox' ).addInstance( showFieldCheckBox );
-    tandem && tandem.createTandem( 'flipMagnetButton' ).addInstance( flipMagnetButton );
+    // together.js support
+    var singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
+    var doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
+    tandem.createTandem( 'singleCoilRadioButton' ).addInstance( singleCoilRadioButton );
+    tandem.createTandem( 'doubleCoilRadioButton' ).addInstance( doubleCoilRadioButton );
+    tandem.createTandem( 'resetAllButton' ).addInstance( resetAllButton );
+    tandem.createTandem( 'showFieldCheckBox' ).addInstance( showFieldCheckBox );
+    tandem.createTandem( 'flipMagnetButton' ).addInstance( flipMagnetButton );
   }
 
   return inherit( Node, ControlPanelNode );
