@@ -39,12 +39,13 @@ define( function( require ) {
       right: model.width - 10,
       bottom: 0,
       scale: 0.75,
-      touchExpansion: 10
+      touchExpansion: 10,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
 
     // flip magnet button
-    var flipMagnetButton = new FlipMagnetButton( {
+    var flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
       listener: function() {
         model.magnetModel.flipped = !model.magnetModel.flipped;
       },
@@ -67,7 +68,8 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true, visible: false } ),
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
-      }, coilButtonGroupOptions ) )
+      }, coilButtonGroupOptions ) ),
+      tandem: tandem.createTandem( 'singleCoilRadioButton' )
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -75,7 +77,8 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true } ),
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
-      }, coilButtonGroupOptions ) )
+      }, coilButtonGroupOptions ) ),
+      tandem: tandem.createTandem( 'doubleCoilRadioButton' )
     } ];
 
     var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
@@ -92,23 +95,16 @@ define( function( require ) {
     this.addChild( coilSelectionRadioButtonGroup );
 
     // show field lines
-    var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ), model.magnetModel.showFieldLinesProperty, {
-      x: 174,
-      centerY: self.centerY
-    } );
+    var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ),
+      model.magnetModel.showFieldLinesProperty, {
+        x: 174,
+        centerY: self.centerY,
+        tandem: tandem.createTandem( 'showFieldCheckBox' )
+      } );
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );
 
     this.bottom = model.height - 10;
-
-    // together.js support
-    var singleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( false );
-    var doubleCoilRadioButton = coilSelectionRadioButtonGroup.getRadioButtonGroupMember( true );
-    tandem.createTandem( 'singleCoilRadioButton' ).addInstance( singleCoilRadioButton );
-    tandem.createTandem( 'doubleCoilRadioButton' ).addInstance( doubleCoilRadioButton );
-    tandem.createTandem( 'resetAllButton' ).addInstance( resetAllButton );
-    tandem.createTandem( 'showFieldCheckBox' ).addInstance( showFieldCheckBox );
-    tandem.createTandem( 'flipMagnetButton' ).addInstance( flipMagnetButton );
   }
 
   return inherit( Node, ControlPanelNode );

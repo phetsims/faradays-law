@@ -60,7 +60,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function FlipMagnetButton( options ) {
+  function FlipMagnetButton( tandem, options ) {
     var children = [
       createCurvedArrow(),
       new MagnetNode( false /*flipped*/, {
@@ -82,7 +82,8 @@ define( function( require ) {
       minWidth: 118,
       minHeight: 65,
       xTouchExpansion: 10,
-      yTouchExpansion: 10
+      yTouchExpansion: 10,
+      tandem: tandem
     }, options ) );
   }
 
