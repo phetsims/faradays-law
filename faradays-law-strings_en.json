@@ -1,0 +1,17 @@
+{
+  "faradays-law.name": {
+    "value": "Faraday's Law"
+  },
+  "faradays-law.n": {
+    "value": "N"
+  },
+  "faradays-law.s": {
+    "value": "S"
+  },
+  "faradays-law.voltage": {
+    "value": "voltage"
+  },
+  "faradays-law.showFieldLines": {
+    "value": "Field lines"
+  }
+}
