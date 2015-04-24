@@ -26,7 +26,7 @@ define( function( require ) {
 
   /**
    * @param model - 'Faradays Law' simulation model
-   * @param {Tandem} tandem - support for exporting elements from the sim
+   * @param {Tandem} tandem - support for exporting instances from the sim
    * @constructor
    */
   function ControlPanelNode( model, tandem ) {

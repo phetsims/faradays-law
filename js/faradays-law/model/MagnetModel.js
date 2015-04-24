@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {number} y - y position of magnet
    * @param {number} width - width of magnet
    * @param {number} height - height of magnet
-   * @param {Tandem} tandem - support for exporting elements from the sim
+   * @param {Tandem} tandem - support for exporting instances from the sim
    * @constructor
    */
   function MagnetModel( x, y, width, height, tandem ) {
