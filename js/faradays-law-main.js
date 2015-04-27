@@ -10,6 +10,7 @@ define( function( require ) {
   var FaradaysLawScreen = require( 'FARADAYS_LAW/faradays-law/FaradaysLawScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
+  var Tandem = require( 'TANDEM/Tandem' );
 
   // strings
   var simTitle = require( 'string!FARADAYS_LAW/faradays-law.name' );
@@ -26,7 +27,7 @@ define( function( require ) {
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new FaradaysLawScreen() ], simOptions );
+    var sim = new Sim( simTitle, [ new FaradaysLawScreen( new Tandem( 'faradaysLaw' ) ) ], simOptions );
     sim.start();
   } );
 } );
