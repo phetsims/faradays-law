@@ -15,6 +15,8 @@ define( function( require ) {
   // strings
   var simTitle = require( 'string!FARADAYS_LAW/faradays-law.name' );
 
+  var tandem = new Tandem();
+
   var simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Bryce Gruneich',
@@ -22,12 +24,13 @@ define( function( require ) {
       team: 'Michael Dubson, Ariel Paul, Kathy Perkins, Amy Rouinfar',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
-    }
+    },
+    tandem: tandem
   };
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new FaradaysLawScreen( new Tandem( 'faradaysLaw' ) ) ], simOptions );
+    var sim = new Sim( simTitle, [ new FaradaysLawScreen( tandem.createTandem( 'faradaysLaw' ) ) ], simOptions );
     sim.start();
   } );
 } );
