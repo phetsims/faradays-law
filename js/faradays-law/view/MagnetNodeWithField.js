@@ -97,14 +97,14 @@ define( function( require ) {
           arrowsVisible.set( false );
         }
 
-        self.trigger1( 'endedCallbacksForDragStarted', { x: self.centerX, y: self.centerY } );
+        self.trigger0( 'endedCallbacksForDragStarted' );
       },
       end: function() {
         self.trigger1( 'startedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
         // arrows always are turned invisible when the user stops dragging the magnet
         arrowsVisible.set( false );
 
-        self.trigger1( 'endedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
+        self.trigger0( 'endedCallbacksForDragEnded' );
       },
       //Translate on drag events
       drag: function( event ) {
@@ -114,7 +114,7 @@ define( function( require ) {
         var desiredPosition = point.copy().subtract( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
 
-        self.trigger1( 'endedCallbacksForDragged', { x: self.centerX, y: self.centerY } );
+        self.trigger0( 'endedCallbacksForDragged' );
       }
     } );
     draggableNode.addInputListener( magnetDragHandler );
