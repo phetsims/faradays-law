@@ -10,10 +10,12 @@ require.config( {
 
   paths: {
 
-    // plugins
+    // PhET plugins
     image: '../../chipper/js/requirejs-plugins/image',
+    mipmap: '../../chipper/js/requirejs-plugins/mipmap',
     string: '../../chipper/js/requirejs-plugins/string',
 
+    // third-party plugins
     text: '../../sherpa/lib/text-2.0.12',
 
     // PhET libs, uppercase names to identify them in require.js imports
@@ -30,7 +32,8 @@ require.config( {
     SHERPA: '../../sherpa',
     SUN: '../../sun/js',
     TANDEM: '../../tandem/js',
-    // sim code
+
+    // this sim
     FARADAYS_LAW: '.'
   },
 
