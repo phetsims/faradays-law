@@ -10,9 +10,6 @@
   "preload": [
     "../sherpa/lib/Tween-r12.js"
   ],
-  "licenseKeys": [
-    "easing-equations"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/faradays-law.git"
