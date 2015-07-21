@@ -1,7 +1,7 @@
 four-loop-back.png source=PhET
 four-loop-back-small.png source=PhET
-four-loop-back-front.png source=PhET
-four-loop-back-front-small.png source=PhET
+four-loop-front.png source=PhET
+four-loop-front-small.png source=PhET
 light-bulb-base.png source=PhET notes=also used in other sims, perhaps capacitor lab
 two-loop-back.png source=PhET
 two-loop-back-small.png source=PhET
