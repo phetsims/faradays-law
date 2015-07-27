@@ -20,7 +20,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // images
-  var bulbBaseImage = require( 'image!FARADAYS_LAW/images/light-bulb-base.png' );
+  var bulbBaseImage = require( 'image!FARADAYS_LAW/light-bulb-base.png' );
 
   // constants
   var BULB_HEIGHT = 125;
