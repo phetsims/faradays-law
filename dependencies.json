@@ -55,9 +55,5 @@
     "sha": "e4595f5eae375c15fa9aaba9511c52dbc1b0f2c6",
     "branch": "HEAD"
   },
-  "faradays-law": {
-    "sha": "c8de302f7591b169451c98fa795691e8b1904071",
-    "branch": "1.0"
-  },
   "comment": "# faradays-law 1.0.1 Sun Nov 02 2014 00:37:11 GMT-0600 (Mountain Daylight Time)"
 }
