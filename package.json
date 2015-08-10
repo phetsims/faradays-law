@@ -2,6 +2,7 @@
   "name": "faradays-law",
   "version": "1.1.0-dev.2",
   "license": "GPLv3",
+  "requirejsNamespace": "FARADAYS_LAW",
   "simTitleStringKey": "FARADAYS_LAW/faradays-law.name",
   "phetLibs": [
     "faradays-law",
