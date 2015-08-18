@@ -17,7 +17,6 @@
     "requirejsNamespace": "FARADAYS_LAW",
     "simTitleStringKey": "FARADAYS_LAW/faradays-law.name",
     "phetLibs": [
-      "faradays-law",
       "vibe"
     ],
     "preload": [
