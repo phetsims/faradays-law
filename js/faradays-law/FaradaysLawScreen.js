@@ -17,7 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var titleString = require( 'string!FARADAYS_LAW/faradays-law.name' );
+  var titleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
   function FaradaysLawScreen( tandem ) {
     var screenTandem = tandem.createTandem( 'faradaysLawScreen' );

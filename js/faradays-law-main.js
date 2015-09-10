@@ -13,7 +13,7 @@ define( function( require ) {
   var Tandem = require( 'TANDEM/Tandem' );
 
   // strings
-  var simTitle = require( 'string!FARADAYS_LAW/faradays-law.name' );
+  var simTitle = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
   var tandem = new Tandem();
 
