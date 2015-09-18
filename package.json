@@ -16,7 +16,8 @@
   "phet": {
     "requirejsNamespace": "FARADAYS_LAW",
     "phetLibs": [
-      "vibe"
+      "vibe",
+      "tandem"
     ],
     "preload": [
       "../sherpa/lib/Tween-r12.js"
