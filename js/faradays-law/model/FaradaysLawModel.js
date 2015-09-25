@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    * @param {Number} width of Screen
    * @param {Number} height of Screen
-   * @param {Tandem} tandem - support for exporting instances from the sim
+   * @param {Tandem} tandem
    * @constructor
    */
   function FaradaysLawModel( width, height, tandem ) {
