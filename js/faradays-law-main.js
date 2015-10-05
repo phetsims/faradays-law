@@ -15,7 +15,7 @@ define( function( require ) {
   // strings
   var simTitle = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
-  var tandem = new Tandem();
+  var tandem = new Tandem( 'faradaysLaw' );
 
   var simOptions = {
     credits: {
@@ -30,7 +30,7 @@ define( function( require ) {
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new FaradaysLawScreen( tandem.createTandem( 'faradaysLaw' ) ) ], simOptions );
+    var sim = new Sim( simTitle, [ new FaradaysLawScreen( tandem.createTandem( 'faradaysLawScreen' ) ) ], simOptions );
     sim.start();
   } );
 } );
