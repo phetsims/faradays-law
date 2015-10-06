@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * Encapsulates the position of wires, voltmeter, bulb objects on the screen relative to coils position.
