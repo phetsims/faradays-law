@@ -9,22 +9,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var ScreenView = require( 'JOIST/ScreenView' );
+  var Aligner = require( 'FARADAYS_LAW/faradays-law/view/Aligner' );
+  var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
-  var ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
-  var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
-  var VoltMeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterWiresNode' );
+  var ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var Vector2 = require( 'DOT/Vector2' );
   var VoltMeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterNode' );
-  var Aligner = require( 'FARADAYS_LAW/faradays-law/view/Aligner' );
+  var VoltMeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterWiresNode' );
 
   /**
    * @param {gameModel} model - Faraday's Law simulation model object
+   * @param {Tandem} tandem
    * @constructor
    */
   function FaradaysLawView( model, tandem ) {
