@@ -47,7 +47,10 @@ define( function( require ) {
      * @param dt
      */
     step: function( dt ) {
-      this.signal = 0.2 * (this.faradaysLawModel.bottomCoil.emf + this.faradaysLawModel.topCoil.emf);  //combine signals from both coils
+
+      // Calculate the signal, combining the EMF from both coils.  The multiplier (including the sign thereof) is
+      // empirically determined to make the needle move the correct amount and direction.
+      this.signal = -0.2 * (this.faradaysLawModel.bottomCoil.emf + this.faradaysLawModel.topCoil.emf);
 
       this.alpha = this.D * (this.signal - this.C * this.theta) - this.B * this.omega; //angular acceleration of needle
       this.theta = this.theta + this.omega * dt + 0.5 * this.alpha * dt * dt; //angle of needle
