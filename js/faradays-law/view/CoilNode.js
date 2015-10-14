@@ -16,14 +16,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // images
-  var twoLoopFrontImage = require( 'image!FARADAYS_LAW/two-loop-front.png' );
-  var twoLoopBackImage = require( 'image!FARADAYS_LAW/two-loop-back.png' );
-  var fourLoopFrontImage = require( 'image!FARADAYS_LAW/four-loop-front.png' );
-  var fourLoopBackImage = require( 'image!FARADAYS_LAW/four-loop-back.png' );
-  var twoLoopFrontSmallImage = require( 'image!FARADAYS_LAW/two-loop-front-small.png' );
-  var twoLoopBackSmallImage = require( 'image!FARADAYS_LAW/two-loop-back-small.png' );
-  var fourLoopFrontSmallImage = require( 'image!FARADAYS_LAW/four-loop-front-small.png' );
-  var fourLoopBackSmallImage = require( 'image!FARADAYS_LAW/four-loop-back-small.png' );
+  var twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
+  var twoLoopBackImage = require( 'mipmap!FARADAYS_LAW/two-loop-back.png' );
+  var fourLoopFrontImage = require( 'mipmap!FARADAYS_LAW/four-loop-front.png' );
+  var fourLoopBackImage = require( 'mipmap!FARADAYS_LAW/four-loop-back.png' );
+  var twoLoopFrontSmallImage = require( 'mipmap!FARADAYS_LAW/two-loop-front-small.png' );
+  var twoLoopBackSmallImage = require( 'mipmap!FARADAYS_LAW/two-loop-back-small.png' );
+  var fourLoopFrontSmallImage = require( 'mipmap!FARADAYS_LAW/four-loop-front-small.png' );
+  var fourLoopBackSmallImage = require( 'mipmap!FARADAYS_LAW/four-loop-back-small.png' );
 
   var imageMap = {};
   imageMap[ CoilTypeEnum.TWO_COIL ] = {
