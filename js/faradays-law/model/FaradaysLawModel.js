@@ -41,11 +41,6 @@ define( function( require ) {
     } );
 
     this.timeInterval = 0; //time since last model step
-    /*
-     In original simulation each tick lasts 0.03 seconds, but model 'thinks' that 0.04 seconds passed
-     */
-    this.targetTickTime = 0.03; //seconds, from original model, next step in model after targetTick time
-    this.modelTickTime = 0.04;//seconds, from original model, the time for model step, not equal targetTick time
 
     this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnet' ) );
 
@@ -53,8 +48,7 @@ define( function( require ) {
     this.bottomCoil = new CoilModel( 448, 328, 4, this.magnetModel );
     this.topCoil = new CoilModel( 422, 131, 2, this.magnetModel );
 
-    //restricted zones for magnet because of coils borders
-    //first 2 for top coil
+    // restricted zones for magnet because of coils
     var TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
     var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
     this.restricted = [
@@ -63,7 +57,7 @@ define( function( require ) {
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
     ];
-    //see this.moveMagnetToPosition method, we use this to calculate magnet position
+    // see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
     this.magnetMovingDirection = null; // moving direction of the magnet when intersecting coils
 
@@ -89,28 +83,25 @@ define( function( require ) {
     },
 
     /**
-     * evolve model over time, if dt > targetTickTime calculate next step in model
-     * @param dt
+     * main step function for the model
+     * @param {number} dt
      */
     step: function( dt ) {
-      this.timeInterval += dt;
-      if ( this.timeInterval >= 2 * this.targetTickTime ) {
-        // prevent incorrect behaviour when running in background
-        this.timeInterval = this.targetTickTime;
+      if ( dt > 0.1 ) {
+        // skip large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
+        return;
       }
-      if ( this.timeInterval >= this.targetTickTime ) {
-        this.timeInterval -= this.targetTickTime;
-        this.bottomCoil.step( this.modelTickTime );
-        if ( this.showSecondCoil ) {
-          this.topCoil.step( this.modelTickTime );
-        }
-        this.voltMeterModel.step( this.modelTickTime );
+
+      // step the individual model elements
+      this.bottomCoil.step( dt );
+      if ( this.showSecondCoil ) {
+        this.topCoil.step( dt );
       }
+      this.voltMeterModel.step( dt );
     },
 
     /**
-     *  return if Magnet intersects coil bounds
-     * @param magnetBounds
+     * returns true if magnet intersects coil bounds
      * @returns {boolean}
      */
     intersectionWithSecondCoil: function() {
