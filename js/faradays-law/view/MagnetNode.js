@@ -28,20 +28,23 @@ define( function( require ) {
   var MAGNET_3D_SHADOW = 0.4;
 
   /**
-   * @param width - width of Magnet
-   * @param height - height of Magnet
+   * @param magnetWidth - width of Magnet
+   * @param magnetHeight - height of Magnet
    * @param label - label on half of magnet
    * @param backgroundColor
    * @param {Object} [options]
    * @returns {Node}
    */
-  var drawHalfMagnetNode = function( width, height, label, backgroundColor, options ) {
+  var drawHalfMagnetNode = function( magnetWidth, magnetHeight, label, backgroundColor, options ) {
     var node = new Node();
 
     // front part
-    node.addChild( new Rectangle( -width / 4, -height / 2, width / 2, height, {
+    node.addChild( new Rectangle( -magnetWidth / 4, -magnetHeight / 2, magnetWidth / 2, magnetHeight, {
       fill: backgroundColor
     } ) );
+
+    // Scale the label if it's too large.  This assumes that width, not height, is the important factor.
+    label.scale( Math.min( ( magnetWidth * 0.45 ) / label.width, 1 ) );
 
     // label
     node.addChild( label );
@@ -54,12 +57,12 @@ define( function( require ) {
 
     //3d looking
     node.addChild( new Path( new Shape()
-      .moveTo( -width / 4, -height / 2 )
-      .lineTo( -width / 4 + width * MAGNET_OFFSET_DX_RATIO, -height / 2 - height * MAGNET_OFFSET_DY_RATIO )
-      .lineTo( width / 4 + width * MAGNET_OFFSET_DX_RATIO, -height / 2 - height * MAGNET_OFFSET_DY_RATIO )
-      .lineTo( width / 4 + width * MAGNET_OFFSET_DX_RATIO, height / 2 - height * MAGNET_OFFSET_DY_RATIO )
-      .lineTo( width / 4, height / 2 )
-      .lineTo( width / 4, -height / 2 )
+      .moveTo( -magnetWidth / 4, -magnetHeight / 2 )
+      .lineTo( -magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, -magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
+      .lineTo( magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, -magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
+      .lineTo( magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
+      .lineTo( magnetWidth / 4, magnetHeight / 2 )
+      .lineTo( magnetWidth / 4, -magnetHeight / 2 )
       .close(), {
       fill: backgroundColor.colorUtilsDarker( MAGNET_3D_SHADOW )
     } ) );
