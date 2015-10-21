@@ -94,13 +94,16 @@ define( function( require ) {
 
     this.addChild( coilSelectionRadioButtonGroup );
 
+    // Create the label for the "Show Field Lines" check box, scaling it if it's too long.
+    var showFieldLinesLabel = new Text( showFieldLinesString, { font: new PhetFont( 16 ) } );
+    showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
+
     // show field lines
-    var showFieldCheckBox = new CheckBox( new Text( showFieldLinesString, { font: new PhetFont( 16 ) } ),
-      model.magnetModel.showFieldLinesProperty, {
-        x: 174,
-        centerY: self.centerY,
-        tandem: tandem.createTandem( 'showFieldCheckBox' )
-      } );
+    var showFieldCheckBox = new CheckBox( showFieldLinesLabel, model.magnetModel.showFieldLinesProperty, {
+      x: 174,
+      centerY: coilSelectionRadioButtonGroup.centerY,
+      tandem: tandem.createTandem( 'showFieldCheckBox' )
+    } );
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );
 
