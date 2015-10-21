@@ -30,7 +30,6 @@ define( function( require ) {
    * @constructor
    */
   function ControlPanelNode( model, tandem ) {
-    var self = this;
     Node.call( this );
 
     // reset button
