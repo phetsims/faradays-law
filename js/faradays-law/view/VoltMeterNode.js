@@ -50,48 +50,49 @@ define( function( require ) {
       marginLeft: 5,
       marginRight: 5,
       marginBottom: 3,
-      whiteRectangleHeight: 72,
-      whiteRectangleWidth: 132,
-      whiteRectangleBorderRadius: 5,
+      readoutHeight: 72,
+      readoutWidth: 132,
+      readoutBorderRadius: 5,
       textColor: 'yellow', //color of 'voltage' text
       terminalSize: 18, //size of terminals at the bottom of the voltmeter
       terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
     }, options );
 
-    this.addChild( new ShadedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
+    var background = new ShadedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
       cornerRadius: OUTER_BORDER_RADIUS,
       baseColor: options.baseColor,
       center: Vector2.ZERO
-    } ) );
+    } );
+    this.addChild( background );
 
-    // white rectangle + controls inside
-    var whiteRectangle = new Node();
-    whiteRectangle.addChild( new Rectangle( -options.whiteRectangleWidth, -options.whiteRectangleHeight, options.whiteRectangleWidth, options.whiteRectangleHeight, options.whiteRectangleBorderRadius, options.whiteRectangleBorderRadius, {
+    // readout is a background rectangle with a deflecting needle meter inside
+    var readout = new Rectangle( 0, 0, options.readoutWidth, options.readoutHeight, {
+      cornerRadius: options.readoutBorderRadius,
       fill: '#FFF',
-      centerX: 0
-    } ) );
-
-    //scale + needle
-    whiteRectangle.addChild( new VoltMeterScale( needleAngleProperty, {
-      bottom: -6
-    } ) );
-
-    // rectangle + text
-    this.addChild( new VBox( {
-      children: [
-        whiteRectangle,
-        new Text( voltageString, {
-          font: DEFAULT_FONT,
-          fill: options.textColor,
-          centerX: 0
-        } )
-      ],
-      spacing: -1,
       centerX: 0,
-      centerY: (options.marginTop + 4) / 2
-    } ) );
+      centerY: -5 // empirically determined to allow space for the label under the readout
+    } );
 
-    //plus and minus terminals at the bottom
+    // scale + needle
+    readout.addChild( new VoltMeterScale( needleAngleProperty, {
+      centerX: readout.width / 2,
+      centerY: readout.height / 2
+    } ) );
+    this.addChild( readout );
+
+    // create the label and scale it if it's too long
+    var label = new Text( voltageString, {
+      font: DEFAULT_FONT,
+      fill: options.textColor
+    } );
+    label.scale( Math.min( readout.width / label.width, 1 ) );
+
+    // position and add the label
+    label.centerX = 0;
+    label.centerY = ( readout.bottom + background.bottom ) * 0.48; // position a little above exactly between edges
+    this.addChild( label );
+
+    // add the plus and minus terminals at the bottom
     this.plusNode = new Node();
     this.plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
