@@ -38,37 +38,35 @@ define( function( require ) {
   var drawHalfMagnetNode = function( magnetWidth, magnetHeight, label, backgroundColor, options ) {
     var node = new Node();
 
-    // front part
-    node.addChild( new Rectangle( -magnetWidth / 4, -magnetHeight / 2, magnetWidth / 2, magnetHeight, {
-      fill: backgroundColor
-    } ) );
-
-    // Scale the label if it's too large.  This assumes that width, not height, is the important factor.
-    label.scale( Math.min( ( magnetWidth * 0.45 ) / label.width, 1 ) );
-
-    // label
-    node.addChild( label );
-    label.mutate( {
-      centerX: 0,
-      centerY: 0
-    } );
-
-    node.mutate( options );
-
-    //3d looking
+    // add the top and sides to create a 3D appearance
     node.addChild( new Path( new Shape()
       .moveTo( -magnetWidth / 4, -magnetHeight / 2 )
       .lineTo( -magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, -magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
       .lineTo( magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, -magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
       .lineTo( magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
       .lineTo( magnetWidth / 4, magnetHeight / 2 )
-      .lineTo( magnetWidth / 4, -magnetHeight / 2 )
+      .lineTo( -magnetWidth / 4, -magnetHeight / 2 )
       .close(), {
       fill: backgroundColor.colorUtilsDarker( MAGNET_3D_SHADOW )
     } ) );
 
+    // add the front
+    node.addChild( new Rectangle( -magnetWidth / 4, -magnetHeight / 2, magnetWidth / 2, magnetHeight, {
+      fill: backgroundColor
+    } ) );
+
+    // Scale the label if it's too large.  This assumes that width, not height, is the important factor.
+    label.scale( Math.min( ( magnetWidth * 0.45 ) / label.width, 1 ) );
+    label.centerX = 0;
+    label.centerY = 0;
+
+    // label
+    node.addChild( label );
+
+    node.mutate( options );
+
     node.addChild( Rectangle.bounds( node.localBounds.dilated( 1 ), {
-      fill: 'rgba(0,0,0,0)'
+      fill: 'rgba( 0, 0, 0, 0 )'
     } ) );
 
     node.touchArea = node.localBounds.dilated( 10 );
