@@ -87,10 +87,8 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      if ( dt > 0.1 ) {
-        // skip large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
-        return;
-      }
+      // Cap large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
+      dt = Math.min( 0.1, dt );
 
       // step the individual model elements
       this.bottomCoil.step( dt );
