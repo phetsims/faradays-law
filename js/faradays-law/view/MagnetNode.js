@@ -18,8 +18,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
 
   // strings
-  var nString = require( 'string!FARADAYS_LAW/faradays-law.n' );
-  var sString = require( 'string!FARADAYS_LAW/faradays-law.s' );
+  var faradaysLawNString = require( 'string!FARADAYS_LAW/faradays-law.n' );
+  var faradaysLawSString = require( 'string!FARADAYS_LAW/faradays-law.s' );
 
   // constants for magnet
   // offset for 3D looking, calculated as width*MAGNET_OFFSET_DX_RATIO
@@ -94,7 +94,7 @@ define( function( require ) {
     }, options );
 
     //create north pole magnet
-    var northPoleLabel = new Text( nString, {
+    var northPoleLabel = new Text( faradaysLawNString, {
       font: options.font,
       fill: options.fontColor
     } );
@@ -105,7 +105,7 @@ define( function( require ) {
     this.addChild( northPole );
 
     //create south pole magnet
-    var southPoleLabel = new Text( sString, {
+    var southPoleLabel = new Text( faradaysLawSString, {
       font: options.font,
       fill: options.fontColor
     } );

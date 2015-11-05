@@ -24,7 +24,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
 
   // strings
-  var voltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
+  var faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
 
   // constants
   var TERMINAL_COLOR = '#C0C0C0';
@@ -80,7 +80,7 @@ define( function( require ) {
     this.addChild( readout );
 
     // create the label and scale it if it's too long
-    var label = new Text( voltageString, {
+    var label = new Text( faradaysLawVoltageString, {
       font: DEFAULT_FONT,
       fill: options.textColor
     } );

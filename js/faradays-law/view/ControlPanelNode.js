@@ -22,7 +22,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var showFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
+  var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
   /**
    * @param model - 'Faradays Law' simulation model
@@ -94,7 +94,7 @@ define( function( require ) {
     this.addChild( coilSelectionRadioButtonGroup );
 
     // Create the label for the "Show Field Lines" check box, scaling it if it's too long.
-    var showFieldLinesLabel = new Text( showFieldLinesString, { font: new PhetFont( 16 ) } );
+    var showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
