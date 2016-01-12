@@ -38,7 +38,7 @@ define( function( require ) {
       right: model.width - 10,
       bottom: 0,
       scale: 0.75,
-      touchExpansion: 10,
+      touchAreaDilation: 10,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
