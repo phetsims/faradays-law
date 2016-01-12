@@ -81,8 +81,8 @@ define( function( require ) {
       baseColor: 'rgb(205,254,195)',
       minWidth: 118,
       minHeight: 65,
-      xTouchExpansion: 10,
-      yTouchExpansion: 10,
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 10,
       tandem: tandem
     }, options ) );
   }
