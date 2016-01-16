@@ -21,8 +21,12 @@ define( function( require ) {
 
   function FaradaysLawScreen( tandem ) {
     Screen.call( this, faradaysLawTitleString, null /* no icon, single-screen sim */,
-      function() { return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS.width, FaradaysLawConstants.LAYOUT_BOUNDS.height, tandem ); },
-      function( model ) { return new FaradaysLawView( model, tandem ); }, {
+      function() {
+        return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS.width, FaradaysLawConstants.LAYOUT_BOUNDS.height, tandem.createTandem( 'model' ) );
+      },
+      function( model ) {
+        return new FaradaysLawView( model, tandem.createTandem( 'view' ) );
+      }, {
         backgroundColor: 'rgb( 151, 208, 255 )'
       }
     );

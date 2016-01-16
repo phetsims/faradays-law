@@ -58,19 +58,19 @@ define( function( require ) {
 
   /**
    * @param aligner
-   * @param voltMeterBottom - y coordinate of the bottom of voltmeter
+   * @param voltmeterBottom - y coordinate of the bottom of voltmeter
    * @constructor
    */
-  function VoltMeterWiresNode( aligner, voltMeterNode ) {
+  function VoltmeterWiresNode( aligner, voltmeterNode ) {
     Node.call( this );
 
     var wireColor = '#353a89';
     var wireWidth = 3;
 
     // variables, used for measuring pads too
-    var leftWireX = aligner.voltmeterPosition.x + voltMeterNode.minusNode.centerX;
-    var rightWireX = aligner.voltmeterPosition.x + voltMeterNode.plusNode.centerX;
-    var wireTop = aligner.voltmeterPosition.y + voltMeterNode.height / 2;
+    var leftWireX = aligner.voltmeterPosition.x + voltmeterNode.minusNode.centerX;
+    var rightWireX = aligner.voltmeterPosition.x + voltmeterNode.plusNode.centerX;
+    var wireTop = aligner.voltmeterPosition.y + voltmeterNode.height / 2;
     // wires goes not to exactly to bulb position, need small deltas
     var leftWireBottom = aligner.bulbPosition.y - 23;
     var rightWireBottom = aligner.bulbPosition.y - 10;
@@ -101,6 +101,6 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, VoltMeterWiresNode );
+  return inherit( Node, VoltmeterWiresNode );
 } )
 ;

@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function VoltMeterScale( needleAngleProperty, options ) {
+  function VoltmeterScale( needleAngleProperty, options ) {
     Node.call( this );
 
     options = _.extend( {
@@ -86,5 +86,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, VoltMeterScale );
+  return inherit( Node, VoltmeterScale );
 } );

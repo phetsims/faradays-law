@@ -33,9 +33,9 @@ define( function( require ) {
       showFieldLines: false // show field lines for magnet
     }, {
       tandemSet: {
-        position: tandem.createTandem( 'position' ),
-        showFieldLines: tandem.createTandem( 'showFieldLines' ),
-        flipped: tandem.createTandem( 'flipped' )
+        position: tandem.createTandem( 'positionProperty' ),
+        flipped: tandem.createTandem( 'flippedProperty' ),
+        showFieldLines: tandem.createTandem( 'showFieldLinesProperty' )
       }
     } );
   }

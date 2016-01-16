@@ -13,7 +13,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
   var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
-  var VoltMeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltMeterModel' );
+  var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   /**
@@ -35,14 +35,14 @@ define( function( require ) {
       showMagnetArrows: true
     }, {
       tandemSet: {
-        showSecondCoil: tandem.createTandem( 'showSecondCoil' ),
-        showMagnetArrows: tandem.createTandem( 'showMagnetArrows' )
+        showSecondCoil: tandem.createTandem( 'showSecondCoilProperty' ),
+        showMagnetArrows: tandem.createTandem( 'showMagnetArrowsProperty' )
       }
     } );
 
     this.timeInterval = 0; //time since last model step
 
-    this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnet' ) );
+    this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
 
     // coils
     this.bottomCoil = new CoilModel( 448, 328, 4, this.magnetModel );
@@ -61,7 +61,7 @@ define( function( require ) {
     this.intersectedBounds = null;
     this.magnetMovingDirection = null; // moving direction of the magnet when intersecting coils
 
-    this.voltMeterModel = new VoltMeterModel( this, tandem );
+    this.voltmeterModel = new VoltmeterModel( this, tandem.createTandem( 'voltmeterModel' ) );
 
     //if show second coil and magnet over it, reset magnet
     this.showSecondCoilProperty.link( function( show ) {
@@ -95,7 +95,7 @@ define( function( require ) {
       if ( this.showSecondCoil ) {
         this.topCoil.step( dt );
       }
-      this.voltMeterModel.step( dt );
+      this.voltmeterModel.step( dt );
     },
 
     /**

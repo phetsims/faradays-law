@@ -15,7 +15,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var VoltMeterScale = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterScale' );
+  var VoltmeterScale = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterScale' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
@@ -38,7 +38,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function VoltMeterNode( needleAngleProperty, options ) {
+  function VoltmeterNode( needleAngleProperty, options ) {
     Node.call( this );
 
     options = _.extend( {
@@ -73,7 +73,7 @@ define( function( require ) {
     } );
 
     // scale + needle
-    readout.addChild( new VoltMeterScale( needleAngleProperty, {
+    readout.addChild( new VoltmeterScale( needleAngleProperty, {
       centerX: readout.width / 2,
       centerY: readout.height / 2
     } ) );
@@ -119,6 +119,6 @@ define( function( require ) {
     this.minusNode.center = new Vector2( -options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
   }
 
-  return inherit( Node, VoltMeterNode );
+  return inherit( Node, VoltmeterNode );
 } )
 ;

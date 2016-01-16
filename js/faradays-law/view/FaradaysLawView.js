@@ -20,8 +20,8 @@ define( function( require ) {
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
-  var VoltMeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterNode' );
-  var VoltMeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltMeterWiresNode' );
+  var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
+  var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
 
   /**
    * @param {gameModel} model - Faraday's Law simulation model object
@@ -48,15 +48,15 @@ define( function( require ) {
     this.aligner = new Aligner( model, bottomCoilNode.endRelativePositions, topCoilNode.endRelativePositions );
 
     // voltmeter and bulb created
-    var voltMeterNode = new VoltMeterNode( model.voltMeterModel.thetaProperty, {} );
-    var bulbNode = new BulbNode( model.voltMeterModel.thetaProperty, {
+    var voltmeterNode = new VoltmeterNode( model.voltmeterModel.thetaProperty, {} );
+    var bulbNode = new BulbNode( model.voltmeterModel.thetaProperty, {
       centerX: this.aligner.bulbPosition.x,
       centerY: this.aligner.bulbPosition.y
     } );
 
     // wires
     this.addChild( new CoilsWiresNode( this.aligner, model.showSecondCoilProperty ) );
-    this.addChild( new VoltMeterWiresNode( this.aligner, voltMeterNode ) );
+    this.addChild( new VoltmeterWiresNode( this.aligner, voltmeterNode ) );
 
     // bulb added
     this.addChild( bulbNode );
@@ -67,11 +67,11 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
-    this.addChild( new ControlPanelNode( model, tandem ) );
+    this.addChild( new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) ) );
 
     // voltmeter added
-    voltMeterNode.center = this.aligner.voltmeterPosition;
-    this.addChild( voltMeterNode );
+    voltmeterNode.center = this.aligner.voltmeterPosition;
+    this.addChild( voltmeterNode );
 
     // magnet
     this.addChild( new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) ) );
