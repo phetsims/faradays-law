@@ -88,6 +88,7 @@ define( function( require ) {
 
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
+
       start: function( event ) {
         self.trigger1( 'startedCallbacksForDragStarted', { x: self.centerX, y: self.centerY } );
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
@@ -100,6 +101,7 @@ define( function( require ) {
 
         self.trigger0( 'endedCallbacksForDragStarted' );
       },
+
       end: function() {
         self.trigger1( 'startedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
 
@@ -108,6 +110,7 @@ define( function( require ) {
 
         self.trigger0( 'endedCallbacksForDragEnded' );
       },
+
       //Translate on drag events
       drag: function( event ) {
         self.trigger1( 'startedCallbacksForDragged', { x: self.centerX, y: self.centerY } );
