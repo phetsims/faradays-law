@@ -71,6 +71,7 @@ define( function( require ) {
     var leftWireX = aligner.voltmeterPosition.x + voltmeterNode.minusNode.centerX;
     var rightWireX = aligner.voltmeterPosition.x + voltmeterNode.plusNode.centerX;
     var wireTop = aligner.voltmeterPosition.y + voltmeterNode.height / 2;
+
     // wires goes not to exactly to bulb position, need small deltas
     var leftWireBottom = aligner.bulbPosition.y - 23;
     var rightWireBottom = aligner.bulbPosition.y - 10;

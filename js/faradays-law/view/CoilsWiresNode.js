@@ -33,7 +33,7 @@ define( function( require ) {
     var leftWireBulbStart = new Vector2( aligner.bulbPosition.x - 15, aligner.bulbPosition.y ); //start point for left wire from bulb
     var rightWireBulbStart = new Vector2( aligner.bulbPosition.x + 10, aligner.bulbPosition.y ); //start point for right wire from bulb
 
-    //bottom coil, static wires
+    // bottom coil, static wires
 
     // bottom coil, left bottom wire
     var keyPoints = [

@@ -51,6 +51,7 @@ define( function( require ) {
       this.calculateB();
       this.BLast = this.B;
     },
+
     // Calculate magnetic field with current magnet position
     calculateB: function() {
       var rSquared = this.position.distanceSquared( this.magnetModel.position ) / (this.A * this.A);  // normalized squared distance from coil to magnet
@@ -59,6 +60,7 @@ define( function( require ) {
         this.B = this.s * 2;
       }
       else {
+
         //modified dipole field --  power law of 2 gives better feel than cubic power law (original comment)
         // formula: B = s *(3 * dx^2 -r^2) / r^4, where
         // s - +-1 - sign for position of magnet

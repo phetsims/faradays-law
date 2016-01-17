@@ -57,6 +57,7 @@ define( function( require ) {
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
     ];
+
     // see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
     this.magnetMovingDirection = null; // moving direction of the magnet when intersecting coils
@@ -118,13 +119,14 @@ define( function( require ) {
         Math.max( position.y, this.magnetModel.position.y )
       ).dilatedXY( this.magnetModel.width / 2 - 1, this.magnetModel.height / 2 - 1 );
 
-      //check intersection with any restricted areas if not intersected yet
+      // check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
         var i = this.showSecondCoil ? 0 : 2; // if first coil not visible, check only second coil restrictions
         for ( ; i < this.restricted.length; i++ ) {
           var restricted = this.restricted[ i ];
           if ( magnetBounds.intersectsBounds( restricted ) ) {
-            //extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
+
+            // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
             var movingDelta = position.minus( this.magnetModel.position );
             this.intersectedBounds = restricted.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction

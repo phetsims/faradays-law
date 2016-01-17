@@ -85,6 +85,7 @@ define( function( require ) {
     // handler
     var magnetOffset = {};
     var magnetDragHandler = new SimpleDragHandler( {
+
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
       start: function( event ) {
@@ -101,6 +102,7 @@ define( function( require ) {
       },
       end: function() {
         self.trigger1( 'startedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
+
         // arrows always are turned invisible when the user stops dragging the magnet
         arrowsVisible.set( false );
 

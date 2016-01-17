@@ -65,8 +65,7 @@ define( function( require ) {
 
     node.mutate( options );
 
-    // this addresses an issue where artifacts were being left on the screen in some browser, see
-    // https://github.com/phetsims/faradays-law/issues/48
+    // this addresses an issue where artifacts were being left on the screen in some browser, see #48
     node.addChild( Rectangle.bounds( node.localBounds.dilated( 1 ), {
       fill: 'rgba( 0, 0, 0, 0 )'
     } ) );

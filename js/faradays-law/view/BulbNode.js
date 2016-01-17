@@ -80,10 +80,12 @@ define( function( require ) {
     for ( var i = 0; i < NUM_FILAMENT_ZIG_ZAGS - 1; i++ ) {
       var yPos = filamentTopPoint.y + ( filamentBottomPoint.y - filamentTopPoint.y ) / NUM_FILAMENT_ZIG_ZAGS * (i + 1);
       if ( i % 2 === 0 ) {
+
         // zig
         filamentShape.lineTo( filamentTopPoint.x + FILAMENT_ZIG_ZAG_SPAN, yPos );
       }
       else {
+
         // zag
         filamentShape.lineTo( filamentTopPoint.x, yPos );
       }
