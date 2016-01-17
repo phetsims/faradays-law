@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var TandemDragHandler = require( 'TANDEM/TandemDragHandler' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
 
@@ -84,13 +84,14 @@ define( function( require ) {
 
     // handler
     var magnetOffset = {};
-    var magnetDragHandler = new SimpleDragHandler( {
+    var dragHandler = new TandemDragHandler( {
+
+      tandem: tandem.createTandem( 'dragHandler' ),
 
       //When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
 
       start: function( event ) {
-        self.trigger1( 'startedCallbacksForDragStarted', { x: self.centerX, y: self.centerY } );
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
@@ -98,31 +99,22 @@ define( function( require ) {
         if ( event.target !== magnetTopArrow && event.target !== magnetBottomArrow && event.target !== magnetRightArrow && event.target !== magnetLeftArrow ) {
           arrowsVisible.set( false );
         }
-
-        self.trigger0( 'endedCallbacksForDragStarted' );
       },
 
       end: function() {
-        self.trigger1( 'startedCallbacksForDragEnded', { x: self.centerX, y: self.centerY } );
 
         // arrows always are turned invisible when the user stops dragging the magnet
         arrowsVisible.set( false );
-
-        self.trigger0( 'endedCallbacksForDragEnded' );
       },
 
       //Translate on drag events
       drag: function( event ) {
-        self.trigger1( 'startedCallbacksForDragged', { x: self.centerX, y: self.centerY } );
-
         var point = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = point.copy().subtract( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
-
-        self.trigger0( 'endedCallbacksForDragged' );
       }
     } );
-    draggableNode.addInputListener( magnetDragHandler );
+    draggableNode.addInputListener( dragHandler );
 
     // observers
     model.magnetModel.flippedProperty.link( function( flipped ) {
