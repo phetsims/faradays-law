@@ -23,7 +23,7 @@
     ],
     "phet-io": {
       "preload": [
-        "../together/js/api/faradays-law-api.js"
+        "../phet-io/js/api/faradays-law-api.js"
       ]
     }
   }
