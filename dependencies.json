@@ -1,0 +1,67 @@
+{
+  "comment": "# faradays-law 1.1.0-dev.3 Wed Feb 10 2016 18:54:05 GMT-0700 (MST)",
+  "assert": {
+    "sha": "d4909677d27ed571d5d859d709a0612bf7811db8",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "a50d8c6067729c3985c5b95c960a84cd1fca634d",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "8c6f9c0402d8d445e61b8692c25b78b0ef09f279",
+    "branch": "master"
+  },
+  "chipper": {
+    "sha": "fcb06b79407fa2fb1c02a86e9454b2c29459f7e5",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "0cb241dadd06554555000adb7414edf3c4dba23a",
+    "branch": "master"
+  },
+  "faradays-law": {
+    "sha": "5f60ff5cbfab08e248160b6322fab8c9672be894",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "623b9e9b3e444836fa0ab4f2112b7b61c03e8001",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "4a947119f6e57cb6a6d9d1bf4596502ca721464c",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "874a703dc94ace52f052a7339ea8b26cfefce482",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "3db92af30d53b7d6bb3ce3c47c632f622f17986c",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "8a58e6f400dfb5e8768100bd24bcf35b347a339d",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "d54979734d4192bae17d97c8373fba40e764f2e7",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "e75c37565d50ae862c2141cb6ff665b85b45c1b1",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "ddc2051e64b3a76f99b29ec48d48d8a61b149820",
+    "branch": "master"
+  },
+  "tandem": {
+    "sha": "38dc5e4ca92af142d724d273d00d9f5ac50a000e",
+    "branch": "master"
+  },
+  "vibe": {
+    "sha": "9a751aedb10d8abf76a830c64abf0c17919049a4",
+    "branch": "master"
+  }
+}
