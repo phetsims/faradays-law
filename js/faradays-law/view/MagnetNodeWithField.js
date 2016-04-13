@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var TandemDragHandler = require( 'SUN/TandemDragHandler' );
+  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
 
