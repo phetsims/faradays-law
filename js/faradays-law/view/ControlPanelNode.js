@@ -20,6 +20,7 @@ define( function( require ) {
   var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/buttons/FlipMagnetButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // strings
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
@@ -109,5 +110,7 @@ define( function( require ) {
     this.bottom = model.height - 10;
   }
 
+  faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );
+  
   return inherit( Node, ControlPanelNode );
 } );

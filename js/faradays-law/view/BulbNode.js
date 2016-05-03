@@ -18,6 +18,7 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // images
   var bulbBaseImage = require( 'mipmap!FARADAYS_LAW/light-bulb-base.png' );
@@ -138,5 +139,7 @@ define( function( require ) {
     this.centerX = this.centerX + BULB_X_DISPLACEMENT;
   }
 
+  faradaysLaw.register( 'BulbNode', BulbNode );
+  
   return inherit( Node, BulbNode );
 } );

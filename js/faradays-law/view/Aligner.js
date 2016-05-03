@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // constants
   var BULB_POSITION = new Vector2( 190, 244 );
@@ -33,5 +34,7 @@ define( function( require ) {
     };
   };
 
+  faradaysLaw.register( 'Aligner', Aligner );
+  
   return inherit( Object, Aligner );
 } );

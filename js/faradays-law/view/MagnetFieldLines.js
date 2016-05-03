@@ -13,6 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // constants
   var ARROW_WIDTH = 16;
@@ -133,6 +134,7 @@ define( function( require ) {
 
   }
 
+  faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
+  
   return inherit( Node, MagnetFieldLines );
-} )
-;
+} );

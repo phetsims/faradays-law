@@ -22,6 +22,7 @@ define( function( require ) {
   var MinusNode = require( 'SCENERY_PHET/MinusNode' );
   var ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // strings
   var faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
@@ -119,6 +120,7 @@ define( function( require ) {
     this.minusNode.center = new Vector2( -options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
   }
 
+  faradaysLaw.register( 'VoltmeterNode', VoltmeterNode );
+  
   return inherit( Node, VoltmeterNode );
-} )
-;
+} );

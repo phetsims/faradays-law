@@ -19,6 +19,7 @@ define( function( require ) {
   var MinusNode = require( 'SCENERY_PHET/MinusNode' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   /**
    *
@@ -86,5 +87,7 @@ define( function( require ) {
     this.mutate( options );
   }
 
+  faradaysLaw.register( 'VoltmeterScale', VoltmeterScale );
+  
   return inherit( Node, VoltmeterScale );
 } );

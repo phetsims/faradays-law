@@ -22,6 +22,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
   var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   /**
    * @param {gameModel} model - Faraday's Law simulation model object
@@ -87,6 +88,7 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
   }
 
+  faradaysLaw.register( 'FaradaysLawView', FaradaysLawView );
+
   return inherit( ScreenView, FaradaysLawView, {} );
-} )
-;
+} );

@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // constants
   var ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
@@ -41,6 +42,8 @@ define( function( require ) {
     } );
   }
 
+  faradaysLaw.register( 'VoltmeterModel', VoltmeterModel );
+  
   return inherit( PropertySet, VoltmeterModel, {
     /**
      * voltmeter needle evolution over time

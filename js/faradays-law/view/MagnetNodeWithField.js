@@ -15,6 +15,7 @@ define( function( require ) {
   var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // Create single MagnetNode View
   var createMagnetNode = function( magnetModel ) {
@@ -131,5 +132,7 @@ define( function( require ) {
     tandem.addInstance( this );
   }
 
+  faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
+  
   return inherit( Node, MagnetNodeWithField );
 } );

@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   /**
    *
@@ -45,6 +46,8 @@ define( function( require ) {
     this.reset();
   }
 
+  faradaysLaw.register( 'CoilModel', CoilModel );
+  
   return inherit( PropertySet, CoilModel, {
     reset: function() {
       PropertySet.prototype.reset.call( this );

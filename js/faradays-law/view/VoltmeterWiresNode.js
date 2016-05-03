@@ -16,6 +16,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Color = require( 'SCENERY/util/Color' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   /**
    * Creates measure pad.
@@ -102,6 +103,7 @@ define( function( require ) {
 
   }
 
+  faradaysLaw.register( 'VoltmeterWiresNode', VoltmeterWiresNode );
+  
   return inherit( Node, VoltmeterWiresNode );
-} )
-;
+} );

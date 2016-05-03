@@ -14,6 +14,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var Vector2 = require( 'DOT/Vector2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // images
   var twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
@@ -99,6 +100,7 @@ define( function( require ) {
   CoilNode.twoOffset = 8;
   CoilNode.xOffset = 8;
 
+  faradaysLaw.register( 'CoilNode', CoilNode );
+  
   return inherit( Node, CoilNode );
-} )
-;
+} );

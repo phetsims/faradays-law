@@ -15,6 +15,7 @@ define( function( require ) {
   var FaradaysLawModel = require( 'FARADAYS_LAW/faradays-law/model/FaradaysLawModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // strings
   var faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
@@ -32,5 +33,7 @@ define( function( require ) {
     );
   }
 
+  faradaysLaw.register( 'FaradaysLawScreen', FaradaysLawScreen );
+  
   return inherit( Screen, FaradaysLawScreen );
 } );

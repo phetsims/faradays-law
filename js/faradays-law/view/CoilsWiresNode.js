@@ -14,6 +14,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // constants
   var ARC_RADIUS = 7;
@@ -119,6 +120,7 @@ define( function( require ) {
 
   }
 
+  faradaysLaw.register( 'CoilsWiresNode', CoilsWiresNode );
+  
   return inherit( Node, CoilsWiresNode );
-} )
-;
+} );

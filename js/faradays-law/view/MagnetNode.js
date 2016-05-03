@@ -16,6 +16,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Color = require( 'SCENERY/util/Color' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // strings
   var faradaysLawNString = require( 'string!FARADAYS_LAW/faradays-law.n' );
@@ -122,5 +123,7 @@ define( function( require ) {
 
   }
 
+  faradaysLaw.register( 'MagnetNode', MagnetNode );
+  
   return inherit( Node, MagnetNode );
 } );

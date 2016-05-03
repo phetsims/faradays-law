@@ -18,6 +18,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   /**
    * Create curved arrow for button
@@ -87,5 +88,7 @@ define( function( require ) {
     }, options ) );
   }
 
+  faradaysLaw.register( 'FlipMagnetButton', FlipMagnetButton );
+  
   return inherit( RectangularPushButton, FlipMagnetButton );
 } );

@@ -5,8 +5,13 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
-  return {
+  var FaradaysLawConstants = {
     LAYOUT_BOUNDS: new Bounds2( 0, 0, 834, 504 ) // TODO: These should be adjusted to the new convention.
   };
+
+  faradaysLaw.register( 'FaradaysLawConstants', FaradaysLawConstants );
+
+  return FaradaysLawConstants;
 } );
