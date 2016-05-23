@@ -20,11 +20,6 @@
     ],
     "preload": [
       "../sherpa/lib/Tween-r12.js"
-    ],
-    "phet-io": {
-      "preload": [
-        "../phet-io/js/api/faradays-law-api.js"
-      ]
-    }
+    ]
   }
 }
