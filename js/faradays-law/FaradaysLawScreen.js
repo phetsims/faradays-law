@@ -28,12 +28,13 @@ define( function( require ) {
       function( model ) {
         return new FaradaysLawView( model, tandem.createTandem( 'view' ) );
       }, {
-        backgroundColor: 'rgb( 151, 208, 255 )'
+        backgroundColor: 'rgb( 151, 208, 255 )',
+        tandem: tandem
       }
     );
   }
 
   faradaysLaw.register( 'FaradaysLawScreen', FaradaysLawScreen );
-  
+
   return inherit( Screen, FaradaysLawScreen );
 } );
