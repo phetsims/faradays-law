@@ -16,6 +16,7 @@ define( function( require ) {
   var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**
    * @param {Number} width of Screen
@@ -38,6 +39,10 @@ define( function( require ) {
       tandemSet: {
         showSecondCoil: tandem.createTandem( 'showSecondCoilProperty' ),
         showMagnetArrows: tandem.createTandem( 'showMagnetArrowsProperty' )
+      },
+      typeSet: {
+        showSecondCoil: TBoolean,
+        showMagnetArrows: TBoolean
       }
     } );
 
@@ -76,7 +81,7 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
-  
+
   return inherit( PropertySet, FaradaysLawModel, {
 
     reset: function() {

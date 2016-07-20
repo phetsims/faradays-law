@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // constants
   var ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
@@ -38,12 +39,17 @@ define( function( require ) {
 
         // This apparently drives both the needle location and the lightbulb brightness
         theta: tandem.createTandem( 'thetaProperty' )
+      },
+      typeSet: {
+        theta: TNumber( 'radians' ),
+        signal: TNumber( 'volts' )
       }
+
     } );
   }
 
   faradaysLaw.register( 'VoltmeterModel', VoltmeterModel );
-  
+
   return inherit( PropertySet, VoltmeterModel, {
     /**
      * voltmeter needle evolution over time
