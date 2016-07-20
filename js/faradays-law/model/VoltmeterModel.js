@@ -41,8 +41,8 @@ define( function( require ) {
         theta: tandem.createTandem( 'thetaProperty' )
       },
       typeSet: {
-        theta: TNumber( 'radians' ),
-        signal: TNumber( 'volts' )
+        theta: TNumber && TNumber( 'radians' ),
+        signal: TNumber && TNumber( 'volts' )
       }
 
     } );
