@@ -12,9 +12,6 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var Tandem = require( 'TANDEM/Tandem' );
 
-  // If running as phet-io, load the API
-  require( 'ifphetio!PHET_IO/simulations/faradays-law/faradays-law-api' );
-
   // strings
   var faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
