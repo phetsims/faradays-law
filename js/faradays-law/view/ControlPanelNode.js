@@ -22,6 +22,9 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
+  // phet-io modules
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+
   // strings
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
@@ -69,7 +72,8 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
       }, coilButtonGroupOptions ) ),
-      tandem: tandem.createTandem( 'singleCoilRadioButton' )
+      tandem: tandem.createTandem( 'singleCoilRadioButton' ),
+      type: TBoolean
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -78,7 +82,8 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
       }, coilButtonGroupOptions ) ),
-      tandem: tandem.createTandem( 'doubleCoilRadioButton' )
+      tandem: tandem.createTandem( 'doubleCoilRadioButton' ),
+      type: TBoolean
     } ];
 
     var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
