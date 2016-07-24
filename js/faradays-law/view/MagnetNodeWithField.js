@@ -16,6 +16,8 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+
+  // phet-io modules
   var TNode = require( 'ifphetio!PHET_IO/types/scenery/nodes/TNode' );
 
   // Create single MagnetNode View

@@ -16,6 +16,8 @@ define( function( require ) {
   var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+
+  // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**
