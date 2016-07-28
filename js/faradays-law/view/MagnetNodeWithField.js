@@ -132,7 +132,7 @@ define( function( require ) {
     } );
 
     // tandem support
-    TNode && tandem.addInstance( this, TNode );
+    tandem.addInstance( this, TNode );
   }
 
   faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
