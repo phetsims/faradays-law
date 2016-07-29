@@ -73,7 +73,7 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandem: tandem.createTandem( 'singleCoilRadioButton' ),
-      type: TBoolean
+      phetioValueType: TBoolean
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -83,7 +83,7 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandem: tandem.createTandem( 'doubleCoilRadioButton' ),
-      type: TBoolean
+      phetioValueType: TBoolean
     } ];
 
     var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
@@ -116,6 +116,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );
-  
+
   return inherit( Node, ControlPanelNode );
 } );
