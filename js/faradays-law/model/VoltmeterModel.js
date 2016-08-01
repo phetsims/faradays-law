@@ -42,7 +42,7 @@ define( function( require ) {
         // This apparently drives both the needle location and the lightbulb brightness
         theta: tandem.createTandem( 'thetaProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         theta: TNumber( 'radians' ),
         signal: TNumber( 'volts' )
       }

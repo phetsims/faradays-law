@@ -42,7 +42,7 @@ define( function( require ) {
         showSecondCoil: tandem.createTandem( 'showSecondCoilProperty' ),
         showMagnetArrows: tandem.createTandem( 'showMagnetArrowsProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         showSecondCoil: TBoolean,
         showMagnetArrows: TBoolean
       }

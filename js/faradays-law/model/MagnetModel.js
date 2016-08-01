@@ -42,7 +42,7 @@ define( function( require ) {
         flipped: tandem.createTandem( 'flippedProperty' ),
         showFieldLines: tandem.createTandem( 'showFieldLinesProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         position: TVector2,
         flipped: TBoolean,
         showFieldLines: TBoolean
