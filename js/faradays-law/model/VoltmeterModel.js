@@ -43,8 +43,8 @@ define( function( require ) {
         theta: tandem.createTandem( 'thetaProperty' )
       },
       phetioValueTypeSet: {
-        theta: TNumber( 'radians' ),
-        signal: TNumber( 'volts' )
+        theta: TNumber( { units: 'radians' } ),
+        signal: TNumber( { units: 'volts' )
       }
     } );
   }
