@@ -44,7 +44,7 @@ define( function( require ) {
       },
       phetioValueTypeSet: {
         theta: TNumber( { units: 'radians' } ),
-        signal: TNumber( { units: 'volts' )
+        signal: TNumber( { units: 'volts' } )
       }
     } );
   }
