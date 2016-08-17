@@ -25,8 +25,7 @@ define( function( require ) {
       qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Bryan Yoelin',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
-    },
-    tandem: tandem
+    }
   };
 
   //Create and start the sim
