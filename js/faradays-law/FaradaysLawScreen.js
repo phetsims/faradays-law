@@ -17,11 +17,8 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
-  // strings
-  var faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
-
   function FaradaysLawScreen( tandem ) {
-    Screen.call( this, faradaysLawTitleString, null /* no icon, single-screen sim */,
+    Screen.call( this,
       function() {
         return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS.width, FaradaysLawConstants.LAYOUT_BOUNDS.height, tandem.createTandem( 'model' ) );
       },
