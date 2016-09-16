@@ -179,6 +179,8 @@ define( function( require ) {
           case 'right' :
             position.x = this.intersectedBounds.x - this.magnetModel.width / 2;
             break;
+          default:
+            throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
         }
       }
       else {
