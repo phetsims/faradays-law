@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.2.0-phetiodev.3 Fri Oct 21 2016 13:40:14 GMT-0600 (MDT)",
+  "comment": "# faradays-law 1.2.0-rc.1 Fri Oct 21 2016 14:33:21 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "001c895e445c5689a53cc6936890e81a1eaaba76",
+    "sha": "ba318de26c64f5b17b1cf229b4d66938ea8a3d9a",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "ead2a526efcd62835069d6d1b32cb6c1206566c3",
+    "sha": "7957ed2eb9841b1cb6daebe51f6f5488ac37a09a",
     "branch": "master"
   },
   "joist": {
-    "sha": "82177c9d6bd2740967f3a3bb647f746e2fef0296",
+    "sha": "e7361bf396bc686155f6a02b792cf1db05de9efd",
     "branch": "master"
   },
   "kite": {
@@ -34,10 +34,6 @@
   },
   "phet-core": {
     "sha": "4222a05a927792580846b3bf9b1b53decf154943",
-    "branch": "master"
-  },
-  "phet-io": {
-    "sha": "30ef50471d874068fd303877e373f52c264c1887",
     "branch": "master"
   },
   "phetcommon": {
