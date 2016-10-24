@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.3.0-phetio Fri Oct 21 2016 22:22:51 GMT-0600 (MDT)",
+  "comment": "# faradays-law 1.2.1-phetiorc.1 Mon Oct 24 2016 14:21:00 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "c1b633ff2dff89c224a722fbfd8aaa5b661ce4d0",
+    "sha": "61e089a91cbd9a55d30be0d0aa0821dd6e5b7c85",
     "branch": "master"
   },
   "dot": {
@@ -21,8 +21,8 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "d8224d03e3fbd8ff099cc5943cdff7fc73a9343c",
-    "branch": "master"
+    "sha": "4b9667f5b8ee98bd54bcd25a7625b4f1b8416285",
+    "branch": "1.2-phetio"
   },
   "joist": {
     "sha": "e7361bf396bc686155f6a02b792cf1db05de9efd",
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "3e006e4ef8f0ecee743b809ecd661652bbd3196c",
+    "sha": "bdd16ae39019fb5327fda2810eb92846256e5134",
     "branch": "master"
   },
   "phetcommon": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "01cae1dc9a3c4cae1f8a194a6fc41738318f8818",
+    "sha": "a6a248c2bccc41ad7180119939668cf105285d2a",
     "branch": "master"
   },
   "vibe": {
