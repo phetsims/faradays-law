@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.2.1-phetiorc.5 Tue Oct 25 2016 10:57:14 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.2.1-phetiorc.6 Tue Oct 25 2016 11:39:28 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "master"
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "e5f230d2e49cc592a100b0bc69655d974485744c",
+    "sha": "535d2933857945365ef361f5aac70460efd446b8",
     "branch": "1.2-phetio"
   },
   "joist": {
-    "sha": "e7361bf396bc686155f6a02b792cf1db05de9efd",
+    "sha": "f34eb9b6e02a51f1413308c5bcade7ef803aeb08",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "9a82240208f840ce16f341a2d50d28f922cae90f",
+    "sha": "794dca9ee2a21b7edfee20e726da8d83c23f7c44",
     "branch": "master"
   },
   "phet-io-website": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "9611f89d060dcbde117404fdd21a53e2dc08fb6b",
+    "sha": "60ae8f182b1cee8d0eced458114c4cef04c27701",
     "branch": "master"
   },
   "scenery-phet": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "01cae1dc9a3c4cae1f8a194a6fc41738318f8818",
+    "sha": "dc9f3cae2963b261ea7c0c505b204a57241d573a",
     "branch": "master"
   },
   "vibe": {
