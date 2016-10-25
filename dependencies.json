@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.2.1-phetiorc.4 Tue Oct 25 2016 10:38:43 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.2.1-phetiorc.5 Tue Oct 25 2016 10:57:14 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "c1b633ff2dff89c224a722fbfd8aaa5b661ce4d0",
+    "sha": "3db1b3538c8fd853b7f4accac722a30575cd0f14",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "edb7da79131c21cfe46537c3449e144a47fddbc0",
+    "sha": "e5f230d2e49cc592a100b0bc69655d974485744c",
     "branch": "1.2-phetio"
   },
   "joist": {
@@ -38,6 +38,10 @@
   },
   "phet-io": {
     "sha": "9a82240208f840ce16f341a2d50d28f922cae90f",
+    "branch": "master"
+  },
+  "phet-io-website": {
+    "sha": "1d475bcd169c0858f5b1adbef36dd3d494da9380",
     "branch": "master"
   },
   "phetcommon": {
