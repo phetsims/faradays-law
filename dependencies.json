@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.2.3-phetiorc.1 Wed Oct 26 2016 11:24:42 GMT-0600 (MDT)",
+  "comment": "# faradays-law 1.2.3-phetiorc.2 Wed Oct 26 2016 22:37:56 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "b66f82e527962ef53d91b8bedb5513043ef7a031",
+    "sha": "81439f1fac2a26000c3a4f7854b6b8b95141053b",
     "branch": "1.2-phetio"
   },
   "joist": {
