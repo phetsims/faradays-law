@@ -33,20 +33,24 @@ define( function( require ) {
     this.C = 1;   // meter gain
     this.B = 10; // friction coefficient, so needle motion looks realistic
 
-    PropertySet.call( this, {
-      theta: 0, // needle angle in radians
-      signal: 0 // input voltage to meter
-    }, {
-      tandemSet: {
+    var properties = {
 
-        // This apparently drives both the needle location and the lightbulb brightness
-        theta: tandem.createTandem( 'thetaProperty' )
+      // Needle angle in radians. This apparently drives both the needle location and the lightbulb brightness.
+      theta: {
+        value: 0,
+        tandem: tandem.createTandem( 'thetaProperty' ),
+        phetioValueType: TNumber( { units: 'radians' } )
       },
-      phetioValueTypeSet: {
-        theta: TNumber( { units: 'radians' } ),
-        signal: TNumber( { units: 'volts' } )
+
+      // input voltage to meter
+      signal: {
+        value: 0,
+        //TODO tandem is missing, see https://github.com/phetsims/phet-io/issues/661
+        phetioValueType: TNumber( { units: 'volts' } )
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
   }
 
   faradaysLaw.register( 'VoltmeterModel', VoltmeterModel );

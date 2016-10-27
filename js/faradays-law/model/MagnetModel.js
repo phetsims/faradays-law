@@ -32,22 +32,30 @@ define( function( require ) {
     this.width = width;
     this.height = height;
 
-    PropertySet.call( this, {
-      position: new Vector2( x, y ),
-      flipped: false, //is magnet flipped
-      showFieldLines: false // show field lines for magnet
-    }, {
-      tandemSet: {
-        position: tandem.createTandem( 'positionProperty' ),
-        flipped: tandem.createTandem( 'flippedProperty' ),
-        showFieldLines: tandem.createTandem( 'showFieldLinesProperty' )
+    var properties = {
+
+      position: {
+        value: new Vector2( x, y ),
+        tandem: tandem.createTandem( 'positionProperty' ),
+        phetioValueType: TVector2
       },
-      phetioValueTypeSet: {
-        position: TVector2,
-        flipped: TBoolean,
-        showFieldLines: TBoolean
+
+      // is the magnet flipped?
+      flipped: {
+        value: false,
+        tandem: tandem.createTandem( 'flippedProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      // show field lines for magnet
+      showFieldLines: {
+        value: false,
+        tandem: tandem.createTandem( 'showFieldLinesProperty' ),
+        phetioValueType: TBoolean
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
   }
 
   faradaysLaw.register( 'MagnetModel', MagnetModel );

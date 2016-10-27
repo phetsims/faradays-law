@@ -34,19 +34,23 @@ define( function( require ) {
 
     this.bounds = new Bounds2( 0, 0, width, height );
 
-    PropertySet.call( this, {
-      showSecondCoil: false, // number of coils - 1 or 2
-      showMagnetArrows: true
-    }, {
-      tandemSet: {
-        showSecondCoil: tandem.createTandem( 'showSecondCoilProperty' ),
-        showMagnetArrows: tandem.createTandem( 'showMagnetArrowsProperty' )
+    var properties = {
+
+      // number of coils - 1 or 2
+      showSecondCoil: {
+        value: false,
+        tandem: tandem.createTandem( 'showSecondCoilProperty' ),
+        phetioValueType: TBoolean
       },
-      phetioValueTypeSet: {
-        showSecondCoil: TBoolean,
-        showMagnetArrows: TBoolean
+
+      showMagnetArrows: {
+        value: true,
+        tandem: tandem.createTandem( 'showMagnetArrowsProperty' ),
+        phetioValueType: TBoolean
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
 
     this.timeInterval = 0; //time since last model step
 
