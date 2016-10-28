@@ -55,7 +55,7 @@ define( function( require ) {
       }
     };
 
-    PropertySet.call( this, null, null, properties );
+    PropertySet.call( this, null, properties );
   }
 
   faradaysLaw.register( 'MagnetModel', MagnetModel );

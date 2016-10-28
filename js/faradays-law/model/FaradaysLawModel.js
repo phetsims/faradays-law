@@ -50,7 +50,7 @@ define( function( require ) {
       }
     };
 
-    PropertySet.call( this, null, null, properties );
+    PropertySet.call( this, null, properties );
 
     this.timeInterval = 0; //time since last model step
 
