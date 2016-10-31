@@ -22,9 +22,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
-  // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
-
   // strings
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
