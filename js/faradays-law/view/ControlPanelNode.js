@@ -72,8 +72,7 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
       }, coilButtonGroupOptions ) ),
-      tandem: tandem.createTandem( 'singleCoilRadioButton' ),
-      phetioValueType: TBoolean
+      tandem: tandem.createTandem( 'singleCoilRadioButton' )
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -82,8 +81,7 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
       }, coilButtonGroupOptions ) ),
-      tandem: tandem.createTandem( 'doubleCoilRadioButton' ),
-      phetioValueType: TBoolean
+      tandem: tandem.createTandem( 'doubleCoilRadioButton' )
     } ];
 
     var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
