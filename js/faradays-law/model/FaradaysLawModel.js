@@ -21,8 +21,8 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**
-   * @param {Number} width of Screen
-   * @param {Number} height of Screen
+   * @param {number} width of Screen
+   * @param {number} height of Screen
    * @param {Tandem} tandem
    * @constructor
    */
