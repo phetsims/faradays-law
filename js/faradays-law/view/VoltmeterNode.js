@@ -36,10 +36,11 @@ define( function( require ) {
 
   /**
    * @param needleAngleProperty - angle of needle in voltmeter
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function VoltmeterNode( needleAngleProperty, options ) {
+  function VoltmeterNode( needleAngleProperty, tandem, options ) {
     Node.call( this );
 
     options = _.extend( {
@@ -74,7 +75,7 @@ define( function( require ) {
     } );
 
     // scale + needle
-    readout.addChild( new VoltmeterScale( needleAngleProperty, {
+    readout.addChild( new VoltmeterScale( needleAngleProperty, tandem.createTandem( 'voltmeterScale' ), {
       centerX: readout.width / 2,
       centerY: readout.height / 2
     } ) );
@@ -121,6 +122,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'VoltmeterNode', VoltmeterNode );
-  
+
   return inherit( Node, VoltmeterNode );
 } );

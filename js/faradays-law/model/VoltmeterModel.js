@@ -45,7 +45,7 @@ define( function( require ) {
       // input voltage to meter
       signal: {
         value: 0,
-        //TODO tandem is missing, see https://github.com/phetsims/phet-io/issues/661
+        tandem: tandem.createTandem( 'signalProperty' ),
         phetioValueType: TNumber( { units: 'volts' } )
       }
     };

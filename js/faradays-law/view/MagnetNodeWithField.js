@@ -58,32 +58,40 @@ define( function( require ) {
     var magnetArrowXOffset = 10; // how far the horizontal arrows are from the magnet
     var magnetArrowYOffset = 10; // how far the vertical arrows are from the magent
     var magnetArrowLength = 30;
-    var magnetTopArrow = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
-      this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, magnetArrowOptions );
-    var magnetBottomArrow = new ArrowNode( this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowYOffset,
-      this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, magnetArrowOptions );
-    var magnetRightArrow = new ArrowNode( this.magnetNode.right + magnetArrowXOffset, this.magnetNode.centerY,
-      this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
-    var magnetLeftArrow = new ArrowNode( this.magnetNode.left - magnetArrowXOffset, this.magnetNode.centerY,
-      this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
-    draggableNode.addChild( magnetTopArrow );
-    draggableNode.addChild( magnetBottomArrow );
-    draggableNode.addChild( magnetRightArrow );
-    draggableNode.addChild( magnetLeftArrow );
+    var magnetTopArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
+      this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, _.extend( {
+        tandem: tandem.createTandem( 'magnetTopArrowNode' )
+      }, magnetArrowOptions ) );
+    var magnetBottomArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowYOffset,
+      this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, _.extend( {
+        tandem: tandem.createTandem( 'magnetBottomArrowNode' )
+      }, magnetArrowOptions ) );
+    var magnetRightArrowNode = new ArrowNode( this.magnetNode.right + magnetArrowXOffset, this.magnetNode.centerY,
+      this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, _.extend( {
+        tandem: tandem.createTandem( 'magnetRightArrowNode' )
+      }, magnetArrowOptions ) );
+    var magnetLeftArrowNode = new ArrowNode( this.magnetNode.left - magnetArrowXOffset, this.magnetNode.centerY,
+      this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, _.extend( {
+        tandem: tandem.createTandem( 'magnetLeftArrowNode' )
+      }, magnetArrowOptions ) );
+    draggableNode.addChild( magnetTopArrowNode );
+    draggableNode.addChild( magnetBottomArrowNode );
+    draggableNode.addChild( magnetRightArrowNode );
+    draggableNode.addChild( magnetLeftArrowNode );
 
-    magnetTopArrow.touchArea = magnetTopArrow.localBounds.dilated( 6 );
-    magnetBottomArrow.touchArea = magnetBottomArrow.localBounds.dilated( 6 );
-    magnetRightArrow.touchArea = magnetRightArrow.localBounds.dilated( 6 );
-    magnetLeftArrow.touchArea = magnetLeftArrow.localBounds.dilated( 6 );
+    magnetTopArrowNode.touchArea = magnetTopArrowNode.localBounds.dilated( 6 );
+    magnetBottomArrowNode.touchArea = magnetBottomArrowNode.localBounds.dilated( 6 );
+    magnetRightArrowNode.touchArea = magnetRightArrowNode.localBounds.dilated( 6 );
+    magnetLeftArrowNode.touchArea = magnetLeftArrowNode.localBounds.dilated( 6 );
 
     // update the arrow visibility as needed
     var arrowsVisible = model.showMagnetArrowsProperty;
     arrowsVisible.link( function() {
       var visible = arrowsVisible.get();
-      magnetTopArrow.visible = visible;
-      magnetBottomArrow.visible = visible;
-      magnetRightArrow.visible = visible;
-      magnetLeftArrow.visible = visible;
+      magnetTopArrowNode.visible = visible;
+      magnetBottomArrowNode.visible = visible;
+      magnetRightArrowNode.visible = visible;
+      magnetLeftArrowNode.visible = visible;
     } );
 
     // handler
@@ -100,7 +108,7 @@ define( function( require ) {
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
         // if the user starts the drag on the magnet itself (not on the arrows), we make the arrows invisible
-        if ( event.target !== magnetTopArrow && event.target !== magnetBottomArrow && event.target !== magnetRightArrow && event.target !== magnetLeftArrow ) {
+        if ( event.target !== magnetTopArrowNode && event.target !== magnetBottomArrowNode && event.target !== magnetRightArrowNode && event.target !== magnetLeftArrowNode ) {
           arrowsVisible.set( false );
         }
       },
