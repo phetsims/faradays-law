@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.6 Thu Aug 04 2016 13:41:34 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.1.6 Tue Dec 06 2016 12:58:21 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "f9015be7e1011134054914e258dab6e74ffa8147",
+    "sha": "ae451b650051d54091eebff8486e0e98a481556b",
     "branch": "1.1"
   },
   "joist": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "71d6606986a5afa784d4caf8f4f8a4d88e9c5f94",
-    "branch": "HEAD"
+    "sha": "f8796384ca30b9ce31c5fc7d54980af2969e0b71",
+    "branch": "faradays-law-1.1"
   },
   "scenery": {
     "sha": "e2949e56551fbdebd983d3538fb1a1476b883dd8",
