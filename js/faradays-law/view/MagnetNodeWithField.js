@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
+  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
@@ -96,7 +96,7 @@ define( function( require ) {
 
     // handler
     var magnetOffset = {};
-    var dragHandler = new TandemDragHandler( {
+    var dragHandler = new TandemSimpleDragHandler( {
 
       tandem: tandem.createTandem( 'dragHandler' ),
 
