@@ -69,7 +69,7 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
       }, coilButtonGroupOptions ) ),
-      tandem: tandem.createTandem( 'singleCoilRadioButton' )
+      tandemName: 'singleCoilRadioButton'
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -78,7 +78,7 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
         ]
       }, coilButtonGroupOptions ) ),
-      tandem: tandem.createTandem( 'doubleCoilRadioButton' )
+      tandemName: 'doubleCoilRadioButton'
     } ];
 
     var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
@@ -89,7 +89,8 @@ define( function( require ) {
       orientation: 'horizontal',
       baseColor: '#cdd5f6', // lavender-ish
       selectedLineWidth: 3,
-      deselectedLineWidth: 1
+      deselectedLineWidth: 1,
+      tandem: tandem.createTandem( 'RadioButtonGroup')
     } );
 
     this.addChild( coilSelectionRadioButtonGroup );
