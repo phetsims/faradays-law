@@ -21,7 +21,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // images
-  var bulbBaseImage = require( 'mipmap!FARADAYS_LAW/light-bulb-base.png' );
+  var bulbBaseImage = require( 'mipmap!SCENERY_PHET/light-bulb-base.png' );
 
   // constants
   var BULB_HEIGHT = 125;
@@ -140,6 +140,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'BulbNode', BulbNode );
-  
+
   return inherit( Node, BulbNode );
 } );
