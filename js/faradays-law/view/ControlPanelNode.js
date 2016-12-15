@@ -90,7 +90,7 @@ define( function( require ) {
       baseColor: '#cdd5f6', // lavender-ish
       selectedLineWidth: 3,
       deselectedLineWidth: 1,
-      tandem: tandem.createTandem( 'RadioButtonGroup')
+      tandem: tandem.createTandem( 'radioButtonGroup')
     } );
 
     this.addChild( coilSelectionRadioButtonGroup );
