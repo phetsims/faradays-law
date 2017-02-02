@@ -17,7 +17,6 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   function FaradaysLawScreen( tandem ) {
     Screen.call( this,
@@ -27,7 +26,7 @@ define( function( require ) {
       function( model ) {
         return new FaradaysLawView( model, tandem.createTandem( 'view' ) );
       }, {
-        backgroundColorProperty: new Property( Color.toColor( 'rgb( 151, 208, 255 )' ) ),
+        backgroundColorProperty: new Property( 'rgb( 151, 208, 255 )' ),
         tandem: tandem
       }
     );
