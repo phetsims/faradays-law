@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.8 Fri Apr 07 2017 17:07:38 GMT-0600 (MDT)",
+  "comment": "# faradays-law 1.1.8 Thu Apr 13 2017 12:54:52 GMT-0600 (MDT)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -9,19 +9,19 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "06cec00da80d86b9581448fffe5496485f1a6a5c",
-    "branch": "HEAD"
+    "sha": "ca32c317c4383028bc769becb2f8d443ce382f73",
+    "branch": "faradays-law-1.1"
   },
   "chipper": {
     "sha": "d13a1ddafca51d415f46413db0f8a91954233255",
-    "branch": "HEAD"
+    "branch": "faradays-law-1.1"
   },
   "dot": {
     "sha": "b9e3c1e07271b8b4fee91fca360f51563fe479cb",
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "8e7ff62408652c314c078e80b8aeb6cd9a078318",
+    "sha": "1a34314f26b8f683624611df475fca2bdfe3218d",
     "branch": "1.1"
   },
   "joist": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "f8796384ca30b9ce31c5fc7d54980af2969e0b71",
-    "branch": "HEAD"
+    "sha": "c793c6e287c2732157823fc2a849bfefd4cb63f4",
+    "branch": "faradays-law-1.1"
   },
   "scenery": {
     "sha": "78f5dc168e57df1942df7355f13206982c3a9834",
