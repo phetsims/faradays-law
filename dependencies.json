@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.8 Thu Apr 13 2017 18:45:28 GMT-0600 (MDT)",
+  "comment": "# faradays-law 1.1.8 Thu Apr 13 2017 21:01:17 GMT-0600 (MDT)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "a1897ce4d76dc94ea096a3c3cc1b248992752ddd",
+    "sha": "cee42f4c1679cc459c3e628fdc8853d10a451587",
     "branch": "1.1"
   },
   "joist": {
     "sha": "bab2da0bfa5e44d38dd209e1f71fb346ed24b40a",
-    "branch": "faradays-law-1.1"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "7f2df7e9ec52ed32d8c0fe0c1fe6bfa8c043c510",
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "c793c6e287c2732157823fc2a849bfefd4cb63f4",
-    "branch": "HEAD"
+    "sha": "2927e2db53a7902a786b2e15f9078180c3dde580",
+    "branch": "faradays-law-1.1"
   },
   "scenery": {
     "sha": "78f5dc168e57df1942df7355f13206982c3a9834",
