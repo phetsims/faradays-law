@@ -16,7 +16,6 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var TNode = require( 'SCENERY/nodes/TNode' );
 
   // Create single MagnetNode View
   var createMagnetNode = function( magnetModel ) {
@@ -34,7 +33,9 @@ define( function( require ) {
    */
   function MagnetNodeWithField( model, tandem ) {
     var self = this;
-    Node.call( this );
+    Node.call( this, {
+      tandem: tandem
+    } );
 
     // field lines
     this.addChild( new MagnetFieldLines( model.magnetModel ) );
@@ -136,9 +137,6 @@ define( function( require ) {
     model.magnetModel.positionProperty.link( function( position ) {
       self.translation = position;
     } );
-
-    // tandem support
-    tandem.addInstance( this, TNode );
   }
 
   faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
