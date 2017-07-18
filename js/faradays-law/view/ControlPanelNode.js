@@ -47,7 +47,7 @@ define( function( require ) {
     // flip magnet button
     var flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
       listener: function() {
-        model.magnetModel.flipped = !model.magnetModel.flipped;
+        model.magnetModel.flippedProperty.set( !model.magnetModel.flippedProperty.get() );
       },
       bottom: 0,
       right: model.width - 110

@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // phet-io modules
@@ -33,29 +33,22 @@ define( function( require ) {
     this.C = 1;   // meter gain
     this.B = 10; // friction coefficient, so needle motion looks realistic
 
-    var properties = {
+    // Needle angle in radians. This apparently drives both the needle location and the lightbulb brightness.
+    this.thetaProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'thetaProperty' ),
+      phetioValueType: TNumber( { units: 'radians' } )
+    } );
 
-      // Needle angle in radians. This apparently drives both the needle location and the lightbulb brightness.
-      theta: {
-        value: 0,
-        tandem: tandem.createTandem( 'thetaProperty' ),
-        phetioValueType: TNumber( { units: 'radians' } )
-      },
-
-      // input voltage to meter
-      signal: {
-        value: 0,
-        tandem: tandem.createTandem( 'signalProperty' ),
-        phetioValueType: TNumber( { units: 'volts' } )
-      }
-    };
-
-    PropertySet.call( this, null, properties );
+    // input voltage to meter
+    this.signalProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'signalProperty' ),
+      phetioValueType: TNumber( { units: 'volts' } )
+    } );
   }
 
   faradaysLaw.register( 'VoltmeterModel', VoltmeterModel );
 
-  return inherit( PropertySet, VoltmeterModel, {
+  return inherit( Object, VoltmeterModel, {
     /**
      * voltmeter needle evolution over time
      * @param dt
@@ -64,20 +57,20 @@ define( function( require ) {
 
       // Calculate the signal, combining the EMF from both coils.  The multiplier (including the sign thereof) is
       // empirically determined to make the needle move the correct amount and direction.
-      this.signal = -0.2 * (this.faradaysLawModel.bottomCoil.emf + this.faradaysLawModel.topCoil.emf);
+      this.signalProperty.set( -0.2 * (this.faradaysLawModel.bottomCoil.emfProperty.get() + this.faradaysLawModel.topCoil.emfProperty.get()) );
 
-      this.alpha = this.D * (this.signal - this.C * this.theta) - this.B * this.omega; //angular acceleration of needle
-      this.theta = this.theta + this.omega * dt + 0.5 * this.alpha * dt * dt; //angle of needle
+      this.alpha = this.D * (this.signalProperty.get() - this.C * this.thetaProperty.get()) - this.B * this.omega; //angular acceleration of needle
+      this.thetaProperty.set( this.thetaProperty.get() + this.omega * dt + 0.5 * this.alpha * dt * dt ); //angle of needle
       var omegaTemp = this.omega + this.alpha * dt;
-      var alphaTemp = this.D * (this.signal - this.C * this.theta) - this.B * omegaTemp;
+      var alphaTemp = this.D * (this.signalProperty.get() - this.C * this.thetaProperty.get()) - this.B * omegaTemp;
       this.omega = this.omega + 0.5 * dt * (this.alpha + alphaTemp); //angular velocity
 
       // Clamp the needle angle when its position, velocity, and acceleration go below a threshold so that it doesn't
       // oscillate forever.
       if ( Math.abs( this.alpha ) !== 0 && Math.abs( this.alpha ) < ACTIVITY_THRESHOLD &&
            Math.abs( this.omega ) !== 0 && Math.abs( this.omega ) < ACTIVITY_THRESHOLD &&
-           Math.abs( this.theta ) !== 0 && Math.abs( this.theta ) < ACTIVITY_THRESHOLD ) {
-        this.theta = 0;
+           Math.abs( this.thetaProperty.get() ) !== 0 && Math.abs( this.thetaProperty.get() ) < ACTIVITY_THRESHOLD ) {
+        this.thetaProperty.set( 0 );
         this.omega = 0;
         this.alpha = 0;
       }

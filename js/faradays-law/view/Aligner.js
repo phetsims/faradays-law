@@ -17,7 +17,7 @@ define( function( require ) {
   var BULB_POSITION = new Vector2( 190, 244 );
   var Voltmeter_POSITION = BULB_POSITION.minusXY( 0, 165 );
 
-  var Aligner = function( model, bottomCoilEndRelativePositions, topCoilEndRelativePositions ) {
+  function Aligner( model, bottomCoilEndRelativePositions, topCoilEndRelativePositions ) {
     this.bottomCoilPosition = model.bottomCoil.position;
     this.topCoilPosition = model.topCoil.position;
     this.bulbPosition = BULB_POSITION;
@@ -32,7 +32,7 @@ define( function( require ) {
       topEnd: topCoilEndRelativePositions.topEnd.plus( model.topCoil.position ),
       bottomEnd: topCoilEndRelativePositions.bottomEnd.plus( model.topCoil.position )
     };
-  };
+  }
 
   faradaysLaw.register( 'Aligner', Aligner );
   

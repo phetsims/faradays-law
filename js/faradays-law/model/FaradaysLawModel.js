@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
   var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
   var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
@@ -34,23 +34,16 @@ define( function( require ) {
 
     this.bounds = new Bounds2( 0, 0, width, height );
 
-    var properties = {
+    // number of coils - 1 or 2
+    this.showSecondCoilProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSecondCoilProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      // number of coils - 1 or 2
-      showSecondCoil: {
-        value: false,
-        tandem: tandem.createTandem( 'showSecondCoilProperty' ),
-        phetioValueType: TBoolean
-      },
-
-      showMagnetArrows: {
-        value: true,
-        tandem: tandem.createTandem( 'showMagnetArrowsProperty' ),
-        phetioValueType: TBoolean
-      }
-    };
-
-    PropertySet.call( this, null, properties );
+    this.showMagnetArrowsProperty = new Property( true, {
+      tandem: tandem.createTandem( 'showMagnetArrowsProperty' ),
+      phetioValueType: TBoolean
+    } );
 
     this.timeInterval = 0; //time since last model step
 
@@ -88,11 +81,12 @@ define( function( require ) {
 
   faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
 
-  return inherit( PropertySet, FaradaysLawModel, {
+  return inherit( Object, FaradaysLawModel, {
 
     reset: function() {
       this.magnetModel.reset();
-      PropertySet.prototype.reset.call( this );
+      this.showSecondCoilProperty.reset();
+      this.showMagnetArrowsProperty.reset();
       this.bottomCoil.reset();
       this.topCoil.reset();
     },
@@ -107,7 +101,7 @@ define( function( require ) {
 
       // step the individual model elements
       this.bottomCoil.step( dt );
-      if ( this.showSecondCoil ) {
+      if ( this.showSecondCoilProperty.get() ) {
         this.topCoil.step( dt );
       }
       this.voltmeterModel.step( dt );
@@ -118,7 +112,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     intersectionWithSecondCoil: function() {
-      var magnetBounds = Bounds2.point( this.magnetModel.position ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
+      var magnetBounds = Bounds2.point( this.magnetModel.positionProperty.get() ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
       return magnetBounds.intersectsBounds( this.restricted[ 1 ] ) || magnetBounds.intersectsBounds( this.restricted[ 0 ] );
     },
 
@@ -127,21 +121,21 @@ define( function( require ) {
      */
     moveMagnetToPosition: function( position ) {
       var magnetBounds = new Bounds2(
-        Math.min( position.x, this.magnetModel.position.x ),
-        Math.min( position.y, this.magnetModel.position.y ),
-        Math.max( position.x, this.magnetModel.position.x ),
-        Math.max( position.y, this.magnetModel.position.y )
+        Math.min( position.x, this.magnetModel.positionProperty.get().x ),
+        Math.min( position.y, this.magnetModel.positionProperty.get().y ),
+        Math.max( position.x, this.magnetModel.positionProperty.get().x ),
+        Math.max( position.y, this.magnetModel.positionProperty.get().y )
       ).dilatedXY( this.magnetModel.width / 2 - 1, this.magnetModel.height / 2 - 1 );
 
       // check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
-        var i = this.showSecondCoil ? 0 : 2; // if first coil not visible, check only second coil restrictions
+        var i = this.showSecondCoilProperty.get() ? 0 : 2; // if first coil not visible, check only second coil restrictions
         for ( ; i < this.restricted.length; i++ ) {
           var restricted = this.restricted[ i ];
           if ( magnetBounds.intersectsBounds( restricted ) ) {
 
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-            var movingDelta = position.minus( this.magnetModel.position );
+            var movingDelta = position.minus( this.magnetModel.positionProperty.get() );
             this.intersectedBounds = restricted.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
               if ( movingDelta.y > 0 ) { //bottom
@@ -196,7 +190,7 @@ define( function( require ) {
           position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnetModel.height / 2 ), this.bounds.y + this.magnetModel.height / 2 );
         }
       }
-      this.magnetModel.position = position;
+      this.magnetModel.positionProperty.set( position );
 
     }
   } );

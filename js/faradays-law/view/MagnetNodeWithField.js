@@ -19,7 +19,7 @@ define( function( require ) {
 
   // Create single MagnetNode View
   var createMagnetNode = function( magnetModel ) {
-    return new MagnetNode( magnetModel.flipped, {
+    return new MagnetNode( magnetModel.flippedProperty.get(), {
       width: magnetModel.width,
       height: magnetModel.height,
       showArrows: true
@@ -55,7 +55,7 @@ define( function( require ) {
       headHeight: 18
     };
     var magnetArrowXOffset = 10; // how far the horizontal arrows are from the magnet
-    var magnetArrowYOffset = 10; // how far the vertical arrows are from the magent
+    var magnetArrowYOffset = 10; // how far the vertical arrows are from the magnet
     var magnetArrowLength = 30;
     var magnetTopArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
       this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, _.extend( {

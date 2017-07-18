@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var TVector2 = require( 'DOT/TVector2' );
@@ -32,33 +32,32 @@ define( function( require ) {
     this.width = width;
     this.height = height;
 
-    var properties = {
+    this.positionProperty = new Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioValueType: TVector2
+    } );
 
-      position: {
-        value: new Vector2( x, y ),
-        tandem: tandem.createTandem( 'positionProperty' ),
-        phetioValueType: TVector2
-      },
+    // is the magnet flipped?
+    this.flippedProperty = new Property( false, {
+      tandem: tandem.createTandem( 'flippedProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      // is the magnet flipped?
-      flipped: {
-        value: false,
-        tandem: tandem.createTandem( 'flippedProperty' ),
-        phetioValueType: TBoolean
-      },
-
-      // show field lines for magnet
-      showFieldLines: {
-        value: false,
-        tandem: tandem.createTandem( 'showFieldLinesProperty' ),
-        phetioValueType: TBoolean
-      }
-    };
-
-    PropertySet.call( this, null, properties );
+    // show field lines for magnet
+    this.showFieldLinesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showFieldLinesProperty' ),
+      phetioValueType: TBoolean
+    } );
   }
 
   faradaysLaw.register( 'MagnetModel', MagnetModel );
 
-  return inherit( PropertySet, MagnetModel );
+  return inherit( Object, MagnetModel, {
+
+    reset: function() {
+      this.positionProperty.reset();
+      this.flippedProperty.reset();
+      this.showFieldLinesProperty.reset();
+    }
+  } );
 } );
