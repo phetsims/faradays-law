@@ -17,6 +17,13 @@ define( function( require ) {
   var BULB_POSITION = new Vector2( 190, 244 );
   var Voltmeter_POSITION = BULB_POSITION.minusXY( 0, 165 );
 
+  /**
+   *
+   * @param {FaradayslawModel} model
+   * @param {Object} bottomCoilEndRelativePositions
+   * @param {Object} topCoilEndRelativePositions
+   * @constructor
+   */
   function Aligner( model, bottomCoilEndRelativePositions, topCoilEndRelativePositions ) {
     this.bottomCoilPosition = model.bottomCoil.position;
     this.topCoilPosition = model.topCoil.position;

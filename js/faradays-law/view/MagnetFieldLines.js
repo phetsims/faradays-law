@@ -85,7 +85,7 @@ define( function( require ) {
 
       arrow.rotateAround( arrowPosition, rotationAngle );
 
-      flippedProperty.lazyLink( function( flipped ) {
+      flippedProperty.lazyLink( function() {
         arrow.rotateAround( arrowPosition, Math.PI );
       } );
       node.addChild( arrow );
@@ -119,6 +119,7 @@ define( function( require ) {
    * @constructor
    */
   function MagnetFieldLines( magnetModel ) {
+    //TODO: Shoule we declare the above functions within the constructor? It seems like this structure needs an update.
     Node.call( this );
 
     // top field lines

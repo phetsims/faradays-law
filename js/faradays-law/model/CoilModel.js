@@ -16,10 +16,10 @@ define( function( require ) {
 
   /**
    *
-   * @param x - centerX of the coil
-   * @param y - centerY of the coil
-   * @param N - number of spirals
-   * @param magnetModel - model of the magnet
+   * @param {number} x - centerX of the coil
+   * @param {number} y - centerY of the coil
+   * @param {number} N - number of spirals
+   * @param {MagnetModel} magnetModel - model of the magnet
    * @constructor
    */
   function CoilModel( x, y, N, magnetModel ) {
@@ -55,7 +55,10 @@ define( function( require ) {
       this.BLastProperty.set( this.BProperty.get() );
     },
 
-    // Calculate magnetic field with current magnet position
+    /** Calculate magnetic field with current magnet position
+     *
+     * @private
+     */
     calculateB: function() {
       var rSquared = this.position.distanceSquared( this.magnetModel.positionProperty.get() ) / (this.A * this.A);  // normalized squared distance from coil to magnet
 
@@ -74,8 +77,10 @@ define( function( require ) {
       }
     },
     /**
-     * evolution of emf in coil over time
-     * @param dt - time in seconds
+     * Evolution of emf in coil over time
+     * @param {number} dt - time in seconds
+     *
+     * @public
      */
     step: function( dt ) {
       this.calculateB();
