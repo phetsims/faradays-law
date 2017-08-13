@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.3.7-phetiodev.4 Sun Aug 13 2017 11:45:44 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# faradays-law 1.3.7-dev.4 Sun Aug 13 2017 11:56:21 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "fa86117e50e8f52138eb3affcc1b98c0f24c62ed",
+    "sha": "a3e6afa5c529809f1314023a8741ceb02778e3d4",
     "branch": "master"
   },
   "joist": {
@@ -34,30 +34,6 @@
   },
   "phet-core": {
     "sha": "6bfeef5c876a7f4c52ba269412a4c4985bceb2fb",
-    "branch": "master"
-  },
-  "phet-io": {
-    "sha": "53b7db7a414b5360109a63a904ee5c9b01572219",
-    "branch": "master"
-  },
-  "phet-io-website": {
-    "sha": "199cd096ff892d172950b3d522ab9ce0282817ec",
-    "branch": "master"
-  },
-  "phet-io-wrapper-classroom-activity": {
-    "sha": "1cb7bdccecd2c3493e4eb22d57d5bd31c3b87e24",
-    "branch": "master"
-  },
-  "phet-io-wrapper-lab-book": {
-    "sha": "abf90598573366af7e9538847e89d4af0eb20166",
-    "branch": "master"
-  },
-  "phet-io-wrapper-sonification": {
-    "sha": "d913ca4fc4de6cfcaa158dad816c85cbb59e8371",
-    "branch": "master"
-  },
-  "phet-io-wrappers": {
-    "sha": "5623cb7bc2d8a766e6308cbee974bb8b049c2464",
     "branch": "master"
   },
   "phetcommon": {
