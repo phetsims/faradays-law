@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
-  var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
-  var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
+  var Property = require( 'AXON/Property' );
+  var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );

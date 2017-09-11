@@ -9,17 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var Util = require( 'DOT/Util' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var MinusNode = require( 'SCENERY_PHET/MinusNode' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MinusNode = require( 'SCENERY_PHET/MinusNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  var Shape = require( 'KITE/Shape' );
+  var Util = require( 'DOT/Util' );
 
   /**
    *

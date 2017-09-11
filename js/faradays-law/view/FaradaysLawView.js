@@ -12,9 +12,10 @@ define( function( require ) {
   var Aligner = require( 'FARADAYS_LAW/faradays-law/view/Aligner' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
-  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
+  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
@@ -22,7 +23,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
   var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   /**
    * @param {gameModel} model - Faraday's Law simulation model object

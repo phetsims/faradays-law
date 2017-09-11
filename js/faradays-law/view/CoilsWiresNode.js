@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // constants
   var ARC_RADIUS = 7;

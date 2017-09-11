@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var Shape = require( 'KITE/Shape' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * Create curved arrow for button

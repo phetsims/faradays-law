@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
+  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   // Create single MagnetNode View
   var createMagnetNode = function( magnetModel ) {

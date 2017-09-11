@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -18,7 +19,6 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   // images
   var bulbBaseImage = require( 'mipmap!SCENERY_PHET/light-bulb-base.png' );

@@ -9,20 +9,20 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var VoltmeterScale = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterScale' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var MinusNode = require( 'SCENERY_PHET/MinusNode' );
-  var ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
+  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MinusNode = require( 'SCENERY_PHET/MinusNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var VoltmeterScale = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterScale' );
 
   // strings
   var faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
