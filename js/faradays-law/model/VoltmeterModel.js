@@ -9,12 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-
-  // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
   var ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
@@ -34,15 +31,15 @@ define( function( require ) {
     this.B = 10; // friction coefficient, so needle motion looks realistic
 
     // Needle angle in radians. This apparently drives both the needle location and the lightbulb brightness.
-    this.thetaProperty = new Property( 0, {
+    this.thetaProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'thetaProperty' ),
-      phetioValueType: TNumber( { units: 'radians' } )
+      units: 'radians'
     } );
 
     // input voltage to meter
-    this.signalProperty = new Property( 0, {
+    this.signalProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'signalProperty' ),
-      phetioValueType: TNumber( { units: 'volts' } )
+      units: 'volts'
     } );
   }
 
