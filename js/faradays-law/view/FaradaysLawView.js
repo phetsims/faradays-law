@@ -31,7 +31,8 @@ define( function( require ) {
    */
   function FaradaysLawView( model, tandem ) {
     ScreenView.call( this, {
-      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
+      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
+      tandem: tandem
     } );
 
     // coils
