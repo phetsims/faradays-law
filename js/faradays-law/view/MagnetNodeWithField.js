@@ -12,6 +12,7 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -28,7 +29,8 @@ define( function( require ) {
 
   /**
    *
-   * @param model - 'Faradays Law' simulation model
+   * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
+   * @param {Tandem} tandem
    * @constructor
    */
   function MagnetNodeWithField( model, tandem ) {
@@ -43,6 +45,11 @@ define( function( require ) {
     // the draggable container for the magnet and arrows
     var draggableNode = new Node( { cursor: 'pointer' } );
     this.addChild( draggableNode );
+
+    // a11y
+    draggableNode.tagName = 'div';
+    draggableNode.ariaRole = 'application';
+    draggableNode.focusable = true;
 
     // magnet
     self.magnetNode = createMagnetNode( model.magnetModel );
@@ -127,6 +134,20 @@ define( function( require ) {
     } );
     draggableNode.addInputListener( dragHandler );
 
+
+    // a11y keyboard drag handler
+    this.keyboardDragHandler = new KeyboardDragHandler( model.magnetModel.positionProperty, {
+
+        startDrag: function() {
+          arrowsVisible.set( false );
+        },
+        onDrag: function() {
+          model.moveMagnetToPosition( model.magnetModel.positionProperty.get() );
+        }
+      }
+    );
+    draggableNode.addAccessibleInputListener( this.keyboardDragHandler );
+
     // observers
     model.magnetModel.flippedProperty.link( function( flipped ) {
       self.magnetNode.detach();
@@ -141,5 +162,9 @@ define( function( require ) {
 
   faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
 
-  return inherit( Node, MagnetNodeWithField );
+  return inherit( Node, MagnetNodeWithField, {
+    step: function(dt){
+      this.keyboardDragHandler.step(dt);
+    }
+  } );
 } );

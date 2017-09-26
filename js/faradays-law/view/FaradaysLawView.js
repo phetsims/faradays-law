@@ -69,14 +69,19 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
-    this.addChild( new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) ) );
+    var controlPanelNode = new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) );
+    this.addChild( controlPanelNode );
 
     // voltmeter added
     voltmeterNode.center = this.aligner.voltmeterPosition;
     this.addChild( voltmeterNode );
 
     // magnet
-    this.addChild( new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) ) );
+    this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
+    this.addChild( this.magnetNodeWithField );
+
+    // a11y keyboard nav order
+    this.accessibleOrder = [ this.magnetNodeWithField, controlPanelNode ];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();
@@ -91,5 +96,9 @@ define( function( require ) {
 
   faradaysLaw.register( 'FaradaysLawView', FaradaysLawView );
 
-  return inherit( ScreenView, FaradaysLawView, {} );
+  return inherit( ScreenView, FaradaysLawView, {
+    step: function(dt){
+      this.magnetNodeWithField.step(dt);
+    }
+  } );
 } );

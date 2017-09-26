@@ -109,6 +109,9 @@ define( function( require ) {
     this.addChild( showFieldCheckBox );
 
     this.bottom = model.height - 10;
+
+    // a11y keyboard nav order
+    this.accessibleOrder = [ showFieldCheckBox, coilSelectionRadioButtonGroup, flipMagnetButton, resetAllButton ];
   }
 
   faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );
