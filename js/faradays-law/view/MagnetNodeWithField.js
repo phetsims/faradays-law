@@ -16,6 +16,7 @@ define( function( require ) {
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   // Create single MagnetNode View
@@ -140,6 +141,7 @@ define( function( require ) {
 
         startDrag: function() {
           arrowsVisible.set( false );
+          draggableNode.focusHighlight = Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
         },
         onDrag: function() {
           model.moveMagnetToPosition( model.magnetModel.positionProperty.get() );
