@@ -29,10 +29,9 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function FaradaysLawView( model, tandem ) {
+  function FaradaysLawScreenView( model, tandem ) {
     ScreenView.call( this, {
-      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
-      tandem: tandem
+      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
 
     // coils
@@ -94,9 +93,9 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
   }
 
-  faradaysLaw.register( 'FaradaysLawView', FaradaysLawView );
+  faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );
 
-  return inherit( ScreenView, FaradaysLawView, {
+  return inherit( ScreenView, FaradaysLawScreenView, {
     step: function( dt ) {
       this.magnetNodeWithField.step( dt );
     }

@@ -13,7 +13,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var FaradaysLawModel = require( 'FARADAYS_LAW/faradays-law/model/FaradaysLawModel' );
-  var FaradaysLawView = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawView' );
+  var FaradaysLawView = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
