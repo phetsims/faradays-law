@@ -76,8 +76,7 @@ define( function( require ) {
       headWidth: options.needleTipWidth,
       tailWidth: options.needleWidth,
       fill: options.needleColor,
-      lineWidth: 0,
-      tandem: tandem.createTandem( 'needleArrowNode' )
+      lineWidth: 0
     } );
     this.addChild( needleArrowNode );
 
