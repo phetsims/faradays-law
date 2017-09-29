@@ -66,25 +66,24 @@ define( function( require ) {
     var magnetArrowYOffset = 10; // how far the vertical arrows are from the magnet
     var magnetArrowLength = 30;
     var magnetTopArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
-      this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, _.extend( {
-        tandem: tandem.createTandem( 'magnetTopArrowNode' )
-      }, magnetArrowOptions ) );
+      this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, magnetArrowOptions );
     var magnetBottomArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowYOffset,
-      this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, _.extend( {
-        tandem: tandem.createTandem( 'magnetBottomArrowNode' )
-      }, magnetArrowOptions ) );
+      this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, magnetArrowOptions );
     var magnetRightArrowNode = new ArrowNode( this.magnetNode.right + magnetArrowXOffset, this.magnetNode.centerY,
-      this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, _.extend( {
-        tandem: tandem.createTandem( 'magnetRightArrowNode' )
-      }, magnetArrowOptions ) );
+      this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
     var magnetLeftArrowNode = new ArrowNode( this.magnetNode.left - magnetArrowXOffset, this.magnetNode.centerY,
-      this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, _.extend( {
-        tandem: tandem.createTandem( 'magnetLeftArrowNode' )
-      }, magnetArrowOptions ) );
-    draggableNode.addChild( magnetTopArrowNode );
-    draggableNode.addChild( magnetBottomArrowNode );
-    draggableNode.addChild( magnetRightArrowNode );
-    draggableNode.addChild( magnetLeftArrowNode );
+      this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
+
+    // Show all arrows in a dedicated Node so it can be controlled via PhET-iO
+    draggableNode.addChild( new Node( {
+      tandem: tandem.createTandem( 'arrows' ),
+      children: [
+        magnetTopArrowNode,
+        magnetBottomArrowNode,
+        magnetRightArrowNode,
+        magnetLeftArrowNode
+      ]
+    } ) );
 
     magnetTopArrowNode.touchArea = magnetTopArrowNode.localBounds.dilated( 6 );
     magnetBottomArrowNode.touchArea = magnetBottomArrowNode.localBounds.dilated( 6 );
@@ -165,8 +164,8 @@ define( function( require ) {
   faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
 
   return inherit( Node, MagnetNodeWithField, {
-    step: function(dt){
-      this.keyboardDragHandler.step(dt);
+    step: function( dt ) {
+      this.keyboardDragHandler.step( dt );
     }
   } );
 } );
