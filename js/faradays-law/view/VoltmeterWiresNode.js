@@ -59,10 +59,11 @@ define( function( require ) {
 
   /**
    * @param aligner
-   * @param voltmeterBottom - y coordinate of the bottom of voltmeter
+   * @param {VoltmeterNode} voltmeterNode
    * @constructor
    */
   function VoltmeterWiresNode( aligner, voltmeterNode ) {
+    var self = this;
     Node.call( this );
 
     var wireColor = '#353a89';
@@ -101,9 +102,15 @@ define( function( require ) {
       centerY: rightWireBottom
     } ) );
 
+    // For PhET-iO, synchronize visibility with the VoltmeterNode
+    var updateVisible = function() {
+      self.visible = voltmeterNode.visible;
+    };
+    voltmeterNode.on( 'visibility', updateVisible );
+    updateVisible();
   }
 
   faradaysLaw.register( 'VoltmeterWiresNode', VoltmeterWiresNode );
-  
+
   return inherit( Node, VoltmeterWiresNode );
 } );

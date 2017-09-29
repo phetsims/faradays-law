@@ -41,7 +41,9 @@ define( function( require ) {
    * @constructor
    */
   function VoltmeterNode( needleAngleProperty, tandem, options ) {
-    Node.call( this );
+    Node.call( this, {
+      tandem: tandem
+    } );
 
     options = _.extend( {
       baseColor: new Color( '#232674' ),
