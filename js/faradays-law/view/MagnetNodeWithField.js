@@ -31,14 +31,12 @@ define( function( require ) {
   /**
    *
    * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
-   * @param {Tandem} tandem
+   * @param {Tandem} tandem - this node is not instrumented but the input listener is
    * @constructor
    */
   function MagnetNodeWithField( model, tandem ) {
     var self = this;
-    Node.call( this, {
-      tandem: tandem
-    } );
+    Node.call( this );
 
     // field lines
     this.addChild( new MagnetFieldLines( model.magnetModel ) );
