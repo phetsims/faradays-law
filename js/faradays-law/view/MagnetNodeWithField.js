@@ -76,7 +76,6 @@ define( function( require ) {
 
     // Show all arrows in a dedicated Node so it can be controlled via PhET-iO
     draggableNode.addChild( new Node( {
-      tandem: tandem.createTandem( 'arrows' ),
       children: [
         magnetTopArrowNode,
         magnetBottomArrowNode,
