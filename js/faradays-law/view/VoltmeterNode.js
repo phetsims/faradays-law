@@ -84,13 +84,20 @@ define( function( require ) {
     // create the label and scale it if it's too long
     var label = new Text( faradaysLawVoltageString, {
       font: DEFAULT_FONT,
-      fill: options.textColor
+      fill: options.textColor,
+      tandem: tandem.createTandem( 'label' ),
+      maxWidth: options.readoutWidth // Support PhET-iO
     } );
     label.scale( Math.min( readout.width / label.width, 1 ) );
 
     // position and add the label
     label.centerX = 0;
-    label.centerY = ( readout.bottom + background.bottom ) * 0.48; // position a little above exactly between edges
+    label.centerY = (readout.bottom + background.bottom) * 0.48; // position a little above exactly between edges
+
+    // When the text changes (via phet-io interface), re-center it
+    label.on( 'text', function() {
+      label.centerX = 0;
+    } );
     this.addChild( label );
 
     // add the plus and minus terminals at the bottom
