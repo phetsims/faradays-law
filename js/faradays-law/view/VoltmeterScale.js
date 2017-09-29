@@ -28,7 +28,7 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function VoltmeterScale( needleAngleProperty, tandem, options ) {
+  function VoltmeterScale( needleAngleProperty, options ) {
     Node.call( this );
 
     options = _.extend( {

@@ -75,7 +75,7 @@ define( function( require ) {
     } );
 
     // scale + needle
-    readout.addChild( new VoltmeterScale( needleAngleProperty, tandem.createTandem( 'voltmeterScale' ), {
+    readout.addChild( new VoltmeterScale( needleAngleProperty, {
       centerX: readout.width / 2,
       centerY: readout.height / 2
     } ) );
@@ -94,7 +94,7 @@ define( function( require ) {
     label.centerX = 0;
     label.centerY = (readout.bottom + background.bottom) * 0.48; // position a little above exactly between edges
 
-    // When the text changes (via phet-io interface), re-center it
+    // When the text changes (via PhET-iO), re-center it
     label.on( 'text', function() {
       label.centerX = 0;
     } );
