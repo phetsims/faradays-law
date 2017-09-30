@@ -13,7 +13,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var FaradaysLawModel = require( 'FARADAYS_LAW/faradays-law/model/FaradaysLawModel' );
-  var FaradaysLawView = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawScreenView' );
+  var FaradaysLawScreenView = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
@@ -24,7 +24,7 @@ define( function( require ) {
         return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS.width, FaradaysLawConstants.LAYOUT_BOUNDS.height, tandem.createTandem( 'model' ) );
       },
       function( model ) {
-        return new FaradaysLawView( model, tandem.createTandem( 'view' ) );
+        return new FaradaysLawScreenView( model, tandem.createTandem( 'view' ) );
       }, {
         backgroundColorProperty: new Property( 'rgb( 151, 208, 255 )' ),
         tandem: tandem
