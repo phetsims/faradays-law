@@ -31,10 +31,7 @@ define( function( require ) {
     this.B = 10; // friction coefficient, so needle motion looks realistic
 
     // Needle angle in radians. This apparently drives both the needle location and the lightbulb brightness.
-    this.thetaProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'thetaProperty' ),
-      units: 'radians'
-    } );
+    this.thetaProperty = new NumberProperty( 0 );
 
     // input voltage to meter
     this.signalProperty = new NumberProperty( 0, {
