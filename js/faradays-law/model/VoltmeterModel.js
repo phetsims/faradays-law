@@ -18,6 +18,7 @@ define( function( require ) {
 
   /**
    * @param faradaysLawModel - simulation model
+   * @param {Tandem} tandem
    * @constructor
    */
   function VoltmeterModel( faradaysLawModel, tandem ) {
