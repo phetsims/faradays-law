@@ -102,11 +102,11 @@ define( function( require ) {
 
       // Update the focusHighlight according to arrow visibility
       var newHighlightShape = visible ? Shape.bounds( draggableNode.bounds ) : Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
-      draggableNodeFocusHighlight.setHighlightShape( newHighlightShape );
+      draggableNodeFocusHighlight.setShape( newHighlightShape );
     } );
 
     // Set the highlight to the bounds of the draggable node now that all children are added
-    draggableNodeFocusHighlight.setHighlightShape( Shape.bounds( draggableNode.bounds ) );
+    draggableNodeFocusHighlight.setShape( Shape.bounds( draggableNode.bounds ) );
 
     // handler
     var magnetOffset = {};
