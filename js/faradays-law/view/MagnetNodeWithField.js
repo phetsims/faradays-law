@@ -54,9 +54,10 @@ define( function( require ) {
     draggableNode.tagName = 'div';
     draggableNode.ariaRole = 'application';
     draggableNode.focusable = true;
-    draggableNode.focusableHighlightLayerable = true;
+    draggableNode.focusHighlightLayerable = true;
     var draggableNodeFocusHighlight = new FocusHighlightPath( new Shape() ); // overridden once the draggableNode is fully constructed
     draggableNode.focusHighlight = draggableNodeFocusHighlight;
+    this.addChild( draggableNodeFocusHighlight );
 
     var magnetArrowOptions = {
       fill: 'hsl(120,90%,85%)',
