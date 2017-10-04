@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
@@ -45,14 +46,17 @@ define( function( require ) {
     var draggableNode = new Node( { cursor: 'pointer' } );
     this.addChild( draggableNode );
 
+    // magnet
+    self.magnetNode = createMagnetNode( model.magnetModel );
+    draggableNode.addChild( self.magnetNode );
+
     // a11y
     draggableNode.tagName = 'div';
     draggableNode.ariaRole = 'application';
     draggableNode.focusable = true;
-
-    // magnet
-    self.magnetNode = createMagnetNode( model.magnetModel );
-    draggableNode.addChild( self.magnetNode );
+    draggableNode.focusableHighlightLayerable = true;
+    var draggableNodeFocusHighlight = new FocusHighlightPath( new Shape() ); // overridden once the draggableNode is fully constructed
+    draggableNode.focusHighlight = draggableNodeFocusHighlight;
 
     var magnetArrowOptions = {
       fill: 'hsl(120,90%,85%)',
@@ -89,13 +93,19 @@ define( function( require ) {
 
     // update the arrow visibility as needed
     var arrowsVisible = model.showMagnetArrowsProperty;
-    arrowsVisible.link( function() {
-      var visible = arrowsVisible.get();
+    arrowsVisible.link( function( visible ) {
       magnetTopArrowNode.visible = visible;
       magnetBottomArrowNode.visible = visible;
       magnetRightArrowNode.visible = visible;
       magnetLeftArrowNode.visible = visible;
+
+      // Update the focusHighlight according to arrow visibility
+      var newHighlightShape = visible ? Shape.bounds( draggableNode.bounds ) : Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
+      draggableNodeFocusHighlight.setHighlightShape( newHighlightShape );
     } );
+
+    // Set the highlight to the bounds of the draggable node now that all children are added
+    draggableNodeFocusHighlight.setHighlightShape( Shape.bounds( draggableNode.bounds ) );
 
     // handler
     var magnetOffset = {};
@@ -131,13 +141,11 @@ define( function( require ) {
     } );
     draggableNode.addInputListener( dragHandler );
 
-
     // a11y keyboard drag handler
     this.keyboardDragHandler = new KeyboardDragHandler( model.magnetModel.positionProperty, {
 
         startDrag: function() {
           arrowsVisible.set( false );
-          draggableNode.focusHighlight = Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
         },
         onDrag: function() {
           model.moveMagnetToPosition( model.magnetModel.positionProperty.get() );
