@@ -55,7 +55,8 @@ define( function( require ) {
       this.BLastProperty.set( this.BProperty.get() );
     },
 
-    /** Calculate magnetic field with current magnet position
+    /**
+     * Calculate magnetic field with current magnet position
      *
      * @private
      */
@@ -71,11 +72,13 @@ define( function( require ) {
         // formula: B = s *(3 * dx^2 -r^2) / r^4, where
         // s - +-1 - sign for position of magnet
         // r - normalized distance between magnet and coil
-        // dx - //normalized x-displacement from coil to magnet
+
+        //normalized x-displacement from coil to magnet
         var dx = (this.magnetModel.positionProperty.get().x - this.position.x) / this.A;
         this.BProperty.set( this.s * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
       }
     },
+
     /**
      * Evolution of emf in coil over time
      * @param {number} dt - time in seconds

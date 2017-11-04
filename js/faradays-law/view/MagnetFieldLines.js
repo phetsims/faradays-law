@@ -136,6 +136,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
-  
+
   return inherit( Node, MagnetFieldLines );
 } );

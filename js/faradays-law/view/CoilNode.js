@@ -101,6 +101,6 @@ define( function( require ) {
   CoilNode.xOffset = 8;
 
   faradaysLaw.register( 'CoilNode', CoilNode );
-  
+
   return inherit( Node, CoilNode );
 } );

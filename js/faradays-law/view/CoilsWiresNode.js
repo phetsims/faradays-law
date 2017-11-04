@@ -121,6 +121,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'CoilsWiresNode', CoilsWiresNode );
-  
+
   return inherit( Node, CoilsWiresNode );
 } );

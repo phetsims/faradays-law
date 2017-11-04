@@ -52,10 +52,7 @@ define( function( require ) {
     var bulbNeckWidth = BULB_BASE_WIDTH * 0.85;
     var bulbBodyHeight = BULB_HEIGHT - bulbBase.bounds.width;
     var controlPointYValue = BULB_WIDTH * 0.7;
-    var bulbShape = new Shape().
-      moveTo( 0, -bulbNeckWidth / 2 ).
-      cubicCurveTo( -bulbBodyHeight * 0.33, -controlPointYValue, -bulbBodyHeight * 0.95, -controlPointYValue, -bulbBodyHeight, 0 ).
-      cubicCurveTo( -bulbBodyHeight * 0.95, controlPointYValue, -bulbBodyHeight * 0.33, controlPointYValue, 0, bulbNeckWidth / 2 );
+    var bulbShape = new Shape().moveTo( 0, -bulbNeckWidth / 2 ).cubicCurveTo( -bulbBodyHeight * 0.33, -controlPointYValue, -bulbBodyHeight * 0.95, -controlPointYValue, -bulbBodyHeight, 0 ).cubicCurveTo( -bulbBodyHeight * 0.95, controlPointYValue, -bulbBodyHeight * 0.33, controlPointYValue, 0, bulbNeckWidth / 2 );
     var bulbBodyOutline = new Path( bulbShape, {
       stroke: 'black',
       lineCap: 'round'

@@ -42,6 +42,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'Aligner', Aligner );
-  
+
   return inherit( Object, Aligner );
 } );

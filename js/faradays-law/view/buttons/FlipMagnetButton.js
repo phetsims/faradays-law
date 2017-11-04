@@ -89,6 +89,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'FlipMagnetButton', FlipMagnetButton );
-  
+
   return inherit( RectangularPushButton, FlipMagnetButton );
 } );

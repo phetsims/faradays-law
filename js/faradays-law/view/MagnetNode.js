@@ -124,6 +124,6 @@ define( function( require ) {
   }
 
   faradaysLaw.register( 'MagnetNode', MagnetNode );
-  
+
   return inherit( Node, MagnetNode );
 } );
