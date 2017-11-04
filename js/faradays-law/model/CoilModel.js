@@ -24,15 +24,24 @@ define( function( require ) {
    */
   function CoilModel( x, y, numberOfSpirals, magnetModel ) {
     var self = this;
-    this.s = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
+
+    // @private
+    this.sense = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
+
+    // @public (read-only) // TODO convert args to Vector2
     this.position = new Vector2( x, y );
 
-    this.BProperty = new Property( 0 ); //current value of magnetic field
-    this.BLastProperty = new Property( 0 ); //previous value of magnetic field
-    this.emfProperty = new Property( 0 ); //signal strength in coil = 'electromotive force'
+    // @private - current value of magnetic field
+    this.magneticFieldProperty = new Property( 0 );
+
+    // @private - previous value of magnetic field
+    this.previousMagneticFieldProperty = new Property( 0 );
+
+    // @public - signal strength in coil = 'electromotive force'
+    this.emfProperty = new Property( 0 );
 
     magnetModel.flippedProperty.link( function( flipped ) {
-      self.s = flipped ? -1 : 1; //change magnetic field direction
+      self.sense = flipped ? -1 : 1; //change magnetic field direction
     } );
 
     this.magnetModel = magnetModel;
@@ -53,11 +62,11 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      this.BProperty.reset();
-      this.BLastProperty.reset();
+      this.magneticFieldProperty.reset();
+      this.previousMagneticFieldProperty.reset();
       this.emfProperty.reset();
       this.updateMagneticField();
-      this.BLastProperty.set( this.BProperty.get() );
+      this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
     },
 
     /**
@@ -69,7 +78,7 @@ define( function( require ) {
 
       // if magnet is very close to coil, then B field is at max value;
       if ( rSquared < 1 ) {
-        this.BProperty.set( this.s * 2 );
+        this.magneticFieldProperty.set( this.sense * 2 );
       }
       else {
 
@@ -80,7 +89,7 @@ define( function( require ) {
 
         // normalized x-displacement from coil to magnet
         var dx = (this.magnetModel.positionProperty.get().x - this.position.x) / this.A;
-        this.BProperty.set( this.s * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
+        this.magneticFieldProperty.set( this.sense * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
       }
     },
 
@@ -93,8 +102,8 @@ define( function( require ) {
       this.updateMagneticField();
 
       // emf = (nbr coils)*(change in B)/(change in t)
-      this.emfProperty.set( this.N * (this.BProperty.get() - this.BLastProperty.get()) / dt );
-      this.BLastProperty.set( this.BProperty.get() );
+      this.emfProperty.set( this.N * (this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get()) / dt );
+      this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
     }
   } );
 } );
