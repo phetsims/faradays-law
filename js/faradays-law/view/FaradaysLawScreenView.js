@@ -68,8 +68,8 @@ define( function( require ) {
     model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
-    var controlPanelNode = new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) );
-    this.addChild( controlPanelNode );
+    var controlPanel = new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) );
+    this.addChild( controlPanel );
 
     // voltmeter added
     voltmeterNode.center = this.aligner.voltmeterPosition;
@@ -80,7 +80,7 @@ define( function( require ) {
     this.addChild( this.magnetNodeWithField );
 
     // a11y keyboard nav order
-    this.accessibleOrder = [ this.magnetNodeWithField, controlPanelNode ];
+    this.accessibleOrder = [ this.magnetNodeWithField, controlPanel ];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();

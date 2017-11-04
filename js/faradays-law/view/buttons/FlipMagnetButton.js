@@ -58,6 +58,7 @@ define( function( require ) {
   };
 
   /**
+   * @param {Tandem}
    * @param {Object} [options]
    * @constructor
    */
