@@ -45,8 +45,6 @@ define( function( require ) {
       phetioValueType: TBoolean
     } );
 
-    this.timeInterval = 0; //time since last model step
-
     this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
 
     // coils
