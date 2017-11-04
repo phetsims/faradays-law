@@ -18,11 +18,11 @@ define( function( require ) {
    *
    * @param {number} x - centerX of the coil
    * @param {number} y - centerY of the coil
-   * @param {number} n - number of spirals
+   * @param {number} numberOfSpirals - number of spirals
    * @param {MagnetModel} magnetModel - model of the magnet
    * @constructor
    */
-  function CoilModel( x, y, n, magnetModel ) {
+  function CoilModel( x, y, numberOfSpirals, magnetModel ) {
     var self = this;
     this.s = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign, from flash origin
     this.position = new Vector2( x, y );
@@ -39,7 +39,7 @@ define( function( require ) {
 
     //from flash simulation
     this.A = 50; //near-field radius in pixels, set size for transition from B=constant to B=power law
-    this.N = n / 2;  //number of turns in coil (equal to half the number of turns in the graphic image)
+    this.N = numberOfSpirals / 2;  //number of turns in coil (equal to half the number of turns in the graphic image)
 
     this.reset();
   }
