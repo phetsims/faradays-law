@@ -4,6 +4,7 @@
  * Model container for the coil in 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -15,7 +16,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   *
    * @param {number} x - centerX of the coil
    * @param {number} y - centerY of the coil
    * @param {number} numberOfSpirals - number of spirals
@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function CoilModel( x, y, numberOfSpirals, magnetModel ) {
     var self = this;
-    this.s = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign, from flash origin
+    this.s = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
     this.position = new Vector2( x, y );
 
     this.BProperty = new Property( 0 ); //current value of magnetic field
@@ -47,6 +47,11 @@ define( function( require ) {
   faradaysLaw.register( 'CoilModel', CoilModel );
 
   return inherit( Property, CoilModel, {
+
+    /**
+     * Restore initial conditions
+     * @public
+     */
     reset: function() {
       this.BProperty.reset();
       this.BLastProperty.reset();
@@ -57,23 +62,23 @@ define( function( require ) {
 
     /**
      * Calculate magnetic field with current magnet position
-     *
      * @private
      */
     calculateB: function() {
       var rSquared = this.position.distanceSquared( this.magnetModel.positionProperty.get() ) / (this.A * this.A);  // normalized squared distance from coil to magnet
 
-      if ( rSquared < 1 ) {  //if magnet is very close to coil, then B field is at max value;
+      // if magnet is very close to coil, then B field is at max value;
+      if ( rSquared < 1 ) {
         this.BProperty.set( this.s * 2 );
       }
       else {
 
-        //modified dipole field --  power law of 2 gives better feel than cubic power law (original comment)
+        // modified dipole field --  power law of 2 gives better feel than cubic power law (original comment)
         // formula: B = s *(3 * dx^2 -r^2) / r^4, where
         // s - +-1 - sign for position of magnet
         // r - normalized distance between magnet and coil
 
-        //normalized x-displacement from coil to magnet
+        // normalized x-displacement from coil to magnet
         var dx = (this.magnetModel.positionProperty.get().x - this.position.x) / this.A;
         this.BProperty.set( this.s * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
       }
@@ -82,12 +87,13 @@ define( function( require ) {
     /**
      * Evolution of emf in coil over time
      * @param {number} dt - time in seconds
-     *
      * @public
      */
     step: function( dt ) {
       this.calculateB();
-      this.emfProperty.set( this.N * (this.BProperty.get() - this.BLastProperty.get()) / dt );    //emf = (nbr coils)*(change in B)/(change in t)
+
+      // emf = (nbr coils)*(change in B)/(change in t)
+      this.emfProperty.set( this.N * (this.BProperty.get() - this.BLastProperty.get()) / dt );
       this.BLastProperty.set( this.BProperty.get() );
     }
   } );
