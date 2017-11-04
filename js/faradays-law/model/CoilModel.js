@@ -13,23 +13,21 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {number} x - centerX of the coil
-   * @param {number} y - centerY of the coil
+   * @param {Vector2} position - center of the coil
    * @param {number} numberOfSpirals - number of spirals
    * @param {MagnetModel} magnetModel - model of the magnet
    * @constructor
    */
-  function CoilModel( x, y, numberOfSpirals, magnetModel ) {
+  function CoilModel( position, numberOfSpirals, magnetModel ) {
     var self = this;
 
     // @private
     this.sense = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
 
     // @public (read-only) // TODO convert args to Vector2
-    this.position = new Vector2( x, y );
+    this.position = position;
 
     // @private - current value of magnetic field
     this.magneticFieldProperty = new Property( 0 );

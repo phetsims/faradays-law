@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
   var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
 
   // phet-io modules
@@ -48,8 +49,8 @@ define( function( require ) {
     this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
 
     // coils
-    this.bottomCoil = new CoilModel( 448, 328, 4, this.magnetModel );
-    this.topCoil = new CoilModel( 422, 131, 2, this.magnetModel );
+    this.bottomCoil = new CoilModel( new Vector2( 448, 328 ), 4, this.magnetModel );
+    this.topCoil = new CoilModel( new Vector2( 422, 131 ), 2, this.magnetModel );
 
     // restricted zones for magnet because of coils
     var TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
