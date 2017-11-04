@@ -56,7 +56,7 @@ define( function( require ) {
       this.BProperty.reset();
       this.BLastProperty.reset();
       this.emfProperty.reset();
-      this.calculateB();
+      this.updateMagneticField();
       this.BLastProperty.set( this.BProperty.get() );
     },
 
@@ -64,7 +64,7 @@ define( function( require ) {
      * Calculate magnetic field with current magnet position
      * @private
      */
-    calculateB: function() {
+    updateMagneticField: function() {
       var rSquared = this.position.distanceSquared( this.magnetModel.positionProperty.get() ) / (this.A * this.A);  // normalized squared distance from coil to magnet
 
       // if magnet is very close to coil, then B field is at max value;
@@ -90,7 +90,7 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      this.calculateB();
+      this.updateMagneticField();
 
       // emf = (nbr coils)*(change in B)/(change in t)
       this.emfProperty.set( this.N * (this.BProperty.get() - this.BLastProperty.get()) / dt );
