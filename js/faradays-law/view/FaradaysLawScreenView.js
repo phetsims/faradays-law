@@ -25,7 +25,7 @@ define( function( require ) {
   var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
 
   /**
-   * @param {gameModel} model - Faraday's Law simulation model object
+   * @param {FaradaysLawModel} model - Faraday's Law simulation model object
    * @param {Tandem} tandem
    * @constructor
    */

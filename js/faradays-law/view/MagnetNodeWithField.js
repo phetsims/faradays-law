@@ -30,7 +30,6 @@ define( function( require ) {
   };
 
   /**
-   *
    * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
    * @param {Tandem} tandem - this node is not instrumented but the input listener is
    * @constructor

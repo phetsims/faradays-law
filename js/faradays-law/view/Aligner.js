@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {FaradayslawModel} model
+   * @param {FaradaysLawModel} model
    * @param {Object} bottomCoilEndRelativePositions
    * @param {Object} topCoilEndRelativePositions
    * @constructor

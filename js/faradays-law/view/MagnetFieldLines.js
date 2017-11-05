@@ -132,7 +132,6 @@ define( function( require ) {
     this.addChild( bottomLines );
 
     magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
-
   }
 
   faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );

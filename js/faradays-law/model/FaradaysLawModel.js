@@ -68,7 +68,7 @@ define( function( require ) {
     this.magnetMovingDirection = null; // TODO: should be enum
 
     // @public - the Voltmeter
-    this.voltmeter = new Voltmeter( this, tandem.createTandem( 'voltmeterModel' ) );
+    this.voltmeter = new Voltmeter( this, tandem.createTandem( 'voltmeter' ) );
 
     // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
     this.showTopCoilProperty.link( function( showTopCoil ) {

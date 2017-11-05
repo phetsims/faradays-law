@@ -10,14 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var TVector2 = require( 'DOT/TVector2' );
   var Vector2 = require( 'DOT/Vector2' );
-
-  // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**
    * @param {number} x - x position of magnet
@@ -29,24 +27,26 @@ define( function( require ) {
    */
   function Magnet( x, y, width, height, tandem ) {
 
+    // @public {number} - width of the magnet
     this.width = width;
+
+    // @public {number} - height of the magnet
     this.height = height;
 
+    // @public {Property.<Vector2>} - position of the magnet
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioValueType: TVector2
     } );
 
-    // is the magnet flipped?
-    this.flippedProperty = new Property( false, {
-      tandem: tandem.createTandem( 'flippedProperty' ),
-      phetioValueType: TBoolean
+    // @public {BooleanProperty} - true if the magnet is flipped
+    this.flippedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'flippedProperty' )
     } );
 
-    // show field lines for magnet
-    this.showFieldLinesProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showFieldLinesProperty' ),
-      phetioValueType: TBoolean
+    // @public {BooleanProperty} - show field lines for magnet
+    this.showFieldLinesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showFieldLinesProperty' )
     } );
   }
 
@@ -54,6 +54,10 @@ define( function( require ) {
 
   return inherit( Object, Magnet, {
 
+    /**
+     * Restore the initial conditions
+     * @public
+     */
     reset: function() {
       this.positionProperty.reset();
       this.flippedProperty.reset();
