@@ -10,17 +10,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
-  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
-
-  // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   // constants
   // restricted zones for magnet because of coils
@@ -43,14 +40,12 @@ define( function( require ) {
     this.bounds = new Bounds2( 0, 0, width, height );
 
     // Whether the top coil should be shown
-    this.showTopCoilProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showTopCoilProperty' ),
-      phetioValueType: TBoolean
+    this.showTopCoilProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showTopCoilProperty' )
     } );
 
-    this.showMagnetArrowsProperty = new Property( true, {
-      tandem: tandem.createTandem( 'showMagnetArrowsProperty' ),
-      phetioValueType: TBoolean
+    this.showMagnetArrowsProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'showMagnetArrowsProperty' )
     } );
 
     this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
@@ -88,6 +83,9 @@ define( function( require ) {
 
   return inherit( Object, FaradaysLawModel, {
 
+    /**
+     * @public - restore to initial conditions
+     */
     reset: function() {
       this.magnetModel.reset();
       this.showTopCoilProperty.reset();
@@ -133,6 +131,7 @@ define( function( require ) {
 
       // check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
+
         // if first coil not visible, check only second coil restrictions
         for ( var i = this.showTopCoilProperty.get() ? 0 : 2; i < this.restricted.length; i++ ) {
           var restricted = this.restricted[ i ];
@@ -141,7 +140,9 @@ define( function( require ) {
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
             var movingDelta = position.minus( this.magnetModel.positionProperty.get() );
             this.intersectedBounds = restricted.copy();
-            if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) { //vertical direction
+            if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
+
+              // vertical direction
               if ( movingDelta.y > 0 ) { //bottom
                 this.magnetMovingDirection = 'bottom';
                 this.intersectedBounds.setMaxY( 3000 );
@@ -151,7 +152,9 @@ define( function( require ) {
                 this.intersectedBounds.setMinY( -3000 );
               }
             }
-            else { //horizontal
+            else {
+
+              //horizontal
               if ( movingDelta.x > 0 ) { //right
                 this.magnetMovingDirection = 'right';
                 this.intersectedBounds.setMaxX( 3000 );
