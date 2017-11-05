@@ -1,9 +1,10 @@
 // Copyright 2014-2017, University of Colorado Boulder
 
 /**
- * Model container for the magnet in 'Faradays Law' simulation.
+ * Magnet model for the 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -19,7 +20,6 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**
-   *
    * @param {number} x - x position of magnet
    * @param {number} y - y position of magnet
    * @param {number} width - width of magnet

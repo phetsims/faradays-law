@@ -21,10 +21,10 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   // Create single MagnetNode View
-  var createMagnetNode = function( magnetModel ) {
-    return new MagnetNode( magnetModel.flippedProperty.get(), {
-      width: magnetModel.width,
-      height: magnetModel.height,
+  var createMagnetNode = function( magnet ) {
+    return new MagnetNode( magnet.flippedProperty.get(), {
+      width: magnet.width,
+      height: magnet.height,
       showArrows: true
     } );
   };

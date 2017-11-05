@@ -123,14 +123,14 @@ define( function( require ) {
     },
 
     /**
-     * @param position position of magnet
+     * @param {Vector2} magnetPosition - position of magnet
      */
-    moveMagnetToPosition: function( position ) {
+    moveMagnetToPosition: function( magnetPosition ) {
       var magnetBounds = new Bounds2(
-        Math.min( position.x, this.magnet.positionProperty.get().x ),
-        Math.min( position.y, this.magnet.positionProperty.get().y ),
-        Math.max( position.x, this.magnet.positionProperty.get().x ),
-        Math.max( position.y, this.magnet.positionProperty.get().y )
+        Math.min( magnetPosition.x, this.magnet.positionProperty.get().x ),
+        Math.min( magnetPosition.y, this.magnet.positionProperty.get().y ),
+        Math.max( magnetPosition.x, this.magnet.positionProperty.get().x ),
+        Math.max( magnetPosition.y, this.magnet.positionProperty.get().y )
       ).dilatedXY( this.magnet.width / 2 - 1, this.magnet.height / 2 - 1 );
 
       // check intersection with any restricted areas if not intersected yet
@@ -142,7 +142,7 @@ define( function( require ) {
           if ( magnetBounds.intersectsBounds( restricted ) ) {
 
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-            var movingDelta = position.minus( this.magnet.positionProperty.get() );
+            var movingDelta = magnetPosition.minus( this.magnet.positionProperty.get() );
             this.intersectedBounds = restricted.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 
@@ -177,16 +177,16 @@ define( function( require ) {
       if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
         switch( this.magnetMovingDirection ) {
           case 'bottom' :
-            position.y = this.intersectedBounds.y - this.magnet.height / 2;
+            magnetPosition.y = this.intersectedBounds.y - this.magnet.height / 2;
             break;
           case 'top' :
-            position.y = this.intersectedBounds.maxY + this.magnet.height / 2;
+            magnetPosition.y = this.intersectedBounds.maxY + this.magnet.height / 2;
             break;
           case 'left' :
-            position.x = this.intersectedBounds.maxX + this.magnet.width / 2;
+            magnetPosition.x = this.intersectedBounds.maxX + this.magnet.width / 2;
             break;
           case 'right' :
-            position.x = this.intersectedBounds.x - this.magnet.width / 2;
+            magnetPosition.x = this.intersectedBounds.x - this.magnet.width / 2;
             break;
           default:
             throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
@@ -197,11 +197,11 @@ define( function( require ) {
 
         // out of simulation bounds
         if ( !this.bounds.containsBounds( magnetBounds ) ) {
-          position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
-          position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
+          magnetPosition.x = Math.max( Math.min( magnetPosition.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
+          magnetPosition.y = Math.max( Math.min( magnetPosition.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
         }
       }
-      this.magnet.positionProperty.set( position );
+      this.magnet.positionProperty.set( magnetPosition );
     }
   } );
 } );

@@ -115,23 +115,23 @@ define( function( require ) {
   };
 
   /**
-   * @param magnetModel - magnet model of 'Faradays Law' simulation
+   * @param magnet - magnet model of 'Faradays Law' simulation
    * @constructor
    */
-  function MagnetFieldLines( magnetModel ) {
+  function MagnetFieldLines( magnet ) {
     //TODO: Shoule we declare the above functions within the constructor? It seems like this structure needs an update.
     Node.call( this );
 
     // top field lines
-    var topLines = createSideFieldLines( magnetModel.flippedProperty );
+    var topLines = createSideFieldLines( magnet.flippedProperty );
     this.addChild( topLines );
 
     // bottom field lines
-    var bottomLines = createSideFieldLines( magnetModel.flippedProperty );
+    var bottomLines = createSideFieldLines( magnet.flippedProperty );
     bottomLines.scale( 1, -1 );
     this.addChild( bottomLines );
 
-    magnetModel.showFieldLinesProperty.linkAttribute( this, 'visible' );
+    magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
 
   }
 
