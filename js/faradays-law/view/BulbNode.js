@@ -4,7 +4,8 @@
  * Bulb node for 'Faradays Law' simulation
  *
  * @author Vasily Shakhov (MLearner)
- * @author John Blanco
+ * @author John Blanco (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

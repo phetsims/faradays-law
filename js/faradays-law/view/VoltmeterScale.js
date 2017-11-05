@@ -4,6 +4,7 @@
  * Voltmeter scale for 'Faradays Law' simulation model
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

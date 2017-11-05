@@ -1,9 +1,10 @@
 // Copyright 2014-2017, University of Colorado Boulder
 
 /**
- * Model container for the voltmeter in 'Faradays Law' simulation.
+ * Model for the voltmeter in the 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

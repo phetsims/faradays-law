@@ -3,9 +3,9 @@
 /**
  * The 'Faradays Law' screen.
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
-
 define( function( require ) {
   'use strict';
 

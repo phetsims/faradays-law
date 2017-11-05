@@ -4,6 +4,7 @@
  * Scene graph for the 'Faradays Law' screen.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

@@ -2,8 +2,9 @@
 
 /**
  * Wires for both coils.
- * 'Faradays Law' simulation.
+ *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

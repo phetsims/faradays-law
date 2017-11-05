@@ -2,7 +2,9 @@
 
 /**
  * Possible Coil types in 'Faradays Law' simulation.
+ *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

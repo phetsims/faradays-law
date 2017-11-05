@@ -2,9 +2,10 @@
 
 /**
  * Encapsulates the position of wires, voltmeter, bulb objects on the screen relative to coils position.
- * @author Vasily Shakhov (mlearner.com)
+ *
+ * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
-
 define( function( require ) {
   'use strict';
 

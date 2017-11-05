@@ -2,6 +2,8 @@
 
 /**
  * Main entry point for the 'Faradays Law' sim.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

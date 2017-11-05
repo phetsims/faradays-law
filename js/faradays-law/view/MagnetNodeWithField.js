@@ -4,6 +4,7 @@
  * Magnet Node with field lines, draggable.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

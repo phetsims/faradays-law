@@ -1,5 +1,10 @@
 // Copyright 2014-2016, University of Colorado Boulder
 
+/**
+ * Constants used throughout the sim.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
 define( function( require ) {
   'use strict';
 
