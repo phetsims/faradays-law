@@ -56,7 +56,7 @@ define( function( require ) {
     } );
 
     // wires
-    this.addChild( new CoilsWiresNode( this.aligner, model.showSecondCoilProperty ) );
+    this.addChild( new CoilsWiresNode( this.aligner, model.showTopCoilProperty ) );
     this.addChild( new VoltmeterWiresNode( this.aligner, voltmeterNode ) );
 
     // bulb added
@@ -65,7 +65,7 @@ define( function( require ) {
     // coils added
     this.addChild( bottomCoilNode );
     this.addChild( topCoilNode );
-    model.showSecondCoilProperty.linkAttribute( topCoilNode, 'visible' );
+    model.showTopCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
     var controlPanel = new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) );
@@ -90,7 +90,7 @@ define( function( require ) {
     topCoilNode.frontImage.detach();
     this.addChild( topCoilNode.frontImage );
     topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
-    model.showSecondCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
+    model.showTopCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
   }
 
   faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );

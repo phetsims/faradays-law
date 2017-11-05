@@ -21,10 +21,10 @@ define( function( require ) {
 
   /**
    * @param aligner
-   * @param showSecondCoilProperty
+   * @param showTopCoilProperty
    * @constructor
    */
-  function CoilsWiresNode( aligner, showSecondCoilProperty ) {
+  function CoilsWiresNode( aligner, showTopCoilProperty ) {
 
     Node.call( this );
 
@@ -115,8 +115,8 @@ define( function( require ) {
     } );
     this.addChild( topCoilsWire2 );
 
-    showSecondCoilProperty.linkAttribute( topCoilsWire1, 'visible' );
-    showSecondCoilProperty.linkAttribute( topCoilsWire2, 'visible' );
+    showTopCoilProperty.linkAttribute( topCoilsWire1, 'visible' );
+    showTopCoilProperty.linkAttribute( topCoilsWire2, 'visible' );
 
   }
 

@@ -81,7 +81,7 @@ define( function( require ) {
       tandemName: 'doubleCoilRadioButton'
     } ];
 
-    var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showSecondCoilProperty, coilButtonGroupContents, {
+    var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
       buttonContentXMargin: 20,
       buttonContentYMargin: 4,
       left: 377,

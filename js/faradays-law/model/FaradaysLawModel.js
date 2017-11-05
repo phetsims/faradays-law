@@ -22,6 +22,11 @@ define( function( require ) {
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
+  // constants
+  // restricted zones for magnet because of coils
+  var TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
+  var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
+
   /**
    * @param {number} width of Screen
    * @param {number} height of Screen
@@ -31,14 +36,15 @@ define( function( require ) {
   function FaradaysLawModel( width, height, tandem ) {
     var self = this;
 
+    // TODO: duplicated with bounds
     this.width = width;
     this.height = height;
 
     this.bounds = new Bounds2( 0, 0, width, height );
 
-    // number of coils - 1 or 2
-    this.showSecondCoilProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showSecondCoilProperty' ),
+    // Whether the top coil should be shown
+    this.showTopCoilProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showTopCoilProperty' ),
       phetioValueType: TBoolean
     } );
 
@@ -53,9 +59,6 @@ define( function( require ) {
     this.bottomCoil = new CoilModel( new Vector2( 448, 328 ), 4, this.magnetModel );
     this.topCoil = new CoilModel( new Vector2( 422, 131 ), 2, this.magnetModel );
 
-    // restricted zones for magnet because of coils
-    var TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
-    var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
     this.restricted = [
       TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
       TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x, this.topCoil.position.y + 67 ),
@@ -65,12 +68,14 @@ define( function( require ) {
 
     // see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
-    this.magnetMovingDirection = null; // moving direction of the magnet when intersecting coils
+
+    // moving direction of the magnet when intersecting coils
+    this.magnetMovingDirection = null;
 
     this.voltmeterModel = new VoltmeterModel( this, tandem.createTandem( 'voltmeterModel' ) );
 
     //if show second coil and magnet over it, reset magnet
-    this.showSecondCoilProperty.link( function( show ) {
+    this.showTopCoilProperty.link( function( show ) {
       if ( show && self.intersectionWithSecondCoil() ) {
         self.magnetModel.positionProperty.reset();
       }
@@ -85,7 +90,7 @@ define( function( require ) {
 
     reset: function() {
       this.magnetModel.reset();
-      this.showSecondCoilProperty.reset();
+      this.showTopCoilProperty.reset();
       this.showMagnetArrowsProperty.reset();
       this.bottomCoil.reset();
       this.topCoil.reset();
@@ -98,13 +103,11 @@ define( function( require ) {
     step: function( dt ) {
 
       // Cap large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
-      dt = Math.min( 0.1, dt );
+      dt = Math.min( 0.1, dt ); // TODO: is there a setting to do this in Joist?
 
       // step the individual model elements
       this.bottomCoil.step( dt );
-      if ( this.showSecondCoilProperty.get() ) {
-        this.topCoil.step( dt );
-      }
+      this.showTopCoilProperty.get() && this.topCoil.step( dt );
       this.voltmeterModel.step( dt );
     },
 
@@ -130,8 +133,8 @@ define( function( require ) {
 
       // check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
-        var i = this.showSecondCoilProperty.get() ? 0 : 2; // if first coil not visible, check only second coil restrictions
-        for ( ; i < this.restricted.length; i++ ) {
+        // if first coil not visible, check only second coil restrictions
+        for ( var i = this.showTopCoilProperty.get() ? 0 : 2; i < this.restricted.length; i++ ) {
           var restricted = this.restricted[ i ];
           if ( magnetBounds.intersectsBounds( restricted ) ) {
 
