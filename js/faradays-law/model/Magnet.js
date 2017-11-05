@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function MagnetModel( x, y, width, height, tandem ) {
+  function Magnet( x, y, width, height, tandem ) {
 
     this.width = width;
     this.height = height;
@@ -50,9 +50,9 @@ define( function( require ) {
     } );
   }
 
-  faradaysLaw.register( 'MagnetModel', MagnetModel );
+  faradaysLaw.register( 'Magnet', Magnet );
 
-  return inherit( Object, MagnetModel, {
+  return inherit( Object, Magnet, {
 
     reset: function() {
       this.positionProperty.reset();

@@ -21,10 +21,10 @@ define( function( require ) {
   /**
    * @param {Vector2} position - center of the coil
    * @param {number} numberOfSpirals - number of spirals
-   * @param {MagnetModel} magnetModel - model of the magnet
+   * @param {Magnet} magnetModel - model of the magnet
    * @constructor
    */
-  function CoilModel( position, numberOfSpirals, magnetModel ) {
+  function Coil( position, numberOfSpirals, magnetModel ) {
 
     // @private
     this.sense = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
@@ -52,9 +52,9 @@ define( function( require ) {
     this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
   }
 
-  faradaysLaw.register( 'CoilModel', CoilModel );
+  faradaysLaw.register( 'Coil', Coil );
 
-  return inherit( Property, CoilModel, {
+  return inherit( Property, Coil, {
 
     /**
      * Restore initial conditions

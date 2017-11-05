@@ -12,12 +12,12 @@ define( function( require ) {
   // modules
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var CoilModel = require( 'FARADAYS_LAW/faradays-law/model/CoilModel' );
+  var Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetModel = require( 'FARADAYS_LAW/faradays-law/model/MagnetModel' );
+  var Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
   var Vector2 = require( 'DOT/Vector2' );
-  var VoltmeterModel = require( 'FARADAYS_LAW/faradays-law/model/VoltmeterModel' );
+  var Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
 
   // constants
   // restricted zones for magnet because of coils
@@ -50,11 +50,11 @@ define( function( require ) {
     } );
 
     // @public - the
-    this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
+    this.magnetModel = new Magnet( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
 
     // coils
-    this.bottomCoil = new CoilModel( new Vector2( 448, 328 ), 4, this.magnetModel );
-    this.topCoil = new CoilModel( new Vector2( 422, 131 ), 2, this.magnetModel );
+    this.bottomCoil = new Coil( new Vector2( 448, 328 ), 4, this.magnetModel );
+    this.topCoil = new Coil( new Vector2( 422, 131 ), 2, this.magnetModel );
 
     this.restricted = [
       TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
@@ -69,7 +69,7 @@ define( function( require ) {
     // moving direction of the magnet when intersecting coils
     this.magnetMovingDirection = null;
 
-    this.voltmeterModel = new VoltmeterModel( this, tandem.createTandem( 'voltmeterModel' ) );
+    this.voltmeterModel = new Voltmeter( this, tandem.createTandem( 'voltmeterModel' ) );
 
     //if show second coil and magnet over it, reset magnet
     this.showTopCoilProperty.link( function( show ) {

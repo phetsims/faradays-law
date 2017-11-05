@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function VoltmeterModel( faradaysLawModel, tandem ) {
+  function Voltmeter( faradaysLawModel, tandem ) {
 
     this.faradaysLawModel = faradaysLawModel;
 
@@ -41,9 +41,9 @@ define( function( require ) {
     } );
   }
 
-  faradaysLaw.register( 'VoltmeterModel', VoltmeterModel );
+  faradaysLaw.register( 'Voltmeter', Voltmeter );
 
-  return inherit( Object, VoltmeterModel, {
+  return inherit( Object, Voltmeter, {
     /**
      * voltmeter needle evolution over time
      * @param dt
