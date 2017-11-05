@@ -21,7 +21,7 @@ define( function( require ) {
   function FaradaysLawScreen( tandem ) {
     Screen.call( this,
       function() {
-        return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS.width, FaradaysLawConstants.LAYOUT_BOUNDS.height, tandem.createTandem( 'model' ) );
+        return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, tandem.createTandem( 'model' ) );
       },
       function( model ) {
         return new FaradaysLawScreenView( model, tandem.createTandem( 'view' ) );

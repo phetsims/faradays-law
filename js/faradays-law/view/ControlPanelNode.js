@@ -36,7 +36,7 @@ define( function( require ) {
     // reset button
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
-      right: model.width - 10,
+      right: model.bounds.maxX - 10,
       bottom: 0,
       scale: 0.75,
       touchAreaDilation: 10,
@@ -47,10 +47,10 @@ define( function( require ) {
     // flip magnet button
     var flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
       listener: function() {
-        model.magnetModel.flippedProperty.set( !model.magnetModel.flippedProperty.get() );
+        model.magnet.flippedProperty.set( !model.magnet.flippedProperty.get() );
       },
       bottom: 0,
-      right: model.width - 110
+      right: model.bounds.maxX - 110
     } );
     this.addChild( flipMagnetButton );
 
@@ -100,7 +100,7 @@ define( function( require ) {
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
-    var showFieldCheckBox = new CheckBox( showFieldLinesLabel, model.magnetModel.showFieldLinesProperty, {
+    var showFieldCheckBox = new CheckBox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
       x: 174,
       centerY: coilSelectionRadioButtonGroup.centerY,
       tandem: tandem.createTandem( 'showFieldCheckBox' )
@@ -108,7 +108,7 @@ define( function( require ) {
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckBox );
 
-    this.bottom = model.height - 10;
+    this.bottom = model.bounds.maxY - 10;
 
     // a11y keyboard nav order
     this.accessibleOrder = [ showFieldCheckBox, coilSelectionRadioButtonGroup, flipMagnetButton, resetAllButton ];

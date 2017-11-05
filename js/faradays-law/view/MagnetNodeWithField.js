@@ -40,14 +40,14 @@ define( function( require ) {
     Node.call( this );
 
     // field lines
-    this.addChild( new MagnetFieldLines( model.magnetModel ) );
+    this.addChild( new MagnetFieldLines( model.magnet ) );
 
     // the draggable container for the magnet and arrows
     var draggableNode = new Node( { cursor: 'pointer' } );
     this.addChild( draggableNode );
 
     // magnet
-    self.magnetNode = createMagnetNode( model.magnetModel );
+    self.magnetNode = createMagnetNode( model.magnet );
     draggableNode.addChild( self.magnetNode );
 
     // a11y
@@ -143,26 +143,26 @@ define( function( require ) {
     draggableNode.addInputListener( dragHandler );
 
     // a11y keyboard drag handler
-    this.keyboardDragHandler = new KeyboardDragHandler( model.magnetModel.positionProperty, {
+    this.keyboardDragHandler = new KeyboardDragHandler( model.magnet.positionProperty, {
 
         startDrag: function() {
           arrowsVisible.set( false );
         },
         onDrag: function() {
-          model.moveMagnetToPosition( model.magnetModel.positionProperty.get() );
+          model.moveMagnetToPosition( model.magnet.positionProperty.get() );
         }
       }
     );
     draggableNode.addAccessibleInputListener( this.keyboardDragHandler );
 
     // observers
-    model.magnetModel.flippedProperty.link( function( flipped ) {
+    model.magnet.flippedProperty.link( function( flipped ) {
       self.magnetNode.detach();
-      self.magnetNode = createMagnetNode( model.magnetModel );
+      self.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( self.magnetNode );
     } );
 
-    model.magnetModel.positionProperty.link( function( position ) {
+    model.magnet.positionProperty.link( function( position ) {
       self.translation = position;
     } );
   }

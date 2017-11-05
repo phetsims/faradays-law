@@ -30,14 +30,10 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function FaradaysLawModel( width, height, tandem ) {
+  function FaradaysLawModel( bounds, tandem ) {
     var self = this;
 
-    // TODO: duplicated with bounds
-    this.width = width;
-    this.height = height;
-
-    this.bounds = new Bounds2( 0, 0, width, height );
+    this.bounds = bounds;
 
     // @public - Whether the top coil should be shown
     this.showTopCoilProperty = new BooleanProperty( false, {
@@ -49,12 +45,12 @@ define( function( require ) {
       tandem: tandem.createTandem( 'showMagnetArrowsProperty' )
     } );
 
-    // @public - the
-    this.magnetModel = new Magnet( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
+    // @public - the magnet which can be dragged
+    this.magnet = new Magnet( 647, 219, 140, 30, tandem.createTandem( 'magnet' ) );
 
     // coils
-    this.bottomCoil = new Coil( new Vector2( 448, 328 ), 4, this.magnetModel );
-    this.topCoil = new Coil( new Vector2( 422, 131 ), 2, this.magnetModel );
+    this.bottomCoil = new Coil( new Vector2( 448, 328 ), 4, this.magnet );
+    this.topCoil = new Coil( new Vector2( 422, 131 ), 2, this.magnet );
 
     this.restricted = [
       TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
@@ -74,7 +70,7 @@ define( function( require ) {
     //if show second coil and magnet over it, reset magnet
     this.showTopCoilProperty.link( function( showTopCoil ) {
       if ( showTopCoil && self.intersectionWithTopCoil() ) {
-        self.magnetModel.positionProperty.reset();
+        self.magnet.positionProperty.reset();
       }
       self.intersectedBounds = null;
       self.topCoil.reset();
@@ -89,7 +85,7 @@ define( function( require ) {
      * @public - restore to initial conditions
      */
     reset: function() {
-      this.magnetModel.reset();
+      this.magnet.reset();
       this.showTopCoilProperty.reset();
       this.showMagnetArrowsProperty.reset();
       this.bottomCoil.reset();
@@ -117,7 +113,7 @@ define( function( require ) {
      * @private
      */
     intersectionWithTopCoil: function() {
-      var magnetBounds = Bounds2.point( this.magnetModel.positionProperty.get() ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
+      var magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
       return magnetBounds.intersectsBounds( this.restricted[ 1 ] ) || magnetBounds.intersectsBounds( this.restricted[ 0 ] );
     },
 
@@ -126,11 +122,11 @@ define( function( require ) {
      */
     moveMagnetToPosition: function( position ) {
       var magnetBounds = new Bounds2(
-        Math.min( position.x, this.magnetModel.positionProperty.get().x ),
-        Math.min( position.y, this.magnetModel.positionProperty.get().y ),
-        Math.max( position.x, this.magnetModel.positionProperty.get().x ),
-        Math.max( position.y, this.magnetModel.positionProperty.get().y )
-      ).dilatedXY( this.magnetModel.width / 2 - 1, this.magnetModel.height / 2 - 1 );
+        Math.min( position.x, this.magnet.positionProperty.get().x ),
+        Math.min( position.y, this.magnet.positionProperty.get().y ),
+        Math.max( position.x, this.magnet.positionProperty.get().x ),
+        Math.max( position.y, this.magnet.positionProperty.get().y )
+      ).dilatedXY( this.magnet.width / 2 - 1, this.magnet.height / 2 - 1 );
 
       // check intersection with any restricted areas if not intersected yet
       if ( this.intersectedBounds === null ) {
@@ -141,7 +137,7 @@ define( function( require ) {
           if ( magnetBounds.intersectsBounds( restricted ) ) {
 
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-            var movingDelta = position.minus( this.magnetModel.positionProperty.get() );
+            var movingDelta = position.minus( this.magnet.positionProperty.get() );
             this.intersectedBounds = restricted.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 
@@ -176,16 +172,16 @@ define( function( require ) {
       if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
         switch( this.magnetMovingDirection ) {
           case 'bottom' :
-            position.y = this.intersectedBounds.y - this.magnetModel.height / 2;
+            position.y = this.intersectedBounds.y - this.magnet.height / 2;
             break;
           case 'top' :
-            position.y = this.intersectedBounds.maxY + this.magnetModel.height / 2;
+            position.y = this.intersectedBounds.maxY + this.magnet.height / 2;
             break;
           case 'left' :
-            position.x = this.intersectedBounds.maxX + this.magnetModel.width / 2;
+            position.x = this.intersectedBounds.maxX + this.magnet.width / 2;
             break;
           case 'right' :
-            position.x = this.intersectedBounds.x - this.magnetModel.width / 2;
+            position.x = this.intersectedBounds.x - this.magnet.width / 2;
             break;
           default:
             throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
@@ -196,11 +192,11 @@ define( function( require ) {
 
         // out of simulation bounds
         if ( !this.bounds.containsBounds( magnetBounds ) ) {
-          position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnetModel.width / 2 ), this.bounds.x + this.magnetModel.width / 2 );
-          position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnetModel.height / 2 ), this.bounds.y + this.magnetModel.height / 2 );
+          position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
+          position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
         }
       }
-      this.magnetModel.positionProperty.set( position );
+      this.magnet.positionProperty.set( position );
     }
   } );
 } );

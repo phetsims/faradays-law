@@ -21,10 +21,10 @@ define( function( require ) {
   /**
    * @param {Vector2} position - center of the coil
    * @param {number} numberOfSpirals - number of spirals
-   * @param {Magnet} magnetModel - model of the magnet
+   * @param {Magnet} magnet - model of the magnet
    * @constructor
    */
-  function Coil( position, numberOfSpirals, magnetModel ) {
+  function Coil( position, numberOfSpirals, magnet ) {
 
     // @private
     this.sense = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
@@ -42,7 +42,7 @@ define( function( require ) {
     this.emfProperty = new Property( 0 );
 
     // @private
-    this.magnetModel = magnetModel;
+    this.magnet = magnet;
 
     // @private
     this.numberOfSpirals = numberOfSpirals;
@@ -74,9 +74,9 @@ define( function( require ) {
      */
     updateMagneticField: function() {
 
-      var sign = this.magnetModel.flippedProperty.value ? -1 : 1;
+      var sign = this.magnet.flippedProperty.value ? -1 : 1;
 
-      var rSquared = this.position.distanceSquared( this.magnetModel.positionProperty.get() ) / (NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS);  // normalized squared distance from coil to magnet
+      var rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) / (NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS);  // normalized squared distance from coil to magnet
 
       // if magnet is very close to coil, then B field is at max value;
       if ( rSquared < 1 ) {
@@ -90,7 +90,7 @@ define( function( require ) {
         // r - normalized distance between magnet and coil
 
         // normalized x-displacement from coil to magnet
-        var dx = (this.magnetModel.positionProperty.get().x - this.position.x) / NEAR_FIELD_RADIUS;
+        var dx = (this.magnet.positionProperty.get().x - this.position.x) / NEAR_FIELD_RADIUS;
         this.magneticFieldProperty.set( sign * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
       }
     },
