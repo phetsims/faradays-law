@@ -4,6 +4,7 @@
  * Model container for the 'Faradays Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -95,6 +96,7 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
+
       // Cap large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
       dt = Math.min( 0.1, dt );
 
@@ -183,14 +185,13 @@ define( function( require ) {
       else {
         this.intersectedBounds = null;
 
-        //out or simulation bounds
+        // out of simulation bounds
         if ( !this.bounds.containsBounds( magnetBounds ) ) {
           position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnetModel.width / 2 ), this.bounds.x + this.magnetModel.width / 2 );
           position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnetModel.height / 2 ), this.bounds.y + this.magnetModel.height / 2 );
         }
       }
       this.magnetModel.positionProperty.set( position );
-
     }
   } );
 } );
