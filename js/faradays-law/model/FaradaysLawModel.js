@@ -39,15 +39,17 @@ define( function( require ) {
 
     this.bounds = new Bounds2( 0, 0, width, height );
 
-    // Whether the top coil should be shown
+    // @public - Whether the top coil should be shown
     this.showTopCoilProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showTopCoilProperty' )
     } );
 
+    // @public - true if the magnet arrows should be shown
     this.showMagnetArrowsProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'showMagnetArrowsProperty' )
     } );
 
+    // @public - the
     this.magnetModel = new MagnetModel( 647, 219, 140, 30, tandem.createTandem( 'magnetModel' ) );
 
     // coils
