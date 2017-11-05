@@ -14,6 +14,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
 
+  // constants
+  // in pixels, set size for transition from B=constant to B=power law
+  var NEAR_FIELD_RADIUS = 50;
+
   /**
    * @param {Vector2} position - center of the coil
    * @param {number} numberOfSpirals - number of spirals
@@ -21,12 +25,11 @@ define( function( require ) {
    * @constructor
    */
   function CoilModel( position, numberOfSpirals, magnetModel ) {
-    var self = this;
 
     // @private
     this.sense = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
 
-    // @public (read-only) // TODO convert args to Vector2
+    // @public (read-only)
     this.position = position;
 
     // @private - current value of magnetic field
@@ -38,17 +41,15 @@ define( function( require ) {
     // @public - signal strength in coil = 'electromotive force'
     this.emfProperty = new Property( 0 );
 
-    magnetModel.flippedProperty.link( function( flipped ) {
-      self.sense = flipped ? -1 : 1; //change magnetic field direction
-    } );
-
+    // @private
     this.magnetModel = magnetModel;
 
-    //from flash simulation
-    this.A = 50; //near-field radius in pixels, set size for transition from B=constant to B=power law
-    this.N = numberOfSpirals / 2;  //number of turns in coil (equal to half the number of turns in the graphic image)
+    // @private
+    this.numberOfSpirals = numberOfSpirals;
 
-    this.reset();
+    // set up initial conditions
+    this.updateMagneticField();
+    this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
   }
 
   faradaysLaw.register( 'CoilModel', CoilModel );
@@ -72,11 +73,14 @@ define( function( require ) {
      * @private
      */
     updateMagneticField: function() {
-      var rSquared = this.position.distanceSquared( this.magnetModel.positionProperty.get() ) / (this.A * this.A);  // normalized squared distance from coil to magnet
+
+      var sign = this.magnetModel.flippedProperty.value ? -1 : 1;
+
+      var rSquared = this.position.distanceSquared( this.magnetModel.positionProperty.get() ) / (NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS);  // normalized squared distance from coil to magnet
 
       // if magnet is very close to coil, then B field is at max value;
       if ( rSquared < 1 ) {
-        this.magneticFieldProperty.set( this.sense * 2 );
+        this.magneticFieldProperty.set( sign * 2 );
       }
       else {
 
@@ -86,8 +90,8 @@ define( function( require ) {
         // r - normalized distance between magnet and coil
 
         // normalized x-displacement from coil to magnet
-        var dx = (this.magnetModel.positionProperty.get().x - this.position.x) / this.A;
-        this.magneticFieldProperty.set( this.sense * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
+        var dx = (this.magnetModel.positionProperty.get().x - this.position.x) / NEAR_FIELD_RADIUS;
+        this.magneticFieldProperty.set( sign * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
       }
     },
 
@@ -99,8 +103,11 @@ define( function( require ) {
     step: function( dt ) {
       this.updateMagneticField();
 
+      // number of turns in coil (equal to half the number of turns in the graphic image)
+      var numberOfCoils = this.numberOfSpirals / 2;
+
       // emf = (nbr coils)*(change in B)/(change in t)
-      this.emfProperty.set( this.N * (this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get()) / dt );
+      this.emfProperty.set( numberOfCoils * (this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get()) / dt );
       this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
     }
   } );
