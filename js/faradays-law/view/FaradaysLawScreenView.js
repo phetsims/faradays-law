@@ -49,8 +49,8 @@ define( function( require ) {
     this.aligner = new Aligner( model, bottomCoilNode.endRelativePositions, topCoilNode.endRelativePositions );
 
     // voltmeter and bulb created
-    var voltmeterNode = new VoltmeterNode( model.voltmeterModel.thetaProperty, tandem.createTandem( 'voltmeterNode' ) );
-    var bulbNode = new BulbNode( model.voltmeterModel.thetaProperty, {
+    var voltmeterNode = new VoltmeterNode( model.voltmeter.thetaProperty, tandem.createTandem( 'voltmeterNode' ) );
+    var bulbNode = new BulbNode( model.voltmeter.thetaProperty, {
       centerX: this.aligner.bulbPosition.x,
       centerY: this.aligner.bulbPosition.y
     } );

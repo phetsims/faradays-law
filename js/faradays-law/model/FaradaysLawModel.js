@@ -25,8 +25,7 @@ define( function( require ) {
   var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
 
   /**
-   * @param {number} width of Screen
-   * @param {number} height of Screen
+   * @param {number} bounds of Screen
    * @param {Tandem} tandem
    * @constructor
    */
@@ -48,28 +47,32 @@ define( function( require ) {
     // @public - the magnet which can be dragged
     this.magnet = new Magnet( 647, 219, 140, 30, tandem.createTandem( 'magnet' ) );
 
-    // coils
+    // @public - bottom coil
     this.bottomCoil = new Coil( new Vector2( 448, 328 ), 4, this.magnet );
+
+    // @public - top coil
     this.topCoil = new Coil( new Vector2( 422, 131 ), 2, this.magnet );
 
-    this.restricted = [
+    // @private - regions the magnet cannot be dragged
+    this.listOfRestrictedBounds = [
       TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
       TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x, this.topCoil.position.y + 67 ),
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
     ];
 
-    // see this.moveMagnetToPosition method, we use this to calculate magnet position
+    // @private - see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
 
-    // moving direction of the magnet when intersecting coils
-    this.magnetMovingDirection = null;
+    // @private - moving direction of the magnet when intersecting coils
+    this.magnetMovingDirection = null; // TODO: should be enum
 
-    this.voltmeterModel = new Voltmeter( this, tandem.createTandem( 'voltmeterModel' ) );
+    // @public - the Voltmeter
+    this.voltmeter = new Voltmeter( this, tandem.createTandem( 'voltmeterModel' ) );
 
-    //if show second coil and magnet over it, reset magnet
+    // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
     this.showTopCoilProperty.link( function( showTopCoil ) {
-      if ( showTopCoil && self.intersectionWithTopCoil() ) {
+      if ( showTopCoil && self.magnetIntersectsTopCoilArea() ) {
         self.magnet.positionProperty.reset();
       }
       self.intersectedBounds = null;
@@ -93,8 +96,8 @@ define( function( require ) {
     },
 
     /**
-     * main step function for the model
-     * @param {number} dt
+     * Move the model forward in time
+     * @param {number} dt - in seconds
      */
     step: function( dt ) {
 
@@ -104,7 +107,7 @@ define( function( require ) {
       // step the individual model elements
       this.bottomCoil.step( dt );
       this.showTopCoilProperty.get() && this.topCoil.step( dt );
-      this.voltmeterModel.step( dt );
+      this.voltmeter.step( dt );
     },
 
     /**
@@ -112,9 +115,11 @@ define( function( require ) {
      * @returns {boolean}
      * @private
      */
-    intersectionWithTopCoil: function() {
+    magnetIntersectsTopCoilArea: function() {
+
+      // TODO: factor out magnet bounds
       var magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
-      return magnetBounds.intersectsBounds( this.restricted[ 1 ] ) || magnetBounds.intersectsBounds( this.restricted[ 0 ] );
+      return magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 0 ] );
     },
 
     /**
@@ -132,8 +137,8 @@ define( function( require ) {
       if ( this.intersectedBounds === null ) {
 
         // if first coil not visible, check only second coil restrictions
-        for ( var i = this.showTopCoilProperty.get() ? 0 : 2; i < this.restricted.length; i++ ) {
-          var restricted = this.restricted[ i ];
+        for ( var i = this.showTopCoilProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
+          var restricted = this.listOfRestrictedBounds[ i ];
           if ( magnetBounds.intersectsBounds( restricted ) ) {
 
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
