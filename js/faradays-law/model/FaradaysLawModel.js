@@ -72,8 +72,8 @@ define( function( require ) {
     this.voltmeterModel = new Voltmeter( this, tandem.createTandem( 'voltmeterModel' ) );
 
     //if show second coil and magnet over it, reset magnet
-    this.showTopCoilProperty.link( function( show ) {
-      if ( show && self.intersectionWithSecondCoil() ) {
+    this.showTopCoilProperty.link( function( showTopCoil ) {
+      if ( showTopCoil && self.intersectionWithTopCoil() ) {
         self.magnetModel.positionProperty.reset();
       }
       self.intersectedBounds = null;
@@ -114,8 +114,9 @@ define( function( require ) {
     /**
      * returns true if magnet intersects coil bounds
      * @returns {boolean}
+     * @private
      */
-    intersectionWithSecondCoil: function() {
+    intersectionWithTopCoil: function() {
       var magnetBounds = Bounds2.point( this.magnetModel.positionProperty.get() ).dilatedXY( this.magnetModel.width / 2, this.magnetModel.height / 2 );
       return magnetBounds.intersectsBounds( this.restricted[ 1 ] ) || magnetBounds.intersectsBounds( this.restricted[ 0 ] );
     },
