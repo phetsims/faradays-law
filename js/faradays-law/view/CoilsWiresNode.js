@@ -35,8 +35,6 @@ define( function( require ) {
 
     Node.call( this );
 
-    // bottom coil, static wires
-
     // bottom coil, left bottom wire
     var arcPoint = new Vector2( LEFT_WIRE_BULB_START.x, view.bottomCoilEndPositions.bottomEnd.y ); // bottom coil, left bottom wire, corner point;
     this.addChild( new Path( new Shape()
@@ -49,39 +47,29 @@ define( function( require ) {
     } ) );
 
     // bottom coil, right top wire
-    var keyPoints = [
-      RIGHT_WIRE_BULB_START, // bottom coil, right top, bulbs start
-      new Vector2( RIGHT_WIRE_BULB_START.x, view.bottomCoilEndPositions.topEnd.y ), // bottom coil, right top wire, corner point
-      view.bottomCoilEndPositions.topEnd  // bottom coil, right top wire, coils end
-    ];
+    var arcPoint2 = new Vector2( RIGHT_WIRE_BULB_START.x, view.bottomCoilEndPositions.topEnd.y );
     this.addChild( new Path( new Shape()
-      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
-      .lineTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y - ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y, keyPoints[ 1 ].x + ARC_RADIUS, keyPoints[ 1 ].y )
-      .lineTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y ), {
+      .moveToPoint( RIGHT_WIRE_BULB_START )
+      .lineTo( arcPoint2.x, arcPoint2.y - ARC_RADIUS )
+      .quadraticCurveTo( arcPoint2.x, arcPoint2.y, arcPoint2.x + ARC_RADIUS, arcPoint2.y )
+      .lineToPoint( view.bottomCoilEndPositions.topEnd ), {
       stroke: WIRE_COLOR,
       lineWidth: WIRE_WIDTH
     } ) );
-
-    // top coil wires, must be hidden if coil is hidden
 
     // top coil, top wire
     var lengthRatio = 0.5; // at length ratio wire change direction to top
     var horizontalLength = view.topCoilEndPositions.topEnd.x - RIGHT_WIRE_BULB_START.x; // horizontal length of the top wire
     var yMarginFromBulb = 18; // top margin from bulb y position
-    keyPoints = [
-      RIGHT_WIRE_BULB_START.plusXY( 0, yMarginFromBulb ), // top coil, top wire, wire start point
-      RIGHT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ), // top coil, top wire, bottom corner point
-      new Vector2( RIGHT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.topEnd.y ), // top coil, top wire, top corner point
-      view.topCoilEndPositions.topEnd // top coil, top wire end
-    ];
+    var arcPointA = RIGHT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb );
+    var arcPointB = new Vector2( RIGHT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.topEnd.y );
     var topCoilsWire1 = new Path( new Shape()
-      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
-      .lineTo( keyPoints[ 1 ].x - ARC_RADIUS, keyPoints[ 1 ].y )
-      .quadraticCurveTo( keyPoints[ 1 ].x, keyPoints[ 1 ].y, keyPoints[ 1 ].x, keyPoints[ 1 ].y - ARC_RADIUS )
-      .lineTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y + ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y, keyPoints[ 2 ].x + ARC_RADIUS, keyPoints[ 2 ].y )
-      .lineTo( keyPoints[ 3 ].x, keyPoints[ 3 ].y ), {
+      .moveToPoint( RIGHT_WIRE_BULB_START.plusXY( 0, yMarginFromBulb ) )
+      .lineTo( arcPointA.x - ARC_RADIUS, arcPointA.y )
+      .quadraticCurveTo( arcPointA.x, arcPointA.y, arcPointA.x, arcPointA.y - ARC_RADIUS )
+      .lineTo( arcPointB.x, arcPointB.y + ARC_RADIUS )
+      .quadraticCurveTo( arcPointB.x, arcPointB.y, arcPointB.x + ARC_RADIUS, arcPointB.y )
+      .lineToPoint( view.topCoilEndPositions.topEnd ), {
       stroke: WIRE_COLOR,
       lineWidth: WIRE_WIDTH
     } );
@@ -91,27 +79,24 @@ define( function( require ) {
     horizontalLength = view.topCoilEndPositions.bottomEnd.x - LEFT_WIRE_BULB_START.x; // horizontal length of the bottom wire
     lengthRatio = 0.55; // at length ratio wire change direction to top
     yMarginFromBulb = 35; // vertical margin from center of the bulb for bottom wire of top coil
-    keyPoints = [
-      LEFT_WIRE_BULB_START.plusXY( 0, yMarginFromBulb ), // top coil, bottom wire, wire start point
-      new Vector2( RIGHT_WIRE_BULB_START.x, LEFT_WIRE_BULB_START.y + yMarginFromBulb ), // top coil, bottom wire, center of crossing with another wire
-      LEFT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ), // top coil, bottom wire, bottom corner point
-      new Vector2( LEFT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.bottomEnd.y ), // top coil, bottom wire, top corner point
-      view.topCoilEndPositions.bottomEnd // top coil, bottom wire end
-    ];
+    var arcPointX = new Vector2( RIGHT_WIRE_BULB_START.x, LEFT_WIRE_BULB_START.y + yMarginFromBulb ); // top coil, bottom wire, center of crossing with another wire
+    var arcPointY = LEFT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ); // top coil, bottom wire, bottom corner point
+    var arcPointZ = new Vector2( LEFT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.bottomEnd.y ); // top coil, bottom wire, top corner point
     var topCoilsWire2 = new Path( new Shape()
-      .moveTo( keyPoints[ 0 ].x, keyPoints[ 0 ].y )
-      .lineTo( keyPoints[ 1 ].x - ARC_RADIUS, keyPoints[ 1 ].y )
-      .arc( keyPoints[ 1 ].x, keyPoints[ 1 ].y, ARC_RADIUS, Math.PI, 0, true )
-      .lineTo( keyPoints[ 2 ].x - ARC_RADIUS, keyPoints[ 2 ].y )
-      .quadraticCurveTo( keyPoints[ 2 ].x, keyPoints[ 2 ].y, keyPoints[ 2 ].x, keyPoints[ 2 ].y - ARC_RADIUS )
-      .lineTo( keyPoints[ 3 ].x, keyPoints[ 3 ].y + ARC_RADIUS )
-      .quadraticCurveTo( keyPoints[ 3 ].x, keyPoints[ 3 ].y, keyPoints[ 3 ].x + ARC_RADIUS, keyPoints[ 3 ].y )
-      .lineTo( keyPoints[ 4 ].x, keyPoints[ 4 ].y ), {
+      .moveToPoint( LEFT_WIRE_BULB_START.plusXY( 0, yMarginFromBulb ) )
+      .lineTo( arcPointX.x - ARC_RADIUS, arcPointX.y )
+      .arc( arcPointX.x, arcPointX.y, ARC_RADIUS, Math.PI, 0, true )
+      .lineTo( arcPointY.x - ARC_RADIUS, arcPointY.y )
+      .quadraticCurveTo( arcPointY.x, arcPointY.y, arcPointY.x, arcPointY.y - ARC_RADIUS )
+      .lineTo( arcPointZ.x, arcPointZ.y + ARC_RADIUS )
+      .quadraticCurveTo( arcPointZ.x, arcPointZ.y, arcPointZ.x + ARC_RADIUS, arcPointZ.y )
+      .lineToPoint( view.topCoilEndPositions.bottomEnd ), {
       stroke: WIRE_COLOR,
       lineWidth: WIRE_WIDTH
     } );
     this.addChild( topCoilsWire2 );
 
+    // top coil wires hidden if top coil is hidden
     showTopCoilProperty.linkAttribute( topCoilsWire1, 'visible' );
     showTopCoilProperty.linkAttribute( topCoilsWire2, 'visible' );
   }
