@@ -21,14 +21,15 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
-  // Create single MagnetNode View
-  var createMagnetNode = function( magnet ) {
-    return new MagnetNode( magnet.flippedProperty.get(), {
-      width: magnet.width,
-      height: magnet.height,
-      showArrows: true
-    } );
+  // constants
+  var MAGNET_ARROW_OPTIONS = {
+    fill: 'hsl(120,90%,85%)',
+    tailWidth: 10,
+    headWidth: 22,
+    headHeight: 18
   };
+  var MAGNET_ARROW_OFFSET = 10; // how far arrows are from the magnet (for both horizontal and vertical)
+  var MAGNET_ARROW_LENGTH = 30;
 
   /**
    * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
@@ -59,23 +60,28 @@ define( function( require ) {
     draggableNode.focusHighlight = draggableNodeFocusHighlight;
     this.addChild( draggableNodeFocusHighlight );
 
-    var magnetArrowOptions = {
-      fill: 'hsl(120,90%,85%)',
-      tailWidth: 10,
-      headWidth: 22,
-      headHeight: 18
+    var createArrowNode = function( tailX, tailY, tipX, tipY ) {
+      var arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, MAGNET_ARROW_OPTIONS );
+      arrowNode.touchArea = arrowNode.localBounds.dilated( 6 );
+      model.showMagnetArrowsProperty.linkAttribute( arrowNode, 'visible' );
+      return arrowNode;
     };
-    var magnetArrowXOffset = 10; // how far the horizontal arrows are from the magnet
-    var magnetArrowYOffset = 10; // how far the vertical arrows are from the magnet
-    var magnetArrowLength = 30;
-    var magnetTopArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.top - magnetArrowYOffset,
-      this.magnetNode.centerX, this.magnetNode.top - magnetArrowLength - magnetArrowYOffset, magnetArrowOptions );
-    var magnetBottomArrowNode = new ArrowNode( this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowYOffset,
-      this.magnetNode.centerX, this.magnetNode.bottom + magnetArrowLength + magnetArrowYOffset, magnetArrowOptions );
-    var magnetRightArrowNode = new ArrowNode( this.magnetNode.right + magnetArrowXOffset, this.magnetNode.centerY,
-      this.magnetNode.right + magnetArrowLength + magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
-    var magnetLeftArrowNode = new ArrowNode( this.magnetNode.left - magnetArrowXOffset, this.magnetNode.centerY,
-      this.magnetNode.left - magnetArrowLength - magnetArrowXOffset, this.magnetNode.centerY, magnetArrowOptions );
+    var magnetTopArrowNode = createArrowNode(
+      this.magnetNode.centerX, this.magnetNode.top - MAGNET_ARROW_OFFSET,
+      this.magnetNode.centerX, this.magnetNode.top - MAGNET_ARROW_LENGTH - MAGNET_ARROW_OFFSET
+    );
+    var magnetBottomArrowNode = createArrowNode(
+      this.magnetNode.centerX, this.magnetNode.bottom + MAGNET_ARROW_OFFSET,
+      this.magnetNode.centerX, this.magnetNode.bottom + MAGNET_ARROW_LENGTH + MAGNET_ARROW_OFFSET
+    );
+    var magnetRightArrowNode = createArrowNode(
+      this.magnetNode.right + MAGNET_ARROW_OFFSET, this.magnetNode.centerY,
+      this.magnetNode.right + MAGNET_ARROW_LENGTH + MAGNET_ARROW_OFFSET, this.magnetNode.centerY
+    );
+    var magnetLeftArrowNode = createArrowNode(
+      this.magnetNode.left - MAGNET_ARROW_OFFSET, this.magnetNode.centerY,
+      this.magnetNode.left - MAGNET_ARROW_LENGTH - MAGNET_ARROW_OFFSET, this.magnetNode.centerY
+    );
 
     // Show all arrows in a dedicated Node so it can be controlled via PhET-iO
     draggableNode.addChild( new Node( {
@@ -87,20 +93,8 @@ define( function( require ) {
       ]
     } ) );
 
-    magnetTopArrowNode.touchArea = magnetTopArrowNode.localBounds.dilated( 6 );
-    magnetBottomArrowNode.touchArea = magnetBottomArrowNode.localBounds.dilated( 6 );
-    magnetRightArrowNode.touchArea = magnetRightArrowNode.localBounds.dilated( 6 );
-    magnetLeftArrowNode.touchArea = magnetLeftArrowNode.localBounds.dilated( 6 );
-
-    // update the arrow visibility as needed
-    var arrowsVisible = model.showMagnetArrowsProperty;
-    arrowsVisible.link( function( visible ) {
-      magnetTopArrowNode.visible = visible;
-      magnetBottomArrowNode.visible = visible;
-      magnetRightArrowNode.visible = visible;
-      magnetLeftArrowNode.visible = visible;
-
-      // Update the focusHighlight according to arrow visibility
+    // Update the focusHighlight according to arrow visibility
+    model.showMagnetArrowsProperty.link( function( visible ) {
       var newHighlightShape = visible ? Shape.bounds( draggableNode.bounds ) : Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
       draggableNodeFocusHighlight.setShape( newHighlightShape );
     } );
@@ -109,7 +103,7 @@ define( function( require ) {
     draggableNodeFocusHighlight.setShape( Shape.bounds( draggableNode.bounds ) );
 
     // handler
-    var magnetOffset = {};
+    var magnetOffset = {}; // TODO: should be a Vector2
     var dragHandler = new SimpleDragHandler( {
 
       tandem: tandem.createTandem( 'dragHandler' ),
@@ -123,14 +117,14 @@ define( function( require ) {
 
         // if the user starts the drag on the magnet itself (not on the arrows), we make the arrows invisible
         if ( event.target !== magnetTopArrowNode && event.target !== magnetBottomArrowNode && event.target !== magnetRightArrowNode && event.target !== magnetLeftArrowNode ) {
-          arrowsVisible.set( false );
+          model.showMagnetArrowsProperty.set( false );
         }
       },
 
       end: function() {
 
         // arrows always are turned invisible when the user stops dragging the magnet
-        arrowsVisible.set( false );
+        model.showMagnetArrowsProperty.set( false );
       },
 
       //Translate on drag events
@@ -146,7 +140,7 @@ define( function( require ) {
     this.keyboardDragHandler = new KeyboardDragHandler( model.magnet.positionProperty, {
 
         startDrag: function() {
-          arrowsVisible.set( false );
+          model.showMagnetArrowsProperty.set( false );
         },
         onDrag: function() {
           model.moveMagnetToPosition( model.magnet.positionProperty.get() );
@@ -166,6 +160,15 @@ define( function( require ) {
       self.translation = position;
     } );
   }
+
+  // Create single MagnetNode View
+  var createMagnetNode = function( magnet ) {
+    return new MagnetNode( magnet.flippedProperty.get(), {
+      width: magnet.width,
+      height: magnet.height,
+      showArrows: true
+    } );
+  };
 
   faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
 
