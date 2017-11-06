@@ -31,6 +31,8 @@ define( function( require ) {
   var NUM_FILAMENT_ZIG_ZAGS = 8;
   var FILAMENT_ZIG_ZAG_SPAN = 8;
   var BULB_X_DISPLACEMENT = -45; // Bulb dx relative to center position
+  var BULB_NECK_WIDTH = BULB_BASE_WIDTH * 0.85;
+  var CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
 
   /**
    * @param {NumberProperty} needleAngleProperty - value of voltage meter
@@ -42,51 +44,46 @@ define( function( require ) {
 
     // Create the base of the bulb
     var bulbBase = new Image( bulbBaseImage );
-    bulbBase.scale( BULB_BASE_WIDTH / bulbBase.bounds.height );
+    bulbBase.scale( BULB_BASE_WIDTH / bulbBase.height );
 
     // Important Note: For the drawing code below, the reference frame is assumed to be such that the point x=0, y=0 is
     // at the left side of the light bulb base, which is also the right side of the light bulb body, and the vertical
     // center of both.  This was the easiest to work with.
 
     // Create the bulb body.
-    var bulbNeckWidth = BULB_BASE_WIDTH * 0.85;
-    var bulbBodyHeight = BULB_HEIGHT - bulbBase.bounds.width;
-    var controlPointYValue = BULB_WIDTH * 0.7;
-    var bulbShape = new Shape().moveTo( 0, -bulbNeckWidth / 2 ).cubicCurveTo( -bulbBodyHeight * 0.33, -controlPointYValue, -bulbBodyHeight * 0.95, -controlPointYValue, -bulbBodyHeight, 0 ).cubicCurveTo( -bulbBodyHeight * 0.95, controlPointYValue, -bulbBodyHeight * 0.33, controlPointYValue, 0, bulbNeckWidth / 2 );
+    var bulbBodyHeight = BULB_HEIGHT - bulbBase.width; // TODO: why is the bulb body a function of its width?
+    var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 ).cubicCurveTo( -bulbBodyHeight * 0.33, -CONTROL_POINT_Y_VALUE, -bulbBodyHeight * 0.95, -CONTROL_POINT_Y_VALUE, -bulbBodyHeight, 0 ).cubicCurveTo( -bulbBodyHeight * 0.95, CONTROL_POINT_Y_VALUE, -bulbBodyHeight * 0.33, CONTROL_POINT_Y_VALUE, 0, BULB_NECK_WIDTH / 2 );
     var bulbBodyOutline = new Path( bulbShape, {
       stroke: 'black',
       lineCap: 'round'
     } );
     var bulbBodyFill = new Path( bulbShape, {
-      fill: new RadialGradient( bulbBodyOutline.centerX, bulbBodyOutline.centerY, BULB_WIDTH / 10, bulbBodyOutline.centerX,
-        bulbBodyOutline.centerY, BULB_WIDTH / 2 ).addColorStop( 0, '#eeeeee' ).addColorStop( 1, '#bbccbb' )
+      fill: new RadialGradient(
+        bulbBodyOutline.centerX, bulbBodyOutline.centerY,
+        BULB_WIDTH / 10, bulbBodyOutline.centerX,
+        bulbBodyOutline.centerY, BULB_WIDTH / 2
+      )
+        .addColorStop( 0, '#eeeeee' )
+        .addColorStop( 1, '#bbccbb' )
     } );
 
     // Create the filament support wires.
     var filamentWireHeight = bulbBodyHeight * 0.6;
     var filamentTopPoint = new Vector2( -filamentWireHeight, -BULB_WIDTH * 0.3 );
     var filamentBottomPoint = new Vector2( -filamentWireHeight, BULB_WIDTH * 0.3 );
-    var filamentSupportWiresShape = new Shape();
-    filamentSupportWiresShape.moveTo( 0, -BULB_BASE_WIDTH * 0.3 );
-    filamentSupportWiresShape.cubicCurveTo( -filamentWireHeight * 0.3, -BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentTopPoint.y, filamentTopPoint.x, filamentTopPoint.y );
-    filamentSupportWiresShape.moveTo( 0, BULB_BASE_WIDTH * 0.3 );
-    filamentSupportWiresShape.cubicCurveTo( -filamentWireHeight * 0.3, BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentBottomPoint.y, filamentBottomPoint.x, filamentBottomPoint.y );
+    var filamentSupportWiresShape = new Shape()
+      .moveTo( 0, -BULB_BASE_WIDTH * 0.3 )
+      .cubicCurveTo( -filamentWireHeight * 0.3, -BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentTopPoint.y, filamentTopPoint.x, filamentTopPoint.y )
+      .moveTo( 0, BULB_BASE_WIDTH * 0.3 )
+      .cubicCurveTo( -filamentWireHeight * 0.3, BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentBottomPoint.y, filamentBottomPoint.x, filamentBottomPoint.y );
     var filamentSupportWires = new Path( filamentSupportWiresShape, { stroke: 'black' } );
 
     // Create the filament, which is a zig-zag shape.
     var filamentShape = new Shape().moveToPoint( filamentTopPoint );
     for ( var i = 0; i < NUM_FILAMENT_ZIG_ZAGS - 1; i++ ) {
       var yPos = filamentTopPoint.y + ( filamentBottomPoint.y - filamentTopPoint.y ) / NUM_FILAMENT_ZIG_ZAGS * (i + 1);
-      if ( i % 2 === 0 ) {
-
-        // zig
-        filamentShape.lineTo( filamentTopPoint.x + FILAMENT_ZIG_ZAG_SPAN, yPos );
-      }
-      else {
-
-        // zag
-        filamentShape.lineTo( filamentTopPoint.x, yPos );
-      }
+      var xZig = i % 2 === 0 ? FILAMENT_ZIG_ZAG_SPAN : 0;
+      filamentShape.lineTo( filamentTopPoint.x + xZig, yPos );
     }
     filamentShape.lineToPoint( filamentBottomPoint );
     var filament = new Path( filamentShape, { stroke: 'black' } );
@@ -105,25 +102,29 @@ define( function( require ) {
     } );
 
     // Update the halo as the needle angle changes.
+    // TODO: the bulb brightness shouldn't depend on the needle angle
     needleAngleProperty.link( function( angle ) {
-      var targetScaleFactor = 20 * Math.abs( angle ); //from flash simulation, in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
-      if ( targetScaleFactor < 0.1 ) {
+
+      // in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
+      var scale = 20 * Math.abs( angle );
+      if ( scale < 0.1 ) {
         haloNode.visible = false;
       }
       else {
         haloNode.visible = true;
-        var scale = targetScaleFactor / haloNode.transform.matrix.scaleVector.x;
-        haloNode.scale( scale );
+        haloNode.scale( scale / haloNode.transform.matrix.scaleVector.x );
       }
     } );
 
-    // Add the children in the order needed to get the desired layering
-    this.addChild( bulbBodyFill );
-    this.addChild( filamentSupportWires );
-    this.addChild( filament );
-    this.addChild( haloNode );
-    this.addChild( bulbBase );
-    this.addChild( bulbBodyOutline );
+    // Layering
+    this.children = [
+      bulbBodyFill,
+      filamentSupportWires,
+      filament,
+      haloNode,
+      bulbBase,
+      bulbBodyOutline
+    ];
 
     // Do some last layout
     bulbBase.centerY = 0;
@@ -132,7 +133,7 @@ define( function( require ) {
 
     this.mutate( options );
 
-    this.centerX = this.centerX + BULB_X_DISPLACEMENT;
+    this.translate( BULB_X_DISPLACEMENT, 0 );
   }
 
   faradaysLaw.register( 'BulbNode', BulbNode );
