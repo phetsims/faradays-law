@@ -71,7 +71,7 @@ define( function( require ) {
     options = _.extend( { isSmall: false }, options );
 
     // support smaller images, so it isn't crazily aliased in Firefox. They are 1/6th the size of the normal images.
-    var sizeScale = options.isSmall ? 6 : 1;
+    var scale = options.isSmall ? 2 : 1 / 3;
     var sizeField = options.isSmall ? 'small' : 'normal';
 
     var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
@@ -79,7 +79,7 @@ define( function( require ) {
     this.addChild( new Image( IMAGE_MAP[ coilType ].backImage[ sizeField ], {
       centerX: xOffset,
       centerY: 0,
-      scale: sizeScale / 3
+      scale: scale
     } ) );
 
     // In FaradaysLawScreenView front image detached from this Node and appended to front layer because front of coil
@@ -88,7 +88,7 @@ define( function( require ) {
     this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage[ sizeField ], {
       centerX: xOffset,
       centerY: 0,
-      scale: sizeScale / 3
+      scale: scale
     } );
     this.addChild( this.frontImage );
 
