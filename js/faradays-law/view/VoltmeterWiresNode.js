@@ -13,11 +13,16 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Color = require( 'SCENERY/util/Color' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Shape = require( 'KITE/Shape' );
+
+  // constants
+  var BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
+  var VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
 
   /**
    * Creates measure pad.
@@ -59,11 +64,10 @@ define( function( require ) {
   };
 
   /**
-   * @param aligner
    * @param {VoltmeterNode} voltmeterNode
    * @constructor
    */
-  function VoltmeterWiresNode( aligner, voltmeterNode ) {
+  function VoltmeterWiresNode( voltmeterNode ) {
     var self = this;
     Node.call( this );
 
@@ -71,13 +75,13 @@ define( function( require ) {
     var wireWidth = 3;
 
     // variables, used for measuring pads too
-    var leftWireX = aligner.voltmeterPosition.x + voltmeterNode.minusNode.centerX;
-    var rightWireX = aligner.voltmeterPosition.x + voltmeterNode.plusNode.centerX;
-    var wireTop = aligner.voltmeterPosition.y + voltmeterNode.height / 2;
+    var leftWireX = VOLTMETER_POSITION.x + voltmeterNode.minusNode.centerX;
+    var rightWireX = VOLTMETER_POSITION.x + voltmeterNode.plusNode.centerX;
+    var wireTop = VOLTMETER_POSITION.y + voltmeterNode.height / 2;
 
     // wires goes not to exactly to bulb position, need small deltas
-    var leftWireBottom = aligner.bulbPosition.y - 23;
-    var rightWireBottom = aligner.bulbPosition.y - 10;
+    var leftWireBottom = BULB_POSITION.y - 23;
+    var rightWireBottom = BULB_POSITION.y - 10;
 
     this.addChild( new Path( new Shape()
       .moveTo( leftWireX, wireTop )

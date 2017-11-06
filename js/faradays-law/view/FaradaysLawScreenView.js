@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Aligner = require( 'FARADAYS_LAW/faradays-law/view/Aligner' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
@@ -24,6 +23,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
   var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
+
+  // constants
+  var BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
+  var VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
 
   /**
    * @param {FaradaysLawModel} model - Faraday's Law simulation model object
@@ -46,19 +49,25 @@ define( function( require ) {
       y: model.topCoil.position.y
     } );
 
-    // aligner
-    this.aligner = new Aligner( model, bottomCoilNode.endRelativePositions, topCoilNode.endRelativePositions );
+    this.bottomCoilEndPositions = {
+      topEnd: bottomCoilNode.endRelativePositions.topEnd.plus( model.bottomCoil.position ),
+      bottomEnd: bottomCoilNode.endRelativePositions.bottomEnd.plus( model.bottomCoil.position )
+    };
+
+    this.topCoilEndPositions = {
+      topEnd: topCoilNode.endRelativePositions.topEnd.plus( model.topCoil.position ),
+      bottomEnd: topCoilNode.endRelativePositions.bottomEnd.plus( model.topCoil.position )
+    };
 
     // voltmeter and bulb created
     var voltmeterNode = new VoltmeterNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
     var bulbNode = new BulbNode( model.voltmeter.needleAngleProperty, {
-      centerX: this.aligner.bulbPosition.x,
-      centerY: this.aligner.bulbPosition.y
+      center: BULB_POSITION
     } );
 
     // wires
-    this.addChild( new CoilsWiresNode( this.aligner, model.showTopCoilProperty ) );
-    this.addChild( new VoltmeterWiresNode( this.aligner, voltmeterNode ) );
+    this.addChild( new CoilsWiresNode( this, model.showTopCoilProperty ) );
+    this.addChild( new VoltmeterWiresNode( voltmeterNode ) );
 
     // bulb added
     this.addChild( bulbNode );
@@ -73,7 +82,7 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     // voltmeter added
-    voltmeterNode.center = this.aligner.voltmeterPosition;
+    voltmeterNode.center = VOLTMETER_POSITION;
     this.addChild( voltmeterNode );
 
     // magnet
