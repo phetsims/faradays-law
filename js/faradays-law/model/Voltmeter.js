@@ -38,7 +38,7 @@ define( function( require ) {
     // @public {NumberProperty} Needle angle in radians. This drives both the needle location and the light bulb brightness.
     this.needleAngleProperty = new NumberProperty( 0 );
 
-    // @private - input voltage to meter
+    // @private {NumberProperty} - input voltage to meter
     this.signalProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'signalProperty' ),
       units: 'volts'
@@ -61,9 +61,9 @@ define( function( require ) {
 
       this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * this.needleAngularVelocity; //angular acceleration of needle
       this.needleAngleProperty.set( this.needleAngleProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); //angle of needle
-      var omega = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
-      var alpha = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * omega;
-      this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * (this.needleAngularAcceleration + alpha);
+      var angularVelocity = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
+      var angularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * angularVelocity;
+      this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * (this.needleAngularAcceleration + angularAcceleration);
 
       // Clamp the needle angle when its position, velocity, and acceleration go below a threshold so that it doesn't
       // oscillate forever.
