@@ -31,6 +31,51 @@ define( function( require ) {
   var MAGNET_3D_SHADOW = 0.4;
 
   /**
+   * @param {boolean} flipped - is magnet flipped
+   * @param {Object} [options]
+   * @constructor
+   */
+  function MagnetNode( flipped, options ) {
+    Node.call( this, { cursor: 'pointer' } );
+
+    // options of magnetNode
+    options = _.extend( {
+      width: 140,
+      height: 30,
+      font: new PhetFont( 24 ),
+      fontColor: 'white'
+    }, options );
+
+    //create north pole magnet
+    var northPoleLabel = new Text( faradaysLawNString, {
+      font: options.font,
+      fill: options.fontColor
+    } );
+    var northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
+      left: -options.width / 2,
+      centerY: 0
+    } );
+    this.addChild( northPole );
+
+    // create south pole magnet
+    var southPoleLabel = new Text( faradaysLawSString, {
+      font: options.font,
+      fill: options.fontColor
+    } );
+    var southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
+      left: 0,
+      centerY: 0
+    } );
+    this.addChild( southPole );
+
+    if ( flipped ) {
+      northPole.left = 0;
+      southPole.left = -options.width / 2;
+      northPole.moveToFront();
+    }
+  }
+
+  /**
    * @param magnetWidth - width of Magnet
    * @param magnetHeight - height of Magnet
    * @param label - label on half of magnet
@@ -77,53 +122,6 @@ define( function( require ) {
 
     return node;
   };
-
-  /**
-   *
-   * @param flipped - is magnet flipped
-   * @param {Object} [options]
-   * @constructor
-   */
-  function MagnetNode( flipped, options ) {
-    Node.call( this, { cursor: 'pointer' } );
-
-    // options of magnetNode
-    options = _.extend( {
-      width: 140,
-      height: 30,
-      font: new PhetFont( 24 ),
-      fontColor: 'white'
-    }, options );
-
-    //create north pole magnet
-    var northPoleLabel = new Text( faradaysLawNString, {
-      font: options.font,
-      fill: options.fontColor
-    } );
-    var northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
-      left: -options.width / 2,
-      centerY: 0
-    } );
-    this.addChild( northPole );
-
-    //create south pole magnet
-    var southPoleLabel = new Text( faradaysLawSString, {
-      font: options.font,
-      fill: options.fontColor
-    } );
-    var southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
-      left: 0,
-      centerY: 0
-    } );
-    this.addChild( southPole );
-
-    if ( flipped ) {
-      northPole.left = 0;
-      southPole.left = -options.width / 2;
-      northPole.moveToFront();
-    }
-
-  }
 
   faradaysLaw.register( 'MagnetNode', MagnetNode );
 
