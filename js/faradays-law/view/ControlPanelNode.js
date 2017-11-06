@@ -14,7 +14,7 @@ define( function( require ) {
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/buttons/FlipMagnetButton' );
+  var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/FlipMagnetButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
