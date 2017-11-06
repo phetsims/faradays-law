@@ -68,9 +68,11 @@ define( function( require ) {
   function CoilNode( coilType, options ) {
     Node.call( this );
 
+    options = _.extend( { isSmall: false }, options );
+
     // support smaller images, so it isn't crazily aliased in Firefox. They are 1/6th the size of the normal images.
-    var sizeScale = ( options && options.isSmall ) ? 6 : 1;
-    var sizeField = ( options && options.isSmall ) ? 'small' : 'normal';
+    var sizeScale = options.isSmall ? 6 : 1;
+    var sizeField = options.isSmall ? 'small' : 'normal';
 
     var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
