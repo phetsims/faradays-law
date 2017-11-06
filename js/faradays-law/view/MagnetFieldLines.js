@@ -29,6 +29,27 @@ define( function( require ) {
   ];
 
   /**
+   * @param magnet - magnet model of 'Faradays Law' simulation
+   * @constructor
+   */
+  function MagnetFieldLines( magnet ) {
+    Node.call( this );
+
+    // top field lines
+    var topLines = createSideFieldLines( magnet.flippedProperty );
+    this.addChild( topLines );
+
+    // bottom field lines
+    var bottomLines = createSideFieldLines( magnet.flippedProperty );
+    bottomLines.scale( 1, -1 );
+    this.addChild( bottomLines );
+
+    magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
+  }
+
+  faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
+
+  /**
    * Create single arrow
    * @param {Object} [options]
    * @returns {Path}
@@ -60,24 +81,24 @@ define( function( require ) {
       lineWidth: 3
     }, options );
 
-    //arc
-    var elliplicalShape = new Shape().ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI );
-    node.addChild( new Path( elliplicalShape, {
+    // arc
+    var ellipticalShape = new Shape().ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI );
+    node.addChild( new Path( ellipticalShape, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } ) );
 
-    //arrows on arc
+    // arrows on arc
     arrowPositions.forEach( function( angle ) {
       var arrow = createArrow( {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       } );
-      var arrowPosition = elliplicalShape.getLastSegment().positionAtAngle( angle );
+      var arrowPosition = ellipticalShape.getLastSegment().positionAtAngle( angle );
       arrow.right = arrowPosition.x;
       arrow.centerY = arrowPosition.y;
 
-      var arrowTangent = elliplicalShape.getLastSegment().tangentAtAngle( angle );
+      var arrowTangent = ellipticalShape.getLastSegment().tangentAtAngle( angle );
       var rotationAngle = Math.atan( arrowTangent.y / arrowTangent.x ); //angle of tangent to an ellipse
 
       if ( arrowPosition.y > 0 ) {
@@ -114,28 +135,6 @@ define( function( require ) {
     } );
     return node;
   };
-
-  /**
-   * @param magnet - magnet model of 'Faradays Law' simulation
-   * @constructor
-   */
-  function MagnetFieldLines( magnet ) {
-    //TODO: Shoule we declare the above functions within the constructor? It seems like this structure needs an update.
-    Node.call( this );
-
-    // top field lines
-    var topLines = createSideFieldLines( magnet.flippedProperty );
-    this.addChild( topLines );
-
-    // bottom field lines
-    var bottomLines = createSideFieldLines( magnet.flippedProperty );
-    bottomLines.scale( 1, -1 );
-    this.addChild( bottomLines );
-
-    magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
-  }
-
-  faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
 
   return inherit( Node, MagnetFieldLines );
 } );
