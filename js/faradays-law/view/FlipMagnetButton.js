@@ -23,11 +23,10 @@ define( function( require ) {
 
   /**
    * Create curved arrow for button
-   * @param {Object} [options]
+   * @param {number} rotation
    * @returns {Node}
    */
-  var createCurvedArrow = function( options ) {
-    var node = new Node();
+  var createCurvedArrow = function( rotation ) {
 
     // variables for arrow and arc
     var radius = 20;
@@ -35,47 +34,45 @@ define( function( require ) {
     var arcStartAngle = -Math.PI * 0.90;
     var arcEndAngle = -Math.PI * 0.18;
 
-    //arc
-    var shape = new Shape();
-    shape.moveTo( (radius + lineWidth / 2) * Math.cos( arcStartAngle ), (radius + lineWidth / 2) * Math.sin( arcStartAngle ) ); // Inner edge of end.
-    shape.arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
-    node.addChild( new Path( shape, {
-      stroke: '#000',
-      lineWidth: lineWidth
-    } ) );
+    var arcShape = new Shape()
+      .moveTo( (radius + lineWidth / 2) * Math.cos( arcStartAngle ), (radius + lineWidth / 2) * Math.sin( arcStartAngle ) ) // Inner edge of end.
+      .arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
 
-    // arrow head
-    var headShape = new Shape().moveTo( 0, 8 )
+    var arrowHeadShape = new Shape()
+      .moveTo( 0, 8 )
       .lineTo( 4, 0 )
       .lineTo( -4, 0 )
-      .close();
-    headShape = headShape.transformed( Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) ).timesMatrix( Matrix3.rotation2( arcEndAngle ) ) );
-    node.addChild( new Path( headShape, {
-      fill: '#000'
-    } ) );
-
-    node.mutate( options );
-    return node;
+      .close()
+      .transformed( Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) ).timesMatrix( Matrix3.rotation2( arcEndAngle ) ) );
+    return new Node( {
+      children: [ new Path( arcShape, {
+        stroke: '#000',
+        lineWidth: lineWidth
+      } ), new Path( arrowHeadShape, {
+        fill: '#000'
+      } )
+      ],
+      rotation: rotation
+    } );
   };
 
   /**
-   * @param {Tandem}
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
   function FlipMagnetButton( tandem, options ) {
-    var children = [
-      createCurvedArrow(),
-      new MagnetNode( false /*flipped*/, {
-        width: 74,
-        height: 16,
-        font: new PhetFont( 14 )
-      } ),
-      createCurvedArrow( { rotation: Math.PI } )
-    ];
 
     var contentNode = new VBox( {
-      children: children,
+      children: [
+        createCurvedArrow( 0 ),
+        new MagnetNode( false, {
+          width: 74,
+          height: 16,
+          font: new PhetFont( 14 )
+        } ),
+        createCurvedArrow( Math.PI )
+      ],
       spacing: 1
     } );
 
