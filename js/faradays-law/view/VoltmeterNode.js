@@ -23,7 +23,7 @@ define( function( require ) {
   var ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
-  var VoltmeterScale = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterScale' );
+  var VoltmeterGauge = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterGauge' );
 
   // strings
   var faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
@@ -63,7 +63,7 @@ define( function( require ) {
     } );
 
     // scale + needle
-    readoutBackground.addChild( new VoltmeterScale( needleAngleProperty, {
+    readoutBackground.addChild( new VoltmeterGauge( needleAngleProperty, {
       centerX: readoutBackground.width / 2,
       centerY: readoutBackground.height / 2
     } ) );

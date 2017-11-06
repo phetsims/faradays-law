@@ -1,7 +1,7 @@
 // Copyright 2014-2017, University of Colorado Boulder
 
 /**
- * Voltmeter scale for 'Faradays Law' simulation model
+ * Voltmeter gauge (panel with needle) for 'Faradays Law'
  *
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function VoltmeterScale( needleAngleProperty, options ) {
+  function VoltmeterGauge( needleAngleProperty, options ) {
     Node.call( this );
 
     options = _.extend( {
@@ -87,7 +87,7 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  faradaysLaw.register( 'VoltmeterScale', VoltmeterScale );
+  faradaysLaw.register( 'VoltmeterGauge', VoltmeterGauge );
 
-  return inherit( Node, VoltmeterScale );
+  return inherit( Node, VoltmeterGauge );
 } );
