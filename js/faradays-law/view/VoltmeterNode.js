@@ -32,46 +32,31 @@ define( function( require ) {
   var TERMINAL_COLOR = '#C0C0C0';
   var TERMINAL_STROKE = '#000000';
   var TERMINAL_BORDER_RADIUS = 3;
-  var OUTER_BORDER_RADIUS = 10;
-  var DEFAULT_FONT = new PhetFont( 18 );
+  var RECTANGLE_HEIGHT = 107;
+  var READOUT_WIDTH = 132;
+  var TERMINAL_SIZE = 18; //size of terminals at the bottom of the voltmeter
+  var TERMINAL_SIGN_SIZE = new Dimension2( 12, 2 ); //size of plus and minus signs
 
   /**
    * @param needleAngleProperty - angle of needle in voltmeter
    * @param {Tandem} tandem
-   * @param {Object} [options]
    * @constructor
    */
-  function VoltmeterNode( needleAngleProperty, tandem, options ) {
+  function VoltmeterNode( needleAngleProperty, tandem ) {
     Node.call( this, {
       tandem: tandem
     } );
 
-    options = _.extend( {
+    var background = new ShadedRectangle( new Bounds2( 0, 0, 170, RECTANGLE_HEIGHT ), {
+      cornerRadius: 10,
       baseColor: new Color( '#232674' ),
-      rectangleWidth: 170,
-      rectangleHeight: 107,
-      marginTop: 7,
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 3,
-      readoutHeight: 72,
-      readoutWidth: 132,
-      readoutBorderRadius: 5,
-      textColor: 'yellow', //color of 'voltage' text
-      terminalSize: 18, //size of terminals at the bottom of the voltmeter
-      terminalSignSize: new Dimension2( 12, 2 ) //size of plus and minus signs
-    }, options );
-
-    var background = new ShadedRectangle( new Bounds2( 0, 0, options.rectangleWidth, options.rectangleHeight ), {
-      cornerRadius: OUTER_BORDER_RADIUS,
-      baseColor: options.baseColor,
       center: Vector2.ZERO
     } );
     this.addChild( background );
 
     // background rectangle with a deflecting needle meter inside
-    var readoutBackground = new Rectangle( 0, 0, options.readoutWidth, options.readoutHeight, {
-      cornerRadius: options.readoutBorderRadius,
+    var readoutBackground = new Rectangle( 0, 0, READOUT_WIDTH, 72, {
+      cornerRadius: 5,
       fill: '#FFF',
       centerX: 0,
       centerY: -5 // empirically determined to allow space for the label under the readout
@@ -86,10 +71,10 @@ define( function( require ) {
 
     // create the label and scale it if it's too long
     var label = new Text( faradaysLawVoltageString, {
-      font: DEFAULT_FONT,
-      fill: options.textColor,
+      font: new PhetFont( 18 ),
+      fill: 'yellow',
       tandem: tandem.createTandem( 'label' ),
-      maxWidth: options.readoutWidth // Support PhET-iO
+      maxWidth: READOUT_WIDTH // Support PhET-iO
     } );
     label.scale( Math.min( readoutBackground.width / label.width, 1 ) );
 
@@ -105,30 +90,30 @@ define( function( require ) {
 
     // add the plus and minus terminals at the bottom
     this.plusNode = new Node();
-    this.plusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
+    this.plusNode.addChild( new Rectangle( -TERMINAL_SIZE / 2, -TERMINAL_SIZE / 2, TERMINAL_SIZE, TERMINAL_SIZE, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
       stroke: TERMINAL_STROKE
     } ) );
     this.plusNode.addChild( new PlusNode( {
       centerX: 0,
       centerY: 0,
-      size: options.terminalSignSize
+      size: TERMINAL_SIGN_SIZE
     } ) );
     this.addChild( this.plusNode );
-    this.plusNode.center = new Vector2( options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
+    this.plusNode.center = new Vector2( TERMINAL_SIZE, RECTANGLE_HEIGHT / 2 + TERMINAL_SIZE / 2 );
 
     this.minusNode = new Node();
-    this.minusNode.addChild( new Rectangle( -options.terminalSize / 2, -options.terminalSize / 2, options.terminalSize, options.terminalSize, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
+    this.minusNode.addChild( new Rectangle( -TERMINAL_SIZE / 2, -TERMINAL_SIZE / 2, TERMINAL_SIZE, TERMINAL_SIZE, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
       fill: TERMINAL_COLOR,
       stroke: TERMINAL_STROKE
     } ) );
     this.minusNode.addChild( new MinusNode( {
       centerX: 0,
       centerY: 0,
-      size: options.terminalSignSize
+      size: TERMINAL_SIGN_SIZE
     } ) );
     this.addChild( this.minusNode );
-    this.minusNode.center = new Vector2( -options.terminalSize, options.rectangleHeight / 2 + options.terminalSize / 2 );
+    this.minusNode.center = new Vector2( -TERMINAL_SIZE, RECTANGLE_HEIGHT / 2 + TERMINAL_SIZE / 2 );
   }
 
   faradaysLaw.register( 'VoltmeterNode', VoltmeterNode );
