@@ -23,10 +23,8 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   *
    * @param needleAngleProperty - angle of needle in voltmeter
    * @param {Object} [options]
-   * @param {Tandem} tandem
    * @constructor
    */
   function VoltmeterScale( needleAngleProperty, options ) {

@@ -69,8 +69,8 @@ define( function( require ) {
     } );
     this.addChild( background );
 
-    // readout is a background rectangle with a deflecting needle meter inside
-    var readout = new Rectangle( 0, 0, options.readoutWidth, options.readoutHeight, {
+    // background rectangle with a deflecting needle meter inside
+    var readoutBackground = new Rectangle( 0, 0, options.readoutWidth, options.readoutHeight, {
       cornerRadius: options.readoutBorderRadius,
       fill: '#FFF',
       centerX: 0,
@@ -78,11 +78,11 @@ define( function( require ) {
     } );
 
     // scale + needle
-    readout.addChild( new VoltmeterScale( needleAngleProperty, {
-      centerX: readout.width / 2,
-      centerY: readout.height / 2
+    readoutBackground.addChild( new VoltmeterScale( needleAngleProperty, {
+      centerX: readoutBackground.width / 2,
+      centerY: readoutBackground.height / 2
     } ) );
-    this.addChild( readout );
+    this.addChild( readoutBackground );
 
     // create the label and scale it if it's too long
     var label = new Text( faradaysLawVoltageString, {
@@ -91,11 +91,11 @@ define( function( require ) {
       tandem: tandem.createTandem( 'label' ),
       maxWidth: options.readoutWidth // Support PhET-iO
     } );
-    label.scale( Math.min( readout.width / label.width, 1 ) );
+    label.scale( Math.min( readoutBackground.width / label.width, 1 ) );
 
     // position and add the label
     label.centerX = 0;
-    label.centerY = (readout.bottom + background.bottom) * 0.48; // position a little above exactly between edges
+    label.centerY = (readoutBackground.bottom + background.bottom) * 0.48; // position a little above exactly between edges
 
     // When the text changes (via PhET-iO), re-center it
     label.on( 'text', function() {
