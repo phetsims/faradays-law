@@ -60,9 +60,7 @@ define( function( require ) {
     bottomEnd: new Vector2( 70, 6 )
   };
 
-
   /**
-   *
    * @param coilType - determines which picture must we add to show coil
    * @param {Object} [options]
    * @constructor
