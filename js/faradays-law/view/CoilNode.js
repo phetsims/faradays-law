@@ -97,11 +97,12 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  // extra offset is applied to the two-coil image to align with the wires
-  CoilNode.twoOffset = 8;
-  CoilNode.xOffset = 8;
-
   faradaysLaw.register( 'CoilNode', CoilNode );
 
-  return inherit( Node, CoilNode );
+  return inherit( Node, CoilNode, {}, {
+
+    // extra offset is applied to the two-coil image to align with the wires
+    twoOffset: 8,
+    xOffset: 8
+  } );
 } );
