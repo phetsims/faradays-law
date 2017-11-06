@@ -16,10 +16,9 @@ define( function( require ) {
 
   // constants
   var BULB_POSITION = new Vector2( 190, 244 );
-  var Voltmeter_POSITION = BULB_POSITION.minusXY( 0, 165 );
+  var VOLTMETER_POSITION = BULB_POSITION.minusXY( 0, 165 );
 
   /**
-   *
    * @param {FaradaysLawModel} model
    * @param {Object} bottomCoilEndRelativePositions
    * @param {Object} topCoilEndRelativePositions
@@ -29,7 +28,7 @@ define( function( require ) {
     this.bottomCoilPosition = model.bottomCoil.position;
     this.topCoilPosition = model.topCoil.position;
     this.bulbPosition = BULB_POSITION;
-    this.voltmeterPosition = Voltmeter_POSITION;
+    this.voltmeterPosition = VOLTMETER_POSITION;
 
     this.bottomCoilEndPositions = {
       topEnd: bottomCoilEndRelativePositions.topEnd.plus( model.bottomCoil.position ),
