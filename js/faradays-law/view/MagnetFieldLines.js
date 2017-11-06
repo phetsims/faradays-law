@@ -33,21 +33,15 @@ define( function( require ) {
    * @constructor
    */
   function MagnetFieldLines( magnet ) {
-    Node.call( this );
-
-    // top field lines
-    var topLines = createSideFieldLines( magnet.flippedProperty );
-    this.addChild( topLines );
-
-    // bottom field lines
-    var bottomLines = createSideFieldLines( magnet.flippedProperty );
-    bottomLines.scale( 1, -1 );
-    this.addChild( bottomLines );
+    Node.call( this, {
+      children: [
+        createSideFieldLines( magnet.flippedProperty, +1 ), // top
+        createSideFieldLines( magnet.flippedProperty, -1 ) // bottom
+      ]
+    } );
 
     magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
   }
-
-  faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
 
   /**
    * Create single arrow
@@ -117,24 +111,28 @@ define( function( require ) {
   };
 
   /**
-   * create half of all magnet field lines (top by default)
-   * @param flippedProperty is magnet flipped
+   * Create half of all magnet field lines
+   * @param {BooleanProperty} flippedProperty - is magnet flipped
+   * @param {number} scaleY - +1/-1 bottom node is vertically flipped
    * @returns {Node}
    */
-  var createSideFieldLines = function( flippedProperty ) {
+  var createSideFieldLines = function( flippedProperty, scaleY ) {
     var node = new Node();
 
     var dy = 3;
-    //each ellipse change a bit position to show a near constant field
 
+    // each ellipse change a bit position to show a near constant field
     LINE_DESCRIPTION.forEach( function( line, index ) {
       var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, flippedProperty );
       arc.bottom = 2 - index * dy;
       arc.centerX = 0;
       node.addChild( arc );
     } );
+    node.scale( 1, scaleY );
     return node;
   };
+
+  faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
 
   return inherit( Node, MagnetFieldLines );
 } );
