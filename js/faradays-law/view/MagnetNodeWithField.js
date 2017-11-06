@@ -94,8 +94,8 @@ define( function( require ) {
     } ) );
 
     // Update the focusHighlight according to arrow visibility
-    model.showMagnetArrowsProperty.link( function( visible ) {
-      var newHighlightShape = visible ? Shape.bounds( draggableNode.bounds ) : Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
+    model.showMagnetArrowsProperty.link( function( showMagnetArrows ) {
+      var newHighlightShape = showMagnetArrows ? Shape.bounds( draggableNode.bounds ) : Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
       draggableNodeFocusHighlight.setShape( newHighlightShape );
     } );
 
@@ -150,7 +150,7 @@ define( function( require ) {
     draggableNode.addAccessibleInputListener( this.keyboardDragHandler );
 
     // observers
-    model.magnet.flippedProperty.link( function( flipped ) {
+    model.magnet.flippedProperty.link( function() {
       self.magnetNode.detach();
       self.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( self.magnetNode );

@@ -103,10 +103,10 @@ define( function( require ) {
 
     // Update the halo as the needle angle changes.
     // TODO: the bulb brightness shouldn't depend on the needle angle
-    needleAngleProperty.link( function( angle ) {
+    needleAngleProperty.link( function( needleAngle ) {
 
       // in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
-      var scale = 20 * Math.abs( angle );
+      var scale = 20 * Math.abs( needleAngle );
       if ( scale < 0.1 ) {
         haloNode.visible = false;
       }

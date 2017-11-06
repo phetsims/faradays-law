@@ -82,8 +82,8 @@ define( function( require ) {
     this.addChild( needleArrowNode );
 
     // observers
-    needleAngleProperty.link( function( angle ) {
-      needleArrowNode.rotation = Util.clamp( angle, -Math.PI / 2, Math.PI / 2 );
+    needleAngleProperty.link( function( needleAngle ) {
+      needleArrowNode.rotation = Util.clamp( needleAngle, -Math.PI / 2, Math.PI / 2 );
     } );
 
     this.mutate( options );
