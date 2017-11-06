@@ -29,23 +29,16 @@ define( function( require ) {
    */
   function VoltmeterGauge( needleAngleProperty, options ) {
     Node.call( this );
-
-    options = _.extend( {
-      arcRadius: 55, // radius of voltmeter scale
-      needleColor: '#3954a5',
-      needleHeight: 53,
-      needleWidth: 2,
-      needleTipHeight: 12,
-      needleTipWidth: 8
-    }, options );
+    var arcRadius = 55; // radius of voltmeter scale
+    var needleColor = '#3954a5'; // blue
 
     // scale
     var scale = new Path( new Shape()
       .moveTo( 0, 0 )
-      .lineTo( 0, -options.arcRadius )
-      .moveTo( -options.arcRadius, 0 )
-      .arc( 0, 0, options.arcRadius, -Math.PI, 0, false )
-      .lineTo( -options.arcRadius, 0 )
+      .lineTo( 0, -arcRadius )
+      .moveTo( -arcRadius, 0 )
+      .arc( 0, 0, arcRadius, -Math.PI, 0, false )
+      .lineTo( -arcRadius, 0 )
       .close(), {
       stroke: 'black',
       lineWidth: 1
@@ -54,27 +47,27 @@ define( function( require ) {
 
     // plus and minus signs
     this.addChild( new PlusNode( {
-      centerX: options.arcRadius / 2.3,
-      centerY: -options.arcRadius / 2.5,
+      centerX: arcRadius / 2.3,
+      centerY: -arcRadius / 2.5,
       size: new Dimension2( 12, 2 )
     } ) );
     this.addChild( new MinusNode( {
-      centerX: -options.arcRadius / 2.3,
-      centerY: -options.arcRadius / 2.5,
+      centerX: -arcRadius / 2.3,
+      centerY: -arcRadius / 2.5,
       size: new Dimension2( 12, 2 )
     } ) );
 
     // needle base
     this.addChild( new Circle( 4, {
-      fill: options.needleColor
+      fill: needleColor
     } ) );
 
     // needle
-    var needleArrowNode = new ArrowNode( 0, 0, 0, -options.needleHeight, {
-      headHeight: options.needleTipHeight,
-      headWidth: options.needleTipWidth,
-      tailWidth: options.needleWidth,
-      fill: options.needleColor,
+    var needleArrowNode = new ArrowNode( 0, 0, 0, -53, {
+      headHeight: 12,
+      headWidth: 8,
+      tailWidth: 2,
+      fill: needleColor,
       lineWidth: 0
     } );
     this.addChild( needleArrowNode );
