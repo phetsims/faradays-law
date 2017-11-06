@@ -3,8 +3,6 @@
 /**
  * Flip Magnet button for 'Faradays Law' simulation, contains magnet image node.
  *
- * TODO: move to top package
- *
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
