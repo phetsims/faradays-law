@@ -33,8 +33,7 @@ define( function( require ) {
   var BULB_X_DISPLACEMENT = -45; // Bulb dx relative to center position
 
   /**
-   *
-   * @param needleAngleProperty - value of voltage meter.
+   * @param {NumberProperty} needleAngleProperty - value of voltage meter
    * @param {Object} [options]
    * @constructor
    */
@@ -93,18 +92,17 @@ define( function( require ) {
     var filament = new Path( filamentShape, { stroke: 'black' } );
 
     // Create the 'halo' that makes the bulb look like it is shining.
-    var haloNode = new Node();
-    haloNode.addChild( new Circle( 5, {
-      fill: 'white',
-      opacity: 0.46
-    } ) );
-    haloNode.addChild( new Circle( 3.75, {
-      fill: 'white',
-      opacity: 0.51
-    } ) );
-    haloNode.addChild( new Circle( 2, {
-      fill: 'white'
-    } ) );
+    var haloNode = new Node( {
+      children: [ new Circle( 5, {
+        fill: 'white',
+        opacity: 0.46
+      } ), new Circle( 3.75, {
+        fill: 'white',
+        opacity: 0.51
+      } ), new Circle( 2, {
+        fill: 'white'
+      } ) ]
+    } );
 
     // Update the halo as the needle angle changes.
     needleAngleProperty.link( function( angle ) {
