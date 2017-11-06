@@ -24,10 +24,6 @@ define( function( require ) {
   var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
   var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
 
-  // constants
-  var BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
-  var VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
-
   /**
    * @param {FaradaysLawModel} model - Faraday's Law simulation model object
    * @param {Tandem} tandem
@@ -62,7 +58,7 @@ define( function( require ) {
     // voltmeter and bulb created
     var voltmeterNode = new VoltmeterNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
     var bulbNode = new BulbNode( model.voltmeter.needleAngleProperty, {
-      center: BULB_POSITION
+      center: FaradaysLawConstants.BULB_POSITION
     } );
 
     // wires
@@ -82,7 +78,7 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     // voltmeter added
-    voltmeterNode.center = VOLTMETER_POSITION;
+    voltmeterNode.center = FaradaysLawConstants.VOLTMETER_POSITION;
     this.addChild( voltmeterNode );
 
     // magnet
