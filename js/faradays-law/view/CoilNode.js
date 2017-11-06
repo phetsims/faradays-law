@@ -27,8 +27,8 @@ define( function( require ) {
   var twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
   var twoLoopFrontSmallImage = require( 'mipmap!FARADAYS_LAW/two-loop-front-small.png' );
 
-  var imageMap = {};
-  imageMap[ CoilTypeEnum.TWO_COIL ] = {
+  var IMAGE_MAP = {};
+  IMAGE_MAP[ CoilTypeEnum.TWO_COIL ] = {
     frontImage: {
       normal: twoLoopFrontImage,
       small: twoLoopFrontSmallImage
@@ -38,7 +38,7 @@ define( function( require ) {
       small: twoLoopBackSmallImage
     }
   };
-  imageMap[ CoilTypeEnum.FOUR_COIL ] = {
+  IMAGE_MAP[ CoilTypeEnum.FOUR_COIL ] = {
     frontImage: {
       normal: fourLoopFrontImage,
       small: fourLoopFrontSmallImage
@@ -50,18 +50,18 @@ define( function( require ) {
   };
 
   // each coil have 2 ends, coordinates of each end relative to center of the coil
-  var coilEndCoordinatesMap = {};
-  coilEndCoordinatesMap[ CoilTypeEnum.TWO_COIL ] = {
+  var COIL_END_COORDINATES_MAP = {};
+  COIL_END_COORDINATES_MAP[ CoilTypeEnum.TWO_COIL ] = {
     topEnd: new Vector2( 30, -10 ),
     bottomEnd: new Vector2( 60, 6 )
   };
-  coilEndCoordinatesMap[ CoilTypeEnum.FOUR_COIL ] = {
+  COIL_END_COORDINATES_MAP[ CoilTypeEnum.FOUR_COIL ] = {
     topEnd: new Vector2( 0, -10 ),
     bottomEnd: new Vector2( 70, 6 )
   };
 
   /**
-   * @param coilType - determines which picture must we add to show coil
+   * @param {CoilTypeEnum} coilType - determines which picture must we add to show coil
    * @param {Object} [options]
    * @constructor
    */
@@ -76,23 +76,23 @@ define( function( require ) {
 
     var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
-    this.backImage = new Image( imageMap[ coilType ].backImage[ sizeField ], {
+    this.addChild( new Image( IMAGE_MAP[ coilType ].backImage[ sizeField ], {
       centerX: xOffset,
       centerY: 0,
       scale: sizeScale / 3
-    } );
-    this.addChild( this.backImage );
+    } ) );
 
-    // In FaradaysLawScreenView front image detached from this Node and appended to front layer
-    // because front of coil must be over magnet and backImage must be under it.
-    this.frontImage = new Image( imageMap[ coilType ].frontImage[ sizeField ], {
+    // In FaradaysLawScreenView front image detached from this Node and appended to front layer because front of coil
+    // must be over magnet and backImage must be under it.
+    // @public
+    this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage[ sizeField ], {
       centerX: xOffset,
       centerY: 0,
       scale: sizeScale / 3
     } );
     this.addChild( this.frontImage );
 
-    this.endRelativePositions = coilEndCoordinatesMap[ coilType ];
+    this.endRelativePositions = COIL_END_COORDINATES_MAP[ coilType ];
 
     this.mutate( options );
   }
