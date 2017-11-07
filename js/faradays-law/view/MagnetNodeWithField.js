@@ -93,14 +93,21 @@ define( function( require ) {
       ]
     } ) );
 
-    // Update the focusHighlight according to arrow visibility
+    // a11y - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
+    // size of the node being highlighted.
     model.showMagnetArrowsProperty.link( function( showMagnetArrows ) {
-      var newHighlightShape = showMagnetArrows ? Shape.bounds( draggableNode.bounds ) : Shape.bounds( self.magnetNode.bounds.dilated( 7 ) );
+      var newHighlightShape;
+      var dilationCoefficient;
+      if ( showMagnetArrows ) {
+        dilationCoefficient = FocusHighlightPath.getDilationCoefficient( draggableNode );
+        newHighlightShape = Shape.bounds( draggableNode.bounds.dilated( dilationCoefficient ) );
+      }
+      else {
+        dilationCoefficient = FocusHighlightPath.getDilationCoefficient( self.magnetNode );
+        newHighlightShape = Shape.bounds( self.magnetNode.bounds.dilated( dilationCoefficient ) );
+      }
       draggableNodeFocusHighlight.setShape( newHighlightShape );
     } );
-
-    // Set the highlight to the bounds of the draggable node now that all children are added
-    draggableNodeFocusHighlight.setShape( Shape.bounds( draggableNode.bounds ) );
 
     // handler
     var magnetOffset = {}; // TODO: should be a Vector2
