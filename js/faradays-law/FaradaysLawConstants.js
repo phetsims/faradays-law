@@ -13,7 +13,9 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
   var BULB_POSITION = new Vector2( 190, 244 );
+
   var FaradaysLawConstants = {
     LAYOUT_BOUNDS: new Bounds2( 0, 0, 834, 504 ), // TODO: These should be adjusted to the new convention.
     BULB_POSITION: BULB_POSITION,
