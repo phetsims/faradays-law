@@ -25,7 +25,7 @@ define( function( require ) {
   var bulbBaseImage = require( 'mipmap!SCENERY_PHET/light-bulb-base.png' );
 
   // constants
-  var BULB_HEIGHT = 125;
+  var BULB_BODY_HEIGHT = 125 - 45;
   var BULB_WIDTH = 65;
   var BULB_BASE_WIDTH = 36;
   var NUM_FILAMENT_ZIG_ZAGS = 8;
@@ -51,8 +51,7 @@ define( function( require ) {
     // center of both.  This was the easiest to work with.
 
     // Create the bulb body.
-    var bulbBodyHeight = BULB_HEIGHT - bulbBase.width; // TODO: why is the bulb body a function of its width?
-    var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 ).cubicCurveTo( -bulbBodyHeight * 0.33, -CONTROL_POINT_Y_VALUE, -bulbBodyHeight * 0.95, -CONTROL_POINT_Y_VALUE, -bulbBodyHeight, 0 ).cubicCurveTo( -bulbBodyHeight * 0.95, CONTROL_POINT_Y_VALUE, -bulbBodyHeight * 0.33, CONTROL_POINT_Y_VALUE, 0, BULB_NECK_WIDTH / 2 );
+    var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 ).cubicCurveTo( -BULB_BODY_HEIGHT * 0.33, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.95, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT, 0 ).cubicCurveTo( -BULB_BODY_HEIGHT * 0.95, CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.33, CONTROL_POINT_Y_VALUE, 0, BULB_NECK_WIDTH / 2 );
     var bulbBodyOutline = new Path( bulbShape, {
       stroke: 'black',
       lineCap: 'round'
@@ -68,7 +67,7 @@ define( function( require ) {
     } );
 
     // Create the filament support wires.
-    var filamentWireHeight = bulbBodyHeight * 0.6;
+    var filamentWireHeight = BULB_BODY_HEIGHT * 0.6;
     var filamentTopPoint = new Vector2( -filamentWireHeight, -BULB_WIDTH * 0.3 );
     var filamentBottomPoint = new Vector2( -filamentWireHeight, BULB_WIDTH * 0.3 );
     var filamentSupportWiresShape = new Shape()

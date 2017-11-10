@@ -114,7 +114,6 @@ define( function( require ) {
      * @private
      */
     magnetIntersectsTopCoilArea: function() {
-
       var magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
       return magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 0 ] );
     },
