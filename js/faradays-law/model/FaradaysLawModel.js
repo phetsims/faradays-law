@@ -102,9 +102,6 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      // Cap large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
-      dt = Math.min( 0.1, dt ); // TODO: is there a setting to do this in Joist?
-
       // step the individual model elements
       this.bottomCoil.step( dt );
       this.showTopCoilProperty.get() && this.topCoil.step( dt );
