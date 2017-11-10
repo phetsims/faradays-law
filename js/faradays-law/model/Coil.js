@@ -27,7 +27,7 @@ define( function( require ) {
   function Coil( position, numberOfSpirals, magnet ) {
 
     // @private
-    this.sense = 1; //sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
+    this.sense = 1; // sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
 
     // @public (read-only)
     this.position = position;

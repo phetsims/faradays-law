@@ -17,7 +17,7 @@ define( function( require ) {
   var BULB_POSITION = new Vector2( 190, 244 );
 
   var FaradaysLawConstants = {
-    LAYOUT_BOUNDS: new Bounds2( 0, 0, 834, 504 ), // TODO: These should be adjusted to the new convention.
+    LAYOUT_BOUNDS: new Bounds2( 0, 0, 834, 504 ),
     BULB_POSITION: BULB_POSITION,
     VOLTMETER_POSITION: BULB_POSITION.minusXY( 0, 165 )
   };

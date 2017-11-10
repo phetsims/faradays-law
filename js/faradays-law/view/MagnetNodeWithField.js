@@ -115,7 +115,7 @@ define( function( require ) {
 
       tandem: tandem.createTandem( 'dragHandler' ),
 
-      //When dragging across it in a mobile device, pick it up
+      // When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
 
       start: function( event ) {
@@ -134,7 +134,7 @@ define( function( require ) {
         model.showMagnetArrowsProperty.set( false );
       },
 
-      //Translate on drag events
+      // Translate on drag events
       drag: function( event ) {
         var point = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = point.copy().subtract( magnetOffset );

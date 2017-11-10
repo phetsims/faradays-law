@@ -93,7 +93,7 @@ define( function( require ) {
       arrow.centerY = arrowPosition.y;
 
       var arrowTangent = ellipticalShape.getLastSegment().tangentAtAngle( angle );
-      var rotationAngle = Math.atan( arrowTangent.y / arrowTangent.x ); //angle of tangent to an ellipse
+      var rotationAngle = Math.atan( arrowTangent.y / arrowTangent.x ); // angle of tangent to an ellipse
 
       if ( arrowPosition.y > 0 ) {
         rotationAngle += Math.PI;

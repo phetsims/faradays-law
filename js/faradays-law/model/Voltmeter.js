@@ -59,8 +59,8 @@ define( function( require ) {
       // empirically determined to make the needle move the correct amount and direction.
       this.signalProperty.set( -0.2 * (this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get()) );
 
-      this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * this.needleAngularVelocity; //angular acceleration of needle
-      this.needleAngleProperty.set( this.needleAngleProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); //angle of needle
+      this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
+      this.needleAngleProperty.set( this.needleAngleProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle
       var angularVelocity = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
       var angularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * angularVelocity;
       this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * (this.needleAngularAcceleration + angularAcceleration);

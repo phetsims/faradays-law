@@ -16,6 +16,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
+  var EdgeEnum = require( 'FARADAYS_LAW/faradays-law/model/EdgeEnum' );
   var Vector2 = require( 'DOT/Vector2' );
   var Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
 
@@ -64,8 +65,8 @@ define( function( require ) {
     // @private - see this.moveMagnetToPosition method, we use this to calculate magnet position
     this.intersectedBounds = null;
 
-    // @private - moving direction of the magnet when intersecting coils
-    this.magnetMovingDirection = null; // TODO: should be enum
+    // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
+    this.magnetMovingDirection = null;
 
     // @public - the Voltmeter
     this.voltmeter = new Voltmeter( this, tandem.createTandem( 'voltmeter' ) );
@@ -147,24 +148,24 @@ define( function( require ) {
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 
               // vertical direction
-              if ( movingDelta.y > 0 ) { //bottom
-                this.magnetMovingDirection = 'bottom';
+              if ( movingDelta.y > 0 ) {
+                this.magnetMovingDirection = EdgeEnum.BOTTOM;
                 this.intersectedBounds.setMaxY( 3000 );
               }
-              else { //top
-                this.magnetMovingDirection = 'top';
+              else {
+                this.magnetMovingDirection = EdgeEnum.TOP;
                 this.intersectedBounds.setMinY( -3000 );
               }
             }
             else {
 
-              //horizontal
-              if ( movingDelta.x > 0 ) { //right
-                this.magnetMovingDirection = 'right';
+              // horizontal
+              if ( movingDelta.x > 0 ) {
+                this.magnetMovingDirection = EdgeEnum.RIGHT;
                 this.intersectedBounds.setMaxX( 3000 );
               }
-              else { //left
-                this.magnetMovingDirection = 'left';
+              else {
+                this.magnetMovingDirection = EdgeEnum.LEFT;
                 this.intersectedBounds.setMinX( -3000 );
               }
             }
@@ -173,23 +174,22 @@ define( function( require ) {
         }
       }
 
-      //intersection with any bounds
+      // intersection with any bounds
       if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
-        switch( this.magnetMovingDirection ) {
-          case 'bottom' :
-            magnetPosition.y = this.intersectedBounds.y - this.magnet.height / 2;
-            break;
-          case 'top' :
-            magnetPosition.y = this.intersectedBounds.maxY + this.magnet.height / 2;
-            break;
-          case 'left' :
-            magnetPosition.x = this.intersectedBounds.maxX + this.magnet.width / 2;
-            break;
-          case 'right' :
-            magnetPosition.x = this.intersectedBounds.x - this.magnet.width / 2;
-            break;
-          default:
-            throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
+        if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
+          magnetPosition.y = this.intersectedBounds.y - this.magnet.height / 2;
+        }
+        else if ( this.magnetMovingDirection === EdgeEnum.TOP ) {
+          magnetPosition.y = this.intersectedBounds.maxY + this.magnet.height / 2;
+        }
+        else if ( this.magnetMovingDirection === EdgeEnum.LEFT ) {
+          magnetPosition.x = this.intersectedBounds.maxX + this.magnet.width / 2;
+        }
+        else if ( this.magnetMovingDirection === EdgeEnum.RIGHT ) {
+          magnetPosition.x = this.intersectedBounds.x - this.magnet.width / 2;
+        }
+        else {
+          throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
         }
       }
       else {

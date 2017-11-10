@@ -23,8 +23,8 @@ define( function( require ) {
   var BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
   var WIRE_COLOR = '#7f3521';
   var WIRE_WIDTH = 3;
-  var LEFT_WIRE_BULB_START = new Vector2( BULB_POSITION.x - 15, BULB_POSITION.y ); //start point for left wire from bulb
-  var RIGHT_WIRE_BULB_START = new Vector2( BULB_POSITION.x + 10, BULB_POSITION.y ); //start point for right wire from bulb
+  var LEFT_WIRE_BULB_START = new Vector2( BULB_POSITION.x - 15, BULB_POSITION.y ); // start point for left wire from bulb
+  var RIGHT_WIRE_BULB_START = new Vector2( BULB_POSITION.x + 10, BULB_POSITION.y ); // start point for right wire from bulb
 
   /**
    * @param {FaradaysLawScreenView} view

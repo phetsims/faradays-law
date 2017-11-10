@@ -34,8 +34,8 @@ define( function( require ) {
   var TERMINAL_BORDER_RADIUS = 3;
   var RECTANGLE_HEIGHT = 107;
   var READOUT_WIDTH = 132;
-  var TERMINAL_SIZE = 18; //size of terminals at the bottom of the voltmeter
-  var TERMINAL_SIGN_SIZE = new Dimension2( 12, 2 ); //size of plus and minus signs
+  var TERMINAL_SIZE = 18; // size of terminals at the bottom of the voltmeter
+  var TERMINAL_SIGN_SIZE = new Dimension2( 12, 2 ); // size of plus and minus signs
 
   /**
    * @param needleAngleProperty - angle of needle in voltmeter

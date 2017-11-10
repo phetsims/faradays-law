@@ -30,7 +30,7 @@ define( function( require ) {
     }
   };
 
-  //Create and start the sim
+  // Create and start the sim
   SimLauncher.launch( function() {
     var sim = new Sim( faradaysLawTitleString, [ new FaradaysLawScreen( tandem.createTandem( 'faradaysLawScreen' ) ) ], simOptions );
     sim.start();

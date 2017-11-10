@@ -46,7 +46,7 @@ define( function( require ) {
       fontColor: 'white'
     }, options );
 
-    //create north pole magnet
+    // create north pole magnet
     var northPoleLabel = new Text( faradaysLawNString, {
       font: options.font,
       fill: options.fontColor
