@@ -20,6 +20,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var MAGNET_ARROW_OPTIONS = {
@@ -110,7 +111,7 @@ define( function( require ) {
     } );
 
     // handler
-    var magnetOffset = {}; // TODO: should be a Vector2
+    var magnetOffset = new Vector2();
     var dragHandler = new SimpleDragHandler( {
 
       tandem: tandem.createTandem( 'dragHandler' ),
