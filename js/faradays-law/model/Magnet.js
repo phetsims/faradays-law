@@ -14,7 +14,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var TProperty = require( 'AXON/TProperty' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var TVector2 = require( 'DOT/TVector2' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -37,7 +37,7 @@ define( function( require ) {
     // @public {Property.<Vector2>} - position of the magnet
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: TProperty( TVector2 )
+      phetioType: PropertyIO( TVector2 )
     } );
 
     // @public {BooleanProperty} - true if the magnet is flipped
