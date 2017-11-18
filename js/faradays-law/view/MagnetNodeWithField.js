@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
+  var MagnetAccessibleDragHandler = require( 'FARADAYS_LAW/faradays-law/view/MagnetAccessibleDragHandler' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
@@ -144,18 +145,8 @@ define( function( require ) {
     } );
     draggableNode.addInputListener( dragHandler );
 
-    // a11y keyboard drag handler
-    this.keyboardDragHandler = new KeyboardDragHandler( model.magnet.positionProperty, {
-
-        startDrag: function() {
-          model.showMagnetArrowsProperty.set( false );
-        },
-        onDrag: function() {
-          model.moveMagnetToPosition( model.magnet.positionProperty.get() );
-        }
-      }
-    );
-    draggableNode.addAccessibleInputListener( this.keyboardDragHandler );
+    this.magnetAccessibleDragHandler = new MagnetAccessibleDragHandler( model.magnet.positionProperty );
+    draggableNode.addAccessibleInputListener( this.magnetAccessibleDragHandler );
 
     // observers
     model.magnet.flippedProperty.link( function() {
@@ -182,7 +173,7 @@ define( function( require ) {
 
   return inherit( Node, MagnetNodeWithField, {
     step: function( dt ) {
-      this.keyboardDragHandler.step( dt );
+      this.magnetAccessibleDragHandler.step( dt );
     }
   } );
 } );
