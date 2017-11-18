@@ -1,7 +1,9 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * Drag handler for the magnet, for now it doesn't care about holding down keys
+ * Drag handler for the magnet, for now it doesn't care about holding down keys.
+ * It is modeled as a "sticky" drag handler because each arrow key press changes a consistent speed, so arrow keys act
+ * more like a velocity changer than a speed one.
  *
  * @author Michael Kauzmann (PhET Interactive Simulations
  */
@@ -14,16 +16,21 @@ define( function( require ) {
   var Input = require( 'SCENERY/input/Input' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
   var SPEEDS = [ 5, 10, 15 ];
 
+
   /**
-   * TODO: handle default bounds
    *
+   * @param {Property} positionProperty
+   * @param {function} startDrag
+   * @param {function} onDrag
    * @constructor
    */
-  function MagnetAccessibleDragHandler( positionProperty ) {
+  function MagnetAccessibleDragHandler( positionProperty, startDrag, onDrag ) {
     var self = this;
 
+    this.onDrag = onDrag;
     this.positionProperty = positionProperty;
     this.speedState = { direction: null, speedIndex: -1 };
 
@@ -38,6 +45,7 @@ define( function( require ) {
 
     // TODO: account for multiple events from a single hold down.
     this.keydown = function( event ) {
+      startDrag();
       if ( event.keyCode === Input.KEY_LEFT_ARROW ) {
         if ( self.speedState.direction === 'left' || self.speedState.direction === null ) {
           increment();
@@ -77,7 +85,6 @@ define( function( require ) {
           stopMotion();
         }
       }
-      console.log( self.speedState );
     };
   }
 
@@ -115,6 +122,9 @@ define( function( require ) {
           this.positionProperty.set( newPosition );
         }
       }
+
+      this.onDrag();
+
     }
   } );
 

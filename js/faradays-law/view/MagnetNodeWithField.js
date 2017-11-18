@@ -145,7 +145,14 @@ define( function( require ) {
     } );
     draggableNode.addInputListener( dragHandler );
 
-    this.magnetAccessibleDragHandler = new MagnetAccessibleDragHandler( model.magnet.positionProperty );
+    // The sticky drag handler for keyboard navigation
+    this.magnetAccessibleDragHandler = new MagnetAccessibleDragHandler( model.magnet.positionProperty, function() {
+        model.showMagnetArrowsProperty.set( false );
+      },
+      function() {
+        model.moveMagnetToPosition( model.magnet.positionProperty.get() );
+      }
+    );
     draggableNode.addAccessibleInputListener( this.magnetAccessibleDragHandler );
 
     // observers
