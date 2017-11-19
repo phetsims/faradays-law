@@ -17,7 +17,7 @@ define( function( require ) {
   // strings
   var faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
-  var tandem = Tandem.createRootTandem();
+  var tandem = Tandem.rootTandem;
 
   var simOptions = {
     credits: {
