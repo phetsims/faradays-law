@@ -68,7 +68,9 @@ define( function( require ) {
   function CoilNode( coilType, options ) {
     Node.call( this );
 
-    options = _.extend( { isSmall: false }, options );
+    options = _.extend( {
+      isSmall: false
+    }, options );
 
     // support smaller images, so it isn't crazily aliased in Firefox. They are 1/6th the size of the normal images.
     var scale = options.isSmall ? 2 : 1 / 3;
