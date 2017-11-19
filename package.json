@@ -10,12 +10,6 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "FARADAYS_LAW",
-    "phetLibs": [
-      "vibe"
-    ],
-    "preload": [
-      "../sherpa/lib/Tween-r12.js"
-    ]
+    "requirejsNamespace": "FARADAYS_LAW"
   }
 }
