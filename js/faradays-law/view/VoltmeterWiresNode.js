@@ -25,45 +25,6 @@ define( function( require ) {
   var VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
 
   /**
-   * Creates measure pad.
-   * @param {Object} [options]
-   * @returns {Node}
-   */
-  var createPad = function( options ) {
-
-    // params
-    var baseColor = new Color( '#b4b5b5' );
-    var transparentColor = baseColor.withAlpha( 0 );
-    var radius = 7;
-    var gradientLength = 2;
-    var innerGradientRadius = radius - gradientLength / 2;
-    var outerGradientRadius = radius + gradientLength / 2;
-    var gradientOffset = gradientLength / 2;
-
-    var pad = new Node();
-
-    // Create the gradient fills
-    var highlightFill = new RadialGradient( gradientOffset, gradientOffset, innerGradientRadius, gradientOffset, gradientOffset, outerGradientRadius )
-      .addColorStop( 0, baseColor )
-      .addColorStop( 1, baseColor.colorUtilsBrighter( 0.7 ) );
-
-    var shadowFill = new RadialGradient( -gradientOffset, -gradientOffset, innerGradientRadius, -gradientOffset, -gradientOffset, outerGradientRadius )
-      .addColorStop( 0, transparentColor )
-      .addColorStop( 1, baseColor.colorUtilsDarker( 0.5 ) );
-
-    // base circle with white gradient
-    var baseCircle = new Circle( radius, { fill: highlightFill } );
-    pad.addChild( baseCircle );
-
-    // black gradient
-    var overlayForShadowGradient = new Circle( radius, { fill: shadowFill } );
-    pad.addChild( overlayForShadowGradient );
-
-    pad.mutate( options );
-    return pad;
-  };
-
-  /**
    * @param {VoltmeterNode} voltmeterNode
    * @constructor
    */
@@ -114,6 +75,45 @@ define( function( require ) {
     voltmeterNode.on( 'visibility', updateVisible );
     updateVisible();
   }
+
+  /**
+   * Creates measure pad.
+   * @param {Object} [options]
+   * @returns {Node}
+   */
+  var createPad = function( options ) {
+
+    // params
+    var baseColor = new Color( '#b4b5b5' );
+    var transparentColor = baseColor.withAlpha( 0 );
+    var radius = 7;
+    var gradientLength = 2;
+    var innerGradientRadius = radius - gradientLength / 2;
+    var outerGradientRadius = radius + gradientLength / 2;
+    var gradientOffset = gradientLength / 2;
+
+    var pad = new Node();
+
+    // Create the gradient fills
+    var highlightFill = new RadialGradient( gradientOffset, gradientOffset, innerGradientRadius, gradientOffset, gradientOffset, outerGradientRadius )
+      .addColorStop( 0, baseColor )
+      .addColorStop( 1, baseColor.colorUtilsBrighter( 0.7 ) );
+
+    var shadowFill = new RadialGradient( -gradientOffset, -gradientOffset, innerGradientRadius, -gradientOffset, -gradientOffset, outerGradientRadius )
+      .addColorStop( 0, transparentColor )
+      .addColorStop( 1, baseColor.colorUtilsDarker( 0.5 ) );
+
+    // base circle with white gradient
+    var baseCircle = new Circle( radius, { fill: highlightFill } );
+    pad.addChild( baseCircle );
+
+    // black gradient
+    var overlayForShadowGradient = new Circle( radius, { fill: shadowFill } );
+    pad.addChild( overlayForShadowGradient );
+
+    pad.mutate( options );
+    return pad;
+  };
 
   faradaysLaw.register( 'VoltmeterWiresNode', VoltmeterWiresNode );
 

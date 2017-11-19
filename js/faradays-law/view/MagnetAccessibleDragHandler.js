@@ -19,7 +19,6 @@ define( function( require ) {
   // constants
   var SPEEDS = [ 5, 10, 15 ];
 
-
   /**
    *
    * @param {Property} positionProperty
@@ -91,6 +90,11 @@ define( function( require ) {
   faradaysLaw.register( 'MagnetAccessibleDragHandler', MagnetAccessibleDragHandler );
 
   return inherit( Object, MagnetAccessibleDragHandler, {
+
+    /**
+     * Move the magnet with the accessibility controls.
+     * @param {number} dt - elapsed time in seconds
+     */
     step: function( dt ) {
 
       if ( this.speedState.direction !== null ) {
@@ -122,11 +126,7 @@ define( function( require ) {
           this.positionProperty.set( newPosition );
         }
       }
-
       this.onDrag();
-
     }
   } );
-
-} )
-;
+} );

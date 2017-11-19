@@ -26,13 +26,14 @@ define( function( require ) {
   var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
 
   /**
-   * @param {number} bounds of Screen
+   * @param {Bounds2} bounds of Screen
    * @param {Tandem} tandem
    * @constructor
    */
   function FaradaysLawModel( bounds, tandem ) {
     var self = this;
 
+    // @public (Bounds2}
     this.bounds = bounds;
 
     // @public - Whether the top coil should be shown
@@ -62,7 +63,7 @@ define( function( require ) {
       FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
     ];
 
-    // @private - see this.moveMagnetToPosition method, we use this to calculate magnet position
+    // @private - see this.moveMagnetToPosition method, used to calculate magnet position
     this.intersectedBounds = null;
 
     // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
@@ -101,8 +102,6 @@ define( function( require ) {
      * @param {number} dt - in seconds
      */
     step: function( dt ) {
-
-      // step the individual model elements
       this.bottomCoil.step( dt );
       this.showTopCoilProperty.get() && this.topCoil.step( dt );
       this.voltmeter.step( dt );

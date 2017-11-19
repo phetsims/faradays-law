@@ -59,9 +59,8 @@ define( function( require ) {
     var bulbBodyFill = new Path( bulbShape, {
       fill: new RadialGradient(
         bulbBodyOutline.centerX, bulbBodyOutline.centerY,
-        BULB_WIDTH / 10, bulbBodyOutline.centerX,
-        bulbBodyOutline.centerY, BULB_WIDTH / 2
-      )
+        BULB_WIDTH / 10, bulbBodyOutline.centerX, bulbBodyOutline.centerY,
+        BULB_WIDTH / 2 )
         .addColorStop( 0, '#eeeeee' )
         .addColorStop( 1, '#bbccbb' )
     } );

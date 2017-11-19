@@ -49,6 +49,8 @@ define( function( require ) {
 
     // set up initial conditions
     this.updateMagneticField();
+
+    // Must be called after updateMagneticField to store the initial value
     this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
   }
 

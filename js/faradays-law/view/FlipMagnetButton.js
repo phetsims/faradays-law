@@ -22,6 +22,37 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   * @constructor
+   */
+  function FlipMagnetButton( tandem, options ) {
+
+    var contentNode = new VBox( {
+      children: [
+        createCurvedArrow( 0 ),
+        new MagnetNode( false, {
+          width: 74,
+          height: 16,
+          font: new PhetFont( 14 )
+        } ),
+        createCurvedArrow( Math.PI )
+      ],
+      spacing: 1
+    } );
+
+    RectangularPushButton.call( this, _.extend( {
+      content: contentNode,
+      baseColor: 'rgb(205,254,195)',
+      minWidth: 118,
+      minHeight: 65,
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 10,
+      tandem: tandem
+    }, options ) );
+  }
+
+  /**
    * Create curved arrow for button
    * @param {number} rotation
    * @returns {Node}
@@ -55,37 +86,6 @@ define( function( require ) {
       rotation: rotation
     } );
   };
-
-  /**
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   * @constructor
-   */
-  function FlipMagnetButton( tandem, options ) {
-
-    var contentNode = new VBox( {
-      children: [
-        createCurvedArrow( 0 ),
-        new MagnetNode( false, {
-          width: 74,
-          height: 16,
-          font: new PhetFont( 14 )
-        } ),
-        createCurvedArrow( Math.PI )
-      ],
-      spacing: 1
-    } );
-
-    RectangularPushButton.call( this, _.extend( {
-      content: contentNode,
-      baseColor: 'rgb(205,254,195)',
-      minWidth: 118,
-      minHeight: 65,
-      touchAreaXDilation: 10,
-      touchAreaYDilation: 10,
-      tandem: tandem
-    }, options ) );
-  }
 
   faradaysLaw.register( 'FlipMagnetButton', FlipMagnetButton );
 
