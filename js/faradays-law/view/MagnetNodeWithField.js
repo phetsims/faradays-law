@@ -161,9 +161,7 @@ define( function( require ) {
       draggableNode.addChild( self.magnetNode );
     } );
 
-    model.magnet.positionProperty.link( function( position ) {
-      self.translation = position;
-    } );
+    model.magnet.positionProperty.linkAttribute( this, 'translation' );
   }
 
   // Create single MagnetNode View
