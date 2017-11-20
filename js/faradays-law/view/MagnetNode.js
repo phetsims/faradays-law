@@ -68,6 +68,9 @@ define( function( require ) {
     } );
     this.addChild( southPole );
 
+    // Touch area covers both poles
+    this.touchArea = southPole.bounds.union( northPole.bounds ).dilated( 10 );
+
     if ( flipped ) {
       northPole.left = 0;
       southPole.left = -options.width / 2;
@@ -117,8 +120,6 @@ define( function( require ) {
     node.addChild( Rectangle.bounds( node.localBounds.dilated( 1 ), {
       fill: 'rgba( 0, 0, 0, 0 )'
     } ) );
-
-    node.touchArea = node.localBounds.dilated( 10 );
 
     return node;
   };
