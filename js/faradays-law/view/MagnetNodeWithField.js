@@ -14,8 +14,8 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetAccessibleDragHandler = require( 'FARADAYS_LAW/faradays-law/view/MagnetAccessibleDragHandler' );
+  var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
