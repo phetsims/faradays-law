@@ -20,7 +20,6 @@ define( function( require ) {
   var SPEEDS = [ 5, 10, 15 ];
 
   /**
-   *
    * @param {Property} positionProperty
    * @param {function} startDrag
    * @param {function} onDrag

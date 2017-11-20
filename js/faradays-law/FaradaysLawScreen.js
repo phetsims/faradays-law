@@ -18,6 +18,10 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
 
+  /**
+   * @param {Tandem} tandem
+   * @constructor
+   */
   function FaradaysLawScreen( tandem ) {
     Screen.call( this,
       function() {

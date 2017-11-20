@@ -29,7 +29,7 @@ define( function( require ) {
   ];
 
   /**
-   * @param magnet - magnet model of 'Faradays Law' simulation
+   * @param {Magnet} magnet - magnet model
    * @constructor
    */
   function MagnetFieldLines( magnet ) {
