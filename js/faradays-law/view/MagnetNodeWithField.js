@@ -137,8 +137,8 @@ define( function( require ) {
 
       // Translate on drag events
       drag: function( event ) {
-        var point = self.globalToParentPoint( event.pointer.point );
-        var desiredPosition = point.copy().subtract( magnetOffset );
+        var parentPoint = self.globalToParentPoint( event.pointer.point );
+        var desiredPosition = parentPoint.minus( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
       }
     } );

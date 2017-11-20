@@ -87,10 +87,10 @@ define( function( require ) {
    * @returns {Node}
    */
   var drawHalfMagnetNode = function( magnetWidth, magnetHeight, label, backgroundColor, options ) {
-    var node = new Node();
+    var halfMagnetNode = new Node();
 
     // add the top and sides to create a 3D appearance
-    node.addChild( new Path( new Shape()
+    halfMagnetNode.addChild( new Path( new Shape()
       .moveTo( -magnetWidth / 4, -magnetHeight / 2 )
       .lineTo( -magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, -magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
       .lineTo( magnetWidth / 4 + magnetWidth * MAGNET_OFFSET_DX_RATIO, -magnetHeight / 2 - magnetHeight * MAGNET_OFFSET_DY_RATIO )
@@ -102,7 +102,7 @@ define( function( require ) {
     } ) );
 
     // add the front
-    node.addChild( new Rectangle( -magnetWidth / 4, -magnetHeight / 2, magnetWidth / 2, magnetHeight, {
+    halfMagnetNode.addChild( new Rectangle( -magnetWidth / 4, -magnetHeight / 2, magnetWidth / 2, magnetHeight, {
       fill: backgroundColor
     } ) );
 
@@ -112,16 +112,16 @@ define( function( require ) {
     label.centerY = 0;
 
     // label
-    node.addChild( label );
+    halfMagnetNode.addChild( label );
 
-    node.mutate( options );
+    halfMagnetNode.mutate( options );
 
     // this addresses an issue where artifacts were being left on the screen in some browser, see #48
-    node.addChild( Rectangle.bounds( node.localBounds.dilated( 1 ), {
+    halfMagnetNode.addChild( Rectangle.bounds( halfMagnetNode.localBounds.dilated( 1 ), {
       fill: 'rgba( 0, 0, 0, 0 )'
     } ) );
 
-    return node;
+    return halfMagnetNode;
   };
 
   faradaysLaw.register( 'MagnetNode', MagnetNode );

@@ -133,12 +133,12 @@ define( function( require ) {
 
         // if first coil not visible, check only second coil restrictions
         for ( var i = this.showTopCoilProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
-          var restricted = this.listOfRestrictedBounds[ i ];
-          if ( magnetBounds.intersectsBounds( restricted ) ) {
+          var restrictedBounds = this.listOfRestrictedBounds[ i ];
+          if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
 
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
             var movingDelta = position.minus( this.magnet.positionProperty.get() );
-            this.intersectedBounds = restricted.copy();
+            this.intersectedBounds = restrictedBounds.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 
               // vertical direction

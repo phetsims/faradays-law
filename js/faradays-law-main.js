@@ -17,8 +17,6 @@ define( function( require ) {
   // strings
   var faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
-  var tandem = Tandem.rootTandem;
-
   var simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Bryce Gruneich',
@@ -32,7 +30,9 @@ define( function( require ) {
 
   // Create and start the sim
   SimLauncher.launch( function() {
-    var sim = new Sim( faradaysLawTitleString, [ new FaradaysLawScreen( tandem.createTandem( 'faradaysLawScreen' ) ) ], simOptions );
+    var sim = new Sim( faradaysLawTitleString, [
+      new FaradaysLawScreen( Tandem.rootTandem.createTandem( 'faradaysLawScreen' ) )
+    ], simOptions );
     sim.start();
   } );
 } );

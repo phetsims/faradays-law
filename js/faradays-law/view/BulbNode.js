@@ -84,7 +84,7 @@ define( function( require ) {
       filamentShape.lineTo( filamentTopPoint.x + xZig, yPos );
     }
     filamentShape.lineToPoint( filamentBottomPoint );
-    var filament = new Path( filamentShape, { stroke: 'black' } );
+    var filamentNode = new Path( filamentShape, { stroke: 'black' } );
 
     // Create the 'halo' that makes the bulb look like it is shining.
     var haloNode = new Node( {
@@ -118,7 +118,7 @@ define( function( require ) {
     this.children = [
       bulbBodyFill,
       filamentSupportWires,
-      filament,
+      filamentNode,
       haloNode,
       bulbBase,
       bulbBodyOutline
@@ -127,7 +127,7 @@ define( function( require ) {
     // Do some last layout
     bulbBase.centerY = 0;
     bulbBase.left = 0;
-    haloNode.center = filament.center;
+    haloNode.center = filamentNode.center;
 
     this.mutate( options );
 

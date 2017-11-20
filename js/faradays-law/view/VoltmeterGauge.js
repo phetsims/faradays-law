@@ -32,8 +32,8 @@ define( function( require ) {
     var arcRadius = 55; // radius of voltmeter scale
     var needleColor = '#3954a5'; // blue
 
-    // scale
-    var scale = new Path( new Shape()
+    // background panel within which the needle moves
+    var background = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( 0, -arcRadius )
       .moveTo( -arcRadius, 0 )
@@ -43,7 +43,7 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 1
     } );
-    this.addChild( scale );
+    this.addChild( background );
 
     // plus and minus signs
     this.addChild( new PlusNode( {

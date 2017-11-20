@@ -69,7 +69,7 @@ define( function( require ) {
    * @returns {Node}
    */
   var createArcWithArrow = function( a, b, arrowPositions, flippedProperty, options ) {
-    var node = new Node();
+    var arcWithArrow = new Node();
     options = _.extend( {
       stroke: '#ffffff',
       lineWidth: 3
@@ -77,7 +77,7 @@ define( function( require ) {
 
     // arc
     var ellipticalShape = new Shape().ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI );
-    node.addChild( new Path( ellipticalShape, {
+    arcWithArrow.addChild( new Path( ellipticalShape, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } ) );
@@ -104,10 +104,10 @@ define( function( require ) {
       flippedProperty.lazyLink( function() {
         arrow.rotateAround( arrowPosition, Math.PI );
       } );
-      node.addChild( arrow );
+      arcWithArrow.addChild( arrow );
     } );
 
-    return node;
+    return arcWithArrow;
   };
 
   /**
@@ -117,7 +117,7 @@ define( function( require ) {
    * @returns {Node}
    */
   var createSideFieldLines = function( flippedProperty, scaleY ) {
-    var node = new Node();
+    var sideFieldLinesContainer = new Node();
 
     var dy = 3;
 
@@ -126,10 +126,10 @@ define( function( require ) {
       var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, flippedProperty );
       arc.bottom = 2 - index * dy;
       arc.centerX = 0;
-      node.addChild( arc );
+      sideFieldLinesContainer.addChild( arc );
     } );
-    node.scale( 1, scaleY );
-    return node;
+    sideFieldLinesContainer.scale( 1, scaleY );
+    return sideFieldLinesContainer;
   };
 
   faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
