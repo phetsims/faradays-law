@@ -5,7 +5,7 @@
  * It is modeled as a "sticky" drag handler because each arrow key press changes a consistent speed, so arrow keys act
  * more like a velocity changer than a speed one.
  *
- * @author Michael Kauzmann (PhET Interactive Simulations
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
