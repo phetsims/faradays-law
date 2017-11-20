@@ -176,6 +176,12 @@ define( function( require ) {
   faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
 
   return inherit( Node, MagnetNodeWithField, {
+
+    /**
+     * Step in time
+     * @param {number} dt - elapsed time in seconds
+     * @public
+     */
     step: function( dt ) {
       this.magnetAccessibleDragHandler.step( dt );
     }

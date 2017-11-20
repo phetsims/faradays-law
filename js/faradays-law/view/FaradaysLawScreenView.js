@@ -102,6 +102,11 @@ define( function( require ) {
   faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );
 
   return inherit( ScreenView, FaradaysLawScreenView, {
+
+    /**
+     * Step in time
+     * @param {number} dt - elapsed time in seconds
+     */
     step: function( dt ) {
       this.magnetNodeWithField.step( dt );
     }

@@ -119,6 +119,7 @@ define( function( require ) {
 
     /**
      * @param {Vector2} position - position of magnet
+     * @public
      */
     moveMagnetToPosition: function( position ) {
       var magnetBounds = new Bounds2(
