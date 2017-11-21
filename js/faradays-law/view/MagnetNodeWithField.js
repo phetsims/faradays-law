@@ -164,7 +164,11 @@ define( function( require ) {
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
   }
 
-  // Create single MagnetNode View
+  /**
+   * Creates the magnet node
+   * @param {Magnet} magnet
+   * @returns {MagnetNode}
+   */
   var createMagnetNode = function( magnet ) {
     return new MagnetNode( magnet.flippedProperty.get(), {
       width: magnet.width,
