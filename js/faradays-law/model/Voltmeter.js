@@ -36,7 +36,11 @@ define( function( require ) {
     this.needleAngularAcceleration = 0;
 
     // @public {NumberProperty} Needle angle in radians. This drives both the needle location and the light bulb brightness.
-    this.needleAngleProperty = new NumberProperty( 0 );
+    this.needleAngleProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'needleAngleProperty' ),
+      units: 'radians',
+      phetioReadOnly: true
+    } );
 
     // @private {NumberProperty} - input voltage to meter
     this.signalProperty = new NumberProperty( 0, {
