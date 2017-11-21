@@ -53,14 +53,8 @@ define( function( require ) {
 
     // switch the direction of motion 180 degrees
     var reverseDirection = function() {
-      if ( self.model.direction === DIRECTION_NOT_MOVING ) {
-        return;
-      }
-      else if ( LEGAL_DIRECTIONS.indexOf( self.model.direction ) >= 0 ) {
+      if ( LEGAL_DIRECTIONS.indexOf( self.model.direction ) >= 0 ) {
         self.model.direction = DIRECTION_REVERSE_MAPPINGS[ self.model.direction ];
-      }
-      else {
-        assert && assert( false, 'invalid direction,' + self.model.direction );
       }
     };
 
