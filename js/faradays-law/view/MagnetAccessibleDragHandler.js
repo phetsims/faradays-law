@@ -18,15 +18,21 @@ define( function( require ) {
 
   // constants
   var SPEEDS = [ 5, 10, 15 ];
-  var LEGAL_DIRECTIONS = [ 'left', 'right', 'up', 'down' ];
   var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
   var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
-  var DIRECTION_REVERSE_MAPPINGS = { // this may not be the best way to store this data, but it made sense to zepumph at the time.
-    left: 'right',
-    right: 'left',
-    up: 'down',
-    down: 'up'
-  };
+
+  var LEFT = Input.KEY_LEFT_ARROW;
+  var RIGHT = Input.KEY_RIGHT_ARROW;
+  var UP = Input.KEY_UP_ARROW;
+  var DOWN = Input.KEY_DOWN_ARROW;
+  var LEGAL_DIRECTIONS = [ LEFT, RIGHT, UP, DOWN ];
+
+  // this may not be the best way to store this data, but it made sense to zepumph at the time.
+  var DIRECTION_REVERSE_MAPPINGS = {};
+  DIRECTION_REVERSE_MAPPINGS[ LEFT ] = RIGHT;
+  DIRECTION_REVERSE_MAPPINGS[ RIGHT ] = LEFT;
+  DIRECTION_REVERSE_MAPPINGS[ UP ] = DOWN;
+  DIRECTION_REVERSE_MAPPINGS[ DOWN ] = UP;
 
   /**
    * @param {Property} positionProperty
@@ -42,10 +48,10 @@ define( function( require ) {
     this.positionProperty = positionProperty;
     this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
 
-    var stopMotion = function() {
+    var stopMovement = function() {
       self.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
     };
-    var increment = function() {
+    var incrementSpeed = function() {
       if ( self.model.speedIndex !== SPEEDS.length - 1 ) {
         self.model.speedIndex += 1;
       }
@@ -61,50 +67,25 @@ define( function( require ) {
     // TODO: account for multiple events from a single hold down.
     this.keydown = function( event ) {
       this.startDrag();
-      if ( event.keyCode === Input.KEY_LEFT_ARROW ) {
-        if ( self.model.direction === 'left' || self.model.direction === DIRECTION_NOT_MOVING ) {
-          increment();
-          self.model.direction = 'left';
-        }
-        else {
-          stopMotion();
-        }
-      }
-      else if ( event.keyCode === Input.KEY_RIGHT_ARROW ) {
 
-        if ( self.model.direction === 'right' || self.model.direction === DIRECTION_NOT_MOVING ) {
-          increment();
-          self.model.direction = 'right';
+      if ( Input.isArrowKey( event.keyCode ) ) {
+        if ( self.model.direction === event.keyCode ) {
+          incrementSpeed();
+          // do nothing with direction, because the model direction is already set to the correct direction.
+        }
+        else if ( self.model.direction === DIRECTION_NOT_MOVING ) {
+          self.model.direction = event.keyCode;
+          incrementSpeed();
         }
         else {
-          stopMotion();
-        }
-      }
-      else if ( event.keyCode === Input.KEY_UP_ARROW ) {
-
-        if ( self.model.direction === 'up' || self.model.direction === DIRECTION_NOT_MOVING ) {
-          increment();
-          self.model.direction = 'up';
-        }
-        else {
-          stopMotion();
-        }
-      }
-      else if ( event.keyCode === Input.KEY_DOWN_ARROW ) {
-
-        if ( self.model.direction === 'down' || self.model.direction === DIRECTION_NOT_MOVING ) {
-          increment();
-          self.model.direction = 'down';
-        }
-        else {
-          stopMotion();
+          stopMovement();
         }
       }
       else if ( event.keyCode === Input.KEY_SPACE ) {
         reverseDirection();
       }
       else {
-        stopMotion();
+        stopMovement();
       }
     };
   }
@@ -126,16 +107,16 @@ define( function( require ) {
         var deltaY = 0;
         var positionDelta = SPEEDS[ this.model.speedIndex ];
 
-        if ( this.model.direction === 'left' ) {
+        if ( this.model.direction === LEFT ) {
           deltaX = -positionDelta;
         }
-        if ( this.model.direction === 'right' ) {
+        if ( this.model.direction === RIGHT ) {
           deltaX = positionDelta;
         }
-        if ( this.model.direction === 'up' ) {
+        if ( this.model.direction === UP ) {
           deltaY = -positionDelta;
         }
-        if ( this.model.direction === 'down' ) {
+        if ( this.model.direction === DOWN ) {
           deltaY = positionDelta;
         }
 
