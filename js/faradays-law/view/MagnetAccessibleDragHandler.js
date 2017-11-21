@@ -18,6 +18,8 @@ define( function( require ) {
 
   // constants
   var SPEEDS = [ 5, 10, 15 ];
+  var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
+  var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
 
   /**
    * @param {Property} positionProperty
@@ -28,12 +30,13 @@ define( function( require ) {
   function MagnetAccessibleDragHandler( positionProperty, startDrag, onDrag ) {
     var self = this;
 
-    this.onDrag = onDrag;
+    this.onDrag = onDrag || function(){};
+    this.startDrag = startDrag || function(){};
     this.positionProperty = positionProperty;
-    this.speedState = { direction: null, speedIndex: -1 };
+    this.speedState = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
 
     var stopMotion = function() {
-      self.speedState = { direction: null, speedIndex: -1 };
+      self.speedState = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
     };
     var increment = function() {
       if ( self.speedState.speedIndex !== SPEEDS.length - 1 ) {
@@ -43,9 +46,9 @@ define( function( require ) {
 
     // TODO: account for multiple events from a single hold down.
     this.keydown = function( event ) {
-      startDrag();
+      this.startDrag();
       if ( event.keyCode === Input.KEY_LEFT_ARROW ) {
-        if ( self.speedState.direction === 'left' || self.speedState.direction === null ) {
+        if ( self.speedState.direction === 'left' || self.speedState.direction === DIRECTION_NOT_MOVING ) {
           increment();
           self.speedState.direction = 'left';
         }
@@ -55,7 +58,7 @@ define( function( require ) {
       }
       else if ( event.keyCode === Input.KEY_RIGHT_ARROW ) {
 
-        if ( self.speedState.direction === 'right' || self.speedState.direction === null ) {
+        if ( self.speedState.direction === 'right' || self.speedState.direction === DIRECTION_NOT_MOVING ) {
           increment();
           self.speedState.direction = 'right';
         }
@@ -65,7 +68,7 @@ define( function( require ) {
       }
       else if ( event.keyCode === Input.KEY_UP_ARROW ) {
 
-        if ( self.speedState.direction === 'up' || self.speedState.direction === null ) {
+        if ( self.speedState.direction === 'up' || self.speedState.direction === DIRECTION_NOT_MOVING ) {
           increment();
           self.speedState.direction = 'up';
         }
@@ -75,7 +78,7 @@ define( function( require ) {
       }
       else if ( event.keyCode === Input.KEY_DOWN_ARROW ) {
 
-        if ( self.speedState.direction === 'down' || self.speedState.direction === null ) {
+        if ( self.speedState.direction === 'down' || self.speedState.direction === DIRECTION_NOT_MOVING ) {
           increment();
           self.speedState.direction = 'down';
         }
@@ -99,7 +102,7 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      if ( this.speedState.direction !== null ) {
+      if ( this.speedState.direction !== DIRECTION_NOT_MOVING ) {
         assert && assert( this.speedState.speedIndex >= 0 && this.speedState.speedIndex < SPEEDS.length,
           'speedIndex must correspond to a proper speed' );
         var deltaX = 0;
@@ -127,8 +130,10 @@ define( function( require ) {
         if ( !newPosition.equals( this.positionProperty.get() ) ) {
           this.positionProperty.set( newPosition );
         }
+
+        // If onDrag function was supplied
+        this.onDrag();
       }
-      this.onDrag();
     }
   } );
 } );
