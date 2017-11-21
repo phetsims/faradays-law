@@ -125,7 +125,8 @@ define( function( require ) {
      */
     moveMagnetToPosition: function( position ) {
 
-      // TODO: why do we subtract 1 from each of these dimensions?
+      // Check the bounds of the magnet, but subtract 1 to prevent it from passing through the coils vertically
+      // see https://github.com/phetsims/faradays-law/issues/47
       var magnetBounds = new Bounds2(
         Math.min( position.x, this.magnet.positionProperty.get().x ),
         Math.min( position.y, this.magnet.positionProperty.get().y ),
