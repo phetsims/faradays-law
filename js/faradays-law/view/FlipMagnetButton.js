@@ -69,12 +69,14 @@ define( function( require ) {
       .moveTo( (radius + lineWidth / 2) * Math.cos( arcStartAngle ), (radius + lineWidth / 2) * Math.sin( arcStartAngle ) ) // Inner edge of end.
       .arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
 
+    var matrix = Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) )
+      .timesMatrix( Matrix3.rotation2( arcEndAngle ) );
     var arrowHeadShape = new Shape()
       .moveTo( 0, 8 )
       .lineTo( 4, 0 )
       .lineTo( -4, 0 )
       .close()
-      .transformed( Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) ).timesMatrix( Matrix3.rotation2( arcEndAngle ) ) );
+      .transformed( matrix );
     return new Node( {
       children: [ new Path( arcShape, {
         stroke: '#000',

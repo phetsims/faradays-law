@@ -124,7 +124,10 @@ define( function( require ) {
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
         // if the user starts the drag on the magnet itself (not on the arrows), we make the arrows invisible
-        if ( event.target !== magnetTopArrowNode && event.target !== magnetBottomArrowNode && event.target !== magnetRightArrowNode && event.target !== magnetLeftArrowNode ) {
+        if ( event.target !== magnetTopArrowNode &&
+             event.target !== magnetBottomArrowNode &&
+             event.target !== magnetRightArrowNode &&
+             event.target !== magnetLeftArrowNode ) {
           model.showMagnetArrowsProperty.set( false );
         }
       },

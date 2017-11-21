@@ -35,7 +35,7 @@ define( function( require ) {
     // @private {number} - rad/s^2
     this.needleAngularAcceleration = 0;
 
-    // @public {NumberProperty} Needle angle in radians. This drives both the needle location and the light bulb brightness.
+    // @public {NumberProperty} Needle angle in radians. This drives the needle location and the light bulb brightness.
     this.needleAngleProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'needleAngleProperty' ),
       units: 'radians',

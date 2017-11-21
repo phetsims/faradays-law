@@ -80,7 +80,7 @@ define( function( require ) {
 
     // position and add the label
     label.centerX = 0;
-    label.centerY = (readoutBackground.bottom + background.bottom) * 0.48; // position a little above exactly between edges
+    label.centerY = (readoutBackground.bottom + background.bottom) * 0.48;
 
     // When the text changes (via PhET-iO), re-center it
     label.on( 'text', function() {

@@ -78,7 +78,8 @@ define( function( require ) {
 
       var sign = this.magnet.flippedProperty.value ? -1 : 1;
 
-      var rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) / (NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS);  // normalized squared distance from coil to magnet
+      var rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) /
+                     (NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS);  // normalized squared distance from coil to magnet
 
       // if magnet is very close to coil, then B field is at max value;
       if ( rSquared < 1 ) {
@@ -109,7 +110,8 @@ define( function( require ) {
       var numberOfCoils = this.numberOfSpirals / 2;
 
       // emf = (nbr coils)*(change in B)/(change in t)
-      this.emfProperty.set( numberOfCoils * (this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get()) / dt );
+      var changeInMagneticField = this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get();
+      this.emfProperty.set( numberOfCoils * changeInMagneticField / dt );
       this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
     }
   } );
