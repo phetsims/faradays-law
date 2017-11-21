@@ -116,11 +116,6 @@ define( function( require ) {
 
     halfMagnetNode.mutate( options );
 
-    // this addresses an issue where artifacts were being left on the screen in some browser, see #48
-    halfMagnetNode.addChild( Rectangle.bounds( halfMagnetNode.localBounds.dilated( 1 ), {
-      fill: 'rgba( 0, 0, 0, 0 )'
-    } ) );
-
     return halfMagnetNode;
   };
 
