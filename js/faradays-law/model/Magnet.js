@@ -19,23 +19,19 @@ define( function( require ) {
   var Vector2IO = require( 'DOT/Vector2IO' );
 
   /**
-   * @param {number} x - x position of magnet
-   * @param {number} y - y position of magnet
-   * @param {number} width - width of magnet
-   * @param {number} height - height of magnet
    * @param {Tandem} tandem
    * @constructor
    */
-  function Magnet( x, y, width, height, tandem ) {
+  function Magnet( tandem ) {
 
     // @public {number} - width of the magnet
-    this.width = width;
+    this.width = 140;
 
     // @public {number} - height of the magnet
-    this.height = height;
+    this.height = 30;
 
     // @public {Property.<Vector2>} - position of the magnet
-    this.positionProperty = new Property( new Vector2( x, y ), {
+    this.positionProperty = new Property( new Vector2( 647, 219 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioType: PropertyIO( Vector2IO )
     } );

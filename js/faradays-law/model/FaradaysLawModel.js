@@ -47,7 +47,7 @@ define( function( require ) {
     } );
 
     // @public - the magnet which can be dragged
-    this.magnet = new Magnet( 647, 219, 140, 30, tandem.createTandem( 'magnet' ) );
+    this.magnet = new Magnet( tandem.createTandem( 'magnet' ) );
 
     // @public - bottom coil
     this.bottomCoil = new Coil( new Vector2( 448, 328 ), 4, this.magnet );
