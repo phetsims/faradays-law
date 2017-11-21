@@ -35,8 +35,12 @@ define( function( require ) {
     // @private {number} - rad/s^2
     this.needleAngularAcceleration = 0;
 
-    // @public {NumberProperty} Needle angle in radians. This drives both the needle location and the light bulb brightness.
-    this.needleAngleProperty = new NumberProperty( 0 );
+    // @public {NumberProperty} Needle angle in radians. This drives the needle location and the light bulb brightness.
+    this.needleAngleProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'needleAngleProperty' ),
+      units: 'radians',
+      phetioReadOnly: true
+    } );
 
     // @private {NumberProperty} - input voltage to meter
     this.signalProperty = new NumberProperty( 0, {
@@ -51,7 +55,7 @@ define( function( require ) {
 
     /**
      * Voltmeter needle evolution over time
-     * @param dt
+     * @param {number} dt - elasped time in seconds
      */
     step: function( dt ) {
 

@@ -35,7 +35,7 @@ define( function( require ) {
   var CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
 
   /**
-   * @param {NumberProperty} needleAngleProperty - value of voltage meter
+   * @param {NumberProperty} needleAngleProperty - indicated on the voltmeter
    * @param {Object} [options]
    * @constructor
    */
@@ -51,7 +51,9 @@ define( function( require ) {
     // center of both.  This was the easiest to work with.
 
     // Create the bulb body.
-    var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 ).cubicCurveTo( -BULB_BODY_HEIGHT * 0.33, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.95, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT, 0 ).cubicCurveTo( -BULB_BODY_HEIGHT * 0.95, CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.33, CONTROL_POINT_Y_VALUE, 0, BULB_NECK_WIDTH / 2 );
+    var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 )
+      .cubicCurveTo( -BULB_BODY_HEIGHT * 0.33, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.95, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT, 0 )
+      .cubicCurveTo( -BULB_BODY_HEIGHT * 0.95, CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.33, CONTROL_POINT_Y_VALUE, 0, BULB_NECK_WIDTH / 2 );
     var bulbBodyOutline = new Path( bulbShape, {
       stroke: 'black',
       lineCap: 'round'

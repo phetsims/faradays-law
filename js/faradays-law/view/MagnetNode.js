@@ -79,10 +79,10 @@ define( function( require ) {
   }
 
   /**
-   * @param magnetWidth - width of Magnet
-   * @param magnetHeight - height of Magnet
-   * @param label - label on half of magnet
-   * @param backgroundColor
+   * @param {number} magnetWidth - width of Magnet
+   * @param {number} magnetHeight - height of Magnet
+   * @param {string} label - label on half of magnet
+   * @param {Color} backgroundColor
    * @param {Object} [options]
    * @returns {Node}
    */
@@ -115,11 +115,6 @@ define( function( require ) {
     halfMagnetNode.addChild( label );
 
     halfMagnetNode.mutate( options );
-
-    // this addresses an issue where artifacts were being left on the screen in some browser, see #48
-    halfMagnetNode.addChild( Rectangle.bounds( halfMagnetNode.localBounds.dilated( 1 ), {
-      fill: 'rgba( 0, 0, 0, 0 )'
-    } ) );
 
     return halfMagnetNode;
   };

@@ -28,15 +28,14 @@ define( function( require ) {
 
   /**
    * @param {FaradaysLawScreenView} view
-   * @param showTopCoilProperty
+   * @param {BooleanProperty} showTopCoilProperty
    * @constructor
    */
   function CoilsWiresNode( view, showTopCoilProperty ) {
-
     Node.call( this );
 
     // bottom coil, left bottom wire
-    var arcPoint = new Vector2( LEFT_WIRE_BULB_START.x, view.bottomCoilEndPositions.bottomEnd.y ); // bottom coil, left bottom wire, corner point;
+    var arcPoint = new Vector2( LEFT_WIRE_BULB_START.x, view.bottomCoilEndPositions.bottomEnd.y );
     this.addChild( new Path( new Shape()
       .moveToPoint( LEFT_WIRE_BULB_START )
       .lineTo( arcPoint.x, arcPoint.y - ARC_RADIUS )

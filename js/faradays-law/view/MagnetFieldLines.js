@@ -39,12 +39,11 @@ define( function( require ) {
         createSideFieldLines( magnet.flippedProperty, -1 ) // bottom
       ]
     } );
-
     magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
   }
 
   /**
-   * Create single arrow
+   * Creates a single arrow
    * @param {Object} [options]
    * @returns {Path}
    */
@@ -61,14 +60,14 @@ define( function( require ) {
 
   /**
    * Create ellipse with arrows on it.
-   * @param a - major axis of ellipse
-   * @param b - minor axis of ellipse
-   * @param arrowPositions - array of angle positions of arrows on ellipse
-   * @param flippedProperty - is magnet flipped
+   * @param {number} radiusX - major axis of ellipse
+   * @param {number} radiusY - minor axis of ellipse
+   * @param {number[]} arrowPositions - array of angle positions of arrows on ellipse
+   * @param {BooleanProperty} flippedProperty - is magnet flipped
    * @param {Object} [options]
    * @returns {Node}
    */
-  var createArcWithArrow = function( a, b, arrowPositions, flippedProperty, options ) {
+  var createArcWithArrow = function( radiusX, radiusY, arrowPositions, flippedProperty, options ) {
     var arcWithArrow = new Node();
     options = _.extend( {
       stroke: '#ffffff',
@@ -76,7 +75,7 @@ define( function( require ) {
     }, options );
 
     // arc
-    var ellipticalShape = new Shape().ellipticalArc( 0, 0, a, b, 0, 0, 2 * Math.PI );
+    var ellipticalShape = new Shape().ellipticalArc( 0, 0, radiusX, radiusY, 0, 0, 2 * Math.PI );
     arcWithArrow.addChild( new Path( ellipticalShape, {
       stroke: options.stroke,
       lineWidth: options.lineWidth

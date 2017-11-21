@@ -33,8 +33,8 @@ define( function( require ) {
   var MAGNET_ARROW_LENGTH = 30;
 
   /**
-   * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
-   * @param {Tandem} tandem - this node is not instrumented but the input listener is
+   * @param {FaradaysLawModel} model
+   * @param {Tandem} tandem
    * @constructor
    */
   function MagnetNodeWithField( model, tandem ) {
@@ -124,7 +124,10 @@ define( function( require ) {
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
 
         // if the user starts the drag on the magnet itself (not on the arrows), we make the arrows invisible
-        if ( event.target !== magnetTopArrowNode && event.target !== magnetBottomArrowNode && event.target !== magnetRightArrowNode && event.target !== magnetLeftArrowNode ) {
+        if ( event.target !== magnetTopArrowNode &&
+             event.target !== magnetBottomArrowNode &&
+             event.target !== magnetRightArrowNode &&
+             event.target !== magnetLeftArrowNode ) {
           model.showMagnetArrowsProperty.set( false );
         }
       },
@@ -164,7 +167,11 @@ define( function( require ) {
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
   }
 
-  // Create single MagnetNode View
+  /**
+   * Creates the magnet node
+   * @param {Magnet} magnet
+   * @returns {MagnetNode}
+   */
   var createMagnetNode = function( magnet ) {
     return new MagnetNode( magnet.flippedProperty.get(), {
       width: magnet.width,

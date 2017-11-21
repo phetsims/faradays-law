@@ -19,34 +19,18 @@ define( function( require ) {
 
   // images
   var fourLoopBackImage = require( 'mipmap!FARADAYS_LAW/four-loop-back.png' );
-  var fourLoopBackSmallImage = require( 'mipmap!FARADAYS_LAW/four-loop-back-small.png' );
   var fourLoopFrontImage = require( 'mipmap!FARADAYS_LAW/four-loop-front.png' );
-  var fourLoopFrontSmallImage = require( 'mipmap!FARADAYS_LAW/four-loop-front-small.png' );
   var twoLoopBackImage = require( 'mipmap!FARADAYS_LAW/two-loop-back.png' );
-  var twoLoopBackSmallImage = require( 'mipmap!FARADAYS_LAW/two-loop-back-small.png' );
   var twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
-  var twoLoopFrontSmallImage = require( 'mipmap!FARADAYS_LAW/two-loop-front-small.png' );
 
   var IMAGE_MAP = {};
   IMAGE_MAP[ CoilTypeEnum.TWO_COIL ] = {
-    frontImage: {
-      normal: twoLoopFrontImage,
-      small: twoLoopFrontSmallImage
-    },
-    backImage: {
-      normal: twoLoopBackImage,
-      small: twoLoopBackSmallImage
-    }
+    frontImage: twoLoopFrontImage,
+    backImage: twoLoopBackImage
   };
   IMAGE_MAP[ CoilTypeEnum.FOUR_COIL ] = {
-    frontImage: {
-      normal: fourLoopFrontImage,
-      small: fourLoopFrontSmallImage
-    },
-    backImage: {
-      normal: fourLoopBackImage,
-      small: fourLoopBackSmallImage
-    }
+    frontImage: fourLoopFrontImage,
+    backImage: fourLoopBackImage
   };
 
   // each coil have 2 ends, coordinates of each end relative to center of the coil
@@ -66,19 +50,14 @@ define( function( require ) {
    * @constructor
    */
   function CoilNode( coilType, options ) {
+    options = options || {};
     Node.call( this );
 
-    options = _.extend( {
-      isSmall: false
-    }, options );
-
-    // support smaller images, so it isn't crazily aliased in Firefox. They are 1/6th the size of the normal images.
-    var scale = options.isSmall ? 2 : 1 / 3;
-    var sizeField = options.isSmall ? 'small' : 'normal';
+    var scale = 1 / 3;
 
     var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
-    this.addChild( new Image( IMAGE_MAP[ coilType ].backImage[ sizeField ], {
+    this.addChild( new Image( IMAGE_MAP[ coilType ].backImage, {
       centerX: xOffset,
       centerY: 0,
       scale: scale
@@ -87,7 +66,7 @@ define( function( require ) {
     // In FaradaysLawScreenView front image detached from this Node and appended to front layer because front of coil
     // must be over magnet and backImage must be under it.
     // @public
-    this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage[ sizeField ], {
+    this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage, {
       centerX: xOffset,
       centerY: 0,
       scale: scale
