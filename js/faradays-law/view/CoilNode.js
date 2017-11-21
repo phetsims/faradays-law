@@ -63,8 +63,8 @@ define( function( require ) {
       scale: scale
     } ) );
 
-    // In FaradaysLawScreenView front image detached from this Node and appended to front layer because front of coil
-    // must be over magnet and backImage must be under it.
+    // In FaradaysLawScreenView, the front image is detached from this Node and appended to front layer because the
+    // front of the coil must be over magnet and backImage must be under it.
     // @public
     this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage, {
       centerX: xOffset,
