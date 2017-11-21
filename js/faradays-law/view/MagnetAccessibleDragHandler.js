@@ -28,8 +28,13 @@ define( function( require ) {
   function MagnetAccessibleDragHandler( positionProperty, startDrag, onDrag ) {
     var self = this;
 
+    // @private
     this.onDrag = onDrag;
+
+    // @private
     this.positionProperty = positionProperty;
+
+    // @private
     this.speedState = { direction: null, speedIndex: -1 };
 
     var stopMotion = function() {

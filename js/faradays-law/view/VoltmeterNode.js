@@ -89,31 +89,39 @@ define( function( require ) {
     this.addChild( label );
 
     // add the plus and minus terminals at the bottom
-    this.plusNode = new Node();
-    this.plusNode.addChild( new Rectangle( -TERMINAL_SIZE / 2, -TERMINAL_SIZE / 2, TERMINAL_SIZE, TERMINAL_SIZE, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
-      fill: TERMINAL_COLOR,
-      stroke: TERMINAL_STROKE
-    } ) );
-    this.plusNode.addChild( new PlusNode( {
-      centerX: 0,
-      centerY: 0,
-      size: TERMINAL_SIGN_SIZE
-    } ) );
+    // @public
+    this.plusNode = new Node( {
+      children: [
+        new Rectangle( -TERMINAL_SIZE / 2, -TERMINAL_SIZE / 2, TERMINAL_SIZE, TERMINAL_SIZE, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
+          fill: TERMINAL_COLOR,
+          stroke: TERMINAL_STROKE
+        } ),
+        new PlusNode( {
+          centerX: 0,
+          centerY: 0,
+          size: TERMINAL_SIGN_SIZE
+        } )
+      ],
+      center: new Vector2( TERMINAL_SIZE, RECTANGLE_HEIGHT / 2 + TERMINAL_SIZE / 2 )
+    } );
     this.addChild( this.plusNode );
-    this.plusNode.center = new Vector2( TERMINAL_SIZE, RECTANGLE_HEIGHT / 2 + TERMINAL_SIZE / 2 );
 
-    this.minusNode = new Node();
-    this.minusNode.addChild( new Rectangle( -TERMINAL_SIZE / 2, -TERMINAL_SIZE / 2, TERMINAL_SIZE, TERMINAL_SIZE, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
-      fill: TERMINAL_COLOR,
-      stroke: TERMINAL_STROKE
-    } ) );
-    this.minusNode.addChild( new MinusNode( {
-      centerX: 0,
-      centerY: 0,
-      size: TERMINAL_SIGN_SIZE
-    } ) );
+    // @public
+    this.minusNode = new Node( {
+      children: [
+        new Rectangle( -TERMINAL_SIZE / 2, -TERMINAL_SIZE / 2, TERMINAL_SIZE, TERMINAL_SIZE, TERMINAL_BORDER_RADIUS, TERMINAL_BORDER_RADIUS, {
+          fill: TERMINAL_COLOR,
+          stroke: TERMINAL_STROKE
+        } ),
+        new MinusNode( {
+          centerX: 0,
+          centerY: 0,
+          size: TERMINAL_SIGN_SIZE
+        } )
+      ],
+      center: new Vector2( -TERMINAL_SIZE, RECTANGLE_HEIGHT / 2 + TERMINAL_SIZE / 2 )
+    } );
     this.addChild( this.minusNode );
-    this.minusNode.center = new Vector2( -TERMINAL_SIZE, RECTANGLE_HEIGHT / 2 + TERMINAL_SIZE / 2 );
   }
 
   faradaysLaw.register( 'VoltmeterNode', VoltmeterNode );

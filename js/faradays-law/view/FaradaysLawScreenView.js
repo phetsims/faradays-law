@@ -45,11 +45,13 @@ define( function( require ) {
       y: model.topCoil.position.y
     } );
 
+    // @public {Vector2[]}
     this.bottomCoilEndPositions = {
       topEnd: bottomCoilNode.endRelativePositions.topEnd.plus( model.bottomCoil.position ),
       bottomEnd: bottomCoilNode.endRelativePositions.bottomEnd.plus( model.bottomCoil.position )
     };
 
+    // @public {Vector2[]}
     this.topCoilEndPositions = {
       topEnd: topCoilNode.endRelativePositions.topEnd.plus( model.topCoil.position ),
       bottomEnd: topCoilNode.endRelativePositions.bottomEnd.plus( model.topCoil.position )
@@ -81,7 +83,7 @@ define( function( require ) {
     voltmeterNode.center = FaradaysLawConstants.VOLTMETER_POSITION;
     this.addChild( voltmeterNode );
 
-    // magnet
+    // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
     this.addChild( this.magnetNodeWithField );
 
