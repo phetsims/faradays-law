@@ -56,7 +56,7 @@ define( function( require ) {
 
   faradaysLaw.register( 'Coil', Coil );
 
-  return inherit( Property, Coil, {
+  return inherit( Object, Coil, {
 
     /**
      * Restore initial conditions
