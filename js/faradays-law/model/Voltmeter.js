@@ -55,7 +55,7 @@ define( function( require ) {
 
     /**
      * Voltmeter needle evolution over time
-     * @param {number} dt - elasped time in seconds
+     * @param {number} dt - elapsed time in seconds
      */
     step: function( dt ) {
 
