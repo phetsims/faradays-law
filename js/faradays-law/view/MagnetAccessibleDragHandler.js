@@ -1,9 +1,11 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * Drag handler for the magnet, for now it doesn't care about holding down keys.
- * It is modeled as a "sticky" drag handler because each arrow key press changes a consistent speed, so arrow keys act
- * more like a velocity changer than a speed one.
+ * Drag handler for the magnet; there is no special treatment for holding down keys.
+ * It is modeled as a "sticky" drag handler. A directional arrow key press moves the magnet at a
+ * consistent speed (no need to hold the key down). Each additional press of the same arrow key
+ * will increase the velocity of the magnet.
+ * Space bar will reverse the direction of the magnet while keeping the same speed.
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
@@ -17,7 +19,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var SPEEDS = [ 3, 8, 15 ];
+  var SPEEDS = [ 3, 8, 15 ]; // The delta of the positionProperty each step.
   var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
   var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
 
@@ -27,7 +29,7 @@ define( function( require ) {
   var DOWN = Input.KEY_DOWN_ARROW;
   var LEGAL_DIRECTIONS = [ LEFT, RIGHT, UP, DOWN ];
 
-  // this may not be the best way to store this data, but it made sense to zepumph at the time.
+  // This may not be the best way to store this data, but it made sense to zepumph at the time.
   var DIRECTION_REVERSE_MAPPINGS = {};
   DIRECTION_REVERSE_MAPPINGS[ LEFT ] = RIGHT;
   DIRECTION_REVERSE_MAPPINGS[ RIGHT ] = LEFT;
@@ -35,17 +37,29 @@ define( function( require ) {
   DIRECTION_REVERSE_MAPPINGS[ DOWN ] = UP;
 
   /**
-   * @param {Property} positionProperty
-   * @param {function} startDrag
-   * @param {function} onDrag
+   * @param {Property.<Vector2>} positionProperty - in model coordinate frame, updated based on the keyboard drag commands
+   * @param {Object} [options]
    * @constructor
    */
-  function MagnetAccessibleDragHandler( positionProperty, startDrag, onDrag ) {
+  function MagnetAccessibleDragHandler( positionProperty, options ) {
     var self = this;
 
-    this.onDrag = onDrag || function() {};
-    this.startDrag = startDrag || function() {};
+    options = _.extend( {
+      onDrag: function() {}, // supplemental function called each time a drag step occurs
+      startDrag: function() {} // supplemental function called at the beginning of each drag
+    }, options );
+
+    // @private
+    this.onDrag = options.onDrag;
+
+    // @private
     this.positionProperty = positionProperty;
+
+    /**
+     * The model of the drag handler, manages the state of the speed and direction
+     * @private
+     * @type {{direction: number|null, speedIndex: number}}
+     */
     this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
 
     var stopMovement = function() {
@@ -64,13 +78,13 @@ define( function( require ) {
       }
     };
 
-    // TODO: account for multiple events from a single hold down.
     this.keydown = function( event ) {
-      this.startDrag();
+      options.startDrag();
 
       if ( Input.isArrowKey( event.keyCode ) ) {
         if ( self.model.direction === event.keyCode ) {
           incrementSpeed();
+
           // do nothing with direction, because the model direction is already set to the correct direction.
         }
         else if ( self.model.direction === DIRECTION_NOT_MOVING ) {
@@ -97,6 +111,7 @@ define( function( require ) {
     /**
      * Move the magnet with the accessibility controls.
      * @param {number} dt - elapsed time in seconds
+     * @public
      */
     step: function( dt ) {
 
@@ -129,7 +144,7 @@ define( function( require ) {
           this.positionProperty.set( newPosition );
         }
 
-        // If onDrag function was supplied
+        // If onDrag function was supplied, fire it here
         this.onDrag();
       }
     }
