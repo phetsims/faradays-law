@@ -148,13 +148,14 @@ define( function( require ) {
     draggableNode.addInputListener( dragHandler );
 
     // @private - The sticky drag handler for keyboard navigation
-    this.magnetAccessibleDragHandler = new MagnetAccessibleDragHandler( model.magnet.positionProperty, function() {
+    this.magnetAccessibleDragHandler = new MagnetAccessibleDragHandler( model.magnet.positionProperty, {
+      startDrag: function() {
         model.showMagnetArrowsProperty.set( false );
       },
-      function() {
+      onDrag: function() {
         model.moveMagnetToPosition( model.magnet.positionProperty.get() );
       }
-    );
+    } );
     draggableNode.addAccessibleInputListener( this.magnetAccessibleDragHandler );
 
     // observers
