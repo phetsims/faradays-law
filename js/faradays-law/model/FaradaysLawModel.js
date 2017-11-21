@@ -33,7 +33,7 @@ define( function( require ) {
   function FaradaysLawModel( bounds, tandem ) {
     var self = this;
 
-    // @public (Bounds2}
+    // @public (read-only) (Bounds2}
     this.bounds = bounds;
 
     // @public - Whether the top coil should be shown
