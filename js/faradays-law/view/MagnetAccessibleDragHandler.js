@@ -98,7 +98,8 @@ define( function( require ) {
 
       if ( this.speedState.direction !== null ) {
         assert && assert( this.speedState.speedIndex >= 0 && this.speedState.speedIndex < SPEEDS.length,
-          'speedIndex must correspond to a proper speed' );
+          'speedIndex must correspond to a proper speed'
+        );
         var deltaX = 0;
         var deltaY = 0;
         var positionDelta = SPEEDS[ this.speedState.speedIndex ];
