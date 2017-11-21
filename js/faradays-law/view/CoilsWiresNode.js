@@ -28,7 +28,7 @@ define( function( require ) {
 
   /**
    * @param {FaradaysLawScreenView} view
-   * @param showTopCoilProperty
+   * @param {BooleanProperty} showTopCoilProperty
    * @constructor
    */
   function CoilsWiresNode( view, showTopCoilProperty ) {

@@ -35,7 +35,7 @@ define( function( require ) {
   var CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
 
   /**
-   * @param {NumberProperty} needleAngleProperty - value of voltage meter
+   * @param {NumberProperty} needleAngleProperty - indicated on the voltmeter
    * @param {Object} [options]
    * @constructor
    */

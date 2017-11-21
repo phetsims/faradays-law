@@ -23,7 +23,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param needleAngleProperty - angle of needle in voltmeter
+   * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
    * @param {Object} [options]
    * @constructor
    */

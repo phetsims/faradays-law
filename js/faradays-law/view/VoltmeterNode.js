@@ -38,7 +38,7 @@ define( function( require ) {
   var TERMINAL_SIGN_SIZE = new Dimension2( 12, 2 ); // size of plus and minus signs
 
   /**
-   * @param needleAngleProperty - angle of needle in voltmeter
+   * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
    * @param {Tandem} tandem
    * @constructor
    */
