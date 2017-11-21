@@ -53,7 +53,7 @@ define( function( require ) {
   }
 
   /**
-   * Create curved arrow for button
+   * Create curved arrow to display on the button
    * @param {number} rotation
    * @returns {Node}
    */

@@ -33,8 +33,8 @@ define( function( require ) {
   var MAGNET_ARROW_LENGTH = 30;
 
   /**
-   * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
-   * @param {Tandem} tandem - this node is not instrumented but the input listener is
+   * @param {FaradaysLawModel} model
+   * @param {Tandem} tandem
    * @constructor
    */
   function MagnetNodeWithField( model, tandem ) {

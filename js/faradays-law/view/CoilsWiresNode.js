@@ -32,7 +32,6 @@ define( function( require ) {
    * @constructor
    */
   function CoilsWiresNode( view, showTopCoilProperty ) {
-
     Node.call( this );
 
     // bottom coil, left bottom wire

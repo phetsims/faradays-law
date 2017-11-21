@@ -87,7 +87,8 @@ define( function( require ) {
   return inherit( Object, FaradaysLawModel, {
 
     /**
-     * @public - restore to initial conditions
+     * Restore to initial conditions
+     * @public
      */
     reset: function() {
       this.magnet.reset();
@@ -100,6 +101,7 @@ define( function( require ) {
     /**
      * Move the model forward in time
      * @param {number} dt - in seconds
+     * @public
      */
     step: function( dt ) {
       this.bottomCoil.step( dt );
@@ -108,7 +110,7 @@ define( function( require ) {
     },
 
     /**
-     * returns true if magnet intersects coil bounds
+     * Returns true if magnet intersects coil bounds
      * @returns {boolean}
      * @private
      */

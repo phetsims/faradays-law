@@ -79,10 +79,10 @@ define( function( require ) {
   }
 
   /**
-   * @param magnetWidth - width of Magnet
-   * @param magnetHeight - height of Magnet
-   * @param label - label on half of magnet
-   * @param backgroundColor
+   * @param {number} magnetWidth - width of Magnet
+   * @param {number} magnetHeight - height of Magnet
+   * @param {string} label - label on half of magnet
+   * @param {Color} backgroundColor
    * @param {Object} [options]
    * @returns {Node}
    */

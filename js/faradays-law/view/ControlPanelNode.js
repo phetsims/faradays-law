@@ -27,7 +27,7 @@ define( function( require ) {
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
   /**
-   * @param {FaradaysLawModel} model - 'Faradays Law' simulation model
+   * @param {FaradaysLawModel} model
    * @param {Tandem} tandem
    * @constructor
    */
