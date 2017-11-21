@@ -17,7 +17,22 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var SPEEDS = [ 5, 10, 15 ];
+  var SPEEDS = [ 3, 8, 15 ];
+  var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
+  var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
+
+  var LEFT = Input.KEY_LEFT_ARROW;
+  var RIGHT = Input.KEY_RIGHT_ARROW;
+  var UP = Input.KEY_UP_ARROW;
+  var DOWN = Input.KEY_DOWN_ARROW;
+  var LEGAL_DIRECTIONS = [ LEFT, RIGHT, UP, DOWN ];
+
+  // this may not be the best way to store this data, but it made sense to zepumph at the time.
+  var DIRECTION_REVERSE_MAPPINGS = {};
+  DIRECTION_REVERSE_MAPPINGS[ LEFT ] = RIGHT;
+  DIRECTION_REVERSE_MAPPINGS[ RIGHT ] = LEFT;
+  DIRECTION_REVERSE_MAPPINGS[ UP ] = DOWN;
+  DIRECTION_REVERSE_MAPPINGS[ DOWN ] = UP;
 
   /**
    * @param {Property} positionProperty
@@ -28,65 +43,49 @@ define( function( require ) {
   function MagnetAccessibleDragHandler( positionProperty, startDrag, onDrag ) {
     var self = this;
 
-    // @private
-    this.onDrag = onDrag;
-
-    // @private
+    this.onDrag = onDrag || function() {};
+    this.startDrag = startDrag || function() {};
     this.positionProperty = positionProperty;
+    this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
 
-    // @private
-    this.speedState = { direction: null, speedIndex: -1 };
-
-    var stopMotion = function() {
-      self.speedState = { direction: null, speedIndex: -1 };
+    var stopMovement = function() {
+      self.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
     };
-    var increment = function() {
-      if ( self.speedState.speedIndex !== SPEEDS.length - 1 ) {
-        self.speedState.speedIndex += 1;
+    var incrementSpeed = function() {
+      if ( self.model.speedIndex !== SPEEDS.length - 1 ) {
+        self.model.speedIndex += 1;
+      }
+    };
+
+    // switch the direction of motion 180 degrees
+    var reverseDirection = function() {
+      if ( LEGAL_DIRECTIONS.indexOf( self.model.direction ) >= 0 ) {
+        self.model.direction = DIRECTION_REVERSE_MAPPINGS[ self.model.direction ];
       }
     };
 
     // TODO: account for multiple events from a single hold down.
     this.keydown = function( event ) {
-      startDrag();
-      if ( event.keyCode === Input.KEY_LEFT_ARROW ) {
-        if ( self.speedState.direction === 'left' || self.speedState.direction === null ) {
-          increment();
-          self.speedState.direction = 'left';
+      this.startDrag();
+
+      if ( Input.isArrowKey( event.keyCode ) ) {
+        if ( self.model.direction === event.keyCode ) {
+          incrementSpeed();
+          // do nothing with direction, because the model direction is already set to the correct direction.
+        }
+        else if ( self.model.direction === DIRECTION_NOT_MOVING ) {
+          self.model.direction = event.keyCode;
+          incrementSpeed();
         }
         else {
-          stopMotion();
+          stopMovement();
         }
       }
-      if ( event.keyCode === Input.KEY_RIGHT_ARROW ) {
-
-        if ( self.speedState.direction === 'right' || self.speedState.direction === null ) {
-          increment();
-          self.speedState.direction = 'right';
-        }
-        else {
-          stopMotion();
-        }
+      else if ( event.keyCode === Input.KEY_SPACE ) {
+        reverseDirection();
       }
-      if ( event.keyCode === Input.KEY_UP_ARROW ) {
-
-        if ( self.speedState.direction === 'up' || self.speedState.direction === null ) {
-          increment();
-          self.speedState.direction = 'up';
-        }
-        else {
-          stopMotion();
-        }
-      }
-      if ( event.keyCode === Input.KEY_DOWN_ARROW ) {
-
-        if ( self.speedState.direction === 'down' || self.speedState.direction === null ) {
-          increment();
-          self.speedState.direction = 'down';
-        }
-        else {
-          stopMotion();
-        }
+      else {
+        stopMovement();
       }
     };
   }
@@ -101,24 +100,23 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      if ( this.speedState.direction !== null ) {
-        assert && assert( this.speedState.speedIndex >= 0 && this.speedState.speedIndex < SPEEDS.length,
-          'speedIndex must correspond to a proper speed'
-        );
+      if ( this.model.direction !== DIRECTION_NOT_MOVING ) {
+        assert && assert( this.model.speedIndex >= 0 && this.model.speedIndex < SPEEDS.length,
+          'speedIndex must correspond to a proper speed' );
         var deltaX = 0;
         var deltaY = 0;
-        var positionDelta = SPEEDS[ this.speedState.speedIndex ];
+        var positionDelta = SPEEDS[ this.model.speedIndex ];
 
-        if ( this.speedState.direction === 'left' ) {
+        if ( this.model.direction === LEFT ) {
           deltaX = -positionDelta;
         }
-        if ( this.speedState.direction === 'right' ) {
+        if ( this.model.direction === RIGHT ) {
           deltaX = positionDelta;
         }
-        if ( this.speedState.direction === 'up' ) {
+        if ( this.model.direction === UP ) {
           deltaY = -positionDelta;
         }
-        if ( this.speedState.direction === 'down' ) {
+        if ( this.model.direction === DOWN ) {
           deltaY = positionDelta;
         }
 
@@ -130,8 +128,10 @@ define( function( require ) {
         if ( !newPosition.equals( this.positionProperty.get() ) ) {
           this.positionProperty.set( newPosition );
         }
+
+        // If onDrag function was supplied
+        this.onDrag();
       }
-      this.onDrag();
     }
   } );
 } );
