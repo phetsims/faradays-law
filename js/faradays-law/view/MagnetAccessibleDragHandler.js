@@ -17,7 +17,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var SPEEDS = [ 5, 10, 15 ];
+  var SPEEDS = [ 3, 8, 15 ];
   var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
   var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
 
