@@ -53,7 +53,7 @@ define( function( require ) {
           stopMotion();
         }
       }
-      if ( event.keyCode === Input.KEY_RIGHT_ARROW ) {
+      else if ( event.keyCode === Input.KEY_RIGHT_ARROW ) {
 
         if ( self.speedState.direction === 'right' || self.speedState.direction === null ) {
           increment();
@@ -63,7 +63,7 @@ define( function( require ) {
           stopMotion();
         }
       }
-      if ( event.keyCode === Input.KEY_UP_ARROW ) {
+      else if ( event.keyCode === Input.KEY_UP_ARROW ) {
 
         if ( self.speedState.direction === 'up' || self.speedState.direction === null ) {
           increment();
@@ -73,7 +73,7 @@ define( function( require ) {
           stopMotion();
         }
       }
-      if ( event.keyCode === Input.KEY_DOWN_ARROW ) {
+      else if ( event.keyCode === Input.KEY_DOWN_ARROW ) {
 
         if ( self.speedState.direction === 'down' || self.speedState.direction === null ) {
           increment();
@@ -82,6 +82,9 @@ define( function( require ) {
         else {
           stopMotion();
         }
+      }
+      else {
+        stopMotion();
       }
     };
   }
