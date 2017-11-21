@@ -66,8 +66,8 @@ define( function( require ) {
       value: false,
       node: new VBox( _.extend( {
         children: [
-          new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true, visible: false } ),
-          new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
+          new CoilNode( CoilTypeEnum.TWO_COIL, { visible: false } ),
+          new CoilNode( CoilTypeEnum.FOUR_COIL )
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'singleCoilRadioButton'
@@ -75,8 +75,8 @@ define( function( require ) {
       value: true,
       node: new VBox( _.extend( {
         children: [
-          new CoilNode( CoilTypeEnum.TWO_COIL, { isSmall: true } ),
-          new CoilNode( CoilTypeEnum.FOUR_COIL, { isSmall: true } )
+          new CoilNode( CoilTypeEnum.TWO_COIL ),
+          new CoilNode( CoilTypeEnum.FOUR_COIL )
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'doubleCoilRadioButton'
