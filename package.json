@@ -10,6 +10,12 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "FARADAYS_LAW"
+    "requirejsNamespace": "FARADAYS_LAW",
+    "runnable": true,
+    "supportedBrands": [
+      "phet",
+      "phet-io"
+    ],
+    "simulation": true
   }
 }
