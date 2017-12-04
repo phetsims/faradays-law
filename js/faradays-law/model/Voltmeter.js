@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
@@ -36,8 +37,8 @@ define( function( require ) {
     this.needleAngularAcceleration = 0;
 
     // @public {NumberProperty} Needle angle in radians. This drives the needle location and the light bulb brightness.
-    this.needleAngleProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'needleAngleProperty' ),
+    this.voltageProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'voltageProperty' ),
       units: 'radians',
       phetioReadOnly: true
     } );
@@ -46,6 +47,14 @@ define( function( require ) {
     this.signalProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'signalProperty' ),
       units: 'volts'
+    } );
+
+    // @public {DerivedProperty.<number>}
+    this.needleAngleProperty = new DerivedProperty( [ this.voltageProperty ], function( voltage ) {
+
+      // The voltage and the angle are perfectly matched, in part because the sim is qualitative and
+      // in part because there was no need to separate them, see https://github.com/phetsims/faradays-law/issues/96
+      return voltage;
     } );
   }
 
@@ -63,18 +72,18 @@ define( function( require ) {
       // empirically determined to make the needle move the correct amount and direction.
       this.signalProperty.set( -0.2 * ( this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get() ) );
 
-      this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.needleAngleProperty.get() ) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
-      this.needleAngleProperty.set( this.needleAngleProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle
+      this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.voltageProperty.get() ) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
+      this.voltageProperty.set( this.voltageProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle
       var angularVelocity = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
-      var angularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.needleAngleProperty.get() ) - NEEDLE_FRICTION * angularVelocity;
+      var angularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.voltageProperty.get() ) - NEEDLE_FRICTION * angularVelocity;
       this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * ( this.needleAngularAcceleration + angularAcceleration );
 
       // Clamp the needle angle when its position, velocity, and acceleration go below a threshold so that it doesn't
       // oscillate forever.
       if ( this.needleAngularAcceleration !== 0 && Math.abs( this.needleAngularAcceleration ) < ACTIVITY_THRESHOLD &&
            this.needleAngularVelocity !== 0 && Math.abs( this.needleAngularVelocity ) < ACTIVITY_THRESHOLD &&
-           this.needleAngleProperty.get() !== 0 && Math.abs( this.needleAngleProperty.get() ) < ACTIVITY_THRESHOLD ) {
-        this.needleAngleProperty.set( 0 );
+           this.voltageProperty.get() !== 0 && Math.abs( this.voltageProperty.get() ) < ACTIVITY_THRESHOLD ) {
+        this.voltageProperty.set( 0 );
         this.needleAngularVelocity = 0;
         this.needleAngularAcceleration = 0;
       }

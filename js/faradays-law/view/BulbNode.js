@@ -35,11 +35,11 @@ define( function( require ) {
   var CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
 
   /**
-   * @param {NumberProperty} needleAngleProperty - indicated on the voltmeter
+   * @param {NumberProperty} voltageProperty - indicated on the voltmeter
    * @param {Object} [options]
    * @constructor
    */
-  function BulbNode( needleAngleProperty, options ) {
+  function BulbNode( voltageProperty, options ) {
     Node.call( this );
 
     // Create the base of the bulb
@@ -102,11 +102,10 @@ define( function( require ) {
     } );
 
     // Update the halo as the needle angle changes.
-    // TODO: the bulb brightness shouldn't depend on the needle angle
-    needleAngleProperty.link( function( needleAngle ) {
+    voltageProperty.link( function( voltage ) {
 
       // in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
-      var scale = 20 * Math.abs( needleAngle );
+      var scale = 20 * Math.abs( voltage );
       if ( scale < 0.1 ) {
         haloNode.visible = false;
       }

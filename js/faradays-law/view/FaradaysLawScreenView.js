@@ -59,7 +59,7 @@ define( function( require ) {
 
     // voltmeter and bulb created
     var voltmeterNode = new VoltmeterNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
-    var bulbNode = new BulbNode( model.voltmeter.needleAngleProperty, {
+    var bulbNode = new BulbNode( model.voltmeter.voltageProperty, {
       center: FaradaysLawConstants.BULB_POSITION
     } );
 
