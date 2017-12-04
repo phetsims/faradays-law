@@ -79,7 +79,7 @@ define( function( require ) {
       var sign = this.magnet.flippedProperty.value ? -1 : 1;
 
       var rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) /
-                     (NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS);  // normalized squared distance from coil to magnet
+                     ( NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS );  // normalized squared distance from coil to magnet
 
       // if magnet is very close to coil, then B field is at max value;
       if ( rSquared < 1 ) {
@@ -93,8 +93,8 @@ define( function( require ) {
         // r - normalized distance between magnet and coil
 
         // normalized x-displacement from coil to magnet
-        var dx = (this.magnet.positionProperty.get().x - this.position.x) / NEAR_FIELD_RADIUS;
-        this.magneticFieldProperty.set( sign * (3 * dx * dx - rSquared) / (rSquared * rSquared) );
+        var dx = ( this.magnet.positionProperty.get().x - this.position.x ) / NEAR_FIELD_RADIUS;
+        this.magneticFieldProperty.set( sign * ( 3 * dx * dx - rSquared ) / ( rSquared * rSquared ) );
       }
     },
 

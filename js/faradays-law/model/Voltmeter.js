@@ -61,13 +61,13 @@ define( function( require ) {
 
       // Calculate the signal, combining the EMF from both coils.  The multiplier (including the sign thereof) is
       // empirically determined to make the needle move the correct amount and direction.
-      this.signalProperty.set( -0.2 * (this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get()) );
+      this.signalProperty.set( -0.2 * ( this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get() ) );
 
-      this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
+      this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.needleAngleProperty.get() ) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
       this.needleAngleProperty.set( this.needleAngleProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle
       var angularVelocity = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
-      var angularAcceleration = NEEDLE_RESPONSIVENESS * (this.signalProperty.get() - this.needleAngleProperty.get()) - NEEDLE_FRICTION * angularVelocity;
-      this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * (this.needleAngularAcceleration + angularAcceleration);
+      var angularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.needleAngleProperty.get() ) - NEEDLE_FRICTION * angularVelocity;
+      this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * ( this.needleAngularAcceleration + angularAcceleration );
 
       // Clamp the needle angle when its position, velocity, and acceleration go below a threshold so that it doesn't
       // oscillate forever.

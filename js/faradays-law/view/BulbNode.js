@@ -81,7 +81,7 @@ define( function( require ) {
     // Create the filament, which is a zig-zag shape.
     var filamentShape = new Shape().moveToPoint( filamentTopPoint );
     for ( var i = 0; i < NUM_FILAMENT_ZIG_ZAGS - 1; i++ ) {
-      var yPos = filamentTopPoint.y + ( filamentBottomPoint.y - filamentTopPoint.y ) / NUM_FILAMENT_ZIG_ZAGS * (i + 1);
+      var yPos = filamentTopPoint.y + ( filamentBottomPoint.y - filamentTopPoint.y ) / NUM_FILAMENT_ZIG_ZAGS * ( i + 1 );
       var xZig = i % 2 === 0 ? FILAMENT_ZIG_ZAG_SPAN : 0;
       filamentShape.lineTo( filamentTopPoint.x + xZig, yPos );
     }

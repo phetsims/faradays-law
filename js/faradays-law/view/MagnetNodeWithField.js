@@ -45,7 +45,7 @@ define( function( require ) {
     this.addChild( new MagnetFieldLines( model.magnet ) );
 
     // the draggable container for the magnet and arrows
-    var draggableNode = new Node( { cursor: 'pointer', tandem: tandem.createTandem( 'draggableNode') } );
+    var draggableNode = new Node( { cursor: 'pointer', tandem: tandem.createTandem( 'draggableNode' ) } );
     this.addChild( draggableNode );
 
     // magnet

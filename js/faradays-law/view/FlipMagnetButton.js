@@ -66,7 +66,7 @@ define( function( require ) {
     var arcEndAngle = -Math.PI * 0.18;
 
     var arcShape = new Shape()
-      .moveTo( (radius + lineWidth / 2) * Math.cos( arcStartAngle ), (radius + lineWidth / 2) * Math.sin( arcStartAngle ) ) // Inner edge of end.
+      .moveTo( ( radius + lineWidth / 2 ) * Math.cos( arcStartAngle ), ( radius + lineWidth / 2 ) * Math.sin( arcStartAngle ) ) // Inner edge of end.
       .arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
 
     var matrix = Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) )
