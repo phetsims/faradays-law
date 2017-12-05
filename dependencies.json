@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.10-rc.1 Fri Nov 17 2017 18:45:23 GMT-0700 (MST)",
+  "comment": "# faradays-law 1.1.10 Tue Dec 05 2017 01:36:26 GMT-0700 (MST)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "11d24c5dc37b43627c6171598c4b1dc2b6dfa3b5",
+    "sha": "97192bc79e02bb42e489dbb81dc45d5341b20242",
     "branch": "1.1"
   },
   "joist": {
