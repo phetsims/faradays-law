@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.9 Tue Dec 05 2017 17:34:10 GMT-0900 (Alaskan Standard Time)",
+  "comment": "# faradays-law 1.4.0-dev.10 Wed Dec 06 2017 16:27:23 GMT-0900 (Alaskan Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "ef97a1ad976f8953c560acdafe86140da14a880a",
+    "sha": "3528a970ae9644bf5ba44bec4db8b8233c8da506",
     "branch": "2.0"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "c40df5b85d8ad039562d1952bb25365e60b4e19e",
+    "sha": "82c3bcb27ae4fa899ddd27f6d0f8264a0efdc808",
     "branch": "master"
   },
   "joist": {
-    "sha": "757cc25915b62d5d11d05c4ffcf28a2a963813a4",
+    "sha": "5fb2d515f21606862b53356d21889e54f225bee8",
     "branch": "master"
   },
   "kite": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "phet-io-wrapper-sonification": {
-    "sha": "d1005452266be86c7d8b3392fe23f71f8e217d90",
+    "sha": "b2411d0fb905b73e69076b2176d5ff32736a7ef9",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "31c7d26f0127439dfb6bce6bd493d82da4446c96",
+    "sha": "8860894b8f3fca4f57b44aafffb58bdc8134353a",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "729bef1eda0ee0311e41f924bc3d64e68d3edff3",
+    "sha": "bbfb75f65004e80270bfe620f59e5eccc9fe5006",
     "branch": "master"
   },
   "sherpa": {
