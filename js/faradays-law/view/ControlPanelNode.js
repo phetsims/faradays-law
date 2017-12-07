@@ -82,7 +82,7 @@ define( function( require ) {
       tandemName: 'doubleCoilRadioButton'
     } ];
 
-    var coilSelectionRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
+    var coilRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
       buttonContentXMargin: 20,
       buttonContentYMargin: 4,
       left: 377,
@@ -91,10 +91,10 @@ define( function( require ) {
       baseColor: '#cdd5f6', // lavender-ish
       selectedLineWidth: 3,
       deselectedLineWidth: 1,
-      tandem: tandem.createTandem( 'radioButtonGroup' )
+      tandem: tandem.createTandem( 'coilRadioButtonGroup' )
     } );
 
-    this.addChild( coilSelectionRadioButtonGroup );
+    this.addChild( coilRadioButtonGroup );
 
     // Create the label for the "Show Field Lines" check box, scaling it if it's too long.
     var showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );
@@ -103,7 +103,7 @@ define( function( require ) {
     // show field lines
     var showFieldCheckBox = new CheckBox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
       x: 174,
-      centerY: coilSelectionRadioButtonGroup.centerY,
+      centerY: coilRadioButtonGroup.centerY,
       tandem: tandem.createTandem( 'showFieldCheckBox' )
     } );
     showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
@@ -112,7 +112,7 @@ define( function( require ) {
     this.bottom = model.bounds.maxY - 10;
 
     // a11y keyboard nav order
-    this.accessibleOrder = [ showFieldCheckBox, coilSelectionRadioButtonGroup, flipMagnetButton, resetAllButton ];
+    this.accessibleOrder = [ showFieldCheckBox, coilRadioButtonGroup, flipMagnetButton, resetAllButton ];
   }
 
   faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );
