@@ -15,7 +15,7 @@ define( function( require ) {
   // modules
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Input = require( 'SCENERY/input/Input' );
+  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -23,10 +23,10 @@ define( function( require ) {
   var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
   var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
 
-  var LEFT = Input.KEY_LEFT_ARROW;
-  var RIGHT = Input.KEY_RIGHT_ARROW;
-  var UP = Input.KEY_UP_ARROW;
-  var DOWN = Input.KEY_DOWN_ARROW;
+  var LEFT = KeyboardUtil.KEY_LEFT_ARROW;
+  var RIGHT = KeyboardUtil.KEY_RIGHT_ARROW;
+  var UP = KeyboardUtil.KEY_UP_ARROW;
+  var DOWN = KeyboardUtil.KEY_DOWN_ARROW;
   var LEGAL_DIRECTIONS = [ LEFT, RIGHT, UP, DOWN ];
 
   // This may not be the best way to store this data, but it made sense to zepumph at the time.
@@ -81,7 +81,7 @@ define( function( require ) {
     this.keydown = function( event ) {
       options.startDrag();
 
-      if ( Input.isArrowKey( event.keyCode ) ) {
+      if ( KeyboardUtil.isArrowKey( event.keyCode ) ) {
         if ( self.model.direction === event.keyCode ) {
           incrementSpeed();
 
@@ -95,7 +95,7 @@ define( function( require ) {
           stopMovement();
         }
       }
-      else if ( event.keyCode === Input.KEY_SPACE ) {
+      else if ( event.keyCode === KeyboardUtil.KEY_SPACE ) {
         reverseDirection();
       }
       else {
