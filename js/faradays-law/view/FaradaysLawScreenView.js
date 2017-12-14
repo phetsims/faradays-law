@@ -37,18 +37,6 @@ define( function( require ) {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
 
-    var x = new Rectangle( 0, 0, 100, 100, { fill: 'red' } );
-    this.addChild( x );
-
-    var x = new Rectangle( 0, 0, 100, 100, { top: 150, fill: 'red', scale: 2 } );
-    this.addChild( x );
-
-    x = new HSlider( new Property( 0 ), { min: 0, max: 100 }, { top: 50 } );
-    this.addChild( x );
-
-    x = new HSlider( new Property( 0 ), { min: 0, max: 100 }, { top: 200, scale: 2 } );
-    this.addChild( x );
-
     // coils
     var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
       x: model.bottomCoil.position.x,
