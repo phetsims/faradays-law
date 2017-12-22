@@ -35,8 +35,8 @@ define( function( require ) {
   function MagnetFieldLines( magnet ) {
     Node.call( this, {
       children: [
-        createSideFieldLines( magnet.flippedProperty, +1 ), // top
-        createSideFieldLines( magnet.flippedProperty, -1 ) // bottom
+        createSideFieldLines( magnet.orientationProperty, +1 ), // top
+        createSideFieldLines( magnet.orientationProperty, -1 ) // bottom
       ]
     } );
     magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
@@ -63,11 +63,11 @@ define( function( require ) {
    * @param {number} radiusX - major axis of ellipse
    * @param {number} radiusY - minor axis of ellipse
    * @param {number[]} arrowPositions - array of angle positions of arrows on ellipse
-   * @param {BooleanProperty} flippedProperty - is magnet flipped
+   * @param {Property.<OrientationEnum>} orientationProperty - is magnet flipped
    * @param {Object} [options]
    * @returns {Node}
    */
-  var createArcWithArrow = function( radiusX, radiusY, arrowPositions, flippedProperty, options ) {
+  var createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientationProperty, options ) {
     var arcWithArrow = new Node();
     options = _.extend( {
       stroke: '#ffffff',
@@ -100,7 +100,7 @@ define( function( require ) {
 
       arrow.rotateAround( arrowPosition, rotationAngle );
 
-      flippedProperty.lazyLink( function() {
+      orientationProperty.lazyLink( function() {
         arrow.rotateAround( arrowPosition, Math.PI );
       } );
       arcWithArrow.addChild( arrow );
@@ -111,18 +111,18 @@ define( function( require ) {
 
   /**
    * Create half of all magnet field lines
-   * @param {BooleanProperty} flippedProperty - is magnet flipped
+   * @param {Property.<OrientationEnum>} orientationProperty - is magnet flipped
    * @param {number} scaleY - +1/-1 bottom node is vertically flipped
    * @returns {Node}
    */
-  var createSideFieldLines = function( flippedProperty, scaleY ) {
+  var createSideFieldLines = function( orientationProperty, scaleY ) {
     var sideFieldLinesContainer = new Node();
 
     var dy = 3;
 
     // each ellipse change a bit position to show a near constant field
     LINE_DESCRIPTION.forEach( function( line, index ) {
-      var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, flippedProperty );
+      var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, orientationProperty );
       arc.bottom = 2 - index * dy;
       arc.centerX = 0;
       sideFieldLinesContainer.addChild( arc );

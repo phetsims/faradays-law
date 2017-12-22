@@ -17,6 +17,7 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
+  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
 
   /**
    * @param {Tandem} tandem
@@ -37,8 +38,9 @@ define( function( require ) {
     } );
 
     // @public {BooleanProperty} - true if the magnet is flipped
-    this.flippedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'flippedProperty' )
+    this.orientationProperty = new Property( OrientationEnum.NS, {
+      validValues: OrientationEnum.values,
+      tandem: tandem.createTandem( 'orientationProperty' )
     } );
 
     // @public {BooleanProperty} - show field lines for magnet
@@ -57,7 +59,7 @@ define( function( require ) {
      */
     reset: function() {
       this.positionProperty.reset();
-      this.flippedProperty.reset();
+      this.orientationProperty.reset();
       this.showFieldLinesProperty.reset();
     }
   } );

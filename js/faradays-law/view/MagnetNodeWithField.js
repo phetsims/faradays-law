@@ -159,7 +159,7 @@ define( function( require ) {
     draggableNode.addAccessibleInputListener( this.magnetAccessibleDragHandler );
 
     // observers
-    model.magnet.flippedProperty.link( function() {
+    model.magnet.orientationProperty.link( function() {
       self.magnetNode.detach();
       self.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( self.magnetNode );
@@ -174,7 +174,7 @@ define( function( require ) {
    * @returns {MagnetNode}
    */
   var createMagnetNode = function( magnet ) {
-    return new MagnetNode( magnet.flippedProperty.get(), {
+    return new MagnetNode( magnet.orientationProperty.get(), {
       width: magnet.width,
       height: magnet.height,
       showArrows: true

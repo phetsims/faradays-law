@@ -17,6 +17,7 @@ define( function( require ) {
   var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/FlipMagnetButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -48,7 +49,7 @@ define( function( require ) {
     // flip magnet button
     var flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
       listener: function() {
-        model.magnet.flippedProperty.set( !model.magnet.flippedProperty.get() );
+        model.magnet.orientationProperty.set( OrientationEnum.opposite( model.magnet.orientationProperty.get() ) );
       },
       bottom: 0,
       right: model.bounds.maxX - 110

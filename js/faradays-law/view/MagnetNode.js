@@ -14,6 +14,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -31,11 +32,11 @@ define( function( require ) {
   var MAGNET_3D_SHADOW = 0.4;
 
   /**
-   * @param {boolean} flipped - is magnet flipped
+   * @param {OrientationEnum} orientation - is magnet flipped
    * @param {Object} [options]
    * @constructor
    */
-  function MagnetNode( flipped, options ) {
+  function MagnetNode( orientation, options ) {
     Node.call( this, { cursor: 'pointer' } );
 
     // options of magnetNode
@@ -71,7 +72,7 @@ define( function( require ) {
     // Touch area covers both poles
     this.touchArea = southPole.bounds.union( northPole.bounds ).dilated( 10 );
 
-    if ( flipped ) {
+    if ( orientation === OrientationEnum.SN ) {
       northPole.left = 0;
       southPole.left = -options.width / 2;
       northPole.moveToFront();

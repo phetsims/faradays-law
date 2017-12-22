@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Property = require( 'AXON/Property' );
 
   // constants
@@ -76,7 +77,7 @@ define( function( require ) {
      */
     updateMagneticField: function() {
 
-      var sign = this.magnet.flippedProperty.value ? -1 : 1;
+      var sign = this.magnet.orientationProperty.value === OrientationEnum.NS ? -1 : 1;
 
       var rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) /
                      ( NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS );  // normalized squared distance from coil to magnet
