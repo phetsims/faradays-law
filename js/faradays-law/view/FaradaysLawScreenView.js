@@ -76,7 +76,7 @@ define( function( require ) {
     model.showTopCoilProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
-    var controlPanel = new ControlPanelNode( model, tandem.createTandem( 'controlPanel' ) );
+    var controlPanel = new ControlPanelNode( model, tandem );
     this.addChild( controlPanel );
 
     // voltmeter added
