@@ -13,11 +13,12 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
-  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
 
   /**
    * @param {Tandem} tandem
@@ -40,7 +41,8 @@ define( function( require ) {
     // @public {BooleanProperty} - true if the magnet is flipped
     this.orientationProperty = new Property( OrientationEnum.NS, {
       validValues: OrientationEnum.values,
-      tandem: tandem.createTandem( 'orientationProperty' )
+      tandem: tandem.createTandem( 'orientationProperty' ),
+      phetioType: PropertyIO( StringIO ) // Should we create OrientationEnumIO?
     } );
 
     // @public {BooleanProperty} - show field lines for magnet
