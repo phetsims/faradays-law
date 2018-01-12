@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
@@ -102,18 +102,18 @@ define( function( require ) {
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
-    var showFieldCheckBox = new CheckBox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
+    var showFieldCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY,
-      tandem: tandem.createTandem( 'showFieldCheckBox' )
+      tandem: tandem.createTandem( 'showFieldCheckbox' )
     } );
-    showFieldCheckBox.touchArea = showFieldCheckBox.localBounds.dilated( 8 );
-    this.addChild( showFieldCheckBox );
+    showFieldCheckbox.touchArea = showFieldCheckbox.localBounds.dilated( 8 );
+    this.addChild( showFieldCheckbox );
 
     this.bottom = model.bounds.maxY - 10;
 
     // a11y keyboard nav order
-    this.accessibleOrder = [ showFieldCheckBox, coilRadioButtonGroup, flipMagnetButton, resetAllButton ];
+    this.accessibleOrder = [ showFieldCheckbox, coilRadioButtonGroup, flipMagnetButton, resetAllButton ];
   }
 
   faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );
