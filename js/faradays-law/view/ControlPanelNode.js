@@ -97,7 +97,7 @@ define( function( require ) {
 
     this.addChild( coilRadioButtonGroup );
 
-    // Create the label for the "Show Field Lines" check box, scaling it if it's too long.
+    // Create the label for the "Show Field Lines" checkbox, scaling it if it's too long.
     var showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
