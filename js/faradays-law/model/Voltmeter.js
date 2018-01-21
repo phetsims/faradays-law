@@ -40,13 +40,15 @@ define( function( require ) {
     this.voltageProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'voltageProperty' ),
       units: 'radians',
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      highFrequency: true
     } );
 
     // @private {NumberProperty} - input voltage to meter
     this.signalProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'signalProperty' ),
-      units: 'volts'
+      units: 'volts',
+      highFrequency: true
     } );
 
     // @public {DerivedProperty.<number>}

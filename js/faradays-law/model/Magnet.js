@@ -35,7 +35,8 @@ define( function( require ) {
     // @public {Property.<Vector2>} - position of the magnet
     this.positionProperty = new Property( new Vector2( 647, 219 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: PropertyIO( Vector2IO )
+      phetioType: PropertyIO( Vector2IO ),
+      highFrequency: true
     } );
 
     // @public {BooleanProperty} - true if the magnet is flipped
