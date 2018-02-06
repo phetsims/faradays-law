@@ -14,8 +14,9 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   var MagnetAccessibleDragHandler = require( 'FARADAYS_LAW/faradays-law/view/MagnetAccessibleDragHandler' );
-  var MagnetKeyboardDragListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetKeyboardDragListener' );
+  var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -149,15 +150,22 @@ define( function( require ) {
     draggableNode.addInputListener( dragHandler );
 
     // @private - The sticky drag handler for keyboard navigation
-    this.magnetAccessibleDragHandler = new MagnetAccessibleDragHandler( model.magnet.positionProperty, {
+    this.keyboardDragListener = new KeyboardDragListener( {
       startDrag: function() {
         model.showMagnetArrowsProperty.set( false );
       },
       onDrag: function() {
         model.moveMagnetToPosition( model.magnet.positionProperty.get() );
-      }
+      },
+      locationProperty: model.magnet.positionProperty,
+      dragBounds: model.bounds
     } );
-    draggableNode.addAccessibleInputListener( this.magnetAccessibleDragHandler );
+
+    draggableNode.addAccessibleInputListener( this.keyboardDragListener );
+
+    this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model.magnet.positionProperty, model, {} );
+
+    draggableNode.addAccessibleInputListener( this.magnetJumpKeyboardListener );
 
     // observers
     model.magnet.orientationProperty.link( function() {
@@ -191,8 +199,8 @@ define( function( require ) {
      * @param {number} dt - elapsed time in seconds
      * @public
      */
-    step: function( dt ) {
-      this.magnetAccessibleDragHandler.step( dt );
-    }
+    // step: function( dt ) {
+    //   this.magnetAccessibleDragHandler.step( dt );
+    // }
   } );
 } );
