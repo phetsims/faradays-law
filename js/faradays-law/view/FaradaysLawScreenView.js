@@ -18,7 +18,6 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
