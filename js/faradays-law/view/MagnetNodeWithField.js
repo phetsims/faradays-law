@@ -15,7 +15,7 @@ define( function( require ) {
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
-  var MagnetAccessibleDragHandler = require( 'FARADAYS_LAW/faradays-law/view/MagnetAccessibleDragHandler' );
+  // var MagnetAccessibleDragHandler = require( 'FARADAYS_LAW/faradays-law/view/MagnetAccessibleDragHandler' );
   var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
@@ -51,8 +51,14 @@ define( function( require ) {
     this.addChild( draggableNode );
 
     // magnet
-    self.magnetNode = createMagnetNode( model.magnet );
+    this.magnetNode = createMagnetNode( model.magnet );
     draggableNode.addChild( self.magnetNode );
+
+    // magnet reflection
+    this.reflectedMagnetNode = createMagnetNode( model.magnet );
+    this.addChild( self.reflectedMagnetNode );
+    this.reflectedMagnetNode.opacity = 0.5;
+    this.reflectedMagnetNode.visible = false;
 
     // a11y
     draggableNode.tagName = 'div';
@@ -151,11 +157,11 @@ define( function( require ) {
 
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new KeyboardDragListener( {
-      startDrag: function() {
+      start: function() {
         model.showMagnetArrowsProperty.set( false );
       },
-      onDrag: function() {
-        model.moveMagnetToPosition( model.magnet.positionProperty.get() );
+      end: function() {
+        model.showMagnetArrowsProperty.set( true );
       },
       locationProperty: model.magnet.positionProperty,
       dragBounds: model.bounds
@@ -163,18 +169,45 @@ define( function( require ) {
 
     draggableNode.addAccessibleInputListener( this.keyboardDragListener );
 
-    this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model.magnet.positionProperty, model, {} );
+    this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( {
+      positionProperty: model.magnet.positionProperty,
+      dragBounds: model.bounds,
+      onKeydown: function( event ) {
+        debugger;
+        if ( event.key === 'j' ) {
+          self.reflectedMagnetNode.visible = true;
+        }
+      },
+      onKeyup: function( event ) {
+        if ( event.key === 'j' ) {
+          self.reflectedMagnetNode.visible = false;
+        }
+      }
+    } );
 
     draggableNode.addAccessibleInputListener( this.magnetJumpKeyboardListener );
+
+    var setReflectedNodeCenter = function( position ) {
+      self.reflectedMagnetNode.center = self.parentToLocalPoint( position );
+    }
 
     // observers
     model.magnet.orientationProperty.link( function() {
       self.magnetNode.detach();
       self.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( self.magnetNode );
+
+      self.reflectedMagnetNode.detach();
+      self.reflectedMagnetNode = createMagnetNode( model.magnet );
+      self.addChild( self.reflectedMagnetNode );
+      self.reflectedMagnetNode.opacity = 0.5;
+      self.reflectedMagnetNode.visible = false;
+      setReflectedNodeCenter( self.magnetJumpKeyboardListener.targetPositionProperty.get() );
     } );
 
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
+
+    this.magnetJumpKeyboardListener.targetPositionProperty.link( setReflectedNodeCenter );
   }
 
   /**

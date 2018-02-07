@@ -88,23 +88,6 @@ define( function( require ) {
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
     this.addChild( this.magnetNodeWithField );
 
-    debugger;
-
-    var magnetPosition = model.magnet.positionProperty.get();
-    var reflectedX = model.bounds.maxX - magnetPosition.x;
-
-    // @private
-    // this.reflectedMagnetNode = new MagnetNode( model.magnet.orientationProperty.get(), {
-    //   width: model.magnet.width,
-    //   height: model.magnet.height,
-    //   showArrows: false
-    // } );
-
-    // this.reflectedMagnetNode.opacity = 0.5;
-    // this.reflectedMagnetNode.x = reflectedX;
-    // this.reflectedMagnetNode.y = magnetPosition.y;
-    // this.addChild( this.reflectedMagnetNode );
-
     // a11y keyboard nav order
     this.accessibleOrder = [ this.magnetNodeWithField, controlPanel ];
 
