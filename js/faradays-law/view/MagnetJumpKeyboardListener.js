@@ -54,6 +54,7 @@ define( function( require ) {
     this.keydown = function( event ) {
 
       self._isAnimating = false;
+      self._shiftAnimate = false;
 
       if ( self._onKeydown ) {
         self._onKeydown( event );
@@ -71,11 +72,11 @@ define( function( require ) {
         self.targetPositionProperty.set( this.reflectedPositionProperty.get() );
 
         if ( self._shiftKeyPressed ) {
-          selt._shiftAnimate = true;
+          self._shiftAnimate = true;
         }
       }
 
-      if ( event.key === KeyboardUtil.KEY_SHIFT ) {
+      if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
         self._shiftKeyPressed = false;
       }
 
@@ -101,17 +102,29 @@ define( function( require ) {
 
     step: function( dt ) {
 
-      if ( this._isAnimating && !this.positionProperty.get().equals( this.targetPositionProperty.get() ) ) {
-        var diffX = this.targetPositionProperty.get().x - this.positionProperty.get().x;
-        var direction = diffX < 0 ? -1 : 1;
+      if ( this._isAnimating ) {
+        if ( !this.positionProperty.get().equals( this.targetPositionProperty.get() ) ) {
+          var delta = this._shiftAnimate ? this._shiftVelocity : this._velocity;
 
-        // TODO: conditionally set delta based on shift key press
-        //  - requires using an object to track other keys pressed on keyup
-        var delta = this._velocity * direction;
-        var newPositionX = this.positionProperty.get().x +  delta;
+          var diffX = this.targetPositionProperty.get().x - this.positionProperty.get().x;
+          var direction = diffX < 0 ? -1 : 1;
 
-        this.positionProperty.set( new Vector2( newPositionX, this.positionProperty.get().y ) );
+          // TODO: conditionally set delta based on shift key press
+          //  - requires using an object to track other keys pressed on keyup
+          delta = Math.min( Math.abs( diffX ), delta ) * direction;
+
+          var newPositionX = this.positionProperty.get().x +  delta;
+
+          this.positionProperty.set( new Vector2( newPositionX, this.positionProperty.get().y ) );
+        } else {
+          this._isAnimating = false;
+          this._shiftAnimate = false;
+        }
       }
+    },
+
+    dispose: function() {
+      this._disposeKeyboardDragListener();
     }
   } );
 } );

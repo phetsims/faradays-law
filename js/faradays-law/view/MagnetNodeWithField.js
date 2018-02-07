@@ -15,7 +15,7 @@ define( function( require ) {
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
-  // var MagnetAccessibleDragHandler = require( 'FARADAYS_LAW/faradays-law/view/MagnetAccessibleDragHandler' );
+  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
@@ -173,12 +173,12 @@ define( function( require ) {
       positionProperty: model.magnet.positionProperty,
       dragBounds: model.bounds,
       onKeydown: function( event ) {
-        if ( event.key === 'j' ) {
+        if ( event.keyCode === KeyboardUtil.KEY_J ) {
           self.reflectedMagnetNode.visible = true;
         }
       },
       onKeyup: function( event ) {
-        if ( event.key === 'j' ) {
+        if ( event.keyCode === KeyboardUtil.KEY_J ) {
           self.reflectedMagnetNode.visible = false;
         }
       }
