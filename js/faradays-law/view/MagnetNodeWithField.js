@@ -207,7 +207,7 @@ define( function( require ) {
 
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
-    this.magnetJumpKeyboardListener.targetPositionProperty.link( setReflectedNodeCenter );
+    this.magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
   }
 
   /**

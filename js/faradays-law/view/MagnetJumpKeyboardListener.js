@@ -41,37 +41,33 @@ define( function( require ) {
 
     // @public
     this.positionProperty = options.positionProperty;
-    this.targetPositionProperty = new Property( this.positionProperty.get() );
-    this.reflectionVisibileProperty = new BooleanProperty( false );
+    this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
+    this.targetPositionProperty = new Property( this.positionProperty.get().copy() );
 
     this.positionProperty.link( function() {
       var reflectedPositionVector = self.positionProperty.get().copy();
       reflectedPositionVector.x = self._dragBounds.maxX - reflectedPositionVector.x;
-      self.targetPositionProperty.set( reflectedPositionVector );
-      debugger;
+      self.reflectedPositionProperty.set( reflectedPositionVector );
     } );
     
 
     this.keydown = function( event ) {
       self._isAnimating = false;
-      self.reflectionVisibileProperty.set( true );
 
       if ( self._onKeydown ) {
         self._onKeydown( event );
       }
-
-      if ( event.key === 'j' ) {
-        self.reflectionVisibileProperty.set( true );
-      }
     };
 
     this.keyup = function( event ) {
-      if ( self._onKeyup ) {
-        self._onKeyup( event );
-      }
 
       if ( event.key === 'j' ) {
         self._isAnimating = true;
+        self.targetPositionProperty.set( this.reflectedPositionProperty.get() );
+      }
+
+      if ( self._onKeyup ) {
+        self._onKeyup( event );
       }
     };
 
@@ -83,13 +79,21 @@ define( function( require ) {
 
     step: function( dt ) {
 
-      var refletionDelta = this.positionProperty().get().x - this.targetPositionProperty.get().x;
+      if ( this._isAnimating && !this.positionProperty.get().equals( this.targetPositionProperty.get() ) ) {
 
-      // if ( this._animatingProperty.get() && !this._readyToJumpProperty.get() && this.refletionDelta !== 0 ) {
+        var direction = targetPositionDiff < 0 ? -1 : 1;
 
-      // }
+        // TODO: conditionally set delta based on shift key press
+        //  - requires using an object to track other keys pressed on keyup
+        var delta = this._velocity * direction;
+        var newPositionX = this.positionProperty.get().x +  delta;
+
+        this.positionProperty.set( new Vector2( newPositionX, this.positionProperty.get().y ) );
+      }
     },
 
-    updatePosition: function() {}
+    updatePosition: function() {
+
+    }
   } );
 } );
