@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-keyboard_jump.0 Fri Jan 26 2018 13:05:20 GMT-0700 (MST)",
+  "comment": "# faradays-law 1.4.0-keyboard_jump.3 Wed Feb 07 2018 16:02:07 GMT-0700 (MST)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "f616a059d415c0efaff83897ff937f1649c0235c",
+    "sha": "10125b6e274c1f89873a890218dbee0ad96e6dcd",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "471ab93343d28d6ce522659a5a6a889be8351121",
+    "sha": "6384c0a0663463e3e04f3c0c7b9a33fc2878331f",
     "branch": "keyboard_jump"
   },
   "joist": {
-    "sha": "caefa8e28d0922a31d7bf5807f54d9ff550186ca",
+    "sha": "5567ef56478dd51782a1c12664eb3b331754657a",
     "branch": "master"
   },
   "kite": {
@@ -53,15 +53,15 @@
     "branch": "master"
   },
   "phet-io-wrapper-sonification": {
-    "sha": "1b1b05f7de586969a2ac38391a569ba09c6df068",
+    "sha": "e42afe1fa074ff44618678f90b59dfdac8cf90d9",
     "branch": "master"
   },
   "phet-io-wrapper-visualizing-engagement": {
-    "sha": "83ca1fe39c4f9b25bee48309dce494bea7254f25",
+    "sha": "921654861ef87f70c1e2a813839cae4e925df19c",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "3753cb49b924fe63aab9a5742b8d42c6acaa7e28",
+    "sha": "d79148b86366f544c27785f219d09d94fe644ec2",
     "branch": "master"
   },
   "phetcommon": {
@@ -73,23 +73,23 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "70cf829b42b65d6c4f58045f40ed6768b7b889a5",
+    "sha": "c1725c3e02027a1fbe5714593e52ad13f0f7e16b",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "42b94b4fa2b32cb84f416653abf0a4f83854e628",
+    "sha": "666a80bbff3d4ddf6060e33e57e2c90f60a18faf",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "d59690f0f6c46384e532496fa7e9156ea0724f46",
+    "sha": "7a6906fd09154b40ff68462843acc7f97e0d2276",
     "branch": "master"
   },
   "sun": {
-    "sha": "3b4ff6c4ba93e963be4d6888b018cfead594ce03",
+    "sha": "b854de6be77c174cb1364d0fd7445ec29eda0d4c",
     "branch": "master"
   },
   "tandem": {
-    "sha": "4de02ea39434044619e7586252692901d85a90d2",
+    "sha": "63c71e1a8bf100835b9669d25d6b8d3ac4e42383",
     "branch": "master"
   }
 }
