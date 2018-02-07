@@ -173,7 +173,6 @@ define( function( require ) {
       positionProperty: model.magnet.positionProperty,
       dragBounds: model.bounds,
       onKeydown: function( event ) {
-        debugger;
         if ( event.key === 'j' ) {
           self.reflectedMagnetNode.visible = true;
         }
@@ -189,7 +188,7 @@ define( function( require ) {
 
     var setReflectedNodeCenter = function( position ) {
       self.reflectedMagnetNode.center = self.parentToLocalPoint( position );
-    }
+    };
 
     // observers
     model.magnet.orientationProperty.link( function() {
