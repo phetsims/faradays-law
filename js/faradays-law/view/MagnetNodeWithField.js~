@@ -177,13 +177,10 @@ define( function( require ) {
           self.reflectedMagnetNode.visible = true;
         }
       },
-      onKeyup: function( event ){
+      onKeyup: function( event ) {
         if ( event.keyCode === KeyboardUtil.KEY_J ) {
           self.reflectedMagnetNode.visible = false;
         }
-      },
-      onAnimate: function( event ) {
-        
       }
     } );
 
