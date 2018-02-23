@@ -50,17 +50,15 @@ define( function( require ) {
     
 
     this.keydown = function( event ) {
-      
+      // if the key pressed is not an augmenting key
+      if ( !event.keyCode === KeyboardUtils.SHIFT_KEY ) {
+        self._isAnimating = false;
+      }
+      // self._shiftAnimate = false;
+
       if ( self._onKeydown ) {
         self._onKeydown( event );
       }
-      
-      // if the key pressed is not an augmenting key
-      if ( !event.keyCode === KeyboardUtil.SHIFT_KEY ) {
-        self._isAnimating = false;
-      }
-
-      // self._shiftAnimate = false;
 
       if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
         this._shiftKeyPressed = true;
