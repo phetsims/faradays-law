@@ -16,9 +16,11 @@ define( function( require ) {
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
+
+  // phet-io modules
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
    * @param {Tandem} tandem
