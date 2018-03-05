@@ -46,9 +46,24 @@ define( function( require ) {
     // field lines
     this.addChild( new MagnetFieldLines( model.magnet ) );
 
+    // a11y
+    var draggableNodeFocusHighlight = new FocusHighlightPath( new Shape() ); // overridden once the draggableNode is fully constructed
+
     // the draggable container for the magnet and arrows
-    var draggableNode = new Node( { cursor: 'pointer', tandem: tandem.createTandem( 'draggableNode' ) } );
+    var draggableNode = new Node( 
+      {
+        cursor: 'pointer',
+        tandem: tandem.createTandem( 'draggableNode' ),
+
+        // a11y
+        tagName: 'div',
+        ariaRole: 'application',
+        focusable: true,
+        focusHighlightLayerable: true,
+        focusHighlight: draggableNodeFocusHighlight
+      } );
     this.addChild( draggableNode );
+    this.addChild( draggableNodeFocusHighlight );
 
     // magnet
     this.magnetNode = createMagnetNode( model.magnet );
@@ -59,15 +74,6 @@ define( function( require ) {
     this.addChild( self.reflectedMagnetNode );
     this.reflectedMagnetNode.opacity = 0.5;
     this.reflectedMagnetNode.visible = false;
-
-    // a11y
-    draggableNode.tagName = 'div';
-    draggableNode.ariaRole = 'application';
-    draggableNode.focusable = true;
-    draggableNode.focusHighlightLayerable = true;
-    var draggableNodeFocusHighlight = new FocusHighlightPath( new Shape() ); // overridden once the draggableNode is fully constructed
-    draggableNode.focusHighlight = draggableNodeFocusHighlight;
-    this.addChild( draggableNodeFocusHighlight );
 
     var createArrowNode = function( tailX, tailY, tipX, tipY ) {
       var arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, MAGNET_ARROW_OPTIONS );
