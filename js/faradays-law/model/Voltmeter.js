@@ -72,7 +72,7 @@ define( function( require ) {
 
       // Calculate the signal, combining the EMF from both coils.  The multiplier (including the sign thereof) is
       // empirically determined to make the needle move the correct amount and direction.
-      this.signalProperty.set( -0.2 * ( this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get() ) );
+      this.signalProperty.set( 0.2 * ( this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get() ) );
 
       this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.voltageProperty.get() ) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
       this.voltageProperty.set( this.voltageProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle
