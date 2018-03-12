@@ -11,11 +11,10 @@ define( function( require ) {
   var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function MagnetJumpKeyboardListener( options ) {
+  function MagnetJumpKeyboardListener( positionProperty, model, options ) {
     var self = this;
 
     options = _.extend( {
-      positionProperty: null,
       dragBounds: null,
       velocity: 10, // in model coordinates / step
       shiftVelocity: 5,
@@ -38,7 +37,8 @@ define( function( require ) {
     console.log( self._velocity );
 
     // @public
-    this.positionProperty = options.positionProperty;
+    this.model = model;
+    this.positionProperty = positionProperty;
     this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
     this.targetPositionProperty = new Property( this.positionProperty.get().copy() );
 
@@ -72,10 +72,6 @@ define( function( require ) {
       if ( event.keyCode === KeyboardUtil.KEY_J ) {
         self._isAnimating = true;
         self.targetPositionProperty.set( this.reflectedPositionProperty.get() );
-
-        //if ( self._shiftKeyPressed ) {
-          //self._shiftAnimate = true;
-       // }
       }
 
       if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
@@ -106,21 +102,24 @@ define( function( require ) {
 
       if ( this._isAnimating ) {
         if ( !this.positionProperty.get().equals( this.targetPositionProperty.get() ) ) {
-          var delta = this._shiftKeyPressed ? this._shiftVelocity : this._velocity;
+
+          var deltaX = 0;
+          var deltaIncrement = this._shiftKeyPressed ? this._shiftVelocity : this._velocity;
 
           var diffX = this.targetPositionProperty.get().x - this.positionProperty.get().x;
           var direction = diffX < 0 ? -1 : 1;
 
-          // TODO: conditionally set delta based on shift key press
-          //  - requires using an object to track other keys pressed on keyup
-          delta = Math.min( Math.abs( diffX ), delta ) * direction;
+          deltaIncrement = Math.min( Math.abs( diffX ), deltaIncrement ) * direction;
 
-          var newPositionX = this.positionProperty.get().x +  delta;
+          var deltaVector = new Vector2( deltaX + deltaIncrement, 0 );
 
-          this.positionProperty.set( new Vector2( newPositionX, this.positionProperty.get().y ) );
+          var newPosition = this.positionProperty.get().plus( deltaVector );
+
+          newPosition = this.model.bounds.closestPointTo( newPosition );
+
+          this.model.moveMagnetToPosition( newPosition );
         } else {
           this._isAnimating = false;
-          this._shiftAnimate = false;
         }
       }
     },

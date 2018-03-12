@@ -157,6 +157,7 @@ define( function( require ) {
         var parentPoint = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = parentPoint.minus( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
+        model.magnet.positionProperty.set( desiredPosition );
       }
     } );
     draggableNode.addInputListener( dragHandler );
@@ -166,17 +167,17 @@ define( function( require ) {
       start: function() {
         model.showMagnetArrowsProperty.set( false );
       },
-      end: function() {
-        model.showMagnetArrowsProperty.set( true );
+      drag: function( vectorDelta ) {
+        var newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
+        newPosition = model.bounds.closestPointTo( newPosition );
+        model.moveMagnetToPosition( newPosition );
       },
-      locationProperty: model.magnet.positionProperty,
       dragBounds: model.bounds
     } );
 
     draggableNode.addAccessibleInputListener( this.keyboardDragListener );
 
-    this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( {
-      positionProperty: model.magnet.positionProperty,
+    this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model.magnet.positionProperty, model, {
       dragBounds: model.bounds,
       onKeydown: function( event ) {
         if ( event.keyCode === KeyboardUtil.KEY_J ) {
@@ -187,9 +188,6 @@ define( function( require ) {
         if ( event.keyCode === KeyboardUtil.KEY_J ) {
           self.reflectedMagnetNode.visible = false;
         }
-      },
-      onAnimate: function( event ) {
-        
       }
     } );
 
