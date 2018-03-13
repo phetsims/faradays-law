@@ -11,13 +11,18 @@ define( function( require ) {
   var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
+  var SHIFT = KeyboardUtil.KEY_SHIFT;
+  var KEY_C = KeyboardUtil.KEY_C;
+
   function MagnetJumpKeyboardListener( positionProperty, model, options ) {
     var self = this;
 
     options = _.extend( {
       dragBounds: null,
-      velocity: 10, // in model coordinates / step
+      defaultVelocity: 10, // in model coordinates / step
       shiftVelocity: 5,
+      fastVelocity: 15,
       onKeydown: null,
       onKeyup: null
     }, options );
@@ -26,15 +31,13 @@ define( function( require ) {
     this._onKeydown = options.onKeydown;
     this._onKeyup = options.onKeyup;
     this._isAnimating = false;
-    this._dragBounds = options.dragBounds;
-    this._boundsCenterX = this._dragBounds.maxX / 2;
-    this._velocity = options.velocity;
+    this._dragBounds = options.dragBounds ? options.dragBounds : model.bounds;
+    this._stepDelta = options._defaultVelocity;
+    this._defaultVelocity = options.defaultVelocity;
     this._shiftVelocity = options.shiftVelocity;
+    this._fastVelocity = options.fastVelocity;
     this._shiftKeyPressed = false;
     this._shiftAnimate = false;
-
-    console.log( options.velocity );
-    console.log( self._velocity );
 
     // @public
     this.model = model;
@@ -55,16 +58,19 @@ define( function( require ) {
         self._onKeydown( event );
       }
       
-      // if the key pressed is not an augmenting key
-      if ( !event.keyCode === KeyboardUtil.SHIFT_KEY ) {
-        self._isAnimating = false;
+      // set the stepDelta
+      switch ( event.keyCode ) {
+        case KeyboardUtil.KEY_SHIFT:
+          self._stepDelta = self._shiftVelocity;
+          break;
+        case KeyboardUtil.KEY_C:
+          self._stepDelta = self._fastVelocity;
+          break;
+        default:
+          self._stepDelta = self._defaultVelocity;
+          self._isAnimating = false;
       }
 
-      // self._shiftAnimate = false;
-
-      if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
-        this._shiftKeyPressed = true;
-      }
     };
 
     this.keyup = function( event ) {
@@ -74,9 +80,8 @@ define( function( require ) {
         self.targetPositionProperty.set( this.reflectedPositionProperty.get() );
       }
 
-      if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
-        self._shiftKeyPressed = false;
-      }
+      // reset stepDelta
+      self._stepDelta = self._defaultVelocity;
 
       if ( self._onKeyup ) {
         self._onKeyup( event );
@@ -91,7 +96,6 @@ define( function( require ) {
     this._disposeKeyboardDragListener = function() {
       Timer.removeStepListener( stepListener );
     };
-
   }
 
   faradaysLaw.register( 'MagnetJumpKeyboardListener', MagnetJumpKeyboardListener );
@@ -103,19 +107,14 @@ define( function( require ) {
       if ( this._isAnimating ) {
         if ( !this.positionProperty.get().equals( this.targetPositionProperty.get() ) ) {
 
-          var deltaX = 0;
-          var deltaIncrement = this._shiftKeyPressed ? this._shiftVelocity : this._velocity;
-
           var diffX = this.targetPositionProperty.get().x - this.positionProperty.get().x;
           var direction = diffX < 0 ? -1 : 1;
 
-          deltaIncrement = Math.min( Math.abs( diffX ), deltaIncrement ) * direction;
-
-          var deltaVector = new Vector2( deltaX + deltaIncrement, 0 );
+          var deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );
 
           var newPosition = this.positionProperty.get().plus( deltaVector );
 
-          newPosition = this.model.bounds.closestPointTo( newPosition );
+          newPosition = this._dragBounds.closestPointTo( newPosition );
 
           this.model.moveMagnetToPosition( newPosition );
         } else {

@@ -157,7 +157,6 @@ define( function( require ) {
         var parentPoint = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = parentPoint.minus( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
-        model.magnet.positionProperty.set( desiredPosition );
       }
     } );
     draggableNode.addInputListener( dragHandler );
