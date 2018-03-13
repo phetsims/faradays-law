@@ -11,10 +11,6 @@ define( function( require ) {
   var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants
-  var SHIFT = KeyboardUtil.KEY_SHIFT;
-  var KEY_C = KeyboardUtil.KEY_C;
-
   function MagnetJumpKeyboardListener( positionProperty, model, options ) {
     var self = this;
 
