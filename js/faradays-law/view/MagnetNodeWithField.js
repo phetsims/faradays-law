@@ -52,6 +52,7 @@ define( function( require ) {
     var draggableNode = new Node( {
       cursor: 'pointer',
       tandem: tandem.createTandem( 'draggableNode' ),
+      phetioInstanceDocumentation: 'The draggable container for the magnet and arrows.',
 
       // a11y
       tagName: 'div',
@@ -121,6 +122,7 @@ define( function( require ) {
     var dragHandler = new SimpleDragHandler( {
 
       tandem: tandem.createTandem( 'dragHandler' ),
+      phetioInstanceDocumentation: 'Emits events when dragged by the user.',
 
       // When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
