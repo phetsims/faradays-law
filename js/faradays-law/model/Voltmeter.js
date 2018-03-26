@@ -36,19 +36,21 @@ define( function( require ) {
     // @private {number} - rad/s^2
     this.needleAngularAcceleration = 0;
 
-    // @public {NumberProperty} Needle angle in radians. This drives the needle location and the light bulb brightness.
+    // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
     this.voltageProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'voltageProperty' ),
-      units: 'radians',
+      phetioInstanceDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
       phetioReadOnly: true,
       highFrequency: true
     } );
 
-    // @private {NumberProperty} - input voltage to meter
+    // @private {NumberProperty} - input voltage to meter.  TODO: how does this relate to the voltageProperty?
     this.signalProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'signalProperty' ),
       units: 'volts',
-      highFrequency: true
+      highFrequency: true,
+      phetioReadOnly: true,
+      phetioInstanceDocumentation: 'Input voltage to the voltmeter.'
     } );
 
     // @public {DerivedProperty.<number>}
@@ -57,6 +59,9 @@ define( function( require ) {
       // The voltage and the angle are perfectly matched, in part because the sim is qualitative and
       // in part because there was no need to separate them, see https://github.com/phetsims/faradays-law/issues/96
       return voltage;
+    }, {
+      units: 'radians',
+      highFrequency: true
     } );
   }
 
