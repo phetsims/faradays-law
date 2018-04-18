@@ -41,17 +41,12 @@ define( function( require ) {
       tandem: tandem.createTandem( 'voltageProperty' ),
       phetioInstanceDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
       phetioReadOnly: true,
-      highFrequency: true
+      highFrequency: true,
+      units: 'volts'
     } );
 
-    // @private {NumberProperty} - input voltage to meter.  TODO: how does this relate to the voltageProperty?
-    this.signalProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'signalProperty' ),
-      units: 'volts',
-      highFrequency: true,
-      phetioReadOnly: true,
-      phetioInstanceDocumentation: 'Input voltage to the voltmeter.'
-    } );
+    // @private {NumberProperty} - converts emf from the magnets into a force on the needle (which is correlated with the displayed voltage)
+    this.signalProperty = new NumberProperty( 0 );
 
     // @public {DerivedProperty.<number>}
     this.needleAngleProperty = new DerivedProperty( [ this.voltageProperty ], function( voltage ) {
