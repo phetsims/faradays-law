@@ -1,7 +1,8 @@
 // Copyright 2014-2018, University of Colorado Boulder
 
 /**
- * Control panel for 'Faradays Law' simulation.
+ * Strip of controls at the bottom of the screen, which are not shown in a visible panel.  It contains controls
+ * for showing field lines, switching between 1 vs 2 coils, flipping the magnet and the reset all button.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
