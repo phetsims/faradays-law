@@ -44,7 +44,8 @@ define( function( require ) {
    */
   function VoltmeterNode( needleAngleProperty, tandem ) {
     Node.call( this, {
-      tandem: tandem
+      tandem: tandem,
+      phetioInstanceDocumentation: 'The displayed voltmeter.'
     } );
 
     var background = new ShadedRectangle( new Bounds2( 0, 0, 170, RECTANGLE_HEIGHT ), {
@@ -74,6 +75,7 @@ define( function( require ) {
       font: new PhetFont( 18 ),
       fill: 'yellow',
       tandem: tandem.createTandem( 'label' ),
+      phetioInstanceDocumentation: 'Text label at the bottom of the voltmeter.',
       maxWidth: READOUT_WIDTH // Support PhET-iO
     } );
     label.scale( Math.min( readoutBackground.width / label.width, 1 ) );

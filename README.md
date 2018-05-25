@@ -38,7 +38,6 @@ git clone https://github.com/phetsims/scenery-phet.git
 git clone https://github.com/phetsims/sherpa.git
 git clone https://github.com/phetsims/sun.git
 git clone https://github.com/phetsims/tandem.git
-git clone https://github.com/phetsims/vibe.git
 ```
 (2) Start an http-server
 

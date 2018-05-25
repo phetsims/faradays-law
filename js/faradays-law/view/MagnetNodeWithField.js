@@ -47,21 +47,23 @@ define( function( require ) {
     this.addChild( new MagnetFieldLines( model.magnet ) );
 
     // a11y
+    // create the focus highlight to pass as an option
     var draggableNodeFocusHighlight = new FocusHighlightPath( new Shape() ); // overridden once the draggableNode is fully constructed
 
     // the draggable container for the magnet and arrows
-    var draggableNode = new Node( 
-      {
-        cursor: 'pointer',
-        tandem: tandem.createTandem( 'draggableNode' ),
+    var draggableNode = new Node( {
+      cursor: 'pointer',
+      tandem: tandem.createTandem( 'draggableNode' ),
+      phetioInstanceDocumentation: 'The draggable container for the magnet and arrows.',
 
-        // a11y
-        tagName: 'div',
-        ariaRole: 'application',
-        focusable: true,
-        focusHighlightLayerable: true,
-        focusHighlight: draggableNodeFocusHighlight
-      } );
+      // a11y
+      tagName: 'div',
+      ariaRole: 'application',
+      focusable: true,
+      focusHighlightLayerable: true,
+      focusHighlight: draggableNodeFocusHighlight
+    } );
+
     this.addChild( draggableNode );
     this.addChild( draggableNodeFocusHighlight );
 
@@ -69,12 +71,15 @@ define( function( require ) {
     this.magnetNode = createMagnetNode( model.magnet );
     draggableNode.addChild( self.magnetNode );
 
+<<<<<<< HEAD
     // magnet reflection
     this.reflectedMagnetNode = createMagnetNode( model.magnet );
     this.addChild( self.reflectedMagnetNode );
     this.reflectedMagnetNode.opacity = 0.5;
     this.reflectedMagnetNode.visible = false;
 
+=======
+>>>>>>> master
     var createArrowNode = function( tailX, tailY, tipX, tipY ) {
       var arrowNode = new ArrowNode( tailX, tailY, tipX, tipY, MAGNET_ARROW_OPTIONS );
       arrowNode.touchArea = arrowNode.localBounds.dilated( 6 );
@@ -129,6 +134,7 @@ define( function( require ) {
     var dragHandler = new SimpleDragHandler( {
 
       tandem: tandem.createTandem( 'dragHandler' ),
+      phetioInstanceDocumentation: 'Emits events when dragged by the user.',
 
       // When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,

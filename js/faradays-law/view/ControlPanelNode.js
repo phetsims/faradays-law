@@ -1,7 +1,8 @@
 // Copyright 2014-2018, University of Colorado Boulder
 
 /**
- * Control panel for 'Faradays Law' simulation.
+ * Strip of controls at the bottom of the screen, which are not shown in a visible panel.  It contains controls
+ * for showing field lines, switching between 1 vs 2 coils, flipping the magnet and the reset all button.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
@@ -42,7 +43,8 @@ define( function( require ) {
       bottom: 0,
       scale: 0.75,
       touchAreaDilation: 10,
-      tandem: tandem.createTandem( 'resetAllButton' )
+      tandem: tandem.createTandem( 'resetAllButton' ),
+      phetioInstanceDocumentation: 'Round button in the bottom right corner that can be used to return the simualtion to its initial state.'
     } );
     this.addChild( resetAllButton );
 
@@ -71,7 +73,8 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL )
         ]
       }, coilButtonGroupOptions ) ),
-      tandemName: 'singleCoilRadioButton'
+      tandemName: 'singleCoilRadioButton',
+      phetioInstanceDocumentation: 'Radio button that selects a single coil.'
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -80,7 +83,8 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL )
         ]
       }, coilButtonGroupOptions ) ),
-      tandemName: 'doubleCoilRadioButton'
+      tandemName: 'doubleCoilRadioButton',
+      phetioInstanceDocumentation: 'Radio button that selects double coils.'
     } ];
 
     var coilRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
@@ -92,7 +96,8 @@ define( function( require ) {
       baseColor: '#cdd5f6', // lavender-ish
       selectedLineWidth: 3,
       deselectedLineWidth: 1,
-      tandem: tandem.createTandem( 'coilRadioButtonGroup' )
+      tandem: tandem.createTandem( 'coilRadioButtonGroup' ),
+      phetioInstanceDocumentation: 'Radio button group that selects between one or two coils.'
     } );
 
     this.addChild( coilRadioButtonGroup );
@@ -105,7 +110,8 @@ define( function( require ) {
     var showFieldCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY,
-      tandem: tandem.createTandem( 'showFieldCheckbox' )
+      tandem: tandem.createTandem( 'showFieldCheckbox' ),
+      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.'
     } );
     showFieldCheckbox.touchArea = showFieldCheckbox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckbox );

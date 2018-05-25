@@ -36,20 +36,17 @@ define( function( require ) {
     // @private {number} - rad/s^2
     this.needleAngularAcceleration = 0;
 
-    // @public {NumberProperty} Needle angle in radians. This drives the needle location and the light bulb brightness.
+    // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
     this.voltageProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'voltageProperty' ),
-      units: 'radians',
+      phetioInstanceDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
       phetioReadOnly: true,
-      highFrequency: true
+      highFrequency: true,
+      units: 'volts'
     } );
 
-    // @private {NumberProperty} - input voltage to meter
-    this.signalProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'signalProperty' ),
-      units: 'volts',
-      highFrequency: true
-    } );
+    // @private {NumberProperty} - converts emf from the magnets into a force on the needle (which is correlated with the displayed voltage)
+    this.signalProperty = new NumberProperty( 0 );
 
     // @public {DerivedProperty.<number>}
     this.needleAngleProperty = new DerivedProperty( [ this.voltageProperty ], function( voltage ) {
@@ -57,6 +54,9 @@ define( function( require ) {
       // The voltage and the angle are perfectly matched, in part because the sim is qualitative and
       // in part because there was no need to separate them, see https://github.com/phetsims/faradays-law/issues/96
       return voltage;
+    }, {
+      units: 'radians',
+      highFrequency: true
     } );
   }
 
@@ -72,7 +72,7 @@ define( function( require ) {
 
       // Calculate the signal, combining the EMF from both coils.  The multiplier (including the sign thereof) is
       // empirically determined to make the needle move the correct amount and direction.
-      this.signalProperty.set( -0.2 * ( this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get() ) );
+      this.signalProperty.set( 0.2 * ( this.model.bottomCoil.emfProperty.get() + this.model.topCoil.emfProperty.get() ) );
 
       this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.voltageProperty.get() ) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
       this.voltageProperty.set( this.voltageProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle

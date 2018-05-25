@@ -48,7 +48,8 @@ define( function( require ) {
       minHeight: 65,
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
-      tandem: tandem
+      tandem: tandem,
+      phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.'
     }, options ) );
   }
 
