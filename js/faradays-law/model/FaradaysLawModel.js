@@ -122,6 +122,25 @@ define( function( require ) {
     },
 
     /**
+     * Return one of the model's restricted bounds if it intersects with the given bounds. Can return null.
+     * @param  {Bounds2} bounds
+     * @return {Bounds2|null}
+     */
+    getIntersectedRestrictedBounds: function ( bounds ) {
+      var stoppingValue = this.showTopCoilProperty.get() ? 0 : 2;
+
+      for ( var i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
+        var restrictedBounds = this.listOfRestrictedBounds[ i ];
+        
+        if ( bounds.intersectsBounds( restrictedBounds ) ) {
+          return restrictedBounds;
+        }
+      }
+
+      return null;
+    },
+
+    /**
      * @param {Vector2} position - position of magnet
      * @public
      */

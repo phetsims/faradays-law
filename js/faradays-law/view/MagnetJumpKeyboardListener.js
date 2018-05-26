@@ -4,14 +4,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var Property = require( 'AXON/Property' );
   var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function MagnetJumpKeyboardListener( positionProperty, model, options ) {
+  function MagnetJumpKeyboardListener( model, options ) {
     var self = this;
 
     options = _.extend( {
@@ -23,61 +23,83 @@ define( function( require ) {
       onKeyup: null
     }, options );
 
+    var halfMagnetHeight = model.magnet.height / 2;
+    var halfMagnetWidth = model.magnet.width / 2;
+
     // @private
     this._onKeydown = options.onKeydown;
     this._onKeyup = options.onKeyup;
     this._isAnimating = false;
-    this._dragBounds = options.dragBounds ? options.dragBounds : model.bounds;
+    this._dragBounds = options.dragBounds ?
+                        options.dragBounds :
+                        model.bounds.erodedXY( halfMagnetWidth, halfMagnetHeight );
     this._stepDelta = options._defaultVelocity;
     this._defaultVelocity = options.defaultVelocity;
     this._shiftVelocity = options.shiftVelocity;
     this._fastVelocity = options.fastVelocity;
-    this._shiftKeyPressed = false;
-    this._shiftAnimate = false;
 
     // @public
     this.model = model;
-    this.positionProperty = positionProperty;
-    this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
-    this.targetPositionProperty = new Property( this.positionProperty.get().copy() );
+    this.positionProperty = new Property( model.magnet.positionProperty.get().copy() );
+    this.targetPositionProperty = new Property( model.magnet.positionProperty.get().copy() );
 
-    this.positionProperty.link( function() {
-      var reflectedPositionVector = self.positionProperty.get().copy();
-      reflectedPositionVector.x = self._dragBounds.maxX - reflectedPositionVector.x;
-      self.reflectedPositionProperty.set( reflectedPositionVector );
+    model.magnet.positionProperty.link( function( position ) {
+      var targetX = position.x >= ( self._dragBounds.maxX / 2 ) ? self._dragBounds.minX : self._dragBounds.maxX;
+
+      var magnetPathBounds = new Bounds2(
+        Math.min( targetX, position.x ),
+        position.y,
+        Math.max( targetX, position.x ),
+        position.y
+      ).dilatedXY( halfMagnetWidth - 1, halfMagnetHeight - 1 );
+
+      var intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
+
+      if ( intersectedBounds ) {
+        targetX = targetX > 0 ? intersectedBounds.minX : intersectedBounds.maxX;
+      }
+
+      self.positionProperty.set( position );
+      self.targetPositionProperty.set( new Vector2( targetX, position.y ) );
     } );
     
 
     this.keydown = function( event ) {
+      console.log( event.keyCode );
       
       if ( self._onKeydown ) {
         self._onKeydown( event );
       }
+
+      self._isAnimating = false;
+
+      // reset stepDelta
+      self._stepDelta = self._defaultVelocity;
       
       // set the stepDelta
       switch ( event.keyCode ) {
-        case KeyboardUtil.KEY_SHIFT:
+        case 49:
           self._stepDelta = self._shiftVelocity;
           break;
-        case KeyboardUtil.KEY_C:
+        case 50:
+          self._stepDelta = self._defaultVelocity;
+          break;
+        case 51:
           self._stepDelta = self._fastVelocity;
           break;
         default:
-          self._stepDelta = self._defaultVelocity;
-          self._isAnimating = false;
       }
 
+      console.log( self._stepDelta );
     };
 
     this.keyup = function( event ) {
 
-      if ( event.keyCode === KeyboardUtil.KEY_J ) {
-        self._isAnimating = true;
-        self.targetPositionProperty.set( this.reflectedPositionProperty.get() );
+      if ( !self._isAnimating ) {
+        if ( event.keyCode >= 49 && event.keyCode <= 51) {
+          self._isAnimating = true;
+        }
       }
-
-      // reset stepDelta
-      self._stepDelta = self._defaultVelocity;
 
       if ( self._onKeyup ) {
         self._onKeyup( event );
