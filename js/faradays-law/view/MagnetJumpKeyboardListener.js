@@ -31,8 +31,8 @@ define( function( require ) {
     this._onKeyup = options.onKeyup;
     this._isAnimating = false;
     this._dragBounds = options.dragBounds ?
-                        options.dragBounds :
-                        model.bounds.erodedXY( halfMagnetWidth, halfMagnetHeight );
+                       options.dragBounds :
+                       model.bounds.erodedXY( halfMagnetWidth, halfMagnetHeight );
     this._stepDelta = options._defaultVelocity;
     this._defaultVelocity = options.defaultVelocity;
     this._shiftVelocity = options.shiftVelocity;
@@ -41,10 +41,14 @@ define( function( require ) {
     // @public
     this.model = model;
     this.positionProperty = new Property( model.magnet.positionProperty.get().copy() );
-    this.targetPositionProperty = new Property( model.magnet.positionProperty.get().copy() );
+    this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
+    this.targetPositionVector = new Vector2( 0, 0 );
 
-    model.magnet.positionProperty.link( function( position ) {
-      var targetX = position.x >= ( self._dragBounds.maxX / 2 ) ? self._dragBounds.minX : self._dragBounds.maxX;
+    // set the target position in response to the magnet's
+    var setReflectedPosition = function( position ) {
+      var leftX = self._dragBounds.minX;
+
+      var targetX = position.x >= ( self._dragBounds.maxX / 2 ) ? leftX : self._dragBounds.maxX;
 
       var magnetPathBounds = new Bounds2(
         Math.min( targetX, position.x ),
@@ -56,16 +60,19 @@ define( function( require ) {
       var intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
 
       if ( intersectedBounds ) {
-        targetX = targetX > 0 ? intersectedBounds.minX : intersectedBounds.maxX;
+        targetX = targetX > leftX ? 
+                  intersectedBounds.minX - halfMagnetWidth :
+                  intersectedBounds.maxX + halfMagnetWidth;
       }
 
       self.positionProperty.set( position );
-      self.targetPositionProperty.set( new Vector2( targetX, position.y ) );
-    } );
+      self.reflectedPositionProperty.set( new Vector2( targetX, position.y ) );
+    };
+
+    model.magnet.positionProperty.link( setReflectedPosition );
     
 
     this.keydown = function( event ) {
-      console.log( event.keyCode );
       
       if ( self._onKeydown ) {
         self._onKeydown( event );
@@ -89,14 +96,13 @@ define( function( require ) {
           break;
         default:
       }
-
-      console.log( self._stepDelta );
     };
 
     this.keyup = function( event ) {
 
       if ( !self._isAnimating ) {
         if ( event.keyCode >= 49 && event.keyCode <= 51) {
+          self.targetPositionVector = self.reflectedPositionProperty.get().copy();
           self._isAnimating = true;
         }
       }
@@ -123,9 +129,9 @@ define( function( require ) {
     step: function( dt ) {
 
       if ( this._isAnimating ) {
-        if ( !this.positionProperty.get().equals( this.targetPositionProperty.get() ) ) {
+        if ( !this.positionProperty.get().equals( this.targetPositionVector ) ) {
 
-          var diffX = this.targetPositionProperty.get().x - this.positionProperty.get().x;
+          var diffX = this.targetPositionVector.x - this.positionProperty.get().x;
           var direction = diffX < 0 ? -1 : 1;
 
           var deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );

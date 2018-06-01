@@ -125,6 +125,9 @@ define( function( require ) {
         newPosition = model.bounds.closestPointTo( newPosition );
         model.moveMagnetToPosition( newPosition );
       },
+      end: function() {
+        model.showMagnetArrowsProperty.set( false );
+      },
       dragBounds: model.bounds
     } );
 
@@ -160,12 +163,12 @@ define( function( require ) {
       self.addChild( self.reflectedMagnetNode );
       self.reflectedMagnetNode.opacity = 0.5;
       self.reflectedMagnetNode.visible = false;
-      setReflectedNodeCenter( self.magnetJumpKeyboardListener.targetPositionProperty.get() );
+      setReflectedNodeCenter( self.magnetJumpKeyboardListener.reflectedPositionProperty.get() );
     } );
 
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
-    this.magnetJumpKeyboardListener.targetPositionProperty.link( setReflectedNodeCenter );
+    this.magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
   }
 
   /**
