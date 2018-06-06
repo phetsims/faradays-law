@@ -137,6 +137,7 @@ define( function( require ) {
       onKeydown: function( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
           self.reflectedMagnetNode.visible = true;
+          model.showMagnetArrowsProperty.set( false );
         }
       },
       onKeyup: function( event ){
