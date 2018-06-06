@@ -14,6 +14,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
@@ -131,19 +132,37 @@ define( function( require ) {
       dragBounds: model.bounds
     } );
 
+    var leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );
+    var rightJumpArrows = new JumpMagnitudeArrowNode( 'right' );
+    leftJumpArrows.setKeyPositions( self.magnetNode.bounds );
+    rightJumpArrows.setKeyPositions( self.magnetNode.bounds );
+    this.addChild( leftJumpArrows );
+    this.addChild( rightJumpArrows );
+
     draggableNode.addAccessibleInputListener( this.keyboardDragListener );
 
     this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
       onKeydown: function( event ) {
-        if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
+        if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
           self.reflectedMagnetNode.visible = true;
           model.showMagnetArrowsProperty.set( false );
+
+          var magnitude = Number( event.key );
+
+          if ( model.magnet.positionProperty.get().x <= (model.bounds.maxX / 2 ) ) {
+            // point to right
+            rightJumpArrows.showCue( magnitude );
+          } else {
+            leftJumpArrows.showCue( magnitude );
+          }
         }
       },
       onKeyup: function( event ){
         if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
           self.reflectedMagnetNode.visible = false;
         }
+        rightJumpArrows.hideCue();
+        leftJumpArrows.hideCue();
       }
     } );
 
