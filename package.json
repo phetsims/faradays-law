@@ -1,6 +1,10 @@
 {
   "name": "faradays-law",
+<<<<<<< HEAD
   "version": "1.4.0-keyboard-jump.3",
+=======
+  "version": "1.4.0-dev.27",
+>>>>>>> master
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
