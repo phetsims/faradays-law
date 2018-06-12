@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "ba994b71b758c8686a8edf5a31b95a83b2f7608c",
+    "sha": "bc1f66fea88338fb61de4aad469470909a0e2281",
     "branch": "master"
   },
   "dot": {
@@ -21,8 +21,8 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "40f743b20749cad52f5d98e96998b59a489098b2",
-    "branch": "jump"
+    "sha": "45168a07af15439c51b39e3a880dd3ee0d1285a7",
+    "branch": "master"
   },
   "joist": {
     "sha": "85b10c15980fd893bdb3d1cb0216fa0708f304c0",
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "dc01a3e112ca34fb1465e346c15b290b672ed310",
+    "sha": "e5c7148f3344b343b57fe7108a902facd1d875ec",
     "branch": "master"
   },
   "phet-io-wrapper-classroom-activity": {
@@ -49,8 +49,8 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "83080070ad909773ac70798bbc551efb5d810134",
-    "branch": "master"
+    "sha": "e5cf3548b855f44f363adddb34080f04e7e81992",
+    "branch": "new-getSim"
   },
   "phetcommon": {
     "sha": "80414edbe26f41b5f5544377c2dae03a8cca9922",
@@ -61,11 +61,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "8cc3fc5082422b741e74679192cc8463f42578b7",
+    "sha": "e5130bf5c11afeb04c9c148bd1e9d2911db998d0",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "600c417139cc8722ae07eced9f6d96bb5e6ca9ac",
+    "sha": "94379c69bdb905ce3c617231aa62fc00072002ed",
     "branch": "master"
   },
   "sherpa": {
@@ -73,7 +73,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "52ae79c7b2fa78950bc647835503492da8c503cb",
+    "sha": "1213e8dd6231fc918462f04b9b0991c1bce64688",
     "branch": "master"
   },
   "tandem": {
