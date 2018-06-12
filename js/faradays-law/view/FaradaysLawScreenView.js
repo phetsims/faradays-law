@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  // var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
@@ -17,8 +18,11 @@ define( function( require ) {
   var ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  var FaradaysLawSceneSummaryNode = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawSceneSummaryNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
+  // var Node = require( 'SCENERY/nodes/Node' );
+  // var SceneSummaryNode = require( 'SCENERY_PHET/accessibility/nodes/SceneSummaryNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
@@ -33,6 +37,12 @@ define( function( require ) {
     ScreenView.call( this, {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
     } );
+
+    // Scene Summary
+    var sceneSummary = new FaradaysLawSceneSummaryNode( model );
+    // sceneSummary.addChild( new Node( { tagName: 'p', innerContent: sceneSummaryText } ) );
+
+    this.addChild( sceneSummary );
 
     // coils
     var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
