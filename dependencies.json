@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.30 Wed Jun 13 2018 14:56:20 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# faradays-law 1.4.0-dev.31 Wed Jun 13 2018 15:01:51 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "699137edc0b5052c4dc3fe6c38d0086de1efdf18",
+    "sha": "84c983918c35da8c559fd74ea691d913973959be",
     "branch": "phet-io-absolute-url"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "4d2605b68f64b63cdf3ac712f91123ab2a3653d0",
+    "sha": "7f7dd252bfdc8b9103705a4f241aa493bd5dfa51",
     "branch": "master"
   },
   "joist": {
