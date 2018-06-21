@@ -18,19 +18,28 @@ define( function( require ) {
       value: 'Simulation Play Area contains a circuit and a magnet.'
     },
     summaryCircuitHelpTextPatternString: {
-      value: 'Currently, the circuit consist of a lightbulb{{circuitParts}}. These parts are connected together with wires from the circuit.'
+      value: 'Currently, the circuit consist of {{circuitParts}}. These parts are connected together with wires from the circuit.'
     },
-    lightbulbString: {
-      value: 'lightbulb'
+    aLightbulbString: {
+      value: 'a lightbulb'
     },
-    voltMeterString: {
-      value: 'volt meter'
+    aVoltMeterString: {
+      value: 'a volt meter'
     },
-    fourLoopCoilString: {
-      value: 'four-loop coil'
+    aFourLoopCoilString: {
+      value: 'a four-loop coil'
     },
-    twoLoopCoilString: {
-      value: 'two-loop coil'
+    aTwoLoopCoilString: {
+      value: 'a two-loop coil'
+    },
+    twoItemPatternString: {
+      value: '{{first}} and {{second}}'
+    },
+    threeItemPatternString: {
+      value: '{{first}}, {{second}}, and {{third}}'
+    },
+    fourItemPatternString: {
+      value: '{{first}}, {{second}}, {{third}}, and {{fourth}}'
     },
     aString: {
       value: 'a'
@@ -38,11 +47,8 @@ define( function( require ) {
     andString: {
       value: 'and'
     },
-    spaceCommaPatternString: {
-      value: ' {{word}},'
-    },
-    spacePatternString: {
-      value: ' {{word}} '
+    moveMagnetToPlayString: {
+      value: 'Move the magnet to play.'
     }
   };
 

@@ -65,11 +65,12 @@ define( function( require ) {
       tagName: 'div',
       ariaRole: 'application',
       focusable: true,
+      focusHighlightLayerable: true,
       focusHighlight: draggableNodeFocusHighlight
     } );
 
     this.addChild( draggableNode );
-    // this.addChild( draggableNodeFocusHighlight );
+    this.addChild( draggableNodeFocusHighlight );
     draggableNode.addChild( self.magnetNode );
 
     // magnet reflection

@@ -26,15 +26,15 @@ define( function( require ) {
   var sceneSummarySingleScreenIntroString = SceneryPhetA11yStrings.sceneSummarySingleScreenIntro.value;
   var sceneSummaryString = SceneryPhetA11yStrings.sceneSummary.value;
   var playAreaContentDescriptionString = FaradaysLawA11yStrings.playAreaContentDescriptionString.value;
-  var aString = FaradaysLawA11yStrings.aString.value;
-  var andString = FaradaysLawA11yStrings.andString.value;
   var summaryCircuitHelpTextPatternString = FaradaysLawA11yStrings.summaryCircuitHelpTextPatternString.value;
-  var voltMeterString = FaradaysLawA11yStrings.voltMeterString.value;
-  var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoilString.value;
-  var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoilString.value;
-  // var spacePatternString = FaradaysLawA11yStrings.spacePatternString.value;
-  // var spaceCommaPatternString = FaradaysLawA11yStrings.spaceCommaPatternString.value;
-  var andAString = andString + ' ' + aString;
+  var aLightbulbString = FaradaysLawA11yStrings.aLightbulbString.value;
+  var aVoltMeterString = FaradaysLawA11yStrings.aVoltMeterString.value;
+  var aFourLoopCoilString = FaradaysLawA11yStrings.aFourLoopCoilString.value;
+  var aTwoLoopCoilString = FaradaysLawA11yStrings.aTwoLoopCoilString.value;
+  var twoItemPatternString = FaradaysLawA11yStrings.twoItemPatternString.value;
+  var threeItemPatternString = FaradaysLawA11yStrings.threeItemPatternString.value;
+  var fourItemPatternString = FaradaysLawA11yStrings.fourItemPatternString.value;
+  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlayString.value;
 
   /**
    * @constructor
@@ -61,12 +61,14 @@ define( function( require ) {
 
     this.circuitDescriptionNode = new Node( { tagName: 'p' } );
     this.magnetDescriptionNode = new Node( { tagName: 'p' } );
+    this.moveMagnetToPlayNode = new Node( { tagName: 'p', labelContent: moveMagnetToPlayString } );
 
     this.children = [
       openingSummaryNode,
       playAreaContentDescription,
       this.circuitDescriptionNode,
-      this.magnetDescriptionNode
+      this.magnetDescriptionNode,
+      this.moveMagnetToPlayNode
     ];
 
     // link descriptions with properties
@@ -80,29 +82,39 @@ define( function( require ) {
   return inherit( AccessibleSectionNode, FaradaysLawSceneSummaryNode, {
 
     constructCircuitPartsDescription: function( voltMeterDisplayed, twoCoilDisplayed ) {
+
       // a lightbulb and a four-loop coil
       // a lightbulb, a volt meter, and a four-loop coil
       // a lightbulb, a four-loop coil, and a two-loop coil
       // a lightbulb, a volt meter, a four-loop coil, and a two-loop coil
 
-      if ( ! ( voltMeterDisplayed || twoCoilDisplayed ) ) {
-        return andAString + ' ' + fourLoopCoilString;
-      }
-
-      var partsString = ', ';
+      var circuitParts = [ aLightbulbString ];
+      var keys = [ 'first', 'second', 'third', 'fourth' ];
+      var patternString = twoItemPatternString;
 
       if ( voltMeterDisplayed ) {
-        partsString += aString + ' ' + voltMeterString + ', ';
+        circuitParts.push( aVoltMeterString );
       }
+
+      circuitParts.push( aFourLoopCoilString );
 
       if ( twoCoilDisplayed ) {
-        partsString += aString + ' ' + fourLoopCoilString + ', ';
-        partsString += andAString + ' ' + twoLoopCoilString + '.';
-      } else {
-        partsString += andAString + ' ' + fourLoopCoilString + '.';
+        circuitParts.push( aTwoLoopCoilString );
       }
 
-      return partsString;
+      if ( circuitParts.length === 3 ) {
+        patternString = threeItemPatternString;
+      } else if ( circuitParts.length === 4 ) {
+        patternString = fourItemPatternString;
+      }
+
+      var partsObject = {};
+
+      for ( var i = 0; i < circuitParts.length; i++ ) {
+        partsObject[ keys[ i ] ] = circuitParts[ i ];
+      }
+
+      return StringUtils.fillIn( patternString, partsObject );
     },
 
     updateCircuitDescription: function( showVM, showTC ) {
