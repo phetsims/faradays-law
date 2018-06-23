@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Property = require( 'AXON/Property' );
@@ -29,10 +30,10 @@ define( function( require ) {
   function Magnet( tandem ) {
 
     // @public {number} - width of the magnet
-    this.width = 140;
+    this.width = FaradaysLawConstants.MAGNET_WIDTH;
 
     // @public {number} - height of the magnet
-    this.height = 30;
+    this.height = FaradaysLawConstants.MAGNET_HEIGHT;
 
     // @public {Property.<Vector2>} - position of the magnet
     this.positionProperty = new Property( new Vector2( 647, 219 ), {

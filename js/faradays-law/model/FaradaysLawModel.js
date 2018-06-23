@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Model container for the 'Faradays Law' simulation.
@@ -15,9 +15,10 @@ define( function( require ) {
   var Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
   var EdgeEnum = require( 'FARADAYS_LAW/faradays-law/model/EdgeEnum' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
-  var Vector2 = require( 'DOT/Vector2' );
+  // var Vector2 = require( 'DOT/Vector2' );
   var Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
 
   // constants
@@ -52,10 +53,10 @@ define( function( require ) {
     this.magnet = new Magnet( tandem.createTandem( 'magnet' ) );
 
     // @public - bottom coil
-    this.bottomCoil = new Coil( new Vector2( 448, 328 ), 4, this.magnet );
+    this.bottomCoil = new Coil( FaradaysLawConstants.BOTTOM_COIL_POSITION, 4, this.magnet );
 
     // @public - top coil
-    this.topCoil = new Coil( new Vector2( 422, 131 ), 2, this.magnet );
+    this.topCoil = new Coil( FaradaysLawConstants.TOP_COIL_POSITION, 2, this.magnet );
 
     // @private - regions the magnet cannot be dragged
     this.listOfRestrictedBounds = [
@@ -131,7 +132,7 @@ define( function( require ) {
 
       for ( var i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
         var restrictedBounds = this.listOfRestrictedBounds[ i ];
-        
+
         if ( bounds.intersectsBounds( restrictedBounds ) ) {
           return restrictedBounds;
         }

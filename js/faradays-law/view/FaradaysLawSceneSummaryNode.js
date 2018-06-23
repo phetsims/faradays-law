@@ -5,7 +5,7 @@
  * A node that creates a "Scene Summary" accessible section in the pDOM. This type prevents duplicated code because
  * all scene summaries have the same label, structure, and intro sentence.
  *
- * @author Michael Kauzmann (PhET Interactive Simulations)
+ * @author Michael Barlow (PhET Interactive Simulations)
  */
 
 define( function( require ) {
@@ -13,10 +13,11 @@ define( function( require ) {
 
   // modules
   var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  // var BooleanProperty = require( 'AXON/BooleanProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MagnetPositionRegionMap = require( 'FARADAYS_LAW/faradays-law/view/MagnetPositionRegionMap' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var SceneryPhetA11yStrings = require( 'SCENERY_PHET/SceneryPhetA11yStrings' );
@@ -25,17 +26,22 @@ define( function( require ) {
   // a11y strings
   var sceneSummarySingleScreenIntroString = SceneryPhetA11yStrings.sceneSummarySingleScreenIntro.value;
   var sceneSummaryString = SceneryPhetA11yStrings.sceneSummary.value;
-  var playAreaContentDescriptionString = FaradaysLawA11yStrings.playAreaContentDescriptionString.value;
-  var summaryCircuitHelpTextPatternString = FaradaysLawA11yStrings.summaryCircuitHelpTextPatternString.value;
-  var aLightbulbString = FaradaysLawA11yStrings.aLightbulbString.value;
-  var aVoltMeterString = FaradaysLawA11yStrings.aVoltMeterString.value;
+  var playAreaContainsString = FaradaysLawA11yStrings.playAreaContainsString.value;
+  var circuitAndCoilPatternString = FaradaysLawA11yStrings.circuitAndCoilPatternString.value;
+  var magnetPositionPatternString = FaradaysLawA11yStrings.magnetPositionPatternString.value;
+  // var coilProximityPatternString = FaradaysLawA11yStrings.coilProximityPatternString.value;
+  // var aLightbulbString = FaradaysLawA11yStrings.aLightbulbString.value;
   var aFourLoopCoilString = FaradaysLawA11yStrings.aFourLoopCoilString.value;
+  // var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoilString.value;
   var aTwoLoopCoilString = FaradaysLawA11yStrings.aTwoLoopCoilString.value;
+  // var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoilString.value;
   var twoItemPatternString = FaradaysLawA11yStrings.twoItemPatternString.value;
-  var threeItemPatternString = FaradaysLawA11yStrings.threeItemPatternString.value;
-  var fourItemPatternString = FaradaysLawA11yStrings.fourItemPatternString.value;
+  // var threeItemPatternString = FaradaysLawA11yStrings.threeItemPatternString.value;
+  // var fourItemPatternString = FaradaysLawA11yStrings.fourItemPatternString.value;
   var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlayString.value;
 
+  // constants
+  // var COILS_Y_MIDPOINT = 230;
   /**
    * @constructor
    * @param {string} sceneSummary - the text for the sim specific part of the intro paragraph
@@ -45,7 +51,8 @@ define( function( require ) {
 
     var self = this;
 
-    this.voltMeterProperty = new BooleanProperty( true );
+    this._magnetRegionMap = new MagnetPositionRegionMap( model.bounds );
+    this._model = model;
 
     // options for accessibility, but others can be passed to Node call
     options = _.extend( {
@@ -57,23 +64,31 @@ define( function( require ) {
     // different default string depending on if there are multiple screens
     var openingSummaryNode = new Node( { tagName: 'p', innerContent: sceneSummarySingleScreenIntroString } );
 
-    var playAreaContentDescription = new Node( { tagName: 'p', innerContent: playAreaContentDescriptionString } );
+    var playAreaContentDescription = new Node( { labelTagName: 'p', labelContent: playAreaContainsString } );
 
-    this.circuitDescriptionNode = new Node( { tagName: 'p' } );
-    this.magnetDescriptionNode = new Node( { tagName: 'p' } );
-    this.moveMagnetToPlayNode = new Node( { tagName: 'p', labelContent: moveMagnetToPlayString } );
+    var summaryListNode = new Node( { tagName: 'ul' } );
+    playAreaContentDescription.addChild( summaryListNode );
+
+    this.circuitDescriptionNode = new Node( { tagName: 'li' } );
+    this.magnetDescriptionNode = new Node( { tagName: 'li' } );
+    summaryListNode.addChild( this.circuitDescriptionNode );
+    summaryListNode.addChild( this.magnetDescriptionNode );
+
+    var moveMagnetToPlayNode = new Node( { tagName: 'p', labelContent: moveMagnetToPlayString } );
 
     this.children = [
       openingSummaryNode,
       playAreaContentDescription,
-      this.circuitDescriptionNode,
-      this.magnetDescriptionNode,
-      this.moveMagnetToPlayNode
+      moveMagnetToPlayNode
     ];
 
     // link descriptions with properties
-    Property.multilink( [ this.voltMeterProperty, model.showTopCoilProperty ], function( showVoltMeter, showTopCoil ) {
-      self.updateCircuitDescription( showVoltMeter, showTopCoil );
+    model.showTopCoilProperty.link( function( showTopCoil ) {
+      self.updateCircuitDescription( showTopCoil );
+    } );
+
+    Property.multilink( [ model.showTopCoilProperty, model.magnet.positionProperty ], function( showTopCoil, magnetPosition ) {
+      self.updateMagnetDescription( showTopCoil, magnetPosition );
     } );
   }
 
@@ -81,46 +96,35 @@ define( function( require ) {
 
   return inherit( AccessibleSectionNode, FaradaysLawSceneSummaryNode, {
 
-    constructCircuitPartsDescription: function( voltMeterDisplayed, twoCoilDisplayed ) {
+    constructCoilString: function( showTopCoil ) {
 
-      // a lightbulb and a four-loop coil
-      // a lightbulb, a volt meter, and a four-loop coil
-      // a lightbulb, a four-loop coil, and a two-loop coil
-      // a lightbulb, a volt meter, a four-loop coil, and a two-loop coil
-
-      var circuitParts = [ aLightbulbString ];
-      var keys = [ 'first', 'second', 'third', 'fourth' ];
-      var patternString = twoItemPatternString;
-
-      if ( voltMeterDisplayed ) {
-        circuitParts.push( aVoltMeterString );
+      if ( showTopCoil ) {
+        return StringUtils.fillIn( twoItemPatternString, { first: aTwoLoopCoilString, second: aFourLoopCoilString } );
       }
 
-      circuitParts.push( aFourLoopCoilString );
-
-      if ( twoCoilDisplayed ) {
-        circuitParts.push( aTwoLoopCoilString );
-      }
-
-      if ( circuitParts.length === 3 ) {
-        patternString = threeItemPatternString;
-      } else if ( circuitParts.length === 4 ) {
-        patternString = fourItemPatternString;
-      }
-
-      var partsObject = {};
-
-      for ( var i = 0; i < circuitParts.length; i++ ) {
-        partsObject[ keys[ i ] ] = circuitParts[ i ];
-      }
-
-      return StringUtils.fillIn( patternString, partsObject );
+      return aFourLoopCoilString;
     },
 
-    updateCircuitDescription: function( showVM, showTC ) {
-      var partsString = this.constructCircuitPartsDescription( showVM, showTC );
-      var newInnerContent = StringUtils.fillIn( summaryCircuitHelpTextPatternString, { circuitParts: partsString } );
+    updateCircuitDescription: function( showTopCoil ) {
+      var partsString = this.constructCoilString( showTopCoil );
+      var newInnerContent = StringUtils.fillIn( circuitAndCoilPatternString, { coilString: partsString } );
       this.circuitDescriptionNode.innerContent = newInnerContent;
+    },
+
+    updateMagnetDescription: function( magnetPosition ) {
+      // body...
+    },
+
+    getMagnetLocationDescription: function( position ) {
+      var location = this._magnetRegionMap.getRegionTextFromPoint( position );
+      return StringUtils.fillIn( magnetPositionPatternString, { location: location } );
+    },
+
+    getMagnetProximityToCoilDescription: function( magnetPosition, coilPosition ) {
+      // var pattern = coilProximityPatternString;
+      // var coil = coilPosition > COILS_Y_MIDPOINT ? theFourLoopCoilString : theTwoLoopCoilString;
+      //
+      // var distance = coilPosition.distance( magnetPosition );
     }
   } );
 } );
