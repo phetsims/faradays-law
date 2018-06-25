@@ -102,6 +102,18 @@ define( function( require ) {
 
     this.addChild( coilRadioButtonGroup );
 
+    var showVoltmeterLabel = new Text( 'Volt Meter', { font: new PhetFont( 16 ) } );
+    showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
+
+    var showVoltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.showVoltmeterProperty, {
+      x: 174,
+      centerY: coilRadioButtonGroup.centerY - 20,
+      tandem: tandem.createTandem( 'showVoltmeterCheckbox' ),
+      phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.'
+    } );
+    showVoltmeterCheckbox.touchArea = showVoltmeterCheckbox.localBounds.dilated( 8 );
+    this.addChild( showVoltmeterCheckbox );
+
     // Create the label for the "Show Field Lines" checkbox, scaling it if it's too long.
     var showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
@@ -109,7 +121,7 @@ define( function( require ) {
     // show field lines
     var showFieldCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
       x: 174,
-      centerY: coilRadioButtonGroup.centerY,
+      centerY: coilRadioButtonGroup.centerY + 20,
       tandem: tandem.createTandem( 'showFieldCheckbox' ),
       phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.'
     } );
@@ -119,7 +131,13 @@ define( function( require ) {
     this.bottom = model.bounds.maxY - 10;
 
     // a11y keyboard nav order
-    this.accessibleOrder = [ showFieldCheckbox, coilRadioButtonGroup, flipMagnetButton, resetAllButton ];
+    this.accessibleOrder = [
+      showVoltmeterCheckbox,
+      showFieldCheckbox,
+      coilRadioButtonGroup,
+      flipMagnetButton,
+      resetAllButton
+    ];
   }
 
   faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );

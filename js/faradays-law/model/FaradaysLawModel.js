@@ -49,6 +49,11 @@ define( function( require ) {
       phetioInstanceDocumentation: 'True if the magnet arrows are shown.'
     } );
 
+    this.showVoltmeterProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'showVoltmeterProperty' ),
+      phetioInstanceDocumentation: 'True if the voltmeter is shown'
+    } );
+
     // @public - the magnet which can be dragged
     this.magnet = new Magnet( tandem.createTandem( 'magnet' ) );
 

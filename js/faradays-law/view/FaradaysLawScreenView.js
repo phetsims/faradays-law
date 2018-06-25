@@ -69,13 +69,19 @@ define( function( require ) {
 
     // voltmeter and bulb created
     var voltmeterNode = new VoltmeterNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
+    var voltmeterWiresNode = new VoltmeterWiresNode( voltmeterNode );
     var bulbNode = new BulbNode( model.voltmeter.voltageProperty, {
       center: FaradaysLawConstants.BULB_POSITION
     } );
 
     // wires
     this.addChild( new CoilsWiresNode( this, model.showTopCoilProperty ) );
-    this.addChild( new VoltmeterWiresNode( voltmeterNode ) );
+    this.addChild( voltmeterWiresNode );
+
+    model.showVoltmeterProperty.link( function( showVoltmeter ) {
+      voltmeterNode.visible = showVoltmeter;
+      voltmeterWiresNode.visible = showVoltmeter;
+    } );
 
     // bulb added
     this.addChild( bulbNode );
