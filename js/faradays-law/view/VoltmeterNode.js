@@ -39,14 +39,11 @@ define( function( require ) {
 
   /**
    * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
-   * @param {Tandem} tandem
+   * @param {Tandem} tandem - This type should not be instrumented! Instead it will be instrumented by VoltmeterAndWiresNode, see https://github.com/phetsims/faradays-law/issues/106
    * @constructor
    */
   function VoltmeterNode( needleAngleProperty, tandem ) {
-    Node.call( this, {
-      tandem: tandem,
-      phetioInstanceDocumentation: 'The displayed voltmeter.'
-    } );
+    Node.call( this );
 
     var background = new ShadedRectangle( new Bounds2( 0, 0, 170, RECTANGLE_HEIGHT ), {
       cornerRadius: 10,

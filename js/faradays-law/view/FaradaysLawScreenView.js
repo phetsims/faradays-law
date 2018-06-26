@@ -21,8 +21,7 @@ define( function( require ) {
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
-  var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
-  var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
+  var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
   /**
    * @param {FaradaysLawModel} model - Faraday's Law simulation model object
@@ -58,25 +57,17 @@ define( function( require ) {
     };
 
     // voltmeter and bulb created
-    var voltmeterNode = new VoltmeterNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
-    var voltmeterWiresNode = new VoltmeterWiresNode( voltmeterNode );
+    var voltmeterAndWiresNode = new VoltmeterAndWiresNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
     var bulbNode = new BulbNode( model.voltmeter.voltageProperty, {
       center: FaradaysLawConstants.BULB_POSITION
     } );
 
     // wires
     this.addChild( new CoilsWiresNode( this, model.showTopCoilProperty ) );
-    this.addChild( voltmeterWiresNode );
 
     // exists for the lifetime of the sim, no need to dispose
     model.showVoltmeterProperty.link( function( showVoltmeter ) {
-      voltmeterNode.visible = showVoltmeter;
-      voltmeterWiresNode.visible = showVoltmeter;
-    } );
-
-    // exists for the lifetime of the sim, no need to dispose
-    voltmeterNode.on( 'opacity', function() {
-      voltmeterWiresNode.opacity = voltmeterNode.opacity;
+      voltmeterAndWiresNode.visible = showVoltmeter;
     } );
 
     // bulb added
@@ -92,8 +83,7 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     // voltmeter added
-    voltmeterNode.center = FaradaysLawConstants.VOLTMETER_POSITION;
-    this.addChild( voltmeterNode );
+    this.addChild( voltmeterAndWiresNode );
 
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
