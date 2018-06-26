@@ -68,9 +68,15 @@ define( function( require ) {
     this.addChild( new CoilsWiresNode( this, model.showTopCoilProperty ) );
     this.addChild( voltmeterWiresNode );
 
+    // exists for the lifetime of the sim, no need to dispose
     model.showVoltmeterProperty.link( function( showVoltmeter ) {
       voltmeterNode.visible = showVoltmeter;
       voltmeterWiresNode.visible = showVoltmeter;
+    } );
+
+    // exists for the lifetime of the sim, no need to dispose
+    voltmeterNode.on( 'opacity', function() {
+      voltmeterWiresNode.opacity = voltmeterNode.opacity;
     } );
 
     // bulb added
