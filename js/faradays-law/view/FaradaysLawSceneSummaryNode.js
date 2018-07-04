@@ -17,18 +17,18 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetPositionRegionMap = require( 'FARADAYS_LAW/faradays-law/view/MagnetPositionRegionMap' );
+  // var MagnetDescriptionGenerator = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptionGenerator' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
+  // var Property = require( 'AXON/Property' );
   var SceneryPhetA11yStrings = require( 'SCENERY_PHET/SceneryPhetA11yStrings' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // a11y strings
   var sceneSummarySingleScreenIntroString = SceneryPhetA11yStrings.sceneSummarySingleScreenIntro.value;
   var sceneSummaryString = SceneryPhetA11yStrings.sceneSummary.value;
-  var playAreaContainsString = FaradaysLawA11yStrings.playAreaContainsString.value;
-  var circuitAndCoilPatternString = FaradaysLawA11yStrings.circuitAndCoilPatternString.value;
-  var magnetPositionPatternString = FaradaysLawA11yStrings.magnetPositionPatternString.value;
+  var summaryCircuitPatternString = FaradaysLawA11yStrings.summaryCircuitPatternString.value;
+  var magnetCheckboxButtonsSummaryString = FaradaysLawA11yStrings.magnetCheckboxButtonsSummaryString.value;
+  // var magnetPositionPatternString = FaradaysLawA11yStrings.magnetPositionPatternString.value;
   // var coilProximityPatternString = FaradaysLawA11yStrings.coilProximityPatternString.value;
   // var aLightbulbString = FaradaysLawA11yStrings.aLightbulbString.value;
   var aFourLoopCoilString = FaradaysLawA11yStrings.aFourLoopCoilString.value;
@@ -51,7 +51,7 @@ define( function( require ) {
 
     var self = this;
 
-    this._magnetRegionMap = new MagnetPositionRegionMap( model.bounds );
+    // this._magnetDescriptionGenerator = new MagnetDescriptionGenerator( model );
     this._model = model;
 
     // options for accessibility, but others can be passed to Node call
@@ -64,31 +64,21 @@ define( function( require ) {
     // different default string depending on if there are multiple screens
     var openingSummaryNode = new Node( { tagName: 'p', innerContent: sceneSummarySingleScreenIntroString } );
 
-    var playAreaContentDescription = new Node( { labelTagName: 'p', labelContent: playAreaContainsString } );
-
-    var summaryListNode = new Node( { tagName: 'ul' } );
-    playAreaContentDescription.addChild( summaryListNode );
-
-    this.circuitDescriptionNode = new Node( { tagName: 'li' } );
-    this.magnetDescriptionNode = new Node( { tagName: 'li' } );
-    summaryListNode.addChild( this.circuitDescriptionNode );
-    summaryListNode.addChild( this.magnetDescriptionNode );
+    this.circuitDescriptionNode = new Node( { tagName: 'p' } );
+    this.magnetDescriptionNode = new Node( { tagName: 'p', innerContent: magnetCheckboxButtonsSummaryString } );
 
     var moveMagnetToPlayNode = new Node( { tagName: 'p', labelContent: moveMagnetToPlayString } );
 
     this.children = [
       openingSummaryNode,
-      playAreaContentDescription,
+      this.circuitDescriptionNode,
+      this.magnetDescriptionNode,
       moveMagnetToPlayNode
     ];
 
     // link descriptions with properties
     model.showTopCoilProperty.link( function( showTopCoil ) {
       self.updateCircuitDescription( showTopCoil );
-    } );
-
-    Property.multilink( [ model.showTopCoilProperty, model.magnet.positionProperty ], function( showTopCoil, magnetPosition ) {
-      self.updateMagnetDescription( showTopCoil, magnetPosition );
     } );
   }
 
@@ -107,24 +97,8 @@ define( function( require ) {
 
     updateCircuitDescription: function( showTopCoil ) {
       var partsString = this.constructCoilString( showTopCoil );
-      var newInnerContent = StringUtils.fillIn( circuitAndCoilPatternString, { coilString: partsString } );
+      var newInnerContent = StringUtils.fillIn( summaryCircuitPatternString, { coilString: partsString } );
       this.circuitDescriptionNode.innerContent = newInnerContent;
-    },
-
-    updateMagnetDescription: function( magnetPosition ) {
-      // body...
-    },
-
-    getMagnetLocationDescription: function( position ) {
-      var location = this._magnetRegionMap.getRegionTextFromPoint( position );
-      return StringUtils.fillIn( magnetPositionPatternString, { location: location } );
-    },
-
-    getMagnetProximityToCoilDescription: function( magnetPosition, coilPosition ) {
-      // var pattern = coilProximityPatternString;
-      // var coil = coilPosition > COILS_Y_MIDPOINT ? theFourLoopCoilString : theTwoLoopCoilString;
-      //
-      // var distance = coilPosition.distance( magnetPosition );
     }
   } );
 } );

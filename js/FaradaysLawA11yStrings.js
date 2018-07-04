@@ -3,8 +3,7 @@
 /**
  * Magnet Node with field lines, draggable.
  *
- * @author Vasily Shakhov (MLearner)
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Barlow (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -14,14 +13,29 @@ define( function( require ) {
   // var inherit = require( 'PHET_CORE/inherit' );
 
   var FaradaysLawA11yStrings = {
-    playAreaContainsString: {
-      value: 'Simulation Play Area contains:'
+    sceneSummaryString: {
+      value: 'Faraday\'s Law is an interactive sim. It changes as you play with it.'
+    },
+    summaryDescriptionString: {
+      value: 'The play area has a light bulb circuit, and a moveable bar magnet. There are controls that change what is connected to the circuit,  flip the bar magnet, and reset the sim.'
+    },
+    moveMagnetToPlayString: {
+      value: 'Move the magnet to play.'
+    },
+    lightBulbCircuitLabelString: {
+      value: 'Light Bulb Circuit'
+    },
+    circuitFourCoilOnlyString: {
+      value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right - the bar magnet can pass through.'
+    },
+    lightbulbCircuitPatternString: {
+      value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
+    },
+    voltMeterAttachedString: {
+      value: 'A volt meter attached is also attached to the circuit.'
     },
     aLightbulbString: {
       value: 'a lightbulb'
-    },
-    circuitAndCoilPatternString: {
-      value: 'a ligthbulb circuit with {{coilString}}'
     },
     coilProximityPatternString: {
       value: '{{proximity}} to the {{number}} loop coil'
@@ -31,6 +45,18 @@ define( function( require ) {
     },
     aVoltMeterString: {
       value: 'a volt meter'
+    },
+    aNumberLoopPatternString: {
+      value: 'a {{number}} loop'
+    },
+    theNumberLoopPatternString: {
+      value: 'the {{number}} loop'
+    },
+    aLoopCoilPatternString: {
+      value: 'a {{loops}} coil'
+    },
+    theLoopCoilPatternString: {
+      value: 'the {{loops}} coil'
     },
     aFourLoopCoilString: {
       value: 'a 4 loop coil'
@@ -65,9 +91,6 @@ define( function( require ) {
     andString: {
       value: 'and'
     },
-    moveMagnetToPlayString: {
-      value: 'Move the magnet to play.'
-    },
     topLeftString: {
       value: 'top-left'
     },
@@ -100,6 +123,21 @@ define( function( require ) {
     },
     inString: {
       value: 'in'
+    },
+    farFromString: {
+      value: 'far from'
+    },
+    closeToString: {
+      value: 'close to'
+    },
+    veryCloseToString: {
+      value: 'very close to'
+    },
+    leftString: {
+      value: 'left'
+    },
+    rightString: {
+      value: 'right'
     }
   };
 

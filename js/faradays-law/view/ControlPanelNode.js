@@ -21,7 +21,6 @@ define( function( require ) {
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -35,18 +34,6 @@ define( function( require ) {
    */
   function ControlPanelNode( model, tandem ) {
     Node.call( this );
-
-    // reset button
-    var resetAllButton = new ResetAllButton( {
-      listener: model.reset.bind( model ),
-      right: model.bounds.maxX - 10,
-      bottom: 0,
-      scale: 0.75,
-      touchAreaDilation: 10,
-      tandem: tandem.createTandem( 'resetAllButton' ),
-      phetioInstanceDocumentation: 'Round button in the bottom right corner that can be used to return the simualtion to its initial state.'
-    } );
-    this.addChild( resetAllButton );
 
     // flip magnet button
     var flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
@@ -135,8 +122,7 @@ define( function( require ) {
       showVoltmeterCheckbox,
       showFieldCheckbox,
       coilRadioButtonGroup,
-      flipMagnetButton,
-      resetAllButton
+      flipMagnetButton
     ];
   }
 

@@ -10,23 +10,32 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
+  var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
+  var CircuitDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/CircuitDescriptionNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  var FaradaysLawSceneSummaryNode = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawSceneSummaryNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
-  // var Node = require( 'SCENERY/nodes/Node' );
+  var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   // var SceneSummaryNode = require( 'SCENERY_PHET/accessibility/nodes/SceneSummaryNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var SceneryPhetA11yStrings = require( 'SCENERY_PHET/SceneryPhetA11yStrings' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
   var VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
+
+  // strings
+  var sceneSummaryString = FaradaysLawA11yStrings.sceneSummaryString.value;
+  var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescriptionString.value;
+  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlayString.value;
 
   /**
    * @param {FaradaysLawModel} model - Faraday's Law simulation model object
@@ -39,10 +48,19 @@ define( function( require ) {
     } );
 
     // Scene Summary
-    var sceneSummary = new FaradaysLawSceneSummaryNode( model );
-    // sceneSummary.addChild( new Node( { tagName: 'p', innerContent: sceneSummaryText } ) );
+    var sceneSummary = new AccessibleSectionNode( SceneryPhetA11yStrings.sceneSummary.value );
+    sceneSummary.addChild( new Node( { tagName: 'p', innerContent: sceneSummaryString } ) );
+    sceneSummary.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
+    sceneSummary.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
+
+    var playArea = new PlayAreaNode();
+
+    var circuitDescriptionNode = new CircuitDescriptionNode( model );
+
+    playArea.addChild( circuitDescriptionNode );
 
     this.addChild( sceneSummary );
+    this.addChild( playArea );
 
     // coils
     var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
@@ -103,8 +121,20 @@ define( function( require ) {
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
     this.addChild( this.magnetNodeWithField );
 
+    // reset button
+    var resetAllButton = new ResetAllButton( {
+      listener: model.reset.bind( model ),
+      right: model.bounds.maxX - 10,
+      bottom: model.bounds.maxY,
+      scale: 0.75,
+      touchAreaDilation: 10,
+      tandem: tandem.createTandem( 'resetAllButton' ),
+      phetioInstanceDocumentation: 'Round button in the bottom right corner that can be used to return the simualtion to its initial state.'
+    } );
+    this.addChild( resetAllButton );
+
     // a11y keyboard nav order
-    this.accessibleOrder = [ this.magnetNodeWithField, controlPanel ];
+    this.accessibleOrder = [ sceneSummary, playArea, this.magnetNodeWithField, controlPanel, resetAllButton ];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();

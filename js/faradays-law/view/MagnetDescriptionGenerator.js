@@ -46,8 +46,8 @@ define( function( require ) {
 
   var EDGE_TOLERANCE = 5;
 
-  function MagnetPositionDescriptionGenerator ( model ) {
-
+  function MagnetDescriptionGenerator( model ) {
+    var self = this;
     // likely private
     this._bounds = model.bounds;
     this._magnet = model.magnet;
@@ -60,7 +60,7 @@ define( function( require ) {
 
     // create 9 regions for magnet position and ensure they DO NOT overlap
     var regionWidth = Util.roundSymmetric( this._bounds.width / 3 );
-    var regionHeight = Util.roundSymmetric( this._bounds.width / 3 );
+    var regionHeight = Util.roundSymmetric( this._bounds.height / 3 );
 
     this.rows = [
       new Range( this._bounds.minY, regionHeight - 1 ),
@@ -90,13 +90,13 @@ define( function( require ) {
     );
 
     this._magnet.positionProperty.link( function( position ) {
-      this._magnetPosition = position;
+      self._magnetPosition = position;
     } );
   }
 
-  faradaysLaw.register( 'MagnetPositionDescriptionGenerator', MagnetPositionDescriptionGenerator );
+  faradaysLaw.register( 'MagnetDescriptionGenerator', MagnetDescriptionGenerator );
 
-  return inherit( Object, MagnetPositionDescriptionGenerator, {
+  return inherit( Object, MagnetDescriptionGenerator, {
 
     getRow: function ( y ) {
       for ( var i = 0; i < this.rows.length; i++ ) {
