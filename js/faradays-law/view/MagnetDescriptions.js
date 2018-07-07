@@ -18,9 +18,11 @@ define( function( require ) {
   // var Vector2 = require( 'DOT/Vector2' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
   var Range = require( 'DOT/Range' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var topLeftString = FaradaysLawA11yStrings.topLeftString.value;
@@ -46,11 +48,17 @@ define( function( require ) {
 
   var EDGE_TOLERANCE = 5;
 
-  function MagnetDescriptionGenerator( model ) {
+  // can create a linear function to map distances to integers 0 - 2
+  // var PROXIMITY_STRINGS = [ 'Very close to', 'Close to', 'Far from' ];
+
+  var proxMap = new LinearFunction( 0, 260, 0, 2, true );
+
+  function MagnetDescriptions( model ) {
     var self = this;
     // likely private
     this._bounds = model.bounds;
     this._magnet = model.magnet;
+    this._magnetPosition = new Vector2( 0, 0 );
     this._topCoilPosition = model.topCoil.position;
     this._bottomCoilPosition = model.bottomCoil.position;
 
@@ -91,12 +99,13 @@ define( function( require ) {
 
     this._magnet.positionProperty.link( function( position ) {
       self._magnetPosition = position;
+        self.bottomCoilProximityString;
     } );
   }
 
-  faradaysLaw.register( 'MagnetDescriptionGenerator', MagnetDescriptionGenerator );
+  faradaysLaw.register( 'MagnetDescriptions', MagnetDescriptions );
 
-  return inherit( Object, MagnetDescriptionGenerator, {
+  return inherit( Object, MagnetDescriptions, {
 
     getRow: function ( y ) {
       for ( var i = 0; i < this.rows.length; i++ ) {
@@ -136,11 +145,15 @@ define( function( require ) {
     },
 
     get bottomCoilProximityString() {
+      // debugger;
       var magnetBounds = this.createMagnetBounds();
 
       if ( this._bottomCoilInnerBounds.intersectsBounds( magnetBounds ) ) {
         return inString;
       }
+
+      var distance = this._magnetPosition.distance( this._bottomCoilPosition );
+      var i = Util.toFixedNumber( proxMap( distance ), 0 );
     },
 
     createMagnetBounds: function () {

@@ -17,6 +17,7 @@ define( function( require ) {
   var JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
+  var MagnetDescriptions = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptions' );
   var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
@@ -44,7 +45,7 @@ define( function( require ) {
   function MagnetNodeWithField( model, tandem ) {
     var self = this;
     Node.call( this );
-
+    var desc = new MagnetDescriptions( model );
     // magnet
     this.magnetNode = createMagnetNode( model.magnet );
 
@@ -109,6 +110,8 @@ define( function( require ) {
 
         // arrows always are turned invisible when the user stops dragging the magnet
         model.showMagnetArrowsProperty.set( false );
+        var d = model.magnet.positionProperty.get().distance( model.bottomCoil.position );
+        console.log( 'distance to b coil:', d );
       },
 
       // Translate on drag events

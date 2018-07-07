@@ -49,7 +49,9 @@ define( function( require ) {
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
       tandem: tandem,
-      phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.'
+      phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.',
+      innerContent: 'Button: flip magnet',
+      descriptionContent: 'Flip North and South poles'
     }, options ) );
   }
 

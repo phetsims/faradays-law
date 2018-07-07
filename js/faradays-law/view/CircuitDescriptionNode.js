@@ -29,8 +29,6 @@ define( function( require ) {
 
   function CircuitDescriptionNode ( model, options ) {
 
-    var self = this;
-
     options = _.extend( {
       tagName: 'div',
       labelTagName: 'h3',
@@ -38,6 +36,9 @@ define( function( require ) {
     }, options );
 
     Node.call( this, options );
+
+    var dynamicChildrenNode = new Node();
+    this.addChild( dynamicChildrenNode );
 
     var fourCoilOnlyNode = new Node( {
       tagName: 'p',
@@ -61,14 +62,14 @@ define( function( require ) {
       [ model.showTopCoilProperty, model.showVoltmeterProperty ],
       function( showTopCoil, showVoltmeter ) {
         if ( !( showTopCoil || showVoltmeter ) ) {
-          self.children = [ fourCoilOnlyNode ];
+          dynamicChildrenNode.children = [ fourCoilOnlyNode ];
         } else {
           var children = [];
           children.push( fourLoopItem );
           showTopCoil && children.push( twoLoopItem );
           showVoltmeter && children.push( voltmeterItem );
           otherComponentsNode.children = children;
-          self.children = [ otherComponentsNode ];
+          dynamicChildrenNode.children = [ otherComponentsNode ];
         }
       }
     );

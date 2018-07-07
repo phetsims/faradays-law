@@ -24,7 +24,6 @@ define( function( require ) {
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
   var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   // var SceneSummaryNode = require( 'SCENERY_PHET/accessibility/nodes/SceneSummaryNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SceneryPhetA11yStrings = require( 'SCENERY_PHET/SceneryPhetA11yStrings' );
@@ -117,20 +116,15 @@ define( function( require ) {
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
     this.addChild( this.magnetNodeWithField );
 
-    // reset button
-    var resetAllButton = new ResetAllButton( {
-      listener: model.reset.bind( model ),
-      right: model.bounds.maxX - 10,
-      bottom: model.bounds.maxY,
-      scale: 0.75,
-      touchAreaDilation: 10,
-      tandem: tandem.createTandem( 'resetAllButton' ),
-      phetioInstanceDocumentation: 'Round button in the bottom right corner that can be used to return the simualtion to its initial state.'
-    } );
-    this.addChild( resetAllButton );
-
     // a11y keyboard nav order
-    this.accessibleOrder = [ sceneSummary, playArea, this.magnetNodeWithField, controlPanel, resetAllButton ];
+    this.accessibleOrder = [
+      sceneSummary,
+      playArea,
+      this.magnetNodeWithField,
+      controlPanel,
+      controlPanel.flipMagnetButton,
+      controlPanel.resetAllButton
+    ];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();

@@ -21,6 +21,7 @@ define( function( require ) {
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -33,17 +34,34 @@ define( function( require ) {
    * @constructor
    */
   function ControlPanelNode( model, tandem ) {
-    Node.call( this );
+
+    Node.call( this, {
+        tagName: 'ul',
+        labelTagName: 'p',
+        labelContent: 'Controls:'
+    } );
+
+    // reset button - @public for a11y
+    this.resetAllButton = new ResetAllButton( {
+      listener: model.reset.bind( model ),
+      right: model.bounds.maxX - 10,
+      bottom: 0,
+      scale: 0.75,
+      touchAreaDilation: 10,
+      tandem: tandem.createTandem( 'resetAllButton' ),
+      phetioInstanceDocumentation: 'Round button in the bottom right corner that can be used to return the simualtion to its initial state.'
+    } );
+    this.addChild( this.resetAllButton );
 
     // flip magnet button
-    var flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
+    this.flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
       listener: function() {
         model.magnet.orientationProperty.set( OrientationEnum.opposite( model.magnet.orientationProperty.get() ) );
       },
       bottom: 0,
       right: model.bounds.maxX - 110
     } );
-    this.addChild( flipMagnetButton );
+    this.addChild( this.flipMagnetButton );
 
     // add radio button group for showing/hiding the second coil
     var coilButtonGroupOptions = {
@@ -61,9 +79,17 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'singleCoilRadioButton',
-      phetioInstanceDocumentation: 'Radio button that selects a single coil.'
+      phetioInstanceDocumentation: 'Radio button that selects a single coil.',
+      labelContent: '1 coil'
     }, {
-      value: true,
+      value: true,// var coilRadioButtonsItem = new Node( {
+    //   containerTagName: 'li',
+    //   tagName: 'div',
+    //   labelContent: 'Circuit Mode:',
+    //   labelTagName: 'p'
+    // } );
+
+    // this.addChild( coilRadioButtonsItem );
       node: new VBox( _.extend( {
         children: [
           new CoilNode( CoilTypeEnum.TWO_COIL ),
@@ -71,7 +97,8 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'doubleCoilRadioButton',
-      phetioInstanceDocumentation: 'Radio button that selects double coils.'
+      phetioInstanceDocumentation: 'Radio button that selects double coils.',
+      labelContent: '2 coil'
     } ];
 
     var coilRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
@@ -84,10 +111,11 @@ define( function( require ) {
       selectedLineWidth: 3,
       deselectedLineWidth: 1,
       tandem: tandem.createTandem( 'coilRadioButtonGroup' ),
-      phetioInstanceDocumentation: 'Radio button group that selects between one or two coils.'
+      phetioInstanceDocumentation: 'Radio button group that selects between one or two coils.',
+      containerTagName: 'li',
+      labelTagName: 'p',
+      labelContent: 'Button group: "Circuit mode"'
     } );
-
-    this.addChild( coilRadioButtonGroup );
 
     var showVoltmeterLabel = new Text( 'Volt Meter', { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
@@ -96,7 +124,10 @@ define( function( require ) {
       x: 174,
       centerY: coilRadioButtonGroup.centerY - 20,
       tandem: tandem.createTandem( 'showVoltmeterCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.'
+      phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.',
+      containerTagName: 'li',
+      labelTagName: 'label',
+      labelContent: 'Connect voltmeter to circuit'
     } );
     showVoltmeterCheckbox.touchArea = showVoltmeterCheckbox.localBounds.dilated( 8 );
     this.addChild( showVoltmeterCheckbox );
@@ -110,10 +141,16 @@ define( function( require ) {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
       tandem: tandem.createTandem( 'showFieldCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.'
+      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.',
+      containerTagName: 'li',
+      labelTagName: 'label',
+      labelContent: 'Show field'
     } );
     showFieldCheckbox.touchArea = showFieldCheckbox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckbox );
+
+
+    this.addChild( coilRadioButtonGroup );
 
     this.bottom = model.bounds.maxY - 10;
 
@@ -121,8 +158,7 @@ define( function( require ) {
     this.accessibleOrder = [
       showVoltmeterCheckbox,
       showFieldCheckbox,
-      coilRadioButtonGroup,
-      flipMagnetButton
+      coilRadioButtonGroup
     ];
   }
 
