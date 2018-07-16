@@ -44,7 +44,6 @@ define( function( require ) {
       scale: 0.75,
       touchAreaDilation: 10,
       tandem: tandem.createTandem( 'resetAllButton' ),
-      phetioInstanceDocumentation: 'Round button in the bottom right corner that can be used to return the simualtion to its initial state.'
     } );
     this.addChild( resetAllButton );
 
