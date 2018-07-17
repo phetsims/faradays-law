@@ -37,9 +37,6 @@ define( function( require ) {
     aLightbulbString: {
       value: 'a lightbulb'
     },
-    coilProximityPatternString: {
-      value: '{{proximity}} to the {{number}} loop coil'
-    },
     magnetPositionPatternString: {
       value: 'a magnet located at the {{position}} of the Play Area'
     },
@@ -91,6 +88,9 @@ define( function( require ) {
     andString: {
       value: 'and'
     },
+    proximityToPatternString: {
+      value: '{{proximity}} to {{coil}}'
+    },
     topLeftString: {
       value: 'top-left'
     },
@@ -138,6 +138,12 @@ define( function( require ) {
     },
     rightString: {
       value: 'right'
+    },
+    barMagnetIsString: {
+      value: 'The bar magnet is'
+    },
+    atLocationPatternString: {
+      value: 'at the {{location}} of the Play Area.'
     }
   };
 

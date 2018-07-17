@@ -49,9 +49,8 @@ define( function( require ) {
   var EDGE_TOLERANCE = 5;
 
   // can create a linear function to map distances to integers 0 - 2
-  // var PROXIMITY_STRINGS = [ 'Very close to', 'Close to', 'Far from' ];
-
-  var proxMap = new LinearFunction( 0, 260, 0, 2, true );
+  var PROXIMITY_STRINGS = [ 'Very close to', 'Close to', 'Far from' ];
+  var proxMap = new LinearFunction( 95, 260, 0, 2, true );
 
   function MagnetDescriptions( model ) {
     var self = this;
@@ -88,18 +87,19 @@ define( function( require ) {
       Math.min( model.listOfRestrictedBounds[ 0 ].minY, model.listOfRestrictedBounds[ 1 ].minY ),
       Math.max( model.listOfRestrictedBounds[ 0 ].maxX, model.listOfRestrictedBounds[ 1 ].maxX ),
       Math.max( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY )
-    );
+    ).eroded( 5 );
 
     this._bottomCoilInnerBounds = new Bounds2(
       Math.min( model.listOfRestrictedBounds[ 2 ].minX, model.listOfRestrictedBounds[ 3 ].minX ),
       Math.min( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY ),
       Math.max( model.listOfRestrictedBounds[ 2 ].maxX, model.listOfRestrictedBounds[ 3 ].maxX ),
       Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
-    );
+    ).eroded( 5 );
 
     this._magnet.positionProperty.link( function( position ) {
       self._magnetPosition = position;
-        self.bottomCoilProximityString;
+      console.log( self.bottomCoilProximityString );
+      console.log( self.getMagnetToBottomCoilDistance() );
     } );
   }
 
@@ -154,6 +154,7 @@ define( function( require ) {
 
       var distance = this._magnetPosition.distance( this._bottomCoilPosition );
       var i = Util.toFixedNumber( proxMap( distance ), 0 );
+      return PROXIMITY_STRINGS[ i ];
     },
 
     createMagnetBounds: function () {
@@ -163,6 +164,18 @@ define( function( require ) {
         this._magnetPosition.x + this._halfMagnetWidth,
         this._magnetPosition.y + this._halfMagnetHeight
       );
+    },
+
+    getMagnetToTopCoilDistance: function() {
+      var magnetPoint = this._topCoilInnerBounds.closestPointTo( this._magnetPosition );
+      var coilPoint = this.createMagnetBounds().closestPointTo( this._topCoilPosition );
+      return magnetPoint.distance( coilPoint );
+    },
+
+    getMagnetToBottomCoilDistance: function() {
+      var magnetPoint = this._bottomCoilInnerBounds.closestPointTo( this._magnetPosition );
+      var coilPoint = this.createMagnetBounds().closestPointTo( this._bottomCoilPosition );
+      return magnetPoint.distance( coilPoint );
     },
 
     magnetIsAtEdge: function() {
