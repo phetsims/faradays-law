@@ -43,7 +43,7 @@ define( function( require ) {
       bottom: 0,
       scale: 0.75,
       touchAreaDilation: 10,
-      tandem: tandem.createTandem( 'resetAllButton' ),
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
 
