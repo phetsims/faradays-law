@@ -38,7 +38,7 @@ define( function( require ) {
     // @public {Property.<Vector2>} - position of the magnet
     this.positionProperty = new Property( new Vector2( 647, 219 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioInstanceDocumentation: 'The location of the bar magnet in view coordinates.',
+      phetioInstanceDocumentation: 'The location of the center of the bar magnet in view coordinates.',
       phetioType: PropertyIO( Vector2IO ),
       highFrequency: true
     } );
