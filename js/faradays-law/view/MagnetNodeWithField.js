@@ -12,12 +12,13 @@ define( function( require ) {
   // modules
   // var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
-  // var MagnetDescriptions = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptions' );
+  var MagnetDescriptions = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptions' );
   var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
@@ -26,16 +27,14 @@ define( function( require ) {
   // var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
+  // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  // var Property = require( 'AXON/Property' );
 
-  // constants
-  // var MAGNET_ARROW_OPTIONS = {
-  //   fill: 'hsl(120,90%,85%)',
-  //   tailWidth: 10,
-  //   headWidth: 22,
-  //   headHeight: 18
-  // };
-  // var MAGNET_ARROW_OFFSET = 10; // how far arrows are from the magnet (for both horizontal and vertical)
-  // var MAGNET_ARROW_LENGTH = 30;
+  // strings
+  var barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
+  var barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
+  // var positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
+  // var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -44,8 +43,13 @@ define( function( require ) {
    */
   function MagnetNodeWithField( model, tandem ) {
     var self = this;
-    Node.call( this );
-    // var desc = new MagnetDescriptions( model );
+
+    Node.call( this, {
+      tagName: 'div',
+      labelTagName: 'h3',
+      labelContent: barMagnetString
+    } );
+
     // magnet
     this.magnetNode = createMagnetNode( model.magnet );
 
@@ -110,8 +114,8 @@ define( function( require ) {
 
         // arrows always are turned invisible when the user stops dragging the magnet
         model.showMagnetArrowsProperty.set( false );
-        var d = model.magnet.positionProperty.get().distance( model.bottomCoil.position );
-        console.log( 'distance to b coil:', d );
+        // var d = model.magnet.positionProperty.get().distance( model.bottomCoil.position );
+        // console.log( 'distance to b coil:', d );
       },
 
       // Translate on drag events
@@ -193,6 +197,59 @@ define( function( require ) {
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
     this.magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
+
+    // a11y descriptions
+    var describer = new MagnetDescriptions( model );
+
+    // var dynamicChildrenNode = new Node();
+    // this.addChild( dynamicChildrenNode );
+
+    var fourCoilOnlyNode = new Node( {
+      tagName: 'p'
+    } );
+
+    var locationItem = new Node( { tagName: 'li' } );
+    var twoCoilProximityItem = new Node( { tagName: 'li' } );
+    var fourCoilProximityItem = new Node( { tagName: 'li' } );
+
+    var twoAndFourCoilNode = new Node( {
+      tagName: 'ul',
+      labelTagName: 'p',
+      labelContent: barMagnetIsString,
+      children: [ locationItem, fourCoilProximityItem, twoCoilProximityItem  ]
+    } );
+
+    this.addChild( fourCoilOnlyNode );
+    this.addChild( twoAndFourCoilNode );
+
+    model.magnet.positionProperty.link( function( position ) {
+      // get descriptions
+      fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
+      locationItem.innerContent = describer.positionOfPlayAreaString;
+      twoCoilProximityItem.innerContent = describer.theTwoCoilProximityString;
+      fourCoilProximityItem.innerContent = describer.theFourCoilProximityString;
+    } );
+
+    model.showTopCoilProperty.link( function( showTopCoil ) {
+      fourCoilOnlyNode.visible = !showTopCoil;
+      twoAndFourCoilNode.visible = showTopCoil;
+    } );
+
+    // Property.multilink(
+    //   [ model.showTopCoilProperty, model.showVoltmeterProperty ],
+    //   function( showTopCoil, showVoltmeter ) {
+    //     if ( !( showTopCoil || showVoltmeter ) ) {
+    //       dynamicChildrenNode.children = [ fourCoilOnlyNode ];
+    //     } else {
+    //       var children = [];
+    //       children.push( fourLoopItem );
+    //       showTopCoil && children.push( twoLoopItem );
+    //       showVoltmeter && children.push( voltmeterItem );
+    //       otherComponentsNode.children = children;
+    //       dynamicChildrenNode.children = [ otherComponentsNode ];
+    //     }
+    //   }
+    // );
   }
 
   /**

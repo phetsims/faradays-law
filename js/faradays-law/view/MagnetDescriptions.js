@@ -25,19 +25,29 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var topLeftString = FaradaysLawA11yStrings.topLeftString.value;
-  var topCenterString = FaradaysLawA11yStrings.topCenterString.value;
-  var topRightString = FaradaysLawA11yStrings.topRightString.value;
-  var middleLeftString = FaradaysLawA11yStrings.middleLeftString.value;
-  var centerString = FaradaysLawA11yStrings.centerString.value;
-  var middleRightString = FaradaysLawA11yStrings.middleRightString.value;
-  var bottomLeftString = FaradaysLawA11yStrings.bottomLeftString.value;
-  var bottomCenterString = FaradaysLawA11yStrings.bottomCenterString.value;
-  var bottomRightString = FaradaysLawA11yStrings.bottomRightString.value;
-  var edgeString = FaradaysLawA11yStrings.edgeString.value;
-  var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPatternString.value;
-  // var magnetPositionPatternString = FaradaysLawA11yStrings.magnetPositionPatternString.value;
-  var inString = FaradaysLawA11yStrings.inString.value;
+  var topLeftString = FaradaysLawA11yStrings.topLeft.value;
+  var topCenterString = FaradaysLawA11yStrings.topCenter.value;
+  var topRightString = FaradaysLawA11yStrings.topRight.value;
+  var middleLeftString = FaradaysLawA11yStrings.middleLeft.value;
+  var centerString = FaradaysLawA11yStrings.center.value;
+  var middleRightString = FaradaysLawA11yStrings.middleRight.value;
+  var bottomLeftString = FaradaysLawA11yStrings.bottomLeft.value;
+  var bottomCenterString = FaradaysLawA11yStrings.bottomCenter.value;
+  var bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
+  var edgeString = FaradaysLawA11yStrings.edge.value;
+  var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
+
+  var barMagnetPositionPatternString = FaradaysLawA11yStrings.barMagnetPositionPattern.value;
+  var positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
+  var inString = FaradaysLawA11yStrings.in.value;
+  var veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
+  var closeToString = FaradaysLawA11yStrings.closeTo.value;
+  var farFromString = FaradaysLawA11yStrings.farFrom.value;
+  // var northString = FaradaysLawA11yStrings.north.value;
+  // var southString = FaradaysLawA11yStrings;
+
+  var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoil.value;
+  var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoil.value;
 
   // constants
   var REGION_DESCRIPTIONS = [
@@ -49,8 +59,8 @@ define( function( require ) {
   var EDGE_TOLERANCE = 5;
 
   // can create a linear function to map distances to integers 0 - 2
-  var PROXIMITY_STRINGS = [ 'Very close to', 'Close to', 'Far from' ];
-  var proxMap = new LinearFunction( 95, 260, 0, 2, true );
+  var PROXIMITY_STRINGS = [ veryCloseToString, closeToString, farFromString ];
+  var proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
 
   function MagnetDescriptions( model ) {
     var self = this;
@@ -98,8 +108,6 @@ define( function( require ) {
 
     this._magnet.positionProperty.link( function( position ) {
       self._magnetPosition = position;
-      console.log( self.bottomCoilProximityString );
-      console.log( self.getMagnetToBottomCoilDistance() );
     } );
   }
 
@@ -107,9 +115,18 @@ define( function( require ) {
 
   return inherit( Object, MagnetDescriptions, {
 
+    get fourLoopOnlyMagnetPosition() {
+      return StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
+    },
+
+    get positionOfPlayAreaString() {
+      // {{position}} of the Play Area
+      return StringUtils.fillIn( positionOfPlayAreaPatternString, { position: this.positionString } );
+    },
+
     getRow: function ( y ) {
       for ( var i = 0; i < this.rows.length; i++ ) {
-        if ( this.rows[ i ].contains( y ) ) {
+        if ( this.rows[ i ].contains( Math.round( y ) ) ) {
           return i;
         }
       }
@@ -117,7 +134,7 @@ define( function( require ) {
 
     getColumn: function ( x ) {
       for ( var i = 0; i < this.columns.length; i++ ) {
-        if ( this.columns[ i ].contains( x ) ) {
+        if ( this.columns[ i ].contains( Math.round( x ) ) ) {
           return i;
         }
       }
@@ -125,7 +142,7 @@ define( function( require ) {
 
     // handles getting the current position description (e.g. top-left edge, bottom-center, center, etc...)
     get positionString() {
-      var description = REGION_DESCRIPTIONS[ this.getRow( this._magnetPosition.x ) ][ this.getColumn( this._magnetPosition.y ) ];
+      var description = REGION_DESCRIPTIONS[ this.getRow( this._magnetPosition.y ) ][ this.getColumn( this._magnetPosition.x ) ];
 
       if ( this.magnetIsAtEdge() ) {
         description = StringUtils.fillIn( twoWordsPatternString, { first: description, second: edgeString } );
@@ -134,26 +151,26 @@ define( function( require ) {
       return description;
     },
 
-    get topCoilProximityString() {
-      var magnetBounds = this.createMagnetBounds();
-
-      if ( this._topCoilInnerBounds.intersectsBounds( magnetBounds ) ) {
-        return inString;
-      }
-
-      // var distance = this._topCoilPosition.distance( this._magnetPosition );
+    get theFourCoilProximityString() {
+      var proximity = this.getCoilProximityString( this._topCoilInnerBounds );
+      return StringUtils.fillIn( twoWordsPatternString, { first: proximity, second: theFourLoopCoilString } );
     },
 
-    get bottomCoilProximityString() {
-      // debugger;
+    get theTwoCoilProximityString() {
+      var proximity = this.getCoilProximityString( this._bottomCoilInnerBounds );
+      return StringUtils.fillIn( twoWordsPatternString, { first: proximity, second: theTwoLoopCoilString } );
+    },
+
+    getCoilProximityString: function( coilBounds ) {
       var magnetBounds = this.createMagnetBounds();
 
-      if ( this._bottomCoilInnerBounds.intersectsBounds( magnetBounds ) ) {
+      if ( coilBounds.intersectsBounds( magnetBounds ) ) {
         return inString;
       }
 
-      var distance = this._magnetPosition.distance( this._bottomCoilPosition );
-      var i = Util.toFixedNumber( proxMap( distance ), 0 );
+      var distance = coilBounds === this._topCoilInnerBounds ? this.distanceToTopCoil : this.distanceToBottomCoil;
+
+      var i = Util.toFixedNumber( proximityMapFunction( distance ), 0 );
       return PROXIMITY_STRINGS[ i ];
     },
 
@@ -166,16 +183,17 @@ define( function( require ) {
       );
     },
 
-    getMagnetToTopCoilDistance: function() {
-      var magnetPoint = this._topCoilInnerBounds.closestPointTo( this._magnetPosition );
-      var coilPoint = this.createMagnetBounds().closestPointTo( this._topCoilPosition );
-      return magnetPoint.distance( coilPoint );
+    get distanceToTopCoil() {
+      return this.getDistanceToCoil( this._topCoilPosition );
     },
 
-    getMagnetToBottomCoilDistance: function() {
-      var magnetPoint = this._bottomCoilInnerBounds.closestPointTo( this._magnetPosition );
-      var coilPoint = this.createMagnetBounds().closestPointTo( this._bottomCoilPosition );
-      return magnetPoint.distance( coilPoint );
+    get distanceToBottomCoil() {
+      return this.getDistanceToCoil( this._bottomCoilPosition );
+    },
+
+    getDistanceToCoil: function( coilPosition ) {
+      var magnetPoint = this.createMagnetBounds().closestPointTo( coilPosition );
+      return magnetPoint.distance( coilPosition );
     },
 
     magnetIsAtEdge: function() {

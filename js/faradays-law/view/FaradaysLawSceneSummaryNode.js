@@ -26,19 +26,18 @@ define( function( require ) {
   // a11y strings
   var sceneSummarySingleScreenIntroString = SceneryPhetA11yStrings.sceneSummarySingleScreenIntro.value;
   var sceneSummaryString = SceneryPhetA11yStrings.sceneSummary.value;
-  var summaryCircuitPatternString = FaradaysLawA11yStrings.summaryCircuitPatternString.value;
-  var magnetCheckboxButtonsSummaryString = FaradaysLawA11yStrings.magnetCheckboxButtonsSummaryString.value;
-  // var magnetPositionPatternString = FaradaysLawA11yStrings.magnetPositionPatternString.value;
-  // var coilProximityPatternString = FaradaysLawA11yStrings.coilProximityPatternString.value;
-  // var aLightbulbString = FaradaysLawA11yStrings.aLightbulbString.value;
-  var aFourLoopCoilString = FaradaysLawA11yStrings.aFourLoopCoilString.value;
-  // var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoilString.value;
-  var aTwoLoopCoilString = FaradaysLawA11yStrings.aTwoLoopCoilString.value;
-  // var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoilString.value;
-  var twoItemPatternString = FaradaysLawA11yStrings.twoItemPatternString.value;
-  // var threeItemPatternString = FaradaysLawA11yStrings.threeItemPatternString.value;
-  // var fourItemPatternString = FaradaysLawA11yStrings.fourItemPatternString.value;
-  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlayString.value;
+  var summaryCircuitPatternString = FaradaysLawA11yStrings.summaryCircuitPattern.value;
+  var magnetCheckboxButtonsSummaryString = FaradaysLawA11yStrings.magnetCheckboxButtonsSummary.value;
+  // var coilProximityPatternString = FaradaysLawA11yStrings.coilProximityPattern.value;
+  // var aLightbulbString = FaradaysLawA11yStrings.aLightbulb.value;
+  var aFourLoopCoilString = FaradaysLawA11yStrings.aFourLoopCoil.value;
+  // var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoil.value;
+  var aTwoLoopCoilString = FaradaysLawA11yStrings.aTwoLoopCoil.value;
+  // var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoil.value;
+  var twoItemPatternString = FaradaysLawA11yStrings.twoItemPattern.value;
+  // var threeItemPatternString = FaradaysLawA11yStrings.threeItemPattern.value;
+  // var fourItemPatternString = FaradaysLawA11yStrings.fourItemPattern.value;
+  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
 
   // constants
   // var COILS_Y_MIDPOINT = 230;

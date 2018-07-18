@@ -13,137 +13,146 @@ define( function( require ) {
   // var inherit = require( 'PHET_CORE/inherit' );
 
   var FaradaysLawA11yStrings = {
-    sceneSummaryString: {
+    sceneSummary: {
       value: 'Faraday\'s Law is an interactive sim. It changes as you play with it.'
     },
-    summaryDescriptionString: {
+    summaryDescription: {
       value: 'The play area has a light bulb circuit, and a moveable bar magnet. There are controls that change what is connected to the circuit,  flip the bar magnet, and reset the sim.'
     },
-    moveMagnetToPlayString: {
+    moveMagnetToPlay: {
       value: 'Move the magnet to play.'
     },
-    lightBulbCircuitLabelString: {
+    lightBulbCircuitLabel: {
       value: 'Light Bulb Circuit'
     },
-    circuitFourCoilOnlyString: {
+    barMagnet: {
+      value: 'Bar Magnet'
+    },
+    circuitFourCoilOnly: {
       value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right - the bar magnet can pass through.'
     },
-    lightbulbCircuitPatternString: {
+    lightbulbCircuitPattern: {
       value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
     },
-    voltMeterAttachedString: {
+    voltMeterAttached: {
       value: 'A volt meter attached is also attached to the circuit.'
     },
-    aLightbulbString: {
+    aLightbulb: {
       value: 'a lightbulb'
     },
-    magnetPositionPatternString: {
-      value: 'a magnet located at the {{position}} of the Play Area'
-    },
-    aVoltMeterString: {
+    aVoltMeter: {
       value: 'a volt meter'
     },
-    aNumberLoopPatternString: {
+    aNumberLoopPattern: {
       value: 'a {{number}} loop'
     },
-    theNumberLoopPatternString: {
+    theNumberLoopPattern: {
       value: 'the {{number}} loop'
     },
-    aLoopCoilPatternString: {
+    aLoopCoilPattern: {
       value: 'a {{loops}} coil'
     },
-    theLoopCoilPatternString: {
+    theLoopCoilPattern: {
       value: 'the {{loops}} coil'
     },
-    aFourLoopCoilString: {
-      value: 'a 4 loop coil'
+    fourLoopCoil: {
+      value: '4 loop coil'
     },
-    theFourLoopCoilString: {
+    theFourLoopCoil: {
       value: 'the 4 loop coil'
     },
-    aTwoLoopCoilString: {
-      value: 'a 2 loop coil'
+    twoLoopCoil: {
+      value: '2 loop coil'
     },
-    theTwoLoopCoilstring: {
+    theTwoLoopCoil: {
       value: 'the 2 loop coil'
     },
-    twoItemPatternString: {
+    twoItemPattern: {
       value: '{{first}} and {{second}}'
     },
-    threeItemPatternString: {
+    threeItemPattern: {
       value: '{{first}}, {{second}}, and {{third}}'
     },
-    fourItemPatternString: {
+    fourItemPattern: {
       value: '{{first}}, {{second}}, {{third}}, and {{fourth}}'
     },
-    twoWordsPatternString: {
+    twoWordsPattern: {
       value: '{{first}} {{second}}'
     },
-    twoWordsCommaPatternString: {
+    twoWordsCommaPattern: {
       value: '{{first}}, {{second}}'
     },
-    aString: {
+    a: {
       value: 'a'
     },
-    andString: {
+    and: {
       value: 'and'
     },
-    proximityToPatternString: {
-      value: '{{proximity}} to {{coil}}'
-    },
-    topLeftString: {
+    topLeft: {
       value: 'top-left'
     },
-    topCenterString: {
+    topCenter: {
       value: 'top-center'
     },
-    topRightString: {
+    topRight: {
       value: 'top-right'
     },
-    middleLeftString: {
+    middleLeft: {
       value: 'middle-left'
     },
-    centerString: {
+    center: {
       value: 'center'
     },
-    middleRightString: {
+    middleRight: {
       value: 'middle-right'
     },
-    bottomLeftString: {
+    bottomLeft: {
       value: 'bottom-left'
     },
-    bottomCenterString: {
+    bottomCenter: {
       value: 'bottom-center'
     },
-    bottomRightString: {
+    bottomRight: {
       value: 'bottom-right'
     },
-    edgeString: {
+    edge: {
       value: 'edge'
     },
-    inString: {
+    in: {
       value: 'in'
     },
-    farFromString: {
+    farFrom: {
       value: 'far from'
     },
-    closeToString: {
+    closeTo: {
       value: 'close to'
     },
-    veryCloseToString: {
+    veryCloseTo: {
       value: 'very close to'
     },
-    leftString: {
+    left: {
       value: 'left'
     },
-    rightString: {
+    right: {
       value: 'right'
     },
-    barMagnetIsString: {
-      value: 'The bar magnet is'
+    barMagnetPositionPattern: {
+      value: 'The bar magnet is {{areaPosition}}'
     },
-    atLocationPatternString: {
-      value: 'at the {{location}} of the Play Area.'
+    barMagnetIs: {
+      value: 'The bar magnet is:'
+    },
+    positionOfPlayAreaPattern: {
+      value: 'at the {{position}} of the Play Area.'
+    },
+    onThePattern: {
+      value: '{{pole}} on the {{side}}'
+    },
+    north: {
+      value: 'North'
+    },
+    south: {
+      value: 'South'
     }
   };
 

@@ -24,8 +24,8 @@ define( function( require ) {
   // var Util = require( 'DOT/Util' );
 
   // strings
-  var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabelString.value;
-  var circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnlyString.value;
+  var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
+  var circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
 
   function CircuitDescriptionNode ( model, options ) {
 

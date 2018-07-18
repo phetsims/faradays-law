@@ -31,9 +31,9 @@ define( function( require ) {
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
   // strings
-  var sceneSummaryString = FaradaysLawA11yStrings.sceneSummaryString.value;
-  var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescriptionString.value;
-  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlayString.value;
+  var sceneSummaryString = FaradaysLawA11yStrings.sceneSummary.value;
+  var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;
+  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
 
   /**
    * @param {FaradaysLawModel} model - Faraday's Law simulation model object
@@ -120,8 +120,8 @@ define( function( require ) {
     this.accessibleOrder = [
       sceneSummary,
       playArea,
-      this.magnetNodeWithField,
       controlPanel,
+      this.magnetNodeWithField,
       controlPanel.flipMagnetButton,
       controlPanel.resetAllButton
     ];
