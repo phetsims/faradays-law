@@ -51,7 +51,8 @@ define( function( require ) {
       tandem: tandem,
       phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.',
       innerContent: 'Button: flip magnet',
-      descriptionContent: 'Flip North and South poles'
+      descriptionContent: 'Flip North and South poles',
+      appendDescription: true
     }, options ) );
   }
 

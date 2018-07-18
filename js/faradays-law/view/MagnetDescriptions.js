@@ -19,6 +19,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Range = require( 'DOT/Range' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
@@ -43,8 +44,22 @@ define( function( require ) {
   var veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
   var closeToString = FaradaysLawA11yStrings.closeTo.value;
   var farFromString = FaradaysLawA11yStrings.farFrom.value;
-  // var northString = FaradaysLawA11yStrings.north.value;
-  // var southString = FaradaysLawA11yStrings;
+
+  var poleOnThePatternString = FaradaysLawA11yStrings.poleOnThePattern.value;
+  var northString = FaradaysLawA11yStrings.north.value;
+  var southString = FaradaysLawA11yStrings.south.value;
+  var leftString = FaradaysLawA11yStrings.left.value;
+  var rightString = FaradaysLawA11yStrings.right.value;
+
+  var minimalString = FaradaysLawA11yStrings.minimal.value;
+  var veryWeakString = FaradaysLawA11yStrings.veryWeak.value;
+  var weakString = FaradaysLawA11yStrings.weak.value;
+  var strongString = FaradaysLawA11yStrings.strong.value;
+  var veryStrongString = FaradaysLawA11yStrings.veryStrong.value;
+
+  var fieldLinesDescriptionPatternString = FaradaysLawA11yStrings.fieldLinesDescriptionPattern.value;
+  var fourLoopOnlyFieldStrengthPatternString = FaradaysLawA11yStrings.fourLoopOnlyFieldStrengthPattern.value;
+  var fieldStrengthPatternString = FaradaysLawA11yStrings.fieldStrengthPattern.value;
 
   var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoil.value;
   var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoil.value;
@@ -62,15 +77,17 @@ define( function( require ) {
   var PROXIMITY_STRINGS = [ veryCloseToString, closeToString, farFromString ];
   var proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
 
+  var FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
+  var strengthMapFunction = new LinearFunction( 0, 2, 0, 4, true );
+
   function MagnetDescriptions( model ) {
     var self = this;
     // likely private
     this._bounds = model.bounds;
     this._magnet = model.magnet;
     this._magnetPosition = new Vector2( 0, 0 );
-    this._topCoilPosition = model.topCoil.position;
-    this._bottomCoilPosition = model.bottomCoil.position;
-
+    this._topCoil = model.topCoil;
+    this._bottomCoil = model.bottomCoil;
 
     this._halfMagnetHeight = Util.roundSymmetric( this._magnet.height / 2 );
     this._halfMagnetWidth = Util.roundSymmetric( this._magnet.width / 2 );
@@ -115,12 +132,59 @@ define( function( require ) {
 
   return inherit( Object, MagnetDescriptions, {
 
+    get fieldLinesDescription() {
+      var northSide = this._magnet.orientationProperty.get() === OrientationEnum.NS ? leftString : rightString;
+      var southSide = this._magnet.orientationProperty.get() === OrientationEnum.SN ? leftString : rightString;
+      return StringUtils.fillIn( fieldLinesDescriptionPatternString, { northSide: northSide, southSide: southSide } );
+    },
+
+    get fourLoopOnlyFieldStrength() {
+      var valueString = this.getFieldStrengthDescription( this._bottomCoil.magneticFieldProperty.get() );
+      return StringUtils.fillIn( fourLoopOnlyFieldStrengthPatternString, { fieldStrength: valueString } );
+    },
+
+    get fourLoopFieldStrength() {
+      return this.getFieldStrengthAtCoil( this._bottomCoil );
+    },
+
+    get twoLoopFieldStrength() {
+      return this.getFieldStrengthAtCoil( this._topCoil );
+    },
+
+    getFieldStrengthAtCoil: function( coil ) {
+      var fieldStrengthString = this.getFieldStrengthDescription( coil.magneticFieldProperty.get() );
+      var coilString = coil === this._topCoil ? theTwoLoopCoilString : theFourLoopCoilString;
+      return StringUtils.fillIn(
+        fieldStrengthPatternString,
+        {
+          fieldStrength: fieldStrengthString,
+          coil: coilString
+        } );
+    },
+
+    getFieldStrengthDescription: function( fieldStrength ) {
+      var i = Util.toFixedNumber( strengthMapFunction( Math.abs( fieldStrength ) ), 0 );
+      return FIELD_STRENGTHS[ i ];
+    },
+
+    get northPoleSideString() {
+      return this.getPoleSideString( northString, OrientationEnum.NS );
+    },
+
+    get southPoleSideString() {
+      return this.getPoleSideString( southString, OrientationEnum.SN );
+    },
+
+    getPoleSideString: function( poleString, orientation ) {
+      var side = this._magnet.orientationProperty.get() === orientation ? leftString : rightString;
+      return StringUtils.fillIn( poleOnThePatternString, { pole: poleString, side: side } );
+    },
+
     get fourLoopOnlyMagnetPosition() {
       return StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
     },
 
     get positionOfPlayAreaString() {
-      // {{position}} of the Play Area
       return StringUtils.fillIn( positionOfPlayAreaPatternString, { position: this.positionString } );
     },
 
@@ -184,11 +248,11 @@ define( function( require ) {
     },
 
     get distanceToTopCoil() {
-      return this.getDistanceToCoil( this._topCoilPosition );
+      return this.getDistanceToCoil( this._topCoil.position );
     },
 
     get distanceToBottomCoil() {
-      return this.getDistanceToCoil( this._bottomCoilPosition );
+      return this.getDistanceToCoil( this._bottomCoil.position );
     },
 
     getDistanceToCoil: function( coilPosition ) {

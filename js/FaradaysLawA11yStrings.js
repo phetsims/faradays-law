@@ -142,17 +142,50 @@ define( function( require ) {
     barMagnetIs: {
       value: 'The bar magnet is:'
     },
+    magnetPolarity: {
+      value: 'Magnet polarity:'
+    },
     positionOfPlayAreaPattern: {
       value: 'at the {{position}} of the Play Area.'
     },
-    onThePattern: {
+    poleOnThePattern: {
       value: '{{pole}} on the {{side}}'
+    },
+    fieldLines: {
+      value: 'Field Lines'
+    },
+    fieldLinesDescriptionPattern: {
+      value: 'Magnetic field lines go around from North end on {{northSide}} side of magnet, to South end on {{southSide}} side of magnet.'
+    },
+    fourLoopOnlyFieldStrengthPattern: {
+      value: 'From the magnet\'s position, a {{fieldStrength}} magnetic field is passing through the 4 loop coil.'
+    },
+    fieldStrengthIs: {
+      value: 'The magnet field strength is:'
+    },
+    fieldStrengthPattern: {
+      value: '{{fieldStrength}} at {{coil}}'
     },
     north: {
       value: 'North'
     },
     south: {
       value: 'South'
+    },
+    minimal: {
+      value: 'Minimal'
+    },
+    veryWeak: {
+      value: 'Very weak'
+    },
+    weak: {
+      value: 'Weak'
+    },
+    strong: {
+      value: 'Strong'
+    },
+    veryStrong: {
+      value: 'Very strong'
     }
   };
 

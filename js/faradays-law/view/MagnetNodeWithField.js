@@ -33,6 +33,9 @@ define( function( require ) {
   // strings
   var barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
   var barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
+  var magnetPolarityString = FaradaysLawA11yStrings.magnetPolarity.value;
+  var fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
+  var fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
   // var positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
   // var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
 
@@ -201,9 +204,6 @@ define( function( require ) {
     // a11y descriptions
     var describer = new MagnetDescriptions( model );
 
-    // var dynamicChildrenNode = new Node();
-    // this.addChild( dynamicChildrenNode );
-
     var fourCoilOnlyNode = new Node( {
       tagName: 'p'
     } );
@@ -222,34 +222,74 @@ define( function( require ) {
     this.addChild( fourCoilOnlyNode );
     this.addChild( twoAndFourCoilNode );
 
+    var northNode = new Node( { tagName: 'li' } );
+    var southNode = new Node( { tagName: 'li' } );
+
+    var polarityNode = new Node(
+      {
+        tagName: 'ul',
+        labelTagName: 'p',
+        labelContent: magnetPolarityString,
+        children: [ northNode, southNode ]
+      }
+    );
+
+    this.addChild( polarityNode );
+
+    var fourLoopOnlyStrengthNode = new Node( { tagName: 'p' } );
+
+    var fourLoopFieldStrengthItem = new Node( { tagName: 'li' } );
+    var twoLoopFieldStrengthItem = new Node( { tagName: 'li' } );
+    var twoLoopStrengthListNode = new Node( {
+      tagName: 'ul',
+      labelTagName: 'p',
+      labelContent: fieldStrengthIsString,
+      children: [ fourLoopFieldStrengthItem, twoLoopFieldStrengthItem ]
+    } );
+
+    // @public - for setting accessible order in the screen view
+    this.fieldLinesDescriptionNode = new Node( {
+      labelTagName: 'h3',
+      labelContent: fieldLinesString,
+      tagName: 'div',
+      descriptionTagName: 'p',
+      children: [ fourLoopOnlyStrengthNode, twoLoopStrengthListNode ]
+    } );
+
+    this.addChild( this.fieldLinesDescriptionNode );
+
     model.magnet.positionProperty.link( function( position ) {
-      // get descriptions
+
+      // magnet location and coil proximity
       fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
       locationItem.innerContent = describer.positionOfPlayAreaString;
       twoCoilProximityItem.innerContent = describer.theTwoCoilProximityString;
       fourCoilProximityItem.innerContent = describer.theFourCoilProximityString;
+
+      // field strength
+      fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
+      fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
+      twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
     } );
 
     model.showTopCoilProperty.link( function( showTopCoil ) {
       fourCoilOnlyNode.visible = !showTopCoil;
       twoAndFourCoilNode.visible = showTopCoil;
+
+      // ensure that the parent node is also visible
+      fourLoopOnlyStrengthNode.visible = self.fieldLinesDescriptionNode.visible && !showTopCoil;
+      twoLoopStrengthListNode.visible = self.fieldLinesDescriptionNode && showTopCoil;
     } );
 
-    // Property.multilink(
-    //   [ model.showTopCoilProperty, model.showVoltmeterProperty ],
-    //   function( showTopCoil, showVoltmeter ) {
-    //     if ( !( showTopCoil || showVoltmeter ) ) {
-    //       dynamicChildrenNode.children = [ fourCoilOnlyNode ];
-    //     } else {
-    //       var children = [];
-    //       children.push( fourLoopItem );
-    //       showTopCoil && children.push( twoLoopItem );
-    //       showVoltmeter && children.push( voltmeterItem );
-    //       otherComponentsNode.children = children;
-    //       dynamicChildrenNode.children = [ otherComponentsNode ];
-    //     }
-    //   }
-    // );
+    model.magnet.orientationProperty.link( function( orientation ) {
+      northNode.innerContent = describer.northPoleSideString;
+      southNode.innerContent = describer.southPoleSideString;
+      self.fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
+    } );
+
+    model.magnet.showFieldLinesProperty.link( function( showLines ) {
+      self.fieldLinesDescriptionNode.visible = showLines;
+    } );
   }
 
   /**

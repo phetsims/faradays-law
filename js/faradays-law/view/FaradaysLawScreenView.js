@@ -123,6 +123,7 @@ define( function( require ) {
       controlPanel,
       this.magnetNodeWithField,
       controlPanel.flipMagnetButton,
+      this.magnetNodeWithField.fieldLinesDescriptionNode,
       controlPanel.resetAllButton
     ];
 
