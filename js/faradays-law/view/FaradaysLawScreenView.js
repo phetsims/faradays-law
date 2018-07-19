@@ -114,16 +114,14 @@ define( function( require ) {
 
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
-    this.addChild( this.magnetNodeWithField );
+    playArea.addChild( this.magnetNodeWithField );
 
     // a11y keyboard nav order
     this.accessibleOrder = [
       sceneSummary,
       playArea,
-      controlPanel,
       this.magnetNodeWithField,
-      controlPanel.flipMagnetButton,
-      this.magnetNodeWithField.fieldLinesDescriptionNode,
+      controlPanel,
       controlPanel.resetAllButton
     ];
 

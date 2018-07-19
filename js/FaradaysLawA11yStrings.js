@@ -19,6 +19,15 @@ define( function( require ) {
     summaryDescription: {
       value: 'The play area has a light bulb circuit, and a moveable bar magnet. There are controls that change what is connected to the circuit,  flip the bar magnet, and reset the sim.'
     },
+    controls: {
+      value: 'Controls:'
+    },
+    inTheCircuit: {
+      value: 'In circuit are a:'
+    },
+    coilsStaticDescription: {
+      value: 'The coils are open on the left and right - the bar magnet to pass through.'
+    },
     moveMagnetToPlay: {
       value: 'Move the magnet to play.'
     },
@@ -27,6 +36,9 @@ define( function( require ) {
     },
     barMagnet: {
       value: 'Bar Magnet'
+    },
+    voltmeter: {
+      value: 'Voltmeter'
     },
     circuitFourCoilOnly: {
       value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right - the bar magnet can pass through.'

@@ -26,6 +26,11 @@ define( function( require ) {
   // strings
   var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
   var circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
+  var inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
+  var coilsStaticDescriptionString = FaradaysLawA11yStrings.coilsStaticDescription.value;
+  var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
+  var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
+  var voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
 
   function CircuitDescriptionNode ( model, options ) {
 
@@ -48,15 +53,15 @@ define( function( require ) {
     var otherComponentsNode = new Node( {
       tagName: 'ul',
       labelTagName: 'p',
-      labelContent: 'In circuit are a:',
+      labelContent: inTheCircuitString,
       descriptionTagName: 'p',
-      descriptionContent: 'The coils are open on the left and right - the bar magnet to pass through.',
+      descriptionContent: coilsStaticDescriptionString,
       appendDescription: true
     } );
 
-    var fourLoopItem = new Node( { tagName: 'li', innerContent: '4 loop coil' } );
-    var twoLoopItem = new Node( { tagName: 'li', innerContent: '2 loop coil' } );
-    var voltmeterItem = new Node( { tagName: 'li', innerContent: 'Voltmeter' } );
+    var fourLoopItem = new Node( { tagName: 'li', innerContent: fourLoopCoilString } );
+    var twoLoopItem = new Node( { tagName: 'li', innerContent: twoLoopCoilString } );
+    var voltmeterItem = new Node( { tagName: 'li', innerContent: voltmeterString } );
 
     Property.multilink(
       [ model.showTopCoilProperty, model.showVoltmeterProperty ],

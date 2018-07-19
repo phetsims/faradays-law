@@ -15,6 +15,7 @@ define( function( require ) {
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
   var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/FlipMagnetButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -28,6 +29,9 @@ define( function( require ) {
   // strings
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
 
+  // a11y strings
+  var constrolsString = FaradaysLawA11yStrings.controls.value;
+
   /**
    * @param {FaradaysLawModel} model
    * @param {Tandem} tandem
@@ -37,8 +41,8 @@ define( function( require ) {
 
     Node.call( this, {
         tagName: 'ul',
-        labelTagName: 'p',
-        labelContent: 'Controls:'
+        labelTagName: 'h3',
+        labelContent: constrolsString
     } );
 
     // reset button - @public for a11y
