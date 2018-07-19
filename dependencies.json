@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-jump.3 Wed Jul 18 2018 15:32:26 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.4.0-jump.4 Thu Jul 19 2018 09:55:31 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,15 +21,15 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "7de65f0ad7a2640fd92bfea10f1a492d697b7c32",
+    "sha": "ce5798fb810ab356cd845d3d98f65ee24de98aaf",
     "branch": "jump"
   },
   "joist": {
-    "sha": "ffbce977d144fa874deede611fc425c347296ea2",
+    "sha": "cc67ea09a63c8b03cf59cd1c16616debd14d347e",
     "branch": "master"
   },
   "kite": {
-    "sha": "d08fb3c757566cb77db0fd3089105698d952a27c",
+    "sha": "96313ae0b045016a4f744fb25f44a41ea1a03c85",
     "branch": "master"
   },
   "phet-core": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "8f64dcaf2db6bab61d8326b9c6293e5b5674d23e",
+    "sha": "1a4d723d074eccd58da9f2cc4bea22046008fea3",
     "branch": "master"
   },
   "phet-io-wrapper-classroom-activity": {
@@ -73,11 +73,11 @@
     "branch": "master"
   },
   "sherpa": {
-    "sha": "4b8710ca4dca159ab3d8e32afe62dff34f096343",
+    "sha": "79fb5b8c6f27048495f6ee7bb113221319a22407",
     "branch": "master"
   },
   "sun": {
-    "sha": "fc1f5c36fc5dea1593c50b8b26d961411c80a452",
+    "sha": "8e2a0bc28d92e52dd5b45c352fcf9b0a5bebfb5f",
     "branch": "master"
   },
   "tandem": {
