@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
@@ -51,6 +52,15 @@ define( function( require ) {
     this.showVoltmeterProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'showVoltmeterProperty' ),
       phetioInstanceDocumentation: 'True if the voltmeter is shown'
+    } );
+
+    // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
+    this.voltageProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'voltageProperty' ),
+      phetioInstanceDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
+      phetioReadOnly: true,
+      highFrequency: true,
+      units: 'volts'
     } );
 
     // @public - the magnet which can be dragged
