@@ -1,10 +1,6 @@
 {
   "name": "faradays-law",
-<<<<<<< HEAD
   "version": "1.4.0-jump.4",
-=======
-  "version": "1.4.0-dev.37",
->>>>>>> master
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
