@@ -20,7 +20,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  var Range = require( 'DOT/Range' );
+  // var Range = require( 'DOT/Range' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -64,6 +64,11 @@ define( function( require ) {
   var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoil.value;
   var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoil.value;
 
+  var magnetLocationAlertPatternString = FaradaysLawA11yStrings.magnetLocationAlertPattern.value;
+  var magnetLocationExtraAlertPatternString = FaradaysLawA11yStrings.magnetLocationExtraAlertPattern.value;
+
+  var slidingStoppedPatternString = FaradaysLawA11yStrings.slidingStoppedPattern.value;
+
   // constants
   var REGION_DESCRIPTIONS = [
     [ topLeftString,    topCenterString,    topRightString ],
@@ -78,35 +83,27 @@ define( function( require ) {
   var proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
 
   var FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
-  var strengthMapFunction = new LinearFunction( 0, 2, 0, 4, true );
 
   function MagnetDescriptions( model ) {
     var self = this;
-    // likely private
+    // @private
     this._bounds = model.bounds;
     this._magnet = model.magnet;
-    this._magnetPosition = new Vector2( 0, 0 );
     this._topCoil = model.topCoil;
     this._bottomCoil = model.bottomCoil;
+
+    this._magnetPosition = new Vector2( 0, 0 );
+    this._magnetNodeBlurred = false;
 
     this._halfMagnetHeight = Util.roundSymmetric( this._magnet.height / 2 );
     this._halfMagnetWidth = Util.roundSymmetric( this._magnet.width / 2 );
 
     // create 9 regions for magnet position and ensure they DO NOT overlap
-    var regionWidth = Util.roundSymmetric( this._bounds.width / 3 );
-    var regionHeight = Util.roundSymmetric( this._bounds.height / 3 );
+    // var regionWidth = Util.roundSymmetric( this._bounds.width / 3 );
+    // var regionHeight = Util.roundSymmetric( this._bounds.height / 3 );
 
-    this.rows = [
-      new Range( this._bounds.minY, regionHeight - 1 ),
-      new Range( regionHeight, ( 2 * regionHeight ) - 1 ),
-      new Range( 2 * regionHeight, this._bounds.maxY )
-    ];
-
-    this.columns = [
-      new Range( this._bounds.minX, regionWidth - 1 ),
-      new Range( regionWidth, ( 2 * regionWidth ) - 1 ),
-      new Range( 2 * regionWidth, this._bounds.maxX )
-    ];
+    this.rowMap = new LinearFunction( this._bounds.minY, this._bounds.maxY, 0, 2, true );
+    this.columnMap = new LinearFunction( this._bounds.minX, this._bounds.maxX, 0, 2, true );
 
     // generate bounds to indicate if magnet is inside the coil
     this._topCoilInnerBounds = new Bounds2(
@@ -123,14 +120,28 @@ define( function( require ) {
       Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
     ).eroded( 5 );
 
-    this._magnet.positionProperty.link( function( position ) {
+    this._magnet.positionProperty.link( function( position, oldPosition ) {
       self._magnetPosition = position;
+    } );
+
+    model.showMagnetArrowsProperty.link( function( showArrows ) {
+      self._magnetNodeBlurred = !showArrows;
     } );
   }
 
   faradaysLaw.register( 'MagnetDescriptions', MagnetDescriptions );
 
   return inherit( Object, MagnetDescriptions, {
+
+    get magnetLocationAlertText() {
+      return StringUtils.fillIn( magnetLocationAlertPatternString, { position: this.positionString } );
+    },
+
+    get magnetFocusAlertText() {
+      var position = this.positionString;
+      var pattern = this._magnetNodeBlurred ? magnetLocationAlertPatternString : magnetLocationExtraAlertPatternString;
+      return StringUtils.fillIn( pattern, { position: position } );
+    },
 
     get fieldLinesDescription() {
       var northSide = this._magnet.orientationProperty.get() === OrientationEnum.NS ? leftString : rightString;
@@ -139,6 +150,7 @@ define( function( require ) {
     },
 
     get fourLoopOnlyFieldStrength() {
+      // console.log( this._bottomCoil.magneticFieldProperty.get() );
       var valueString = this.getFieldStrengthDescription( this._bottomCoil.magneticFieldProperty.get() );
       return StringUtils.fillIn( fourLoopOnlyFieldStrengthPatternString, { fieldStrength: valueString } );
     },
@@ -163,8 +175,27 @@ define( function( require ) {
     },
 
     getFieldStrengthDescription: function( fieldStrength ) {
-      var i = Util.toFixedNumber( strengthMapFunction( Math.abs( fieldStrength ) ), 0 );
+      var i = Util.toFixedNumber( this.mapFieldStrengthToInteger( Math.abs( fieldStrength ) ), 0 );
+      // console.log('description', fieldStrength);
+      // console.log(i);
       return FIELD_STRENGTHS[ i ];
+    },
+
+    mapFieldStrengthToInteger: function( fieldStrength ) {
+      if ( this._bottomCoil.position.distance( this._magnetPosition ) < 70 ) {
+          return 4;
+      }
+      if ( fieldStrength < 0.025 ) {
+        return 0;
+      } else if ( fieldStrength >= 0.025 && fieldStrength < 0.04 ) {
+        return 1;
+      } else if ( fieldStrength >= 0.04 && fieldStrength < 0.075 ) {
+        return 2;
+      } else if ( fieldStrength >= 0.075 && fieldStrength < 0.18 ) {
+        return 3;
+      } else {
+        return 4;
+      }
     },
 
     get northPoleSideString() {
@@ -189,19 +220,26 @@ define( function( require ) {
     },
 
     getRow: function ( y ) {
-      for ( var i = 0; i < this.rows.length; i++ ) {
-        if ( this.rows[ i ].contains( Math.round( y ) ) ) {
-          return i;
-        }
-      }
+      // consider using a linear mapping function as we could clamp values
+      // for ( var i = 0; i < this.rows.length; i++ ) {
+      //   if ( this.rows[ i ].contains( Math.round( y ) ) ) {
+      //     return i;
+      //   }
+      // }
+      // if ( y > 0 ) {
+      //   return this.rows.length - 1;
+      // }
+      return Util.roundSymmetric( this.rowMap( y ) );
     },
 
     getColumn: function ( x ) {
-      for ( var i = 0; i < this.columns.length; i++ ) {
-        if ( this.columns[ i ].contains( Math.round( x ) ) ) {
-          return i;
-        }
-      }
+      // consider using a linear mapping function as we could clamp values
+      // for ( var i = 0; i < this.columns.length; i++ ) {
+      //   if ( this.columns[ i ].contains( Math.round( x ) ) ) {
+      //     return i;
+      //   }
+      // }
+      return Util.roundSymmetric( this.columnMap( x ) );
     },
 
     // handles getting the current position description (e.g. top-left edge, bottom-center, center, etc...)
@@ -261,15 +299,19 @@ define( function( require ) {
     },
 
     magnetIsAtEdge: function() {
-      var diffTop = Math.abs( ( this._magnetPosition - this._halfMagnetHeight ) - this._bounds.minY );
-      var diffBottom = Math.abs( ( this._magnetPosition + this._halfMagnetHeight ) - this._bounds.maxY );
-      var diffLeft = Math.abs( ( this._magnetPosition - this._halfMagnetWidth ) -  this._bounds.minX );
-      var diffRight = Math.abs( ( this._magnetPosition + this._halfMagnetWidth ) - this._bounds.maxX );
+      var diffTop = Math.abs( ( this._magnetPosition.y - this._halfMagnetHeight ) - this._bounds.minY );
+      var diffBottom = Math.abs( ( this._magnetPosition.y + this._halfMagnetHeight ) - this._bounds.maxY );
+      var diffLeft = Math.abs( ( this._magnetPosition.x - this._halfMagnetWidth ) -  this._bounds.minX );
+      var diffRight = Math.abs( ( this._magnetPosition.x + this._halfMagnetWidth ) - this._bounds.maxX );
 
       return diffTop    <= EDGE_TOLERANCE ||
              diffBottom <= EDGE_TOLERANCE ||
              diffRight  <= EDGE_TOLERANCE ||
              diffLeft   <= EDGE_TOLERANCE;
+    },
+
+    get slidingStoppedText() {
+      return StringUtils.fillIn( slidingStoppedPatternString, { position: this.positionString } );
     }
   } );
 } );

@@ -26,6 +26,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   // var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
   // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   // var Property = require( 'AXON/Property' );
@@ -119,6 +120,7 @@ define( function( require ) {
         model.showMagnetArrowsProperty.set( false );
         // var d = model.magnet.positionProperty.get().distance( model.bottomCoil.position );
         // console.log( 'distance to b coil:', d );
+        // console.log( console.log( model.bottomCoil.magneticFieldProperty.get() ) );
       },
 
       // Translate on drag events
@@ -258,7 +260,7 @@ define( function( require ) {
 
     this.addChild( this.fieldLinesDescriptionNode );
 
-    model.magnet.positionProperty.link( function( position ) {
+    model.magnet.positionProperty.link( function( position, oldPosition ) {
 
       // magnet location and coil proximity
       fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
@@ -270,6 +272,14 @@ define( function( require ) {
       fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
       fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
       twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
+
+      // region change alert
+      if ( oldPosition ) {
+        if ( describer.getRow( oldPosition.y )    !== describer.getRow( position.y ) ||
+             describer.getColumn( oldPosition.x ) !== describer.getColumn( position.x ) ) {
+          utteranceQueue.addToBack( describer.magnetLocationAlertText );
+        }
+      }
     } );
 
     model.showTopCoilProperty.link( function( showTopCoil ) {
@@ -289,6 +299,23 @@ define( function( require ) {
 
     model.magnet.showFieldLinesProperty.link( function( showLines ) {
       self.fieldLinesDescriptionNode.visible = showLines;
+    } );
+
+    // focus/blur alerts
+    draggableNode.addAccessibleInputListener( {
+      focus: function() {
+        utteranceQueue.addToBack( describer.magnetFocusAlertText );
+      }
+    } );
+
+    this.magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( function( isAnimating ) {
+      if ( !isAnimating ) {
+        utteranceQueue.addToBack( describer.slidingStoppedText );
+      }
+    } );
+
+    model.coilIntersectedEmitter.addListener( function( intersectedCoil ) {
+      utteranceQueue.addToBack( `Bumping ${intersectedCoil} coil.`);
     } );
   }
 

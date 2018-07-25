@@ -4,12 +4,23 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
   var Property = require( 'AXON/Property' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Timer = require( 'PHET_CORE/Timer' );
+  var Util = require( 'DOT/Util' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // strings
+
+  // constants
+  var SPEEDS = [ 'slowly', 'normally', 'quickly' ];
+  var DIRECTIONS = { left: 'left', right: 'right' };
 
   function MagnetJumpKeyboardListener( model, options ) {
     var self = this;
@@ -29,7 +40,7 @@ define( function( require ) {
     // @private
     this._onKeydown = options.onKeydown;
     this._onKeyup = options.onKeyup;
-    this._isAnimating = false;
+    this._isAnimatingProperty = new BooleanProperty( false );
     this._dragBounds = options.dragBounds ?
                        options.dragBounds :
                        model.bounds.erodedXY( halfMagnetWidth, halfMagnetHeight );
@@ -60,7 +71,7 @@ define( function( require ) {
       var intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
 
       if ( intersectedBounds ) {
-        targetX = targetX > leftX ? 
+        targetX = targetX > leftX ?
                   intersectedBounds.minX - halfMagnetWidth :
                   intersectedBounds.maxX + halfMagnetWidth;
       }
@@ -70,19 +81,19 @@ define( function( require ) {
     };
 
     model.magnet.positionProperty.link( setReflectedPosition );
-    
+
 
     this.keydown = function( event ) {
-      
+
       if ( self._onKeydown ) {
         self._onKeydown( event );
       }
 
-      self._isAnimating = false;
+      self._isAnimatingProperty.value = false;
 
       // reset stepDelta
       self._stepDelta = self._defaultVelocity;
-      
+
       // set the stepDelta
       switch ( event.keyCode ) {
         case 49:
@@ -98,12 +109,22 @@ define( function( require ) {
       }
     };
 
+    var speedToText = new LinearFunction( this._shiftVelocity, this._fastVelocity, 0, 2, true );
+
     this.keyup = function( event ) {
 
-      if ( !self._isAnimating ) {
+      if ( !self._isAnimatingProperty.value ) {
         if ( event.keyCode >= 49 && event.keyCode <= 51) {
-          self.targetPositionVector = self.reflectedPositionProperty.get().copy();
-          self._isAnimating = true;
+          self.targetPositionVector = self.reflectedPositionProperty.get();
+          self._isAnimatingProperty.value = true;
+
+          // alert
+          var pattern = 'Magnet sliding {{speed}} to the {{direction}}. Press Space to stop slide.';
+          var speed = SPEEDS[ Util.toFixedNumber(speedToText( self._stepDelta ), 0) ];
+          var direction = (self.positionProperty.get() - self.targetPositionVector) > 0 ? DIRECTIONS.left : DIRECTIONS.right;
+
+          var alert = StringUtils.fillIn( pattern, { speed: speed, direction: direction} );
+          utteranceQueue.addToBack( alert );
         }
       }
 
@@ -127,8 +148,9 @@ define( function( require ) {
   return inherit( Object, MagnetJumpKeyboardListener, {
 
     step: function( dt ) {
+      var animating = this._isAnimatingProperty.get();
 
-      if ( this._isAnimating ) {
+      if ( animating ) {
         if ( !this.positionProperty.get().equals( this.targetPositionVector ) ) {
 
           var diffX = this.targetPositionVector.x - this.positionProperty.get().x;
@@ -142,7 +164,7 @@ define( function( require ) {
 
           this.model.moveMagnetToPosition( newPosition );
         } else {
-          this._isAnimating = false;
+          this._isAnimatingProperty.value = false;
         }
       }
     },

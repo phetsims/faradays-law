@@ -15,6 +15,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
   var EdgeEnum = require( 'FARADAYS_LAW/faradays-law/model/EdgeEnum' );
+  var Emitter = require( 'AXON/Emitter' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -98,6 +99,8 @@ define( function( require ) {
       self.intersectedBounds = null;
       self.topCoil.reset();
     } );
+
+    this.coilIntersectedEmitter = new Emitter();
   }
 
   faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
@@ -125,6 +128,7 @@ define( function( require ) {
       this.bottomCoil.step( dt );
       this.showTopCoilProperty.get() && this.topCoil.step( dt );
       this.voltmeter.step( dt );
+      // console.log(this.bottomCoil.magneticFieldProperty.get());
     },
 
     /**
@@ -206,6 +210,8 @@ define( function( require ) {
                 this.intersectedBounds.setMinX( -3000 );
               }
             }
+            var coil = i < 2 ? 'two' : 'four';
+            this.coilIntersectedEmitter.emit1( coil );
             break;
           }
         }

@@ -198,6 +198,15 @@ define( function( require ) {
     },
     veryStrong: {
       value: 'Very strong'
+    },
+    magnetLocationAlertPattern: {
+      value: 'Magnet at {{position}} of Play Area'
+    },
+    magnetLocationExtraAlertPattern: {
+      value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet. Number 1, 2, or 3 keys slides magnet.'
+    },
+    slidingStoppedPattern: {
+      value: 'Sliding stopped. Magnet at {{position}} of play area'
     }
   };
 
