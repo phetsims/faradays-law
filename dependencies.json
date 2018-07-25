@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.3.8-phetiorc.1 Wed Jul 25 2018 01:18:08 GMT-0600 (MDT)",
+  "comment": "# faradays-law 1.3.8-phetiorc.2 Wed Jul 25 2018 04:24:30 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "cf1b7eeaf7c279a27809b7b469f89086d38c7299",
-    "branch": "faradays-law-1.3-phetio"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "cf5237a34d2ee239658fcc65a83c78bab21a52ce",
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "df3c7be97bd6dbbff1491a6542405fb7ab156388",
+    "sha": "04f9d8c31ef0be9ba7e42d5a4f61a25f235af3bd",
     "branch": "1.3-phetio"
   },
   "joist": {
