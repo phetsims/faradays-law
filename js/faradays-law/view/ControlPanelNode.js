@@ -121,7 +121,7 @@ define( function( require ) {
       labelContent: 'Button group: "Circuit mode"'
     } );
 
-    var showVoltmeterLabel = new Text( 'Volt Meter', { font: new PhetFont( 16 ) } );
+    var showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
 
     var showVoltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.showVoltmeterProperty, {

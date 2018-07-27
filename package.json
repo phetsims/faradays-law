@@ -10,6 +10,7 @@
     "grunt": "^1.0.3"
   },
   "phet": {
+    "generatedUnitTests": true,
     "requirejsNamespace": "FARADAYS_LAW",
     "runnable": true,
     "supportedBrands": [
