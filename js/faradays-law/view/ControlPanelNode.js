@@ -27,6 +27,7 @@ define( function( require ) {
 
   // strings
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
+  var faradaysLawVoltmeterString = require( 'string!FARADAYS_LAW/faradays-law.voltmeter' );
 
   /**
    * @param {FaradaysLawModel} model
@@ -101,7 +102,7 @@ define( function( require ) {
 
     this.addChild( coilRadioButtonGroup );
 
-    var showVoltmeterLabel = new Text( 'Volt Meter', { font: new PhetFont( 16 ) } );
+    var showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
 
     var showVoltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.showVoltmeterProperty, {
