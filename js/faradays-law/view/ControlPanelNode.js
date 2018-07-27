@@ -73,7 +73,7 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'singleCoilRadioButton',
-      phetioInstanceDocumentation: 'Radio button that selects a single coil.'
+      phetioInstanceDocumentation: 'Radio button that selects a single coil'
     }, {
       value: true,
       node: new VBox( _.extend( {
@@ -83,7 +83,7 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'doubleCoilRadioButton',
-      phetioInstanceDocumentation: 'Radio button that selects double coils.'
+      phetioInstanceDocumentation: 'Radio button that selects double coils'
     } ];
 
     var coilRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
@@ -96,7 +96,7 @@ define( function( require ) {
       selectedLineWidth: 3,
       deselectedLineWidth: 1,
       tandem: tandem.createTandem( 'coilRadioButtonGroup' ),
-      phetioInstanceDocumentation: 'Radio button group that selects between one or two coils.'
+      phetioInstanceDocumentation: 'Radio button group that selects between one or two coils'
     } );
 
     this.addChild( coilRadioButtonGroup );
@@ -108,7 +108,7 @@ define( function( require ) {
       x: 174,
       centerY: coilRadioButtonGroup.centerY - 20,
       tandem: tandem.createTandem( 'showVoltmeterCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.'
+      phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown'
     } );
     showVoltmeterCheckbox.touchArea = showVoltmeterCheckbox.localBounds.dilated( 8 );
     this.addChild( showVoltmeterCheckbox );
@@ -122,7 +122,7 @@ define( function( require ) {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
       tandem: tandem.createTandem( 'showFieldCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.'
+      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown'
     } );
     showFieldCheckbox.touchArea = showFieldCheckbox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckbox );

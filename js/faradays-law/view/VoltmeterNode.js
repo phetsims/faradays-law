@@ -72,7 +72,7 @@ define( function( require ) {
       font: new PhetFont( 18 ),
       fill: 'yellow',
       tandem: tandem.createTandem( 'label' ),
-      phetioInstanceDocumentation: 'Text label at the bottom of the voltmeter.',
+      phetioInstanceDocumentation: 'Text label at the bottom of the voltmeter',
       maxWidth: READOUT_WIDTH // Support PhET-iO
     } );
     label.scale( Math.min( readoutBackground.width / label.width, 1 ) );
