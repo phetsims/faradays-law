@@ -42,13 +42,13 @@ define( function( require ) {
     // @public - Whether the top coil should be shown
     this.showTopCoilProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showTopCoilProperty' ),
-      phetioInstanceDocumentation: 'True if and only if the top coil is visible.'
+      phetioInstanceDocumentation: 'True if and only if the top coil is visible'
     } );
 
     // @public - true if the magnet arrows should be shown
     this.showMagnetArrowsProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'showMagnetArrowsProperty' ),
-      phetioInstanceDocumentation: 'True if the magnet arrows are shown.'
+      phetioInstanceDocumentation: 'True if the magnet arrows are shown'
     } );
 
     this.showVoltmeterProperty = new BooleanProperty( true, {

@@ -13,5 +13,8 @@
   },
   "faradays-law.showFieldLines": {
     "value": "Field lines"
+  },
+  "faradays-law.voltmeter": {
+    "value": "Voltmeter"
   }
 }

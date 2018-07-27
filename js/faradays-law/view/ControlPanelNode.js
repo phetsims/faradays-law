@@ -28,6 +28,7 @@ define( function( require ) {
 
   // strings
   var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
+  var faradaysLawVoltmeterString = require( 'string!FARADAYS_LAW/faradays-law.voltmeter' );
 
   // a11y strings
   var constrolsString = FaradaysLawA11yStrings.controls.value;

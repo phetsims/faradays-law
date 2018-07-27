@@ -38,7 +38,7 @@ define( function( require ) {
     // @public {Property.<Vector2>} - position of the magnet
     this.positionProperty = new Property( new Vector2( 647, 219 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioInstanceDocumentation: 'The location of the center of the bar magnet in view coordinates.',
+      phetioInstanceDocumentation: 'The location of the center of the bar magnet in view coordinates',
       phetioType: PropertyIO( Vector2IO ),
       highFrequency: true
     } );
@@ -47,14 +47,14 @@ define( function( require ) {
     this.orientationProperty = new Property( OrientationEnum.NS, {
       validValues: OrientationEnum.values,
       tandem: tandem.createTandem( 'orientationProperty' ),
-      phetioInstanceDocumentation: 'The direction the bar magnet is oriented.',
+      phetioInstanceDocumentation: 'The direction the bar magnet is oriented',
       phetioType: PropertyIO( StringIO ) // Should we create OrientationEnumIO?
     } );
 
     // @public {BooleanProperty} - show field lines for magnet
     this.showFieldLinesProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showFieldLinesProperty' ),
-      phetioInstanceDocumentation: 'True if the fields lines are visible.'
+      phetioInstanceDocumentation: 'True if the fields lines are visible'
     } );
   }
 
