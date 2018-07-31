@@ -273,13 +273,13 @@ define( function( require ) {
       fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
       twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
 
-      // region change alert
-      if ( oldPosition ) {
-        if ( describer.getRow( oldPosition.y )    !== describer.getRow( position.y ) ||
-             describer.getColumn( oldPosition.x ) !== describer.getColumn( position.x ) ) {
-          utteranceQueue.addToBack( describer.magnetLocationAlertText );
-        }
-      }
+      // // region change alert
+      // if ( oldPosition ) {
+      //   if ( describer.getRow( oldPosition.y )    !== describer.getRow( position.y ) ||
+      //        describer.getColumn( oldPosition.x ) !== describer.getColumn( position.x ) ) {
+      //     utteranceQueue.addToBack( describer.magnetLocationAlertText );
+      //   }
+      // }
     } );
 
     model.showTopCoilProperty.link( function( showTopCoil ) {

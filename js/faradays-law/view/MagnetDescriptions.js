@@ -19,10 +19,12 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearFunction = require( 'DOT/LinearFunction' );
+  var MagnetRegions = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegions' );
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   // var Range = require( 'DOT/Range' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -70,11 +72,9 @@ define( function( require ) {
   var slidingStoppedPatternString = FaradaysLawA11yStrings.slidingStoppedPattern.value;
 
   // constants
-  var REGION_DESCRIPTIONS = [
-    [ topLeftString,    topCenterString,    topRightString ],
-    [ middleLeftString, centerString,       middleRightString ],
-    [ bottomLeftString, bottomCenterString, bottomRightString ]
-  ];
+  var REGION_DESCRIPTIONS = [ topLeftString,    topCenterString,    topRightString,
+                              middleLeftString, centerString,       middleRightString,
+                              bottomLeftString, bottomCenterString, bottomRightString ];
 
   var EDGE_TOLERANCE = 5;
 
@@ -120,12 +120,18 @@ define( function( require ) {
       Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
     ).eroded( 5 );
 
+    this.regionMap = new MagnetRegions( model );
+
     this._magnet.positionProperty.link( function( position, oldPosition ) {
       self._magnetPosition = position;
     } );
 
     model.showMagnetArrowsProperty.link( function( showArrows ) {
       self._magnetNodeBlurred = !showArrows;
+    } );
+
+    this.regionMap.regionChangedEmitter.addListener( function( newRegion, oldRegion ) {
+      utteranceQueue.addToBack( self.magnetLocationAlertText );
     } );
   }
 
@@ -219,34 +225,33 @@ define( function( require ) {
       return StringUtils.fillIn( positionOfPlayAreaPatternString, { position: this.positionString } );
     },
 
-    getRow: function ( y ) {
-      // consider using a linear mapping function as we could clamp values
-      // for ( var i = 0; i < this.rows.length; i++ ) {
-      //   if ( this.rows[ i ].contains( Math.round( y ) ) ) {
-      //     return i;
-      //   }
-      // }
-      // if ( y > 0 ) {
-      //   return this.rows.length - 1;
-      // }
-      return Util.roundSymmetric( this.rowMap( y ) );
-    },
-
-    getColumn: function ( x ) {
-      // consider using a linear mapping function as we could clamp values
-      // for ( var i = 0; i < this.columns.length; i++ ) {
-      //   if ( this.columns[ i ].contains( Math.round( x ) ) ) {
-      //     return i;
-      //   }
-      // }
-      return Util.roundSymmetric( this.columnMap( x ) );
-    },
+    // getRow: function ( y ) {
+    //   // consider using a linear mapping function as we could clamp values
+    //   // for ( var i = 0; i < this.rows.length; i++ ) {
+    //   //   if ( this.rows[ i ].contains( Math.round( y ) ) ) {
+    //   //     return i;
+    //   //   }
+    //   // }
+    //   // if ( y > 0 ) {
+    //   //   return this.rows.length - 1;
+    //   // }
+    //   return Util.roundSymmetric( this.rowMap( y ) );
+    // },
+    //
+    // getColumn: function ( x ) {
+    //   // consider using a linear mapping function as we could clamp values
+    //   // for ( var i = 0; i < this.columns.length; i++ ) {
+    //   //   if ( this.columns[ i ].contains( Math.round( x ) ) ) {
+    //   //     return i;
+    //   //   }
+    //   // }
+    //   return Util.roundSymmetric( this.columnMap( x ) );
+    // },
 
     // handles getting the current position description (e.g. top-left edge, bottom-center, center, etc...)
     get positionString() {
-      var description = REGION_DESCRIPTIONS[ this.getRow( this._magnetPosition.y ) ][ this.getColumn( this._magnetPosition.x ) ];
-
-      if ( this.magnetIsAtEdge() ) {
+      var description = REGION_DESCRIPTIONS[ this.regionMap.currentRegion ];
+      if ( this.regionMap.magnetAtEdge ) {
         description = StringUtils.fillIn( twoWordsPatternString, { first: description, second: edgeString } );
       }
 

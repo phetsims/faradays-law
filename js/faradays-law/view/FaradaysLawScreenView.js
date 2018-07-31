@@ -24,9 +24,11 @@ define( function( require ) {
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
   var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var Node = require( 'SCENERY/nodes/Node' );
+  // var Path = require( 'SCENERY/nodes/Path' );
   // var SceneSummaryNode = require( 'SCENERY_PHET/accessibility/nodes/SceneSummaryNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SceneryPhetA11yStrings = require( 'SCENERY_PHET/SceneryPhetA11yStrings' );
+  // var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
@@ -134,6 +136,22 @@ define( function( require ) {
     this.addChild( topCoilNode.frontImage );
     topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
     model.showTopCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
+
+    // var regionLines = new Shape();
+    // regionLines.moveTo( model.bounds.minX, model.bounds.getHeight() / 3 );
+    // regionLines.lineTo( model.bounds.maxX, model.bounds.getHeight() / 3 );
+    // regionLines.moveTo( model.bounds.minX, 2 * model.bounds.getHeight() / 3 );
+    // regionLines.lineTo( model.bounds.maxX, 2 * model.bounds.getHeight() / 3 );
+    // regionLines.moveTo( model.bounds.getWidth() / 3, model.bounds.minY );
+    // regionLines.lineTo( model.bounds.getWidth() / 3, model.bounds.maxY );
+    // regionLines.moveTo( 2 * model.bounds.getWidth() / 3, model.bounds.minY );
+    // regionLines.lineTo( 2 * model.bounds.getWidth() / 3, model.bounds.maxY );
+    //
+    // var regionsPath = new Path( regionLines, {
+    //   stroke: 'rgba( 255, 0, 0, 0.6 )',
+    //   lineWidth: 1
+    // } );
+    // this.addChild( regionsPath );
   }
 
   faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );
