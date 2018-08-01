@@ -14,6 +14,7 @@ define( function( require ) {
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  // var MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
@@ -56,6 +57,10 @@ define( function( require ) {
       tandem: tandem.createTandem( 'showFieldLinesProperty' ),
       phetioInstanceDocumentation: 'True if the fields lines are visible'
     } );
+
+    // @a11y
+    // @public {Property.<string>} - the movement direction of the magnet, one of MagnetDirectionEnum
+    this.directionProperty = new Property( null );
   }
 
   faradaysLaw.register( 'Magnet', Magnet );
@@ -70,6 +75,14 @@ define( function( require ) {
       this.positionProperty.reset();
       this.orientationProperty.reset();
       this.showFieldLinesProperty.reset();
+    }
+  }, {
+    getDirection: function( newPosition, oldPosition ) {
+        // var angle = newPosition.minus( oldPosition ).angle();
+        // var absAngle = Math.abs( angle );
+        // var direction;
+        //
+        // var directions = [ 'downleft', 'down', 'downright', 'right', 'upright', 'up', 'upleft' ];
     }
   } );
 } );
