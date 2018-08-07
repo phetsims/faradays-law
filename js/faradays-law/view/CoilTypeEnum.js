@@ -14,7 +14,8 @@ define( function( require ) {
 
   var CoilTypeEnum = Object.freeze( {
     TWO_COIL: 'two-coil',
-    FOUR_COIL: 'four-coil'
+    FOUR_COIL: 'four-coil',
+    NO_COIL: 'no coil'
   } );
 
   faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );

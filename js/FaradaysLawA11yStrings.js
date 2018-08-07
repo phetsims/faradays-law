@@ -142,12 +142,6 @@ define( function( require ) {
     veryCloseTo: {
       value: 'very close to'
     },
-    left: {
-      value: 'left'
-    },
-    right: {
-      value: 'right'
-    },
     barMagnetPositionPattern: {
       value: 'The bar magnet is {{areaPosition}}'
     },
@@ -207,6 +201,42 @@ define( function( require ) {
     },
     slidingStoppedPattern: {
       value: 'Sliding stopped. Magnet at {{position}} of play area'
+    },
+    stepDirectionPattern: {
+      value: '{{stepSize}} step {{stepDirection}}'
+    },
+    up: {
+      value: 'up'
+    },
+    down: {
+      value: 'down'
+    },
+    left: {
+      value: 'left'
+    },
+    right: {
+      value: 'right'
+    },
+    upAndLeft: {
+      value: 'up and left'
+    },
+    upAndRight: {
+      value: 'up and right'
+    },
+    downAndLeft: {
+      value: 'down and left'
+    },
+    downAndRight: {
+      value: 'down and right'
+    },
+    regular: {
+      value: 'regular'
+    },
+    large: {
+      value: 'large'
+    },
+    small: {
+      value: 'small'
     }
   };
 

@@ -154,7 +154,7 @@ define( function( require ) {
 
     draggableNode.addAccessibleInputListener( this.keyboardDragListener );
 
-    this.magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
+    var magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
       onKeydown: function( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
           self.reflectedMagnetNode.visible = true;
@@ -179,7 +179,7 @@ define( function( require ) {
       }
     } );
 
-    draggableNode.addAccessibleInputListener( this.magnetJumpKeyboardListener );
+    draggableNode.addAccessibleInputListener( magnetJumpKeyboardListener );
 
     var setReflectedNodeCenter = function( position ) {
       self.reflectedMagnetNode.center = self.parentToLocalPoint( position );
@@ -196,12 +196,12 @@ define( function( require ) {
       self.addChild( self.reflectedMagnetNode );
       self.reflectedMagnetNode.opacity = 0.5;
       self.reflectedMagnetNode.visible = false;
-      setReflectedNodeCenter( self.magnetJumpKeyboardListener.reflectedPositionProperty.get() );
+      setReflectedNodeCenter( magnetJumpKeyboardListener.reflectedPositionProperty.get() );
     } );
 
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
-    this.magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
+    magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
     // a11y descriptions
     var describer = new MagnetDescriptions( model );
@@ -272,14 +272,6 @@ define( function( require ) {
       fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
       fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
       twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
-
-      // // region change alert
-      // if ( oldPosition ) {
-      //   if ( describer.getRow( oldPosition.y )    !== describer.getRow( position.y ) ||
-      //        describer.getColumn( oldPosition.x ) !== describer.getColumn( position.x ) ) {
-      //     utteranceQueue.addToBack( describer.magnetLocationAlertText );
-      //   }
-      // }
     } );
 
     model.showTopCoilProperty.link( function( showTopCoil ) {
@@ -305,10 +297,11 @@ define( function( require ) {
     draggableNode.addAccessibleInputListener( {
       focus: function() {
         utteranceQueue.addToBack( describer.magnetFocusAlertText );
+        describer.regionMap.justFocused = true;
       }
     } );
 
-    this.magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( function( isAnimating ) {
+    magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( function( isAnimating ) {
       if ( !isAnimating ) {
         utteranceQueue.addToBack( describer.slidingStoppedText );
       }
