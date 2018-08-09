@@ -155,7 +155,7 @@ define( function( require ) {
       value: 'at the {{position}} of the Play Area.'
     },
     poleOnThePattern: {
-      value: '{{pole}} on the {{side}}'
+      value: '{{pole}} pole on the {{side}}'
     },
     fieldLines: {
       value: 'Field Lines'
@@ -237,6 +237,43 @@ define( function( require ) {
     },
     small: {
       value: 'small'
+    },
+    fieldStrengthPassingPattern: {
+      value: ' {{fieldStrength}} magnetic field passing through.'
+    },
+
+    fieldStrengthPassingCoilPattern: {
+      value: '{{strength}} magnetic field passing through {{coil}}.'
+    },
+    fieldStrengthPassingBothCoilsPattern: {
+      value: '{{strength}} magnetic field passing through both 4 loop and 2 loop coils.'
+    },
+    showingFieldLines: {
+      value: 'Showing magnetic field lines.'
+    },
+    hideFieldLines: {
+      value: 'Hiding magnetic field lines.'
+    },
+    connectingVoltmeter: {
+      value: 'Connecting voltmeter to circuit.'
+    },
+    removingVoltmeter: {
+      value: 'Removing voltmeter from circuit.'
+    },
+    circuitHasPatternString: {
+      value: 'Circuit now has {{coil}}.'
+    },
+    oneCoil: {
+      value: 'one coil'
+    },
+    twoCoils: {
+      value: 'two coils'
+    },
+    flippingMagnetPattern: {
+      value: 'Flipping magnet: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
+    },
+    flippingMagnetAndFieldPattern: {
+      value: 'Flipping magnet and its magnetic field: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
     }
   };
 

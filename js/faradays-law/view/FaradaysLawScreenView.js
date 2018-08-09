@@ -136,22 +136,6 @@ define( function( require ) {
     this.addChild( topCoilNode.frontImage );
     topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
     model.showTopCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
-
-    // var regionLines = new Shape();
-    // regionLines.moveTo( model.bounds.minX, model.bounds.getHeight() / 3 );
-    // regionLines.lineTo( model.bounds.maxX, model.bounds.getHeight() / 3 );
-    // regionLines.moveTo( model.bounds.minX, 2 * model.bounds.getHeight() / 3 );
-    // regionLines.lineTo( model.bounds.maxX, 2 * model.bounds.getHeight() / 3 );
-    // regionLines.moveTo( model.bounds.getWidth() / 3, model.bounds.minY );
-    // regionLines.lineTo( model.bounds.getWidth() / 3, model.bounds.maxY );
-    // regionLines.moveTo( 2 * model.bounds.getWidth() / 3, model.bounds.minY );
-    // regionLines.lineTo( 2 * model.bounds.getWidth() / 3, model.bounds.maxY );
-    //
-    // var regionsPath = new Path( regionLines, {
-    //   stroke: 'rgba( 255, 0, 0, 0.6 )',
-    //   lineWidth: 1
-    // } );
-    // this.addChild( regionsPath );
   }
 
   faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );

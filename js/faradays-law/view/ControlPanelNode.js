@@ -23,7 +23,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -32,6 +34,9 @@ define( function( require ) {
 
   // a11y strings
   var constrolsString = FaradaysLawA11yStrings.controls.value;
+
+  var connectingVoltmeterString = FaradaysLawA11yStrings.connectingVoltmeter.value;
+  var removingVoltmeterString = FaradaysLawA11yStrings.removingVoltmeter.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -121,6 +126,12 @@ define( function( require ) {
       labelContent: 'Button group: "Circuit mode"'
     } );
 
+    model.showTopCoilProperty.lazyLink( function( showTopCoil ) {
+      var circuitHasPatternString = 'Circuit now has {{coilPart}}';
+      var coilPart = showTopCoil ? 'two coils' : 'one coil';
+      utteranceQueue.addToBack( StringUtils.fillIn( circuitHasPatternString, { coilPart: coilPart } ) );
+    } );
+
     var showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
 
@@ -135,6 +146,10 @@ define( function( require ) {
     } );
     showVoltmeterCheckbox.touchArea = showVoltmeterCheckbox.localBounds.dilated( 8 );
     this.addChild( showVoltmeterCheckbox );
+
+    model.showVoltmeterProperty.lazyLink( function( showVoltmeter ) {
+      utteranceQueue.addToBack( showVoltmeter ? connectingVoltmeterString : removingVoltmeterString );
+    } );
 
     // Create the label for the "Show Field Lines" checkbox, scaling it if it's too long.
     var showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );

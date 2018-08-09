@@ -15,6 +15,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   // var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   // var Range = require( 'DOT/Range' );
+  // var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
   // var Vector2 = require( 'DOT/Vector2' );
 
@@ -48,14 +49,14 @@ define( function( require ) {
       Math.min( model.listOfRestrictedBounds[ 0 ].minY, model.listOfRestrictedBounds[ 1 ].minY ),
       Math.max( model.listOfRestrictedBounds[ 0 ].maxX, model.listOfRestrictedBounds[ 1 ].maxX ),
       Math.max( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY )
-    ).eroded( 5 );
+    );
 
     this._bottomCoilInnerBounds = new Bounds2(
       Math.min( model.listOfRestrictedBounds[ 2 ].minX, model.listOfRestrictedBounds[ 3 ].minX ),
       Math.min( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY ),
       Math.max( model.listOfRestrictedBounds[ 2 ].maxX, model.listOfRestrictedBounds[ 3 ].maxX ),
       Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
-    ).eroded( 5 );
+    );
 
     this.oldDirection = null;
     this.currentDirection = null;
@@ -76,7 +77,8 @@ define( function( require ) {
     this.magnet.positionProperty.lazyLink( ( newPosition, oldPosition ) => {
       let newRegion = this.getRegion( newPosition );
       let oldRegion = this.getRegion( oldPosition );
-      if ( newRegion !== oldRegion ) {
+      if ( newRegion !== oldRegion )
+      {
         this.regionChangedEmitter.emit2( newRegion, oldRegion );
       }
 
@@ -84,8 +86,12 @@ define( function( require ) {
       let oldCoilEntranceRegion = this.getCoilEntranceRegion( oldPosition );
 
       if ( newCoilEntranceRegion !== oldCoilEntranceRegion ) {
-        this.coilEntranceDirectionEmitter.emit1( newCoilEntranceRegion );
-        this.silenceFieldStrengthAndProximity = true;
+        if ( model.showTopCoilProperty.get() ||
+           ( oldCoilEntranceRegion !== CoilTypeEnum.TWO_COIL && newCoilEntranceRegion !== CoilTypeEnum.TWO_COIL ) )
+        {
+          this.coilEntranceDirectionEmitter.emit1( newCoilEntranceRegion );
+          this.silenceFieldStrengthAndProximity = true;
+        }
       }
 
       let exitingCoil = this.isExitingCoil( newPosition, oldPosition );
@@ -131,7 +137,8 @@ define( function( require ) {
 
     model.showTopCoilProperty.link( showTopCoil => {
       let entranceRegion = this.getCoilEntranceRegion( this.magnet.positionProperty.get() );
-      if ( entranceRegion !== CoilTypeEnum.FOUR_COIL ) {
+      if ( entranceRegion === CoilTypeEnum.TWO_COIL ) {
+        entranceRegion = showTopCoil ? entranceRegion : CoilTypeEnum.NO_COIL;
         this.coilEntranceDirectionEmitter.emit1( entranceRegion );
       }
     } );
@@ -142,12 +149,18 @@ define( function( require ) {
   return inherit( Object, MagnetRegions, {
 
     isExitingCoil: function( newPosition, oldPosition ) {
-      if ( this._topCoilInnerBounds.containsPoint( oldPosition ) && !this._topCoilInnerBounds.containsPoint( newPosition ) ) {
-        return CoilTypeEnum.TWO_COIL;
+      var newMagnetBounds = createMagnetBounds( newPosition );
+      var oldMagnetBounds = createMagnetBounds( oldPosition );
+      if ( this._bottomCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
+           !this._bottomCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
+      {
+        return CoilTypeEnum.FOUR_COIL;
       }
 
-      if ( this._bottomCoilInnerBounds.containsPoint( oldPosition ) && !this._bottomCoilInnerBounds.containsPoint( newPosition ) ) {
-        return CoilTypeEnum.FOUR_COIL;
+      if ( this._topCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
+           !this._topCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
+      {
+        return CoilTypeEnum.TWO_COIL;
       }
 
       return false;
@@ -168,10 +181,7 @@ define( function( require ) {
     getCoilEntranceRegion: function( vector ) {
       var y = vector.y;
 
-      if ( this.model.showTopCoilProperty.get() &&
-           y <= this._topCoilInnerBounds.maxY &&
-           y >= this._topCoilInnerBounds.minY
-         ) {
+      if ( y <= this._topCoilInnerBounds.maxY && y >= this._topCoilInnerBounds.minY ) {
         return CoilTypeEnum.TWO_COIL;
       }
 
@@ -312,8 +322,8 @@ define( function( require ) {
     var halfHeight = FaradaysLawConstants.MAGNET_HEIGHT / 2;
     return new Bounds2 (
       vector.x - halfWidth,
-      vector.y - halfWidth,
-      vector.x + halfHeight,
+      vector.y - halfHeight,
+      vector.x + halfWidth,
       vector.y + halfHeight
     );
   }

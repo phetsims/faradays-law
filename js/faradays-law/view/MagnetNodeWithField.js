@@ -24,7 +24,6 @@ define( function( require ) {
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  // var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -39,6 +38,9 @@ define( function( require ) {
   var fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
   // var positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
   // var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
+
+  // var fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
+  // var fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -118,9 +120,6 @@ define( function( require ) {
 
         // arrows always are turned invisible when the user stops dragging the magnet
         model.showMagnetArrowsProperty.set( false );
-        // var d = model.magnet.positionProperty.get().distance( model.bottomCoil.position );
-        // console.log( 'distance to b coil:', d );
-        // console.log( console.log( model.bottomCoil.magneticFieldProperty.get() ) );
       },
 
       // Translate on drag events
@@ -287,6 +286,8 @@ define( function( require ) {
       northNode.innerContent = describer.northPoleSideString;
       southNode.innerContent = describer.southPoleSideString;
       self.fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
+
+      utteranceQueue.addToBack( describer.getFlipMagnetAlertText( orientation ) );
     } );
 
     model.magnet.showFieldLinesProperty.link( function( showLines ) {
