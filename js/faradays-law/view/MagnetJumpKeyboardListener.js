@@ -7,6 +7,7 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Property = require( 'AXON/Property' );
@@ -17,10 +18,16 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
+  var slowlyString = FaradaysLawA11yStrings.slowly.value;
+  var normallyString = FaradaysLawA11yStrings.normally.value;
+  var quicklyString = FaradaysLawA11yStrings.quickly.value;
+  var leftString = FaradaysLawA11yStrings.left.value;
+  var rightString = FaradaysLawA11yStrings.right.value;
+  var magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
 
   // constants
-  var SPEEDS = [ 'slowly', 'normally', 'quickly' ];
-  var DIRECTIONS = { left: 'left', right: 'right' };
+  var SPEEDS = [ slowlyString, normallyString, quicklyString ];
+  var DIRECTIONS = { left: leftString, right: rightString };
 
   function MagnetJumpKeyboardListener( model, options ) {
     var self = this;
@@ -119,11 +126,10 @@ define( function( require ) {
           self._isAnimatingProperty.value = true;
 
           // alert
-          var pattern = 'Magnet sliding {{speed}} to the {{direction}}. Press Space to stop slide.';
           var speed = SPEEDS[ Util.toFixedNumber(speedToText( self._stepDelta ), 0) ];
           var direction = (self.positionProperty.get() - self.targetPositionVector) > 0 ? DIRECTIONS.left : DIRECTIONS.right;
 
-          var alert = StringUtils.fillIn( pattern, { speed: speed, direction: direction} );
+          var alert = StringUtils.fillIn( magnetSlidingAlertPatternString, { speed: speed, direction: direction} );
           utteranceQueue.addToBack( alert );
         }
       }

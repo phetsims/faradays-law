@@ -85,15 +85,17 @@ define( function( require ) {
     this.addChild( draggableNodeFocusHighlight );
     draggableNode.addChild( self.magnetNode );
 
-    // magnet reflection
+    // magnet reflection - node to indicate the future location when sliding the magnet
     this.reflectedMagnetNode = createMagnetNode( model.magnet );
     this.addChild( self.reflectedMagnetNode );
     this.reflectedMagnetNode.opacity = 0.5;
     this.reflectedMagnetNode.visible = false;
 
+    // help arrows around the magnet
     var magnetInteractionCueNode = new MagnetInteractionCueNode();
 
     this.addChild( magnetInteractionCueNode );
+
     // a11y - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
     // size of the node being highlighted.
     model.showMagnetArrowsProperty.link( function ( showArrows ) {
@@ -132,7 +134,7 @@ define( function( require ) {
     } );
     draggableNode.addInputListener( dragHandler );
 
-    // a11y descriptions
+    // a11y descriptions - generates text content and alerts for magnet interactions
     var describer = new MagnetDescriptions( model );
 
     // @private - The sticky drag handler for keyboard navigation
@@ -151,6 +153,7 @@ define( function( require ) {
       dragBounds: model.bounds
     } );
 
+    // arrows displayed before initiating the sliding/jumping movement
     var leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );
     var rightJumpArrows = new JumpMagnitudeArrowNode( 'right' );
     leftJumpArrows.setKeyPositions( self.magnetNode.bounds );
@@ -160,6 +163,7 @@ define( function( require ) {
 
     draggableNode.addAccessibleInputListener( this.keyboardDragListener );
 
+    // handle the jump/slide interaction
     var magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
       onKeydown: function( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
@@ -187,6 +191,7 @@ define( function( require ) {
 
     draggableNode.addAccessibleInputListener( magnetJumpKeyboardListener );
 
+    // listener to position the reflected node
     var setReflectedNodeCenter = function( position ) {
       self.reflectedMagnetNode.center = self.parentToLocalPoint( position );
     };
@@ -197,6 +202,7 @@ define( function( require ) {
       self.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( self.magnetNode );
 
+      // ensure poles on the reflected magnet match that of the original
       self.reflectedMagnetNode.detach();
       self.reflectedMagnetNode = createMagnetNode( model.magnet );
       self.addChild( self.reflectedMagnetNode );
@@ -209,16 +215,7 @@ define( function( require ) {
 
     magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
-    // draggableNode.addAccessibleInputListener( {
-    //   keydown: function( event ) {
-    //     if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
-    //       describer._shiftStep = true;
-    //     } else {
-    //       describer._shiftStep = false;
-    //     }
-    //   }
-    // } );
-
+    // alert when the movement direction changes
     describer.regionMap.directionChangedEmitter.addListener( direction => {
       // map the ENUM direction to the appropriate string
       var utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
@@ -226,6 +223,7 @@ define( function( require ) {
       utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
     } );
 
+    // magnet and circuit description content, TODO: refactor into separate node(s)?
     var fourCoilOnlyNode = new Node( {
       tagName: 'p'
     } );
@@ -280,15 +278,16 @@ define( function( require ) {
 
     this.addChild( this.fieldLinesDescriptionNode );
 
+    // position observers
     model.magnet.positionProperty.link( function( position, oldPosition ) {
 
-      // magnet location and coil proximity
+      // magnet location and coil proximity description content updates
       fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
       locationItem.innerContent = describer.positionOfPlayAreaString;
       twoCoilProximityItem.innerContent = describer.theTwoCoilProximityString;
       fourCoilProximityItem.innerContent = describer.theFourCoilProximityString;
 
-      // field strength
+      // field strength description content updates
       fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
       fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
       twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
@@ -304,6 +303,8 @@ define( function( require ) {
     } );
 
     model.magnet.orientationProperty.lazyLink( function( orientation ) {
+
+      // N/S orientation change alert
       northNode.innerContent = describer.northPoleSideString;
       southNode.innerContent = describer.southPoleSideString;
       self.fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
@@ -323,14 +324,12 @@ define( function( require ) {
       }
     } );
 
+    // @a11y
     magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( function( isAnimating ) {
+      // magnet stopped alert
       if ( !isAnimating ) {
         utteranceQueue.addToBack( describer.slidingStoppedText );
       }
-    } );
-
-    model.coilIntersectedEmitter.addListener( function( intersectedCoil ) {
-      utteranceQueue.addToBack( `Bumping ${intersectedCoil} coil.`);
     } );
   }
 

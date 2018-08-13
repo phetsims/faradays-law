@@ -274,6 +274,45 @@ define( function( require ) {
     },
     flippingMagnetAndFieldPattern: {
       value: 'Flipping magnet and its magnetic field: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
+    },
+    exitingCoilPattern: {
+      value: 'Exiting {{coil}}'
+    },
+    noCoilPattern: {
+      value: 'Coil no longer to {{direction}}'
+    },
+    coilToDirectionPattern: {
+      value: '{{coil}} to {{direction}}'
+    },
+    proximityToFourCoilPattern: {
+      value: '{{proximity}} 4-loop coil.'
+    },
+    proximityToTwoCoilPattern: {
+      value: '{{proximity}} 2-loop coil.'
+    },
+    slowly: {
+      value: 'slowly'
+    },
+    normally: {
+      value: 'normally'
+    },
+    quickly: {
+      value: 'quickly'
+    },
+    circuitMode: {
+      value: 'Circuit Mode'
+    },
+    connectVoltmeterToCircuit: {
+      value: 'Connect voltmeter to circuit'
+    },
+    showFieldLabel: {
+      value: 'Show field'
+    },
+    magnetSlidingAlertPattern: {
+      value: 'Magnet sliding {{speed}} to the {{direction}}. Press Space to stop slide.'
+    },
+    bumpingCoilPattern: {
+      value: 'Bumping {{coil}} coil'
     }
   };
 

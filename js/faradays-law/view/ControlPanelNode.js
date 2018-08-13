@@ -37,6 +37,9 @@ define( function( require ) {
 
   var connectingVoltmeterString = FaradaysLawA11yStrings.connectingVoltmeter.value;
   var removingVoltmeterString = FaradaysLawA11yStrings.removingVoltmeter.value;
+  var circuitModeString = FaradaysLawA11yStrings.circuitMode.value;
+  var connectVoltmeterToCircuitString = FaradaysLawA11yStrings.connectVoltmeterToCircuit.value;
+  var showFieldLabelString = FaradaysLawA11yStrings.showFieldLabel.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -123,7 +126,7 @@ define( function( require ) {
       phetioInstanceDocumentation: 'Radio button group that selects between one or two coils.',
       containerTagName: 'li',
       labelTagName: 'p',
-      labelContent: 'Button group: "Circuit mode"'
+      labelContent: circuitModeString
     } );
 
     model.showTopCoilProperty.lazyLink( function( showTopCoil ) {
@@ -142,7 +145,7 @@ define( function( require ) {
       phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
-      labelContent: 'Connect voltmeter to circuit'
+      labelContent: connectVoltmeterToCircuitString
     } );
     showVoltmeterCheckbox.touchArea = showVoltmeterCheckbox.localBounds.dilated( 8 );
     this.addChild( showVoltmeterCheckbox );
@@ -163,7 +166,7 @@ define( function( require ) {
       phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
-      labelContent: 'Show field'
+      labelContent: showFieldLabelString
     } );
     showFieldCheckbox.touchArea = showFieldCheckbox.localBounds.dilated( 8 );
     this.addChild( showFieldCheckbox );
