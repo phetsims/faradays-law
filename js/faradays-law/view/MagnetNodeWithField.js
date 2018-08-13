@@ -303,7 +303,7 @@ define( function( require ) {
       twoLoopStrengthListNode.visible = self.fieldLinesDescriptionNode && showTopCoil;
     } );
 
-    model.magnet.orientationProperty.link( function( orientation ) {
+    model.magnet.orientationProperty.lazyLink( function( orientation ) {
       northNode.innerContent = describer.northPoleSideString;
       southNode.innerContent = describer.southPoleSideString;
       self.fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
