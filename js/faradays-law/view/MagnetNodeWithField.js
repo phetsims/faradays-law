@@ -25,6 +25,7 @@ define( function( require ) {
   var MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
   // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -131,8 +132,14 @@ define( function( require ) {
     } );
     draggableNode.addInputListener( dragHandler );
 
+    // a11y descriptions
+    var describer = new MagnetDescriptions( model );
+
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new KeyboardDragListener( {
+      start: function( event ) {
+        describer.regionMap.shiftKeyDown = event.shiftKey;
+      },
       drag: function( vectorDelta ) {
         var newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
         newPosition = model.bounds.closestPointTo( newPosition );
@@ -202,8 +209,22 @@ define( function( require ) {
 
     magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
-    // a11y descriptions
-    var describer = new MagnetDescriptions( model );
+    // draggableNode.addAccessibleInputListener( {
+    //   keydown: function( event ) {
+    //     if ( event.keyCode === KeyboardUtil.KEY_SHIFT ) {
+    //       describer._shiftStep = true;
+    //     } else {
+    //       describer._shiftStep = false;
+    //     }
+    //   }
+    // } );
+
+    describer.regionMap.directionChangedEmitter.addListener( direction => {
+      // map the ENUM direction to the appropriate string
+      var utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
+
+      utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
+    } );
 
     var fourCoilOnlyNode = new Node( {
       tagName: 'p'

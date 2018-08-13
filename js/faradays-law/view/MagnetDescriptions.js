@@ -122,6 +122,7 @@ define( function( require ) {
     this._magnetNodeBlurred = false;
 
     this._describeDirection = false;
+    this._shiftStep = false;
 
     this.regionMap = new MagnetRegions( model );
 
@@ -137,40 +138,44 @@ define( function( require ) {
       utteranceQueue.addToBack( this.magnetLocationAlertText );
     } );
 
-    this.regionMap.directionChangedEmitter.addListener( direction => {
-      // map the ENUM direction to the appropriate string
-      let utterance = '';
-      switch ( direction ) {
-        case MagnetDirectionEnum.LEFT:
-          utterance = leftString;
-          break;
-        case MagnetDirectionEnum.UP:
-          utterance = upString;
-          break;
-        case MagnetDirectionEnum.RIGHT:
-          utterance = rightString;
-          break;
-        case MagnetDirectionEnum.DOWN:
-          utterance = downString;
-          break;
-        case MagnetDirectionEnum.UP_LEFT:
-          utterance = upAndLeftString;
-          break;
-        case MagnetDirectionEnum.UP_RIGHT:
-          utterance = upAndRightString;
-          break;
-        case MagnetDirectionEnum.DOWN_LEFT:
-          utterance = downAndLeftString;
-          break;
-        case MagnetDirectionEnum.DOWN_RIGHT:
-          utterance = downAndRightString;
-          break;
-        default:
-          break;
-      }
-
-      utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
-    } );
+    // this.regionMap.directionChangedEmitter.addListener( direction => {
+    //   // map the ENUM direction to the appropriate string
+    //   let utterance = '';
+    //   switch ( direction ) {
+    //     case MagnetDirectionEnum.LEFT:
+    //       utterance = leftString;
+    //       break;
+    //     case MagnetDirectionEnum.UP:
+    //       utterance = upString;
+    //       break;
+    //     case MagnetDirectionEnum.RIGHT:
+    //       utterance = rightString;
+    //       break;
+    //     case MagnetDirectionEnum.DOWN:
+    //       utterance = downString;
+    //       break;
+    //     case MagnetDirectionEnum.UP_LEFT:
+    //       utterance = upAndLeftString;
+    //       break;
+    //     case MagnetDirectionEnum.UP_RIGHT:
+    //       utterance = upAndRightString;
+    //       break;
+    //     case MagnetDirectionEnum.DOWN_LEFT:
+    //       utterance = downAndLeftString;
+    //       break;
+    //     case MagnetDirectionEnum.DOWN_RIGHT:
+    //       utterance = downAndRightString;
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    //
+    //   if ( this._shiftStep ) {
+    //     utterance = StringUtils.fillIn( twoWordsPatternString, { first: slowlyString, second:  } );
+    //   }
+    //
+    //   utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
+    // } );
 
     this.regionMap.coilExitEmitter.addListener( coilType => {
       var exitingCoilPatternString = 'Exiting {{coil}}';
@@ -219,6 +224,45 @@ define( function( require ) {
   faradaysLaw.register( 'MagnetDescriptions', MagnetDescriptions );
 
   return inherit( Object, MagnetDescriptions, {
+
+    getMovementDirectionText: function( direction, shiftStep ) {
+      var text = '';
+
+      switch ( direction ) {
+        case MagnetDirectionEnum.LEFT:
+          text = leftString;
+          break;
+        case MagnetDirectionEnum.UP:
+          text = upString;
+          break;
+        case MagnetDirectionEnum.RIGHT:
+          text = rightString;
+          break;
+        case MagnetDirectionEnum.DOWN:
+          text = downString;
+          break;
+        case MagnetDirectionEnum.UP_LEFT:
+          text = upAndLeftString;
+          break;
+        case MagnetDirectionEnum.UP_RIGHT:
+          text = upAndRightString;
+          break;
+        case MagnetDirectionEnum.DOWN_LEFT:
+          text = downAndLeftString;
+          break;
+        case MagnetDirectionEnum.DOWN_RIGHT:
+          text = downAndRightString;
+          break;
+        default:
+          break;
+      }
+
+      if ( shiftStep ) {
+        text = StringUtils.fillIn( twoWordsPatternString, { first: 'slowly', second: text } );
+      }
+
+      return text;
+    },
 
     getFlipMagnetAlertText: function( orientation ) {
       let northSide = leftString;

@@ -61,8 +61,8 @@ define( function( require ) {
     this.oldDirection = null;
     this.currentDirection = null;
 
-    this.oldStepSize = 0;
-    this.currentStepSize = 0;
+    let shiftKeyLastMove = false;
+    this.shiftKeyDown = false;
 
     this.coilEntranceDirectionEmitter = new Emitter();
     this.coilExitEmitter = new Emitter();
@@ -75,12 +75,16 @@ define( function( require ) {
     this.silenceFieldStrengthAndProximity = false;
 
     this.magnet.positionProperty.lazyLink( ( newPosition, oldPosition ) => {
-      let newRegion = this.getRegion( newPosition );
-      let oldRegion = this.getRegion( oldPosition );
-      if ( newRegion !== oldRegion )
-      {
-        this.regionChangedEmitter.emit2( newRegion, oldRegion );
+      this.currentDirection = MagnetRegions.getDirection( newPosition, oldPosition );
+
+      if ( (this.currentDirection !== this.oldDirection) || ( this.shiftKeyDown !== shiftKeyLastMove ) ) {
+        // or if this is the first move after focus
+        // or if the step size is different
+        this.directionChangedEmitter.emit1( this.currentDirection );
+        this.oldDirection = this.currentDirection;
       }
+
+      shiftKeyLastMove = this.shiftKeyDown;
 
       let newCoilEntranceRegion = this.getCoilEntranceRegion( newPosition );
       let oldCoilEntranceRegion = this.getCoilEntranceRegion( oldPosition );
@@ -99,6 +103,13 @@ define( function( require ) {
       if ( exitingCoil && ( exitingCoil !== CoilTypeEnum.TWO_COIL || model.showTopCoilProperty.get() ) ) {
         this.coilExitEmitter.emit1( exitingCoil );
         this.silenceFieldStrengthAndProximity = true;
+      }
+
+      let newRegion = this.getRegion( newPosition );
+      let oldRegion = this.getRegion( oldPosition );
+      if ( newRegion !== oldRegion )
+      {
+        this.regionChangedEmitter.emit2( newRegion, oldRegion );
       }
 
       if ( !this.silenceFieldStrengthAndProximity ) {
@@ -124,15 +135,6 @@ define( function( require ) {
       }
 
       this.silenceFieldStrengthAndProximity = false;
-
-      this.currentDirection = MagnetRegions.getDirection( newPosition, oldPosition );
-
-      if ( this.currentDirection !== this.oldDirection ) {
-        // or if this is the first move after focus
-        // or if the step size is different
-        this.directionChangedEmitter.emit1( this.currentDirection );
-        this.oldDirection = this.currentDirection;
-      }
     } );
 
     model.showTopCoilProperty.link( showTopCoil => {
