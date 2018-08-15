@@ -13,9 +13,6 @@ define( function( require ) {
   // var inherit = require( 'PHET_CORE/inherit' );
 
   var FaradaysLawA11yStrings = {
-    sceneSummary: {
-      value: 'Faraday\'s Law is an interactive sim. It changes as you play with it.'
-    },
     summaryDescription: {
       value: 'The play area has a light bulb circuit, and a moveable bar magnet. There are controls that change what is connected to the circuit,  flip the bar magnet, and reset the sim.'
     },

@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CircuitDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/CircuitDescriptionNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
@@ -25,15 +24,12 @@ define( function( require ) {
   var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   // var Path = require( 'SCENERY/nodes/Path' );
-  // var SceneSummaryNode = require( 'SCENERY_PHET/accessibility/nodes/SceneSummaryNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SceneryPhetA11yStrings = require( 'SCENERY_PHET/SceneryPhetA11yStrings' );
   // var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
   // strings
-  var sceneSummaryString = FaradaysLawA11yStrings.sceneSummary.value;
   var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;
   var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
 
@@ -44,14 +40,16 @@ define( function( require ) {
    */
   function FaradaysLawScreenView( model, tandem ) {
     ScreenView.call( this, {
-      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS
+      layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
+
+      // a11y - TODO: Remove once https://github.com/phetsims/scenery-phet/issues/393 is complete
+      addScreenSummaryNode: true
     } );
 
-    // Scene Summary
-    var sceneSummary = new AccessibleSectionNode( SceneryPhetA11yStrings.sceneSummary.value );
-    sceneSummary.addChild( new Node( { tagName: 'p', innerContent: sceneSummaryString } ) );
-    sceneSummary.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
-    sceneSummary.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
+    // screen Summary
+    var summaryNode = new Node();
+    summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
+    summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
     var playArea = new PlayAreaNode();
 
@@ -59,7 +57,7 @@ define( function( require ) {
 
     playArea.addChild( circuitDescriptionNode );
 
-    this.addChild( sceneSummary );
+    this.screenSummaryNode.addChild( summaryNode );
     this.addChild( playArea );
 
     // coils
@@ -120,7 +118,7 @@ define( function( require ) {
 
     // a11y keyboard nav order
     this.accessibleOrder = [
-      sceneSummary,
+      this.screenSummaryNode,
       playArea,
       this.magnetNodeWithField,
       controlPanel,
