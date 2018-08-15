@@ -70,7 +70,11 @@ define( function( require ) {
     // the draggable container for the magnet and arrows
     var draggableNode = new Node( {
       cursor: 'pointer',
-      tandem: tandem.createTandem( 'draggableNode' ),
+
+      // The parent (MagnetNodeWithField) isn't instrumented, and this is the interactive node, so instrument this as
+      // the "parent" magnet instances, see https://github.com/phetsims/faradays-law/issues/116.
+      // NOTE: this assumes that tandem is not passed into a mutate or Node.call() in the MagnetNodeWithField type.
+      tandem: tandem,
       phetioInstanceDocumentation: 'The draggable container for the magnet and arrows',
 
       // a11y
@@ -98,7 +102,7 @@ define( function( require ) {
 
     // a11y - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
     // size of the node being highlighted.
-    model.showMagnetArrowsProperty.link( function ( showArrows ) {
+    model.showMagnetArrowsProperty.link( function( showArrows ) {
       magnetInteractionCueNode.visible = showArrows;
     } );
 
@@ -172,15 +176,16 @@ define( function( require ) {
 
           var magnitude = Number( event.key );
 
-          if ( model.magnet.positionProperty.get().x <= (model.bounds.maxX / 2 ) ) {
+          if ( model.magnet.positionProperty.get().x <= ( model.bounds.maxX / 2 ) ) {
             // point to right
             rightJumpArrows.showCue( magnitude );
-          } else {
+          }
+          else {
             leftJumpArrows.showCue( magnitude );
           }
         }
       },
-      onKeyup: function( event ){
+      onKeyup: function( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
           self.reflectedMagnetNode.visible = false;
         }
@@ -236,7 +241,7 @@ define( function( require ) {
       tagName: 'ul',
       labelTagName: 'p',
       labelContent: barMagnetIsString,
-      children: [ locationItem, fourCoilProximityItem, twoCoilProximityItem  ]
+      children: [ locationItem, fourCoilProximityItem, twoCoilProximityItem ]
     } );
 
     this.addChild( fourCoilOnlyNode );
