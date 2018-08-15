@@ -115,7 +115,7 @@ define( function( require ) {
     this.addChild( voltmeterAndWiresNode );
 
     // @private
-    this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnet' ) );
+    this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
 
     // a11y keyboard nav order
