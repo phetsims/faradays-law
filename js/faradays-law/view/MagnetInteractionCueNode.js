@@ -22,7 +22,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var ARROW_HEIGHT = 15; // dimensions for the arrow 
+  var ARROW_HEIGHT = 15; // dimensions for the arrow
   var KEY_HEIGHT = 24; // height of the arrow key, larger than default KeyNode height
   var ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * ARROW_HEIGHT; // for equilateral triangle
   var TEXT_KEY_OPTIONS = { font: new PhetFont( 14 ), forceSquareKey: true, keyHeight: KEY_HEIGHT };
@@ -41,13 +41,12 @@ define( function( require ) {
 
     Node.call( this );
 
-    // var directionKeysContainer = new Node( { visible: true } );
-    // this.addChild( directionKeysContainer );
+    var a11yEnabled = phet.chipper.queryParameters.accessibility;
 
-    var wNode = this.createMovementKeyNode( 'up' );
-    var aNode = this.createMovementKeyNode( 'left' );
-    var sNode = this.createMovementKeyNode( 'down' );
-    var dNode = this.createMovementKeyNode( 'right' );
+    var wNode = a11yEnabled ? this.createA11yMovementKeyNode( 'up' ) : this.createMovementKeyNode( 'up' );
+    var aNode = a11yEnabled ? this.createA11yMovementKeyNode( 'left' ) : this.createMovementKeyNode( 'left' );
+    var sNode = a11yEnabled ? this.createA11yMovementKeyNode( 'down' ) : this.createMovementKeyNode( 'down' );
+    var dNode = a11yEnabled ? this.createA11yMovementKeyNode( 'right' ) : this.createMovementKeyNode( 'right' );
 
     this.children = [ wNode, aNode, sNode, dNode ];
 
@@ -63,7 +62,41 @@ define( function( require ) {
   faradaysLaw.register( 'MagnetInteractionCueNode', MagnetInteractionCueNode );
 
   return inherit( Node, MagnetInteractionCueNode, {
+
     createMovementKeyNode: function( direction ) {
+
+      // create the arrow icon
+      var arrowShape = new Shape();
+      arrowShape.moveTo( ARROW_HEIGHT / 2, 0 ).lineTo( ARROW_HEIGHT, ARROW_WIDTH ).lineTo( 0, ARROW_WIDTH ).close();
+      var arrowIcon = new Path( arrowShape, {
+        fill: 'white',
+        stroke: 'black',
+        lineJoin: 'bevel',
+        lineCap: 'butt',
+        lineWidth: 2,
+        rotation: DIRECTION_ANGLES[ direction ]
+      } );
+
+      // determine direction dependent variables
+      var box;
+      if ( direction === 'up' ) {
+        box = new VBox( { children: [ arrowIcon ], spacing: KEY_ARROW_SPACING } );
+      }
+      else if ( direction === 'left' ) {
+        box = new HBox( { children: [ arrowIcon ], spacing: KEY_ARROW_SPACING } );
+      }
+      else if ( direction === 'right' ) {
+        box = new HBox( { children: [ arrowIcon ], spacing: KEY_ARROW_SPACING } );
+      }
+      else if ( direction === 'down' ) {
+        box = new VBox( { children: [ arrowIcon ], spacing: KEY_ARROW_SPACING } );
+      }
+
+      assert && assert( box, 'No box created for direction ' + direction );
+      return box;
+    },
+
+    createA11yMovementKeyNode: function( direction ) {
 
       // create the arrow icon
       var arrowShape = new Shape();
