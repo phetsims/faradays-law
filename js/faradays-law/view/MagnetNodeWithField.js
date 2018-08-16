@@ -240,8 +240,8 @@ define( function( require ) {
     this.addChild( fourCoilOnlyNode );
     this.addChild( twoAndFourCoilNode );
 
-    var northNode = new Node( { tagName: 'li' } );
-    var southNode = new Node( { tagName: 'li' } );
+    var northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
+    var southNode = new Node( { tagName: 'li', innerContent: describer.southPoleSideString } );
 
     var polarityNode = new Node(
       {

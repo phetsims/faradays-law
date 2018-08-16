@@ -51,7 +51,7 @@ define( function( require ) {
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
-    var playArea = new PlayAreaNode();
+    var playArea = new PlayAreaNode( { containerTagName: null } );
 
     var circuitDescriptionNode = new CircuitDescriptionNode( model );
 

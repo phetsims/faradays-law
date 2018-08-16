@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -20,6 +21,9 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Shape = require( 'KITE/Shape' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+
+  // a11y strings
+  var flipMagnetString = FaradaysLawA11yStrings.flipMagnet.value;
 
   /**
    * @param {Tandem} tandem
@@ -50,7 +54,7 @@ define( function( require ) {
       touchAreaYDilation: 10,
       tandem: tandem,
       phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.',
-      innerContent: 'Button: flip magnet',
+      innerContent: flipMagnetString,
       descriptionContent: 'Flip North and South poles',
       appendDescription: true
     }, options ) );
