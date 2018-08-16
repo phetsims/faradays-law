@@ -123,14 +123,9 @@ define( function( require ) {
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
       },
 
-      end: function() {
-
-        // arrows always are turned invisible when the user stops dragging the magnet
-        model.showMagnetArrowsProperty.set( false );
-      },
-
       // Translate on drag events
       drag: function( event ) {
+        model.showMagnetArrowsProperty.set( false );
         var parentPoint = self.globalToParentPoint( event.pointer.point );
         var desiredPosition = parentPoint.minus( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
@@ -147,12 +142,10 @@ define( function( require ) {
         describer.regionMap.shiftKeyDown = event.shiftKey;
       },
       drag: function( vectorDelta ) {
+        model.showMagnetArrowsProperty.set( false );
         var newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
         newPosition = model.bounds.closestPointTo( newPosition );
         model.moveMagnetToPosition( newPosition );
-      },
-      end: function() {
-        model.showMagnetArrowsProperty.set( false );
       },
       dragBounds: model.bounds
     } );
