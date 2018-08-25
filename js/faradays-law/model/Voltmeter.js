@@ -22,10 +22,9 @@ define( function( require ) {
 
   /**
    * @param {FaradaysLawModel} model - simulation model
-   * @param {Tandem} tandem
    * @constructor
    */
-  function Voltmeter( model, tandem ) {
+  function Voltmeter( model ) {
 
     // @private
     this.model = model;

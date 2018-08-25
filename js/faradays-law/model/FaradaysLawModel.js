@@ -89,7 +89,7 @@ define( function( require ) {
     this.magnetMovingDirection = null;
 
     // @public - the Voltmeter
-    this.voltmeter = new Voltmeter( this, tandem.createTandem( 'voltmeter' ) );
+    this.voltmeter = new Voltmeter( this );
 
     // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
     this.showTopCoilProperty.link( function( showTopCoil ) {
@@ -146,7 +146,7 @@ define( function( require ) {
      * @param  {Bounds2} bounds
      * @return {Bounds2|null}
      */
-    getIntersectedRestrictedBounds: function ( bounds ) {
+    getIntersectedRestrictedBounds: function( bounds ) {
       var stoppingValue = this.showTopCoilProperty.get() ? 0 : 2;
 
       for ( var i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
