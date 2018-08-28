@@ -25,7 +25,7 @@ define( function( require ) {
   var MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  // var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
   // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -214,12 +214,12 @@ define( function( require ) {
     magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
     // alert when the movement direction changes
-    describer.regionMap.directionChangedEmitter.addListener( direction => {
-      // map the ENUM direction to the appropriate string
-      var utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
-
-      utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
-    } );
+    // describer.regionMap.directionChangedEmitter.addListener( direction => {
+    //   // map the ENUM direction to the appropriate string
+    //   var utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
+    //
+    //   utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
+    // } );
 
     // magnet and circuit description content, TODO: refactor into separate node(s)?
     var fourCoilOnlyNode = new Node( {

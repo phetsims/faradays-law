@@ -14,12 +14,12 @@ define( require => {
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
   const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  const Emitter = require( 'AXON/Emitter' );
+  // const Emitter = require( 'AXON/Emitter' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   const LinearFunction = require( 'DOT/LinearFunction' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
 
   // constants
@@ -56,7 +56,14 @@ define( require => {
 
   class MagnetRegions {
 
-    constructor( model, tandem ) {
+    /**
+     * The MagnetRegions class accepts an instance of the model for linking the appropriate properties and mapping to
+     * numbers and strings for a11y-related alerts and descriptions. We watch model properties and update internal values
+     * that can be accessed via public getters by other types.
+     *
+     * @param {Object} model  FaradaysLawModel
+     */
+    constructor( model ) {
 
       this.model = model;
       this.magnet = model.magnet;
@@ -64,6 +71,7 @@ define( require => {
       this.bottomCoil = model.bottomCoil;
       this.bounds = model.bounds;
 
+      // @private
       // generate bounds to indicate if magnet is inside the coil
       this._topCoilInnerBounds = new Bounds2(
         Math.min( model.listOfRestrictedBounds[ 0 ].minX, model.listOfRestrictedBounds[ 1 ].minX ),
@@ -72,6 +80,7 @@ define( require => {
         Math.max( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY )
       );
 
+      // @private
       this._bottomCoilInnerBounds = new Bounds2(
         Math.min( model.listOfRestrictedBounds[ 2 ].minX, model.listOfRestrictedBounds[ 3 ].minX ),
         Math.min( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY ),
@@ -79,47 +88,34 @@ define( require => {
         Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
       );
 
-      this.oldDirection = null;
-      this.currentDirection = null;
+      // @private
+      this._adjacentCoil = CoilTypeEnum.NO_COIL;
+      this._positionRegion = this.getPositionRegion( model.magnet.positionProperty.get() );
+      this._topCoilProximity = 0;
+      this._bottomCoilProximity = 0;
+      this._topCoilFieldStrength = 0;
+      this._bottomCoilFiledStrength = 0;
 
-      let shiftKeyLastMove = false;
-      this.shiftKeyDown = false;
-
-      // @public - tracks the position of the magnet relative to one of the coils
-      this.adjacentCoilProperty = new DerivedProperty( [
-        model.showTopCoilProperty,
-        model.magnet.positionProperty
-      ], ( showTopCoil, newPosition ) => {
-        let coil = this.getAdjacentCoil( newPosition );
-
-        if ( !showTopCoil && coil === CoilTypeEnum.TWO_COIL ) {
-          return CoilTypeEnum.NO_COIL;
+      Property.multilink(
+        [ model.showTopCoilProperty, model.magnet.positionProperty ],
+        ( showTopCoil, position ) => {
+          this._adjacentCoil = this.getCoilAdjacentToVector( position, showTopCoil );
         }
+      );
 
-        return coil;
-      }, {
-        validValues: [ CoilTypeEnum.NO_COIL, CoilTypeEnum.TWO_COIL, CoilTypeEnum.FOUR_COIL ],
-        valueType: 'string',
-        tandem: tandem.createTandem( 'adjacentCoilProperty' )
+      model.magnet.positionProperty.link( position => {
+        this._positionRegion = this.getPositionRegion( position );
       } );
-      this.coilExitEmitter = new Emitter();
-      this.regionChangedEmitter = new Emitter();
-      // this.proximityChangedEmitter = new Emitter();
-      // this.fieldStrengthChangedEmitter = new Emitter();
-      this.proximityOrFieldStrengthChangedEmiter = new Emitter();
-      this.directionChangedEmitter = new Emitter();
 
-      this.silenceFieldStrengthAndProximity = false;
+      // this.magnet.positionProperty.lazyLink( ( newPosition, oldPosition ) => {
+        // this.currentDirection = MagnetRegions.getDirection( newPosition, oldPosition );
 
-      this.magnet.positionProperty.lazyLink( ( newPosition, oldPosition ) => {
-        this.currentDirection = MagnetRegions.getDirection( newPosition, oldPosition );
+        // if ( (this.currentDirection !== this.oldDirection) || ( this.shiftKeyDown !== shiftKeyLastMove ) ) {
+        //   this.directionChangedEmitter.emit1( this.currentDirection );
+        //   this.oldDirection = this.currentDirection;
+        // }
 
-        if ( (this.currentDirection !== this.oldDirection) || ( this.shiftKeyDown !== shiftKeyLastMove ) ) {
-          this.directionChangedEmitter.emit1( this.currentDirection );
-          this.oldDirection = this.currentDirection;
-        }
-
-        shiftKeyLastMove = this.shiftKeyDown;
+        // shiftKeyLastMove = this.shiftKeyDown;
 
         // let newCoilEntranceRegion = this.getCoilEntranceRegion( newPosition );
         // let oldCoilEntranceRegion = this.getCoilEntranceRegion( oldPosition );
@@ -133,19 +129,19 @@ define( require => {
         //   }
         // }
 
-        let exitingCoil = this.isExitingCoil( newPosition, oldPosition );
+        // let exitingCoil = this.isExitingCoil( newPosition, oldPosition );
 
-        if ( exitingCoil && ( exitingCoil !== CoilTypeEnum.TWO_COIL || model.showTopCoilProperty.get() ) ) {
-          this.coilExitEmitter.emit1( exitingCoil );
-          this.silenceFieldStrengthAndProximity = true;
-        }
+        // if ( exitingCoil && ( exitingCoil !== CoilTypeEnum.TWO_COIL || model.showTopCoilProperty.get() ) ) {
+          // this.coilExitEmitter.emit1( exitingCoil );
+          // this.silenceFieldStrengthAndProximity = true;
+        // }
 
-        let newRegion = this.getRegion( newPosition );
-        let oldRegion = this.getRegion( oldPosition );
-        if ( newRegion !== oldRegion )
-        {
-          this.regionChangedEmitter.emit2( newRegion, oldRegion );
-        }
+        // let newRegion = this.getRegion( newPosition );
+        // let oldRegion = this.getRegion( oldPosition );
+        // if ( newRegion !== oldRegion )
+        // {
+        //   this.regionChangedEmitter.emit2( newRegion, oldRegion );
+        // }
 
         // if ( !this.silenceFieldStrengthAndProximity ) {
         //   let newTopCoilProximity = this.getTopCoilProximityRegion( newPosition );
@@ -170,7 +166,7 @@ define( require => {
         // }
 
         // this.silenceFieldStrengthAndProximity = false;
-      } );
+      // } );
 
       // model.showTopCoilProperty.link( showTopCoil => {
       //   let entranceRegion = this.getCoilEntranceRegion( this.magnet.positionProperty.get() );
@@ -181,83 +177,98 @@ define( require => {
       // } );
     }
 
+    /*****************************************************************************
+     * Magnet location region methods for adjacent coil and sim screen location. *
+     *****************************************************************************/
 
-    isExitingCoil( newPosition, oldPosition ) {
-      var newMagnetBounds = createMagnetBounds( newPosition );
-      var oldMagnetBounds = createMagnetBounds( oldPosition );
-      if ( this._bottomCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
-           !this._bottomCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
-      {
-        return CoilTypeEnum.FOUR_COIL;
-      }
+     /**
+      * Get the current value of the adjacent coil.
+      *
+      * @return {String}
+      */
+     get adjacentCoil() {
+       return this._adjacentCoil;
+     }
 
-      if ( this._topCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
-           !this._topCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
-      {
-        return CoilTypeEnum.TWO_COIL;
-      }
+     /**
+      * Get the coil whose inner vertical bounds contain the y value of the given vector.
+      *
+      * @private
+      * @param  {Vector2} vector
+      * @return {String}
+      */
+     getCoilAdjacentToVector( vector, showTopCoil ) {
+       var y = vector.y;
 
-      return false;
+       if ( showTopCoil && y <= this._topCoilInnerBounds.maxY && y >= this._topCoilInnerBounds.minY ) {
+         return CoilTypeEnum.TWO_COIL;
+       }
+
+       if ( y <= this._bottomCoilInnerBounds.maxY && y >= this._bottomCoilInnerBounds.minY ) {
+         return CoilTypeEnum.FOUR_COIL;
+       }
+
+       return CoilTypeEnum.NO_COIL;
+     }
+
+     /**
+      * Get the current region, one of 0..9
+      *
+      * @return {int}
+      */
+     get positionRegion() {
+       return this._positionRegion;
+     }
+
+    /**
+     * Get the region of the screen that contains the provided vector. For Faraday's Law, the screen is divided into 9
+     * regions that are numbered 0 - 8 in row major order, left to right.
+     *
+     * @param  {Vector2} vector
+     * @return {int}
+     */
+    getPositionRegion( { x, y } ) {
+      return ( NUMBER_OF_ROWS * MagnetRegions.getRow( y ) ) + MagnetRegions.getColumn( x );
     }
 
-    isExitingTopCoil( newPosition, oldPosition ) {
-      var oldIn = this._topCoilInnerBounds.containsPoint( oldPosition );
-      var newOut = !this._topCoilInnerBounds.containsPoint( newPosition );
-      return oldIn && newOut;
+    /**
+     * Get the 0-based row number for a y coordinate.
+     *
+     * @param  {Number} y
+     * @return {int}
+     */
+    static getRow( y ) {
+      return MagnetRegions.mapSegment( y, rowHeight );
     }
 
-    isExitingBottomCoil( newPosition, oldPosition ) {
-      var oldIn = this._bottomCoilInnerBounds.containsPoint( oldPosition );
-      var newOut = !this._bottomCoilInnerBounds.containsPoint( newPosition );
-      return oldIn && newOut;
+    /**
+     * Get the 0-based column number for an x coordinate.
+     * @param  {Number} x
+     * @return {int}
+     */
+    static getColumn( x ) {
+      return MagnetRegions.mapSegment( x, columnWidth );
     }
 
-    getAdjacentCoil( vector ) {
-      var y = vector.y;
-
-      if ( y <= this._topCoilInnerBounds.maxY && y >= this._topCoilInnerBounds.minY ) {
-        return CoilTypeEnum.TWO_COIL;
-      }
-
-      if ( y <= this._bottomCoilInnerBounds.maxY && y >= this._bottomCoilInnerBounds.minY ) {
-        return CoilTypeEnum.FOUR_COIL;
-      }
-
-      return CoilTypeEnum.NO_COIL;
-    }
-
-    get coilDirection() {
-      var coilsCenterX = this.topCoil.position.x + ( this.bottomCoil.position.x - this.topCoil.position.x ) / 2;
-      return ( this.magnet.positionProperty.get().x - coilsCenterX ) < 0 ? RIGHT : LEFT;
-    }
-
-    getBottomCoilDirection( vector ) {
-      return ( vector.x - this.bottomCoil.position ) < 0 ? RIGHT : LEFT;
-    }
-
-    get currentRegion() {
-      return this.getRegion( this.magnet.positionProperty.get() );
-    }
-
-    getRegion( vector ) {
-      return ( NUMBER_OF_ROWS * this.getRow( vector.y ) ) + this.getColumn( vector.x );
-    }
-
-    getRow( y ) {
-      return this.mapSegment( y, rowHeight );
-    }
-
-    getColumn( x ) {
-      return this.mapSegment( x, columnWidth );
-    }
-
-    mapSegment( num, interval ) {
+    /**
+     * Maps a given number to a given segment number based on the size of the segment. This function assumes that there
+     * are an equal number of rows and columns.
+     *
+     * @param  {Number} value
+     * @param  {Number} segmentSize
+     * @return {int}
+     */
+    static mapSegment( value, segmentSize ) {
       for ( let i = 0; i < NUMBER_OF_ROWS; i++ ) {
-        if ( num <= ( i + 1 ) * interval ) {
+        if ( value <= ( i + 1 ) * segmentSize ) {
           return i;
         }
       }
       return NUMBER_OF_ROWS - 1;
+    }
+
+    get magnetAtEdge() {
+      return this.isVectorAtEdge( this.magnet.positionProperty.get() );
     }
 
     isVectorAtEdge( { x, y } ) {
@@ -268,8 +279,32 @@ define( require => {
       return verticalMinDistance <= VERTICAL_EDGE_TOLERANCE || horizontalMinDistance <= HORIZONTAL_EDGE_TOLERANCE;
     }
 
-    get magnetAtEdge() {
-      return this.isVectorAtEdge( this.magnet.positionProperty.get() );
+
+    // isExitingCoil( newPosition, oldPosition ) {
+    //   var newMagnetBounds = createMagnetBounds( newPosition );
+    //   var oldMagnetBounds = createMagnetBounds( oldPosition );
+    //   if ( this._bottomCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
+    //        !this._bottomCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
+    //   {
+    //     return CoilTypeEnum.FOUR_COIL;
+    //   }
+    //
+    //   if ( this._topCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
+    //        !this._topCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
+    //   {
+    //     return CoilTypeEnum.TWO_COIL;
+    //   }
+    //
+    //   return false;
+    // }
+
+    get coilDirection() {
+      var coilsCenterX = this.topCoil.position.x + ( this.bottomCoil.position.x - this.topCoil.position.x ) / 2;
+      return ( this.magnet.positionProperty.get().x - coilsCenterX ) < 0 ? RIGHT : LEFT;
+    }
+
+    getBottomCoilDirection( vector ) {
+      return ( vector.x - this.bottomCoil.position ) < 0 ? RIGHT : LEFT;
     }
 
     get magnetToTopCoilProximity() {
