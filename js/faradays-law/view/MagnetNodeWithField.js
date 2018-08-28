@@ -134,7 +134,7 @@ define( function( require ) {
     draggableNode.addInputListener( dragHandler );
 
     // a11y descriptions - generates text content and alerts for magnet interactions
-    var describer = new MagnetDescriptions( model );
+    var describer = new MagnetDescriptions( model, tandem );
 
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new KeyboardDragListener( {

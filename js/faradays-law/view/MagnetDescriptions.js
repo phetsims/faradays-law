@@ -110,15 +110,13 @@ define( function( require ) {
                               middleLeftString, centerString,       middleRightString,
                               bottomLeftString, bottomCenterString, bottomRightString ];
 
-  // var EDGE_TOLERANCE = 5;
-
   // can create a linear function to map distances to integers 0 - 2
   var PROXIMITY_STRINGS = [ inString, veryCloseToString, closeToString, farFromString ];
   // var proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
 
   var FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
 
-  function MagnetDescriptions( model ) {
+  function MagnetDescriptions( model, tandem ) {
     var self = this;
     // @private
     this._model = model;
@@ -133,7 +131,7 @@ define( function( require ) {
     this._describeDirection = false;
     this._shiftStep = false;
 
-    this.regionMap = new MagnetRegions( model );
+    this.regionMap = new MagnetRegions( model, tandem );
 
     this._magnet.positionProperty.link( function( position, oldPosition ) {
       self._magnetPosition = position;
@@ -153,12 +151,12 @@ define( function( require ) {
       utteranceQueue.addToBack( utterance );
     } );
 
-    this.regionMap.coilEntranceDirectionEmitter.addListener( newCoilEntranceRegion => {
+    this.regionMap.adjacentCoilProperty.lazyLink( newAdjacentCoil => {
       let directionString = this.regionMap.coilDirection === MagnetDirectionEnum.LEFT ? leftString : rightString;
 
-      if ( newCoilEntranceRegion === CoilTypeEnum.NO_COIL ) {
+      if ( newAdjacentCoil === CoilTypeEnum.NO_COIL ) {
         utteranceQueue.addToBack( StringUtils.fillIn( noCoilPatternString, { direction: directionString } ) );
-      } else if ( newCoilEntranceRegion === CoilTypeEnum.FOUR_COIL ) {
+      } else if ( newAdjacentCoil === CoilTypeEnum.FOUR_COIL ) {
         utteranceQueue.addToBack( StringUtils.fillIn( coilToDirectionPatternString, { coil: theFourLoopCoilString, direction: directionString } ) );
       } else {
         utteranceQueue.addToBack( StringUtils.fillIn( coilToDirectionPatternString, { coil: theTwoLoopCoilString, direction: directionString } ) );
