@@ -131,7 +131,7 @@ define( function( require ) {
     this._describeDirection = false;
     this._shiftStep = false;
 
-    this.regionMap = new MagnetRegions( model, tandem );
+    this.regionMap = new MagnetRegions( model );
 
     this._magnet.positionProperty.link( function( position, oldPosition ) {
       self._magnetPosition = position;
