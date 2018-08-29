@@ -84,7 +84,7 @@ define( function( require ) {
     };
 
     // voltmeter and bulb created
-    var voltmeterAndWiresNode = new VoltmeterAndWiresNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
+    var voltmeterAndWiresNode = new VoltmeterAndWiresNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'vofdsaltmeterNode' ) );
     var bulbNode = new BulbNode( model.voltageProperty, {
       center: FaradaysLawConstants.BULB_POSITION
     } );
