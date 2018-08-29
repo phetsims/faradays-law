@@ -10,38 +10,38 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  var FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
-  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
-  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
-  var MagnetDescriptions = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptions' );
-  var MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
-  var MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
-  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  // var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
-  var Vector2 = require( 'DOT/Vector2' );
-  // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  // var Property = require( 'AXON/Property' );
+  // const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  const FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
+  const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
+  const MagnetDescriptions = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptions' );
+  const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
+  const MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
+  const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
+  const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  // const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const Vector2 = require( 'DOT/Vector2' );
+  // const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  // const Property = require( 'AXON/Property' );
 
   // strings
-  var barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
-  var barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
-  var magnetPolarityString = FaradaysLawA11yStrings.magnetPolarity.value;
-  var fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
-  var fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
-  // var positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
-  // var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
+  const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
+  const barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
+  const magnetPolarityString = FaradaysLawA11yStrings.magnetPolarity.value;
+  const fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
+  const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
+  // const positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
+  // const twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
 
-  // var fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
-  // var fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
+  // const fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
+  // const fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -49,7 +49,7 @@ define( function( require ) {
    * @constructor
    */
   function MagnetNodeWithField( model, tandem ) {
-    var self = this;
+    const self = this;
 
     Node.call( this, {
       tagName: 'div',
@@ -65,10 +65,10 @@ define( function( require ) {
 
     // a11y
     // create the focus highlight to pass as an option
-    var draggableNodeFocusHighlight = new FocusHighlightFromNode( this.magnetNode ); // overridden once the draggableNode is fully constructed
+    let draggableNodeFocusHighlight = new FocusHighlightFromNode( this.magnetNode ); // overridden once the draggableNode is fully constructed
 
     // the draggable container for the magnet and arrows
-    var draggableNode = new Node( {
+    let draggableNode = new Node( {
       cursor: 'pointer',
 
       // The parent (MagnetNodeWithField) isn't instrumented, and this is the interactive node, so instrument this as
@@ -96,7 +96,7 @@ define( function( require ) {
     this.reflectedMagnetNode.visible = false;
 
     // help arrows around the magnet
-    var magnetInteractionCueNode = new MagnetInteractionCueNode();
+    let magnetInteractionCueNode = new MagnetInteractionCueNode();
 
     this.addChild( magnetInteractionCueNode );
 
@@ -109,8 +109,8 @@ define( function( require ) {
     magnetInteractionCueNode.setKeyPositions( self.magnetNode.bounds );
 
     // handler
-    var magnetOffset = new Vector2();
-    var dragHandler = new SimpleDragHandler( {
+    let magnetOffset = new Vector2();
+    let dragHandler = new SimpleDragHandler( {
 
       tandem: tandem.createTandem( 'dragHandler' ),
       phetioInstanceDocumentation: 'Emits events when dragged by the user',
@@ -118,32 +118,32 @@ define( function( require ) {
       // When dragging across it in a mobile device, pick it up
       allowTouchSnag: true,
 
-      start: function( event ) {
+      start( event ) {
         magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
         magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
       },
 
       // Translate on drag events
-      drag: function( event ) {
+      drag( event ) {
         model.showMagnetArrowsProperty.set( false );
-        var parentPoint = self.globalToParentPoint( event.pointer.point );
-        var desiredPosition = parentPoint.minus( magnetOffset );
+        let parentPoint = self.globalToParentPoint( event.pointer.point );
+        let desiredPosition = parentPoint.minus( magnetOffset );
         model.moveMagnetToPosition( desiredPosition );
       }
     } );
     draggableNode.addInputListener( dragHandler );
 
     // a11y descriptions - generates text content and alerts for magnet interactions
-    var describer = new MagnetDescriptions( model, tandem );
+    let describer = new MagnetDescriptions( model, tandem );
 
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new KeyboardDragListener( {
-      start: function( event ) {
+      start( event ) {
         describer.regionMap.shiftKeyDown = event.shiftKey;
       },
-      drag: function( vectorDelta ) {
+      drag( vectorDelta ) {
         model.showMagnetArrowsProperty.set( false );
-        var newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
+        let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
         newPosition = model.bounds.closestPointTo( newPosition );
         model.moveMagnetToPosition( newPosition );
       },
@@ -151,8 +151,8 @@ define( function( require ) {
     } );
 
     // arrows displayed before initiating the sliding/jumping movement
-    var leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );
-    var rightJumpArrows = new JumpMagnitudeArrowNode( 'right' );
+    let leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );
+    let rightJumpArrows = new JumpMagnitudeArrowNode( 'right' );
     leftJumpArrows.setKeyPositions( self.magnetNode.bounds );
     rightJumpArrows.setKeyPositions( self.magnetNode.bounds );
     this.addChild( leftJumpArrows );
@@ -161,13 +161,13 @@ define( function( require ) {
     draggableNode.addAccessibleInputListener( this.keyboardDragListener );
 
     // handle the jump/slide interaction
-    var magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
-      onKeydown: function( event ) {
+    let magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
+      onKeydown( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
           self.reflectedMagnetNode.visible = true;
           model.showMagnetArrowsProperty.set( false );
 
-          var magnitude = Number( event.key );
+          let magnitude = Number( event.key );
 
           if ( model.magnet.positionProperty.get().x <= ( model.bounds.maxX / 2 ) ) {
             // point to right
@@ -178,7 +178,7 @@ define( function( require ) {
           }
         }
       },
-      onKeyup: function( event ) {
+      onKeyup( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
           self.reflectedMagnetNode.visible = false;
         }
@@ -190,12 +190,12 @@ define( function( require ) {
     draggableNode.addAccessibleInputListener( magnetJumpKeyboardListener );
 
     // listener to position the reflected node
-    var setReflectedNodeCenter = function( position ) {
+    let setReflectedNodeCenter = ( position ) => {
       self.reflectedMagnetNode.center = self.parentToLocalPoint( position );
     };
 
     // observers
-    model.magnet.orientationProperty.link( function() {
+    model.magnet.orientationProperty.link( () => {
       self.magnetNode.detach();
       self.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( self.magnetNode );
@@ -216,21 +216,21 @@ define( function( require ) {
     // alert when the movement direction changes
     // describer.regionMap.directionChangedEmitter.addListener( direction => {
     //   // map the ENUM direction to the appropriate string
-    //   var utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
+    //   let utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
     //
     //   utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
     // } );
 
     // magnet and circuit description content, TODO: refactor into separate node(s)?
-    var fourCoilOnlyNode = new Node( {
+    let fourCoilOnlyNode = new Node( {
       tagName: 'p'
     } );
 
-    var locationItem = new Node( { tagName: 'li' } );
-    var twoCoilProximityItem = new Node( { tagName: 'li' } );
-    var fourCoilProximityItem = new Node( { tagName: 'li' } );
+    let locationItem = new Node( { tagName: 'li' } );
+    let twoCoilProximityItem = new Node( { tagName: 'li' } );
+    let fourCoilProximityItem = new Node( { tagName: 'li' } );
 
-    var twoAndFourCoilNode = new Node( {
+    let twoAndFourCoilNode = new Node( {
       tagName: 'ul',
       labelTagName: 'p',
       labelContent: barMagnetIsString,
@@ -240,10 +240,10 @@ define( function( require ) {
     this.addChild( fourCoilOnlyNode );
     this.addChild( twoAndFourCoilNode );
 
-    var northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
-    var southNode = new Node( { tagName: 'li', innerContent: describer.southPoleSideString } );
+    let northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
+    let southNode = new Node( { tagName: 'li', innerContent: describer.southPoleSideString } );
 
-    var polarityNode = new Node(
+    let polarityNode = new Node(
       {
         tagName: 'ul',
         labelTagName: 'p',
@@ -254,11 +254,11 @@ define( function( require ) {
 
     this.addChild( polarityNode );
 
-    var fourLoopOnlyStrengthNode = new Node( { tagName: 'p' } );
+    let fourLoopOnlyStrengthNode = new Node( { tagName: 'p' } );
 
-    var fourLoopFieldStrengthItem = new Node( { tagName: 'li' } );
-    var twoLoopFieldStrengthItem = new Node( { tagName: 'li' } );
-    var twoLoopStrengthListNode = new Node( {
+    let fourLoopFieldStrengthItem = new Node( { tagName: 'li' } );
+    let twoLoopFieldStrengthItem = new Node( { tagName: 'li' } );
+    let twoLoopStrengthListNode = new Node( {
       tagName: 'ul',
       labelTagName: 'p',
       labelContent: fieldStrengthIsString,
@@ -277,7 +277,7 @@ define( function( require ) {
     this.addChild( this.fieldLinesDescriptionNode );
 
     // position observers
-    model.magnet.positionProperty.link( function( position, oldPosition ) {
+    model.magnet.positionProperty.link( () => {
 
       // magnet location and coil proximity description content updates
       fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
@@ -291,7 +291,7 @@ define( function( require ) {
       twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
     } );
 
-    model.showTopCoilProperty.link( function( showTopCoil ) {
+    model.showTopCoilProperty.link( ( showTopCoil ) => {
       fourCoilOnlyNode.visible = !showTopCoil;
       twoAndFourCoilNode.visible = showTopCoil;
 
@@ -300,7 +300,7 @@ define( function( require ) {
       twoLoopStrengthListNode.visible = self.fieldLinesDescriptionNode && showTopCoil;
     } );
 
-    model.magnet.orientationProperty.lazyLink( function( orientation ) {
+    model.magnet.orientationProperty.lazyLink( ( orientation ) => {
 
       // N/S orientation change alert
       northNode.innerContent = describer.northPoleSideString;
@@ -310,20 +310,21 @@ define( function( require ) {
       utteranceQueue.addToBack( describer.getFlipMagnetAlertText( orientation ) );
     } );
 
-    model.magnet.showFieldLinesProperty.link( function( showLines ) {
+    model.magnet.showFieldLinesProperty.link( ( showLines ) => {
       self.fieldLinesDescriptionNode.visible = showLines;
     } );
 
     // focus/blur alerts
     draggableNode.addAccessibleInputListener( {
-      focus: function() {
+      focus() {
         utteranceQueue.addToBack( describer.magnetFocusAlertText );
         describer.regionMap.justFocused = true;
       }
     } );
 
     // @a11y
-    magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( function( isAnimating ) {
+    magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( ( isAnimating ) => {
+
       // magnet stopped alert
       if ( !isAnimating ) {
         utteranceQueue.addToBack( describer.slidingStoppedText );
@@ -336,7 +337,7 @@ define( function( require ) {
    * @param {Magnet} magnet
    * @returns {MagnetNode}
    */
-  var createMagnetNode = function( magnet ) {
+  let createMagnetNode = ( magnet ) => {
     return new MagnetNode( magnet.orientationProperty.get(), {
       width: magnet.width,
       height: magnet.height,
