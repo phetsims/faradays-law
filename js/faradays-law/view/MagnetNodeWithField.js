@@ -24,7 +24,7 @@ define( function( require ) {
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   // const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -110,9 +110,9 @@ define( function( require ) {
 
     // handler
     let magnetOffset = new Vector2();
-    let dragHandler = new SimpleDragHandler( {
+    let dragHandler = new DragListener( {
 
-      tandem: tandem.createTandem( 'dragHandler' ),
+      tandem: tandem,
       phetioInstanceDocumentation: 'Emits events when dragged by the user',
 
       // When dragging across it in a mobile device, pick it up
