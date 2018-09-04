@@ -12,7 +12,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Property = require( 'AXON/Property' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Timer = require( 'PHET_CORE/Timer' );
+  var timer = require( 'PHET_CORE/timer' );
   var Util = require( 'DOT/Util' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -141,11 +141,11 @@ define( function( require ) {
 
     // step the drag listener, must be removed in dispose
     var stepListener = this.step.bind( this );
-    Timer.addListener( stepListener );
+    timer.addListener( stepListener );
 
     // @private - called in dispose
     this._disposeKeyboardDragListener = function() {
-      Timer.removeListener( stepListener );
+      timer.removeListener( stepListener );
     };
   }
 
