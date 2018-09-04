@@ -108,7 +108,7 @@ define( function( require ) {
           new CoilNode( CoilTypeEnum.FOUR_COIL )
         ]
       }, coilButtonGroupOptions ) ),
-      tandemName: 'doubleCoilRadioButton',
+      tandemName: 'doubleCoilRadioButtonTest',
       phetioInstanceDocumentation: 'Radio button that selects double coils.',
       labelContent: '2 coil'
     } ];
