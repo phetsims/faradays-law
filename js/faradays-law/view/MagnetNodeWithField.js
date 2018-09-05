@@ -47,6 +47,8 @@ define( require => {
         labelContent: barMagnetString
       } );
 
+      var self = this;
+
       // magnet
       this.magnetNode = createMagnetNode( model.magnet );
 
@@ -109,14 +111,14 @@ define( require => {
         allowTouchSnag: true,
 
         start( event ) {
-          magnetOffset.x = this.globalToParentPoint( event.pointer.point ).x - this.centerX;
-          magnetOffset.y = this.globalToParentPoint( event.pointer.point ).y - this.centerY;
+          magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
+          magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
         },
 
         // Translate on drag events
         drag( event ) {
           model.showMagnetArrowsProperty.set( false );
-          const parentPoint = this.globalToParentPoint( event.pointer.point );
+          const parentPoint = self.globalToParentPoint( event.pointer.point );
           const desiredPosition = parentPoint.minus( magnetOffset );
           model.moveMagnetToPosition( desiredPosition );
         }
@@ -151,7 +153,7 @@ define( require => {
       const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
         onKeydown( event ) {
           if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
-            this.reflectedMagnetNode.visible = true;
+            self.reflectedMagnetNode.visible = true;
             model.showMagnetArrowsProperty.set( false );
 
             const magnitude = Number( event.key );
@@ -167,7 +169,7 @@ define( require => {
         },
         onKeyup( event ) {
           if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
-            this.reflectedMagnetNode.visible = false;
+            self.reflectedMagnetNode.visible = false;
           }
           rightJumpArrows.hideCue();
           leftJumpArrows.hideCue();
