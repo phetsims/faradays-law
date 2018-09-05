@@ -13,12 +13,34 @@ define( function( require ) {
   // var inherit = require( 'PHET_CORE/inherit' );
 
   var FaradaysLawA11yStrings = {
+
+    /************************
+     * SUMMARY AND HEADINGS *
+     ************************/
+
     summaryDescription: {
       value: 'The play area has a light bulb circuit, and a moveable bar magnet. There are controls that change what is connected to the circuit,  flip the bar magnet, and reset the sim.'
+    },
+
+    // magnet description in summary
+    moveMagnetToPlay: {
+      value: 'Move the magnet to play.'
+    },
+
+    // headings
+    lightBulbCircuitLabel: {
+      value: 'Light Bulb Circuit'
+    },
+    barMagnet: {
+      value: 'Bar Magnet'
     },
     controls: {
       value: 'Controls Area'
     },
+
+    /**************************************
+     * Circuit descriptions and help text *
+     **************************************/
     inTheCircuit: {
       value: 'In circuit are a:'
     },
@@ -27,15 +49,6 @@ define( function( require ) {
     },
     coilsStaticDescription: {
       value: 'The coils are open on the left and right - the bar magnet to pass through.'
-    },
-    moveMagnetToPlay: {
-      value: 'Move the magnet to play.'
-    },
-    lightBulbCircuitLabel: {
-      value: 'Light Bulb Circuit'
-    },
-    barMagnet: {
-      value: 'Bar Magnet'
     },
     voltmeter: {
       value: 'Voltmeter'
@@ -47,7 +60,7 @@ define( function( require ) {
       value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
     },
     voltMeterAttached: {
-      value: 'A volt meter attached is also attached to the circuit.'
+      value: 'A volt meter is also attached to the circuit.'
     },
     aLightbulb: {
       value: 'a lightbulb'
@@ -55,17 +68,11 @@ define( function( require ) {
     aVoltMeter: {
       value: 'a volt meter'
     },
-    aNumberLoopPattern: {
-      value: 'a {{number}} loop'
+    aCoilPattern: {
+      value: 'a {{coil}}'
     },
-    theNumberLoopPattern: {
-      value: 'the {{number}} loop'
-    },
-    aLoopCoilPattern: {
-      value: 'a {{loops}} coil'
-    },
-    theLoopCoilPattern: {
-      value: 'the {{loops}} coil'
+    theCoilPattern: {
+      value: 'the {{coil}}'
     },
     fourLoopCoil: {
       value: '4 loop coil'
@@ -100,6 +107,20 @@ define( function( require ) {
     and: {
       value: 'and'
     },
+
+    /**************************
+     * Screen location values *
+     **************************/
+
+    barMagnetPositionPattern: {
+      value: 'The bar magnet is {{areaPosition}}'
+    },
+    barMagnetIs: {
+      value: 'The bar magnet is:'
+    },
+    positionOfPlayAreaPattern: {
+      value: 'at the {{position}} of the Play Area.'
+    },
     topLeft: {
       value: 'top-left'
     },
@@ -130,6 +151,11 @@ define( function( require ) {
     edge: {
       value: 'edge'
     },
+
+    /************************************
+     * Magnet proximity to coil strings *
+     ************************************/
+
     in: {
       value: 'in'
     },
@@ -142,18 +168,8 @@ define( function( require ) {
     veryCloseTo: {
       value: 'very close to'
     },
-    barMagnetPositionPattern: {
-      value: 'The bar magnet is {{areaPosition}}'
-    },
-    barMagnetIs: {
-      value: 'The bar magnet is:'
-    },
     magnetPolarity: {
       value: 'Magnet polarity:'
-    },
-
-    positionOfPlayAreaPattern: {
-      value: 'at the {{position}} of the Play Area.'
     },
     poleOnThePattern: {
       value: '{{pole}} pole on the {{side}}'
@@ -198,7 +214,7 @@ define( function( require ) {
       value: 'Magnet at {{position}} of Play Area'
     },
     magnetLocationExtraAlertPattern: {
-      value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet. Number 1, 2, or 3 keys slides magnet.'
+      value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet.'
     },
     slidingStoppedPattern: {
       value: 'Sliding stopped. Magnet at {{position}} of play area'

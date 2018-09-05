@@ -18,7 +18,7 @@ define( function( require ) {
   const JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
   const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
-  const MagnetDescriptions = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptions' );
+  const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   const MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
@@ -134,13 +134,10 @@ define( function( require ) {
     draggableNode.addInputListener( dragHandler );
 
     // a11y descriptions - generates text content and alerts for magnet interactions
-    let describer = new MagnetDescriptions( model, tandem );
+    let describer = new MagnetDescriber( model, tandem );
 
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new KeyboardDragListener( {
-      start( event ) {
-        describer.regionMap.shiftKeyDown = event.shiftKey;
-      },
       drag( vectorDelta ) {
         model.showMagnetArrowsProperty.set( false );
         let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
@@ -212,14 +209,6 @@ define( function( require ) {
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
     magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
-
-    // alert when the movement direction changes
-    // describer.regionMap.directionChangedEmitter.addListener( direction => {
-    //   // map the ENUM direction to the appropriate string
-    //   let utterance = describer.getMovementDirectionText( direction, this.keyboardDragListener.shiftKeyDown() );
-    //
-    //   utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'direction' } ) );
-    // } );
 
     // magnet and circuit description content, TODO: refactor into separate node(s)?
     let fourCoilOnlyNode = new Node( {
@@ -317,6 +306,7 @@ define( function( require ) {
     // focus/blur alerts
     draggableNode.addAccessibleInputListener( {
       focus() {
+        // FaradaysLawAlertManager.magnetFocusAlert( cueVisible );
         utteranceQueue.addToBack( describer.magnetFocusAlertText );
         describer.regionMap.justFocused = true;
       }

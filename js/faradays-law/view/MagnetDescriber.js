@@ -15,10 +15,9 @@ define( function( require ) {
   // var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  // var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   // var Vector2 = require( 'DOT/Vector2' );
   // var Bounds2 = require( 'DOT/Bounds2' );
-  var inherit = require( 'PHET_CORE/inherit' );
   // var LinearFunction = require( 'DOT/LinearFunction' );
   var MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   var MagnetRegions = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegions' );
@@ -74,8 +73,11 @@ define( function( require ) {
   var fourLoopOnlyFieldStrengthPatternString = FaradaysLawA11yStrings.fourLoopOnlyFieldStrengthPattern.value;
   var fieldStrengthPatternString = FaradaysLawA11yStrings.fieldStrengthPattern.value;
 
-  var theFourLoopCoilString = FaradaysLawA11yStrings.theFourLoopCoil.value;
-  var theTwoLoopCoilString = FaradaysLawA11yStrings.theTwoLoopCoil.value;
+  var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
+  var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
+  var theCoilPatternString = FaradaysLawA11yStrings.theCoilPattern.value;
+  var theFourLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: fourLoopCoilString } );
+  var theTwoLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: twoLoopCoilString } );
 
   var magnetLocationAlertPatternString = FaradaysLawA11yStrings.magnetLocationAlertPattern.value;
   var magnetLocationExtraAlertPatternString = FaradaysLawA11yStrings.magnetLocationExtraAlertPattern.value;
@@ -116,89 +118,54 @@ define( function( require ) {
 
   var FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
 
-  function MagnetDescriptions( model, tandem ) {
-    var self = this;
-    // @private
-    this._model = model;
-    this._bounds = model.bounds;
-    this._magnet = model.magnet;
-    this._topCoil = model.topCoil;
-    this._bottomCoil = model.bottomCoil;
+  // the distance the magnet must mofe in order for the extra prompt to be removed
+  const DISTANCE_MOVED_THRESHOLD = Math.round( FaradaysLawConstants.LAYOUT_BOUNDS.width / 5 );
 
-    this._magnetPosition = new Vector2( 0, 0 );
-    this._magnetNodeBlurred = false;
+  class MagnetDescriber {
 
-    this._describeDirection = false;
-    this._shiftStep = false;
+    constructor( model, tandem ) {
+      // @private
+      this._model = model;
+      this._bounds = model.bounds;
+      this._magnet = model.magnet;
+      this._topCoil = model.topCoil;
+      this._bottomCoil = model.bottomCoil;
+      this._magnetPosition = new Vector2( 0, 0 );
+      this._showExtraMoveText = true;
 
-    this.regionMap = new MagnetRegions( model );
+      this.regionMap = new MagnetRegions( model );
 
-    this._magnet.positionProperty.link( function( position, oldPosition ) {
-      self._magnetPosition = position;
-    } );
+      let distanceMoved = 0;
 
-    model.showMagnetArrowsProperty.link( function( showArrows ) {
-      self._magnetNodeBlurred = !showArrows;
-    } );
+      this._magnet.positionProperty.link( ( position, oldPosition ) => {
+        this._magnetPosition = position;
 
-    // this.regionMap.regionChangedEmitter.addListener( ( newRegion, oldRegion ) => {
-    //   utteranceQueue.addToBack( this.magnetLocationAlertText );
-    // } );
+        if ( oldPosition && this._showExtraMoveText ) {
+          const delta = position.distance( oldPosition );
+          distanceMoved += delta;
+          this._showExtraMoveText = distanceMoved < DISTANCE_MOVED_THRESHOLD;
+        }
+      } );
 
-    // this.regionMap.coilExitEmitter.addListener( coilType => {
-    //   var coil = coilType === CoilTypeEnum.TWO_COIL ? theTwoLoopCoilString : theFourLoopCoilString;
-    //   var utterance = StringUtils.fillIn( exitingCoilPatternString, { coil } );
-    //   utteranceQueue.addToBack( utterance );
-    // } );
+      // model.showMagnetArrowsProperty.link( showArrows => {
+      //   this._magnetNodeBlurred = !showArrows;
+      // } );
 
-    // this.regionMap.adjacentCoilProperty.lazyLink( newAdjacentCoil => {
-    //   let directionString = this.regionMap.coilDirection === MagnetDirectionEnum.LEFT ? leftString : rightString;
-    //
-    //   if ( newAdjacentCoil === CoilTypeEnum.NO_COIL ) {
-    //     utteranceQueue.addToBack( StringUtils.fillIn( noCoilPatternString, { direction: directionString } ) );
-    //   } else if ( newAdjacentCoil === CoilTypeEnum.FOUR_COIL ) {
-    //     utteranceQueue.addToBack( StringUtils.fillIn( coilToDirectionPatternString, { coil: theFourLoopCoilString, direction: directionString } ) );
-    //   } else {
-    //     utteranceQueue.addToBack( StringUtils.fillIn( coilToDirectionPatternString, { coil: theTwoLoopCoilString, direction: directionString } ) );
-    //   }
-    // } );
+      model.magnet.showFieldLinesProperty.lazyLink( showLines => {
+        const utterance = this.getShowFieldLinesAlertText( showLines );
+        utteranceQueue.addToBack( utterance );
+      } );
 
-    // this.regionMap.proximityOrFieldStrengthChangedEmiter.addListener( ( bottomCoilData, topCoilData ) => {
-    //   var bottomProxRegion = PROXIMITY_STRINGS[ bottomCoilData.proximity ];
-    //   var topProxRegion = PROXIMITY_STRINGS[ topCoilData.proximity ];
-    //   var bottomFSRegion = FIELD_STRENGTHS[ bottomCoilData.fieldStrength ];
-    //   var topFSRegion = FIELD_STRENGTHS[ topCoilData.fieldStrength ];
-    //
-    //   let bottomCoilString = StringUtils.fillIn( proximityToFourCoilPatternString, { proximity: bottomProxRegion } );
-    //   let topCoilString = StringUtils.fillIn( proximityToTwoCoilPatternString, { proximity: topProxRegion } );
-    //
-    //   if ( model.magnet.showFieldLinesProperty.get() ) {
-    //     bottomCoilString += StringUtils.fillIn( fieldStrengthPassingPatternString, { fieldStrength: bottomFSRegion } );
-    //     topCoilString += StringUtils.fillIn( fieldStrengthPassingPatternString, { fieldStrength: topFSRegion } );
-    //   }
-    //   var utterance = model.showTopCoilProperty.get() ? bottomCoilString + ' ' + topCoilString : bottomCoilString;
-    //   utteranceQueue.addToBack( new Utterance( utterance, { typeId: 'proximityFieldStrength' } ) );
-    // } );
+      model.coilIntersectedEmitter.addListener( intersectedCoil => {
+        utteranceQueue.addToBack( this.getBumpingCoilString( intersectedCoil ) );
+      } );
+    }
 
-    model.magnet.showFieldLinesProperty.lazyLink( showLines => {
-      var utterance = this.getShowFieldLinesAlertText( showLines );
-      utteranceQueue.addToBack( utterance );
-    } );
-
-    model.coilIntersectedEmitter.addListener( intersectedCoil => {
-      utteranceQueue.addToBack( this.getBumpingCoilString( intersectedCoil ) );
-    } );
-  }
-
-  faradaysLaw.register( 'MagnetDescriptions', MagnetDescriptions );
-
-  return inherit( Object, MagnetDescriptions, {
-
-    getBumpingCoilString: function( coil ) {
+    getBumpingCoilString( coil ) {
       return StringUtils.fillIn( bumpingCoilPatternString, { coil } );
-    },
+    }
 
-    getMovementDirectionText: function( direction, shiftStep ) {
+    getMovementDirectionText( direction, shiftStep ) {
       var text = '';
 
       switch ( direction ) {
@@ -235,9 +202,9 @@ define( function( require ) {
       }
 
       return text;
-    },
+    }
 
-    getFlipMagnetAlertText: function( orientation ) {
+    getFlipMagnetAlertText( orientation ) {
       let northSide = leftString;
       let southSide = rightString;
       let alertPattern = this._magnet.showFieldLinesProperty.get() ?
@@ -250,9 +217,9 @@ define( function( require ) {
       }
 
       return StringUtils.fillIn( alertPattern, { northSide, southSide } );
-    },
+    }
 
-    getShowFieldLinesAlertText: function( showLines ) {
+    getShowFieldLinesAlertText( showLines ) {
 
       var strArray = [ showingFieldLinesString ];
 
@@ -270,53 +237,53 @@ define( function( require ) {
       }
 
       return showLines ? strArray.join( ' ' ) : hideFieldLinesString;
-    },
+    }
 
     get strengthThroughFourCoilText() {
       let strength = FIELD_STRENGTHS[ this.regionMap.getBottomCoilFieldStrengthRegion() ];
       return StringUtils.fillIn( fieldStrengthPassingCoilPatternString, { strength: strength, coil: theFourLoopCoilString } );
-    },
+    }
 
     get strengthThroughTwoCoilText() {
       let strength = FIELD_STRENGTHS[ this.regionMap.getTopCoilFieldStrengthRegion() ];
       return StringUtils.fillIn( fieldStrengthPassingCoilPatternString, { strength: strength, coil: theTwoLoopCoilString } );
-    },
+    }
 
     get strengthThroughBothCoilsText() {
       let strength = FIELD_STRENGTHS[ this.regionMap.getTopCoilFieldStrengthRegion() ];
       return StringUtils.fillIn( fieldStrengthPassingBothCoilsPatternString, { strength: strength } );
-    },
+    }
 
     get magnetLocationAlertText() {
       return StringUtils.fillIn( magnetLocationAlertPatternString, { position: this.positionString } );
-    },
+    }
 
     get magnetFocusAlertText() {
       var position = this.positionString;
       var pattern = this._magnetNodeBlurred ? magnetLocationAlertPatternString : magnetLocationExtraAlertPatternString;
       return StringUtils.fillIn( pattern, { position: position } );
-    },
+    }
 
     get fieldLinesDescription() {
       var northSide = this._magnet.orientationProperty.get() === OrientationEnum.NS ? leftString : rightString;
       var southSide = this._magnet.orientationProperty.get() === OrientationEnum.SN ? leftString : rightString;
       return StringUtils.fillIn( fieldLinesDescriptionPatternString, { northSide: northSide, southSide: southSide } );
-    },
+    }
 
     get fourLoopOnlyFieldStrength() {
       var valueString = FIELD_STRENGTHS[ this.regionMap.getFieldStrengthAtCoilRegion( this._bottomCoil ) ];
       return StringUtils.fillIn( fourLoopOnlyFieldStrengthPatternString, { fieldStrength: valueString } );
-    },
+    }
 
     get fourLoopFieldStrength() {
       return this.getFieldStrengthAtCoil( this._bottomCoil );
-    },
+    }
 
     get twoLoopFieldStrength() {
       return this.getFieldStrengthAtCoil( this._topCoil );
-    },
+    }
 
-    getFieldStrengthAtCoil: function( coil ) {
+    getFieldStrengthAtCoil( coil ) {
       var fieldStrengthString = FIELD_STRENGTHS[ this.regionMap.getFieldStrengthAtCoilRegion( coil ) ];
       var coilString = coil === this._topCoil ? theTwoLoopCoilString : theFourLoopCoilString;
       return StringUtils.fillIn(
@@ -325,9 +292,9 @@ define( function( require ) {
           fieldStrength: fieldStrengthString,
           coil: coilString
         } );
-    },
+    }
 
-    mapFieldStrengthToInteger: function( fieldStrength ) {
+    mapFieldStrengthToInteger( fieldStrength ) {
       if ( this._bottomCoil.position.distance( this._magnetPosition ) < 70 ) {
           return 4;
       }
@@ -342,28 +309,28 @@ define( function( require ) {
       } else {
         return 4;
       }
-    },
+    }
 
     get northPoleSideString() {
       return this.getPoleSideString( northString, OrientationEnum.NS );
-    },
+    }
 
     get southPoleSideString() {
       return this.getPoleSideString( southString, OrientationEnum.SN );
-    },
+    }
 
-    getPoleSideString: function( poleString, orientation ) {
+    getPoleSideString( poleString, orientation ) {
       var side = this._magnet.orientationProperty.get() === orientation ? leftString : rightString;
       return StringUtils.fillIn( poleOnThePatternString, { pole: poleString, side: side } );
-    },
+    }
 
     get fourLoopOnlyMagnetPosition() {
       return StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
-    },
+    }
 
     get positionOfPlayAreaString() {
       return StringUtils.fillIn( positionOfPlayAreaPatternString, { position: this.positionString } );
-    },
+    }
 
     // handles getting the current position description (e.g. top-left edge, bottom-center, center, etc...)
     get positionString() {
@@ -373,20 +340,27 @@ define( function( require ) {
       }
 
       return description;
-    },
+    }
 
     get theFourCoilProximityString() {
       var proximity = PROXIMITY_STRINGS[ this.regionMap.magnetToBottomCoilProximity ];
       return StringUtils.fillIn( twoWordsPatternString, { first: proximity, second: theFourLoopCoilString } );
-    },
+    }
 
     get theTwoCoilProximityString() {
       var proximity = PROXIMITY_STRINGS[ this.regionMap.magnetToTopCoilProximity ];
       return StringUtils.fillIn( twoWordsPatternString, { first: proximity, second: theTwoLoopCoilString } );
-    },
+    }
 
     get slidingStoppedText() {
       return StringUtils.fillIn( slidingStoppedPatternString, { position: this.positionString } );
     }
-  } );
+
+    // static getMagnetFocusAlertText( cueVisible ) {
+    //   const pattern = cueVisible ? magnetLocationAlertPatternString : magnetLocationExtraAlertPatternString;
+    //   return StringUtils.fillIn( pattern, { position: position } );
+    // }
+  }
+
+  return faradaysLaw.register( 'MagnetDescriber', MagnetDescriber );
 } );
