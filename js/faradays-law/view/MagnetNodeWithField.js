@@ -112,7 +112,7 @@ define( function( require ) {
     let magnetOffset = new Vector2();
     let dragHandler = new DragListener( {
 
-      tandem: tandem,
+      tandem: tandem.createTandem( 'dragListener' ),
       phetioInstanceDocumentation: 'Emits events when dragged by the user',
 
       // When dragging across it in a mobile device, pick it up
