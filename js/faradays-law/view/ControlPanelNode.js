@@ -159,17 +159,17 @@ define( function( require ) {
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
-    var showFieldCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
+    var showFieldLinesCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
-      tandem: tandem.createTandem( 'showFieldCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic fields lines will be shown.',
+      tandem: tandem.createTandem( 'showFieldLinesCheckbox' ),
+      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic field lines will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
       labelContent: showFieldLabelString
     } );
-    showFieldCheckbox.touchArea = showFieldCheckbox.localBounds.dilated( 8 );
-    this.addChild( showFieldCheckbox );
+    showFieldLinesCheckbox.touchArea = showFieldLinesCheckbox.localBounds.dilated( 8 );
+    this.addChild( showFieldLinesCheckbox );
 
 
     this.addChild( coilRadioButtonGroup );
@@ -179,7 +179,7 @@ define( function( require ) {
     // a11y keyboard nav order
     this.accessibleOrder = [
       showVoltmeterCheckbox,
-      showFieldCheckbox,
+      showFieldLinesCheckbox,
       coilRadioButtonGroup
     ];
   }
