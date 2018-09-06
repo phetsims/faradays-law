@@ -111,8 +111,8 @@ define( require => {
         allowTouchSnag: true,
 
         start( event ) {
-          magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.centerX;
-          magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.centerY;
+          magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.translation.x;
+          magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.translation.y;
         },
 
         // Translate on drag events
@@ -124,6 +124,8 @@ define( require => {
         }
       } );
       draggableNode.addInputListener( dragListener );
+
+      model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
       // a11y descriptions - generates text content and alerts for magnet interactions
       const describer = new MagnetDescriber( model, tandem );
@@ -197,8 +199,6 @@ define( require => {
         this.reflectedMagnetNode.visible = false;
         setReflectedNodeCenter( magnetJumpKeyboardListener.reflectedPositionProperty.get() );
       } );
-
-      model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
       magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
