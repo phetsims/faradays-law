@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   const FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
@@ -17,12 +18,11 @@ define( require => {
   const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
-  const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   const MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
-  const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
+  const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
+  const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   const Vector2 = require( 'DOT/Vector2' );
 
