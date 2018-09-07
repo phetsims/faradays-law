@@ -14,7 +14,7 @@ define( function( require ) {
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const FaradaysLawModel = require( 'FARADAYS_LAW/faradays-law/model/FaradaysLawModel' );
   // const FaradaysLawScreenView = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawScreenView' );
-  const MagnetRegions = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegions' );
+  const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
   const Tandem = require( 'TANDEM/Tandem' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -23,11 +23,11 @@ define( function( require ) {
   const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, new Tandem() );
   // const view = new FaradaysLawScreenView( model, new Tandem() );
 
-  const regionTester = new MagnetRegions( model );
+  const regionTester = new MagnetRegionManager( model );
 
   const { test } = QUnit;
 
-  QUnit.module( 'MagnetRegions' );
+  QUnit.module( 'MagnetRegionManager' );
 
   const columnWidth = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / 3 );
   const rowHeight = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getHeight() / 3 );

@@ -7,27 +7,27 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  // var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
+  // var LinearFunction = require( 'DOT/LinearFunction' );
   var Property = require( 'AXON/Property' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var timer = require( 'PHET_CORE/timer' );
-  var Util = require( 'DOT/Util' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  // var Util = require( 'DOT/Util' );
+  // var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var slowlyString = FaradaysLawA11yStrings.slowly.value;
-  var normallyString = FaradaysLawA11yStrings.normally.value;
-  var quicklyString = FaradaysLawA11yStrings.quickly.value;
-  var leftString = FaradaysLawA11yStrings.left.value;
-  var rightString = FaradaysLawA11yStrings.right.value;
-  var magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
+  // var slowlyString = FaradaysLawA11yStrings.slowly.value;
+  // var normallyString = FaradaysLawA11yStrings.normally.value;
+  // var quicklyString = FaradaysLawA11yStrings.quickly.value;
+  // var leftString = FaradaysLawA11yStrings.left.value;
+  // var rightString = FaradaysLawA11yStrings.right.value;
+  // var magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
 
   // constants
-  var SPEEDS = [ slowlyString, normallyString, quicklyString ];
-  var DIRECTIONS = { left: leftString, right: rightString };
+  // var SPEEDS = [ slowlyString, normallyString, quicklyString ];
+  // var DIRECTIONS = { left: leftString, right: rightString };
 
   function MagnetJumpKeyboardListener( model, options ) {
     var self = this;
@@ -47,7 +47,7 @@ define( function( require ) {
     // @private
     this._onKeydown = options.onKeydown;
     this._onKeyup = options.onKeyup;
-    this._isAnimatingProperty = new BooleanProperty( false );
+    this.isAnimatingProperty = new BooleanProperty( false );
     this._dragBounds = options.dragBounds ?
                        options.dragBounds :
                        model.bounds.erodedXY( halfMagnetWidth, halfMagnetHeight );
@@ -96,7 +96,7 @@ define( function( require ) {
         self._onKeydown( event );
       }
 
-      self._isAnimatingProperty.value = false;
+      self.isAnimatingProperty.value = false;
 
       // reset stepDelta
       self._stepDelta = self._defaultVelocity;
@@ -116,21 +116,14 @@ define( function( require ) {
       }
     };
 
-    var speedToText = new LinearFunction( this._shiftVelocity, this._fastVelocity, 0, 2, true );
+    // var speedToText = new LinearFunction( this._shiftVelocity, this._fastVelocity, 0, 2, true );
 
     this.keyup = function( event ) {
 
-      if ( !self._isAnimatingProperty.value ) {
+      if ( !self.isAnimatingProperty.value ) {
         if ( event.keyCode >= 49 && event.keyCode <= 51) {
           self.targetPositionVector = self.reflectedPositionProperty.get();
-          self._isAnimatingProperty.value = true;
-
-          // alert
-          var speed = SPEEDS[ Util.toFixedNumber(speedToText( self._stepDelta ), 0) ];
-          var direction = (self.positionProperty.get() - self.targetPositionVector) > 0 ? DIRECTIONS.left : DIRECTIONS.right;
-
-          var alert = StringUtils.fillIn( magnetSlidingAlertPatternString, { speed: speed, direction: direction} );
-          utteranceQueue.addToBack( alert );
+          self.isAnimatingProperty.value = true;
         }
       }
 
@@ -154,7 +147,7 @@ define( function( require ) {
   return inherit( Object, MagnetJumpKeyboardListener, {
 
     step: function( dt ) {
-      var animating = this._isAnimatingProperty.get();
+      var animating = this.isAnimatingProperty.get();
 
       if ( animating ) {
         if ( !this.positionProperty.get().equals( this.targetPositionVector ) ) {
@@ -170,7 +163,7 @@ define( function( require ) {
 
           this.model.moveMagnetToPosition( newPosition );
         } else {
-          this._isAnimatingProperty.value = false;
+          this.isAnimatingProperty.value = false;
         }
       }
     },

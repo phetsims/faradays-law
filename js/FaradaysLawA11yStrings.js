@@ -86,32 +86,93 @@ define( function( require ) {
     theTwoLoopCoil: {
       value: 'the 2 loop coil'
     },
-    twoItemPattern: {
-      value: '{{first}} and {{second}}'
+
+    // coil field strengths
+    fieldStrengthPassingPattern: {
+      value: ' {{fieldStrength}} magnetic field passing through.'
     },
-    threeItemPattern: {
-      value: '{{first}}, {{second}}, and {{third}}'
+    fieldStrengthPassingCoilPattern: {
+      value: '{{strength}} magnetic field passing through {{coil}}.'
     },
-    fourItemPattern: {
-      value: '{{first}}, {{second}}, {{third}}, and {{fourth}}'
+    fieldStrengthPassingBothCoilsPattern: {
+      value: '{{strength}} magnetic field passing through both 4 loop and 2 loop coils.'
     },
-    twoWordsPattern: {
-      value: '{{first}} {{second}}'
+    circuitHasPatternString: {
+      value: 'Circuit now has {{coil}}.'
     },
-    twoWordsCommaPattern: {
-      value: '{{first}}, {{second}}'
+    oneCoil: {
+      value: 'one coil'
     },
-    a: {
-      value: 'a'
-    },
-    and: {
-      value: 'and'
+    twoCoils: {
+      value: 'two coils'
     },
 
-    /**************************
-     * Screen location values *
-     **************************/
+    /*************************************
+     * Magnet Descriptions and Help Text *
+     *************************************/
 
+     // polarity
+     magnetPolarity: {
+       value: 'Magnet polarity:'
+     },
+     poleOnThePattern: {
+       value: '{{pole}} pole on the {{side}}'
+     },
+     north: {
+       value: 'North'
+     },
+     south: {
+       value: 'South'
+     },
+
+     // field lines/strength
+     fieldLines: {
+       value: 'Field Lines'
+     },
+     fieldLinesDescriptionPattern: {
+       value: 'Magnetic field lines go around from North end on {{northSide}} side of magnet, to South end on {{southSide}} side of magnet.'
+     },
+     fieldLinesDescriptionUpdated: {
+       value: 'Field lines description updated.'
+     },
+     fourLoopOnlyFieldStrengthPattern: {
+       value: 'From the magnet\'s position, a {{fieldStrength}} magnetic field is passing through the 4 loop coil.'
+     },
+     fieldStrengthIs: {
+       value: 'The magnet field strength is:'
+     },
+     fieldStrengthPattern: {
+       value: '{{fieldStrength}} at {{coil}}'
+     },
+
+     /*********************************
+      * Magnet slide behavior strings *
+      *********************************/
+     slowly: {
+       value: 'slowly'
+     },
+     normally: {
+       value: 'normally'
+     },
+     quickly: {
+       value: 'quickly'
+     },
+     magnetSlidingAlertPattern: {
+       value: 'Magnet sliding {{speed}} to the {{direction}}. Press Space to stop slide.'
+     },
+     slidingStopped: {
+       value: 'Sliding stopped.'
+     },
+     left: {
+       value: 'left'
+     },
+     right: {
+       value: 'right'
+     },
+
+    /*********************************************
+     * Magnet location pattern and value strings *
+     *********************************************/
     barMagnetPositionPattern: {
       value: 'The bar magnet is {{areaPosition}}'
     },
@@ -120,6 +181,12 @@ define( function( require ) {
     },
     positionOfPlayAreaPattern: {
       value: 'at the {{position}} of the Play Area.'
+    },
+    magnetLocationAlertPattern: {
+      value: 'Magnet at {{position}} of Play Area'
+    },
+    magnetLocationExtraAlertPattern: {
+      value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet.'
     },
     topLeft: {
       value: 'top-left'
@@ -152,10 +219,9 @@ define( function( require ) {
       value: 'edge'
     },
 
-    /************************************
-     * Magnet proximity to coil strings *
-     ************************************/
-
+    /********************************
+     * Magnet coil proximity values *
+     ********************************/
     in: {
       value: 'in'
     },
@@ -167,130 +233,6 @@ define( function( require ) {
     },
     veryCloseTo: {
       value: 'very close to'
-    },
-    magnetPolarity: {
-      value: 'Magnet polarity:'
-    },
-    poleOnThePattern: {
-      value: '{{pole}} pole on the {{side}}'
-    },
-    fieldLines: {
-      value: 'Field Lines'
-    },
-    fieldLinesDescriptionPattern: {
-      value: 'Magnetic field lines go around from North end on {{northSide}} side of magnet, to South end on {{southSide}} side of magnet.'
-    },
-    fourLoopOnlyFieldStrengthPattern: {
-      value: 'From the magnet\'s position, a {{fieldStrength}} magnetic field is passing through the 4 loop coil.'
-    },
-    fieldStrengthIs: {
-      value: 'The magnet field strength is:'
-    },
-    fieldStrengthPattern: {
-      value: '{{fieldStrength}} at {{coil}}'
-    },
-    north: {
-      value: 'North'
-    },
-    south: {
-      value: 'South'
-    },
-    minimal: {
-      value: 'Minimal'
-    },
-    veryWeak: {
-      value: 'Very weak'
-    },
-    weak: {
-      value: 'Weak'
-    },
-    strong: {
-      value: 'Strong'
-    },
-    veryStrong: {
-      value: 'Very strong'
-    },
-    magnetLocationAlertPattern: {
-      value: 'Magnet at {{position}} of Play Area'
-    },
-    magnetLocationExtraAlertPattern: {
-      value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet.'
-    },
-    slidingStoppedPattern: {
-      value: 'Sliding stopped. Magnet at {{position}} of play area'
-    },
-    stepDirectionPattern: {
-      value: '{{stepSize}} step {{stepDirection}}'
-    },
-    up: {
-      value: 'up'
-    },
-    down: {
-      value: 'down'
-    },
-    left: {
-      value: 'left'
-    },
-    right: {
-      value: 'right'
-    },
-    upAndLeft: {
-      value: 'up and left'
-    },
-    upAndRight: {
-      value: 'up and right'
-    },
-    downAndLeft: {
-      value: 'down and left'
-    },
-    downAndRight: {
-      value: 'down and right'
-    },
-    regular: {
-      value: 'regular'
-    },
-    large: {
-      value: 'large'
-    },
-    small: {
-      value: 'small'
-    },
-    fieldStrengthPassingPattern: {
-      value: ' {{fieldStrength}} magnetic field passing through.'
-    },
-
-    fieldStrengthPassingCoilPattern: {
-      value: '{{strength}} magnetic field passing through {{coil}}.'
-    },
-    fieldStrengthPassingBothCoilsPattern: {
-      value: '{{strength}} magnetic field passing through both 4 loop and 2 loop coils.'
-    },
-    showingFieldLines: {
-      value: 'Showing magnetic field lines.'
-    },
-    hideFieldLines: {
-      value: 'Hiding magnetic field lines.'
-    },
-    connectingVoltmeter: {
-      value: 'Connecting voltmeter to circuit.'
-    },
-    removingVoltmeter: {
-      value: 'Removing voltmeter from circuit.'
-    },
-    circuitHasPatternString: {
-      value: 'Circuit now has {{coil}}.'
-    },
-    oneCoil: {
-      value: 'one coil'
-    },
-    twoCoils: {
-      value: 'two coils'
-    },
-    flippingMagnetPattern: {
-      value: 'Flipping magnet: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
-    },
-    flippingMagnetAndFieldPattern: {
-      value: 'Flipping magnet and its magnetic field: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
     },
     exitingCoilPattern: {
       value: 'Exiting {{coil}}'
@@ -307,14 +249,49 @@ define( function( require ) {
     proximityToTwoCoilPattern: {
       value: '{{proximity}} 2-loop coil.'
     },
-    slowly: {
-      value: 'slowly'
+    bumpingCoilPattern: {
+      value: 'Bumping {{coil}} coil'
     },
-    normally: {
-      value: 'normally'
+
+    /*********************************
+     * Field strength at coil values *
+     *********************************/
+    minimal: {
+      value: 'Minimal'
     },
-    quickly: {
-      value: 'quickly'
+    veryWeak: {
+      value: 'Very weak'
+    },
+    weak: {
+      value: 'Weak'
+    },
+    strong: {
+      value: 'Strong'
+    },
+    veryStrong: {
+      value: 'Very strong'
+    },
+
+    /*****************************************************
+     * Control Panel Descriptions, Help Text, and Alerts *
+     *****************************************************/
+    showingFieldLines: {
+      value: 'Showing magnetic field lines.'
+    },
+    hideFieldLines: {
+      value: 'Hiding magnetic field lines.'
+    },
+    connectingVoltmeter: {
+      value: 'Connecting voltmeter to circuit.'
+    },
+    removingVoltmeter: {
+      value: 'Removing voltmeter from circuit.'
+    },
+    flippingMagnetPattern: {
+      value: 'Flipping magnet: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
+    },
+    flippingMagnetAndFieldPattern: {
+      value: 'Flipping magnet and its magnetic field: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
     },
     circuitMode: {
       value: 'Circuit Mode'
@@ -325,12 +302,34 @@ define( function( require ) {
     showFieldLabel: {
       value: 'Show field'
     },
-    magnetSlidingAlertPattern: {
-      value: 'Magnet sliding {{speed}} to the {{direction}}. Press Space to stop slide.'
-    },
-    bumpingCoilPattern: {
-      value: 'Bumping {{coil}} coil'
-    }
+
+    /*********************************
+     * Generic patterns and articles *
+     *********************************/
+     twoItemPattern: {
+       value: '{{first}} and {{second}}'
+     },
+     threeItemPattern: {
+       value: '{{first}}, {{second}}, and {{third}}'
+     },
+     fourItemPattern: {
+       value: '{{first}}, {{second}}, {{third}}, and {{fourth}}'
+     },
+     twoWordsPattern: {
+       value: '{{first}} {{second}}'
+     },
+     threeWordsPattern: {
+       value: '{{first}} {{second}} {{third}}'
+     },
+     twoWordsCommaPattern: {
+       value: '{{first}}, {{second}}'
+     },
+     a: {
+       value: 'a'
+     },
+     and: {
+       value: 'and'
+     }
   };
 
   // verify that object is immutable, without the runtime penalty in production code

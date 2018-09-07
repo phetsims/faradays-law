@@ -2,12 +2,12 @@
 
 
 /**
- * Base type for handling accessibility alert and description logic associated with the location of the magnet. This
- * includes proximity to one or both coils, field strength at one or both coils, sim screen location, and coil entrance/exit
- * regions (informs the user of upper/lower coil position relative to the magnet).
- *
- * @author Michael Barlow (PhET Interactive Simulations)
- */
+* Base type for handling accessibility alert and description logic associated with the location of the magnet. This
+* includes proximity to one or both coils, field strength at one or both coils, sim screen location, and coil entrance/exit
+* regions (informs the user of upper/lower coil position relative to the magnet).
+*
+* @author Michael Barlow (PhET Interactive Simulations)
+*/
 define( require => {
   'use strict';
 
@@ -27,22 +27,25 @@ define( require => {
   const EDGE_TOLERANCE = 5;
   const VERTICAL_EDGE_TOLERANCE = Util.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 ) + EDGE_TOLERANCE;
   const HORIZONTAL_EDGE_TOLERANCE = Util.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 ) + EDGE_TOLERANCE;
-  const { LEFT, RIGHT, UP, DOWN, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT } = MagnetDirectionEnum;
-  const DIRECTION_LIST = [ LEFT, UP_LEFT, UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT ];
-
-  const angleToDirection = LinearFunction( -Math.PI, Math.PI, 0, 8 );
+  const { LEFT, RIGHT } = MagnetDirectionEnum;
+  // const DIRECTION_LIST = [ LEFT, UP_LEFT, UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT ];
+  const SCREEN_MIDPOINT_X = FaradaysLawConstants.LAYOUT_BOUNDS.centerX;
+  // const angleToDirection = LinearFunction( -Math.PI, Math.PI, 0, 8 );
 
   const coilProximityToRegion = new LinearFunction( 95, 260, 1, 3, true ); // determined empirically from sim testing
 
   const rowHeight = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getHeight() / NUMBER_OF_ROWS );
   const columnWidth = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / NUMBER_OF_ROWS );
 
+  // the distance the magnet must mofe in order for the extra prompt to be removed
+  const DISTANCE_MOVED_THRESHOLD = Math.round( FaradaysLawConstants.LAYOUT_BOUNDS.width / 5 );
+
   /**
-   * Creates a new Bounds2 object centered on the privided vector.
-   *
-   * @param  {Vector2} vector the position on which to center the bounds
-   * @return {Bounds2}        the bounds of the magnet at the passed position
-   */
+  * Creates a new Bounds2 object centered on the privided vector.
+  *
+  * @param  {Vector2} vector the position on which to center the bounds
+  * @return {Bounds2}        the bounds of the magnet at the passed position
+  */
   const createMagnetBounds = vector => {
     var halfWidth = FaradaysLawConstants.MAGNET_WIDTH / 2;
     var halfHeight = FaradaysLawConstants.MAGNET_HEIGHT / 2;
@@ -54,15 +57,15 @@ define( require => {
     );
   };
 
-  class MagnetRegions {
+  class MagnetRegionManager {
 
     /**
-     * The MagnetRegions class accepts an instance of the model for linking the appropriate properties and mapping to
-     * numbers and strings for a11y-related alerts and descriptions. We watch model properties and update internal values
-     * that can be accessed via public getters by other types.
-     *
-     * @param {Object} model  FaradaysLawModel
-     */
+    * The MagnetRegionManager class accepts an instance of the model for linking the appropriate properties and mapping to
+    * numbers and strings for a11y-related alerts and descriptions. We watch model properties and update internal values
+    * that can be accessed via public getters by other types.
+    *
+    * @param {Object} model  FaradaysLawModel
+    */
     constructor( model ) {
 
       this.model = model;
@@ -70,6 +73,8 @@ define( require => {
       this.topCoil = model.topCoil;
       this.bottomCoil = model.bottomCoil;
       this.bounds = model.bounds;
+      this.showExtraMoveText = true; // for displaying detailed magnet movement instructions
+      this.magnetIsAnimating = false;
 
       // @private
       // generate bounds to indicate if magnet is inside the coil
@@ -90,6 +95,7 @@ define( require => {
 
       // @private
       this._adjacentCoil = CoilTypeEnum.NO_COIL;
+      this._magnetScreenSide = 'right';
       this._positionRegion = this.getPositionRegion( model.magnet.positionProperty.get() );
       this._topCoilProximity = 0;
       this._bottomCoilProximity = 0;
@@ -103,99 +109,93 @@ define( require => {
         }
       );
 
-      model.magnet.positionProperty.link( position => {
+      let distanceMoved = 0;
+
+      model.magnet.positionProperty.link( ( position, oldPosition ) => {
         this._positionRegion = this.getPositionRegion( position );
+
+        if ( oldPosition && this.showExtraMoveText ) {
+          const delta = position.distance( oldPosition );
+          distanceMoved += delta;
+          this.showExtraMoveText = distanceMoved < DISTANCE_MOVED_THRESHOLD;
+        }
+
+        this._magnetScreenSide = position >= SCREEN_MIDPOINT_X ? 'right' : 'left';
+        this._magnetInCoil = !this.getTopCoilProximityRegion( position ) || !this.getBottomCoilProximityRegion( position );
       } );
     }
 
     /*****************************************************************************
-     * Magnet location region methods for adjacent coil and sim screen location. *
-     *****************************************************************************/
+    * Magnet location region methods for adjacent coil and sim screen location. *
+    *****************************************************************************/
 
-     /**
-      * Get the current value of the adjacent coil.
-      *
-      * @return {String}
-      */
-     get adjacentCoil() {
-       return this._adjacentCoil;
-     }
-
-     /**
-      * Get the coil whose inner vertical bounds contain the y value of the given vector.
-      *
-      * @private
-      * @param  {Vector2} vector
-      * @return {String}
-      */
-     getCoilAdjacentToVector( vector, showTopCoil ) {
-       var y = vector.y;
-
-       if ( showTopCoil && y <= this._topCoilInnerBounds.maxY && y >= this._topCoilInnerBounds.minY ) {
-         return CoilTypeEnum.TWO_COIL;
-       }
-
-       if ( y <= this._bottomCoilInnerBounds.maxY && y >= this._bottomCoilInnerBounds.minY ) {
-         return CoilTypeEnum.FOUR_COIL;
-       }
-
-       return CoilTypeEnum.NO_COIL;
-     }
-
-     /**
-      * Get the current region, one of 0..9
-      *
-      * @return {int}
-      */
-     get positionRegion() {
-       return this._positionRegion;
-     }
 
     /**
-     * Get the region of the screen that contains the provided vector. For Faraday's Law, the screen is divided into 9
-     * regions that are numbered 0 - 8 in row major order, left to right.
-     *
-     * @param  {Vector2} vector
-     * @return {int}
-     */
-    getPositionRegion( { x, y } ) {
-      return ( NUMBER_OF_ROWS * MagnetRegions.getRow( y ) ) + MagnetRegions.getColumn( x );
+    * Get the current value of the adjacent coil.
+    *
+    * @return {String}
+    */
+    get adjacentCoil() {
+      return this._adjacentCoil;
     }
 
     /**
-     * Get the 0-based row number for a y coordinate.
+     * Get the side of the sim screen containing the magnet. The midpoint is set to the 'right' side.
      *
-     * @param  {Number} y
-     * @return {int}
+     * @return {String}
      */
-    static getRow( y ) {
-      return MagnetRegions.mapSegment( y, rowHeight );
+    get magnetScreenSide() {
+      return this._magnetScreenSide;
     }
 
     /**
-     * Get the 0-based column number for an x coordinate.
-     * @param  {Number} x
-     * @return {int}
+     * Returns true if the magnet intersect the bounds of a coil. Used in conjunction with 'adjacentCoil'.
+     *
+     * @return {String}
      */
-    static getColumn( x ) {
-      return MagnetRegions.mapSegment( x, columnWidth );
+    get magnetInCoil() {
+      return this._magnetInCoil;
     }
 
     /**
-     * Maps a given number to a given segment number based on the size of the segment. This function assumes that there
-     * are an equal number of rows and columns.
-     *
-     * @param  {Number} value
-     * @param  {Number} segmentSize
-     * @return {int}
-     */
-    static mapSegment( value, segmentSize ) {
-      for ( let i = 0; i < NUMBER_OF_ROWS; i++ ) {
-        if ( value <= ( i + 1 ) * segmentSize ) {
-          return i;
-        }
+    * Get the coil whose inner vertical bounds contain the y value of the given vector.
+    *
+    * @private
+    * @param  {Vector2} vector
+    * @return {String}
+    */
+    getCoilAdjacentToVector( vector, showTopCoil ) {
+      var y = vector.y;
+
+      if ( showTopCoil && y <= this._topCoilInnerBounds.maxY && y >= this._topCoilInnerBounds.minY ) {
+        return CoilTypeEnum.TWO_COIL;
       }
-      return NUMBER_OF_ROWS - 1;
+
+      if ( y <= this._bottomCoilInnerBounds.maxY && y >= this._bottomCoilInnerBounds.minY ) {
+        return CoilTypeEnum.FOUR_COIL;
+      }
+
+      return CoilTypeEnum.NO_COIL;
+    }
+
+    /**
+    * Get the current region, one of 0..9
+    *
+    * @return {int}
+    */
+    get positionRegion() {
+      return this._positionRegion;
+    }
+
+    /**
+    * Get the region of the screen that contains the provided vector. For Faraday's Law, the screen is divided into 9
+    * regions that are numbered 0 - 8 in row major order, left to right.
+    *
+    * @param  {Vector2} vector
+    * @return {int}
+    */
+    getPositionRegion( { x, y } ) {
+      return ( NUMBER_OF_ROWS * MagnetRegionManager.getRow( y ) ) + MagnetRegionManager.getColumn( x );
     }
 
     get magnetAtEdge() {
@@ -209,25 +209,6 @@ define( require => {
 
       return verticalMinDistance <= VERTICAL_EDGE_TOLERANCE || horizontalMinDistance <= HORIZONTAL_EDGE_TOLERANCE;
     }
-
-
-    // isExitingCoil( newPosition, oldPosition ) {
-    //   var newMagnetBounds = createMagnetBounds( newPosition );
-    //   var oldMagnetBounds = createMagnetBounds( oldPosition );
-    //   if ( this._bottomCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
-    //        !this._bottomCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
-    //   {
-    //     return CoilTypeEnum.FOUR_COIL;
-    //   }
-    //
-    //   if ( this._topCoilInnerBounds.intersectsBounds( oldMagnetBounds ) &&
-    //        !this._topCoilInnerBounds.intersectsBounds( newMagnetBounds ) )
-    //   {
-    //     return CoilTypeEnum.TWO_COIL;
-    //   }
-    //
-    //   return false;
-    // }
 
     get coilDirection() {
       var coilsCenterX = this.topCoil.position.x + ( this.bottomCoil.position.x - this.topCoil.position.x ) / 2;
@@ -287,14 +268,55 @@ define( require => {
 
       var fieldStrength = coil.magneticFieldProperty.get();
 
-      return MagnetRegions.mapFieldStrengthToInteger( Math.abs( fieldStrength ) );
+      return MagnetRegionManager.mapFieldStrengthToInteger( Math.abs( fieldStrength ) );
     }
 
-    static getDirection( newPosition, oldPosition ) {
-      var angle = newPosition.minus( oldPosition ).angle();
-      var i = Util.roundSymmetric( angleToDirection( angle ) );
-      i = i === 8 ? 0 : i;
-      return DIRECTION_LIST[ i ];
+    stopMagnetAnimationWithKeyboard() {
+      this._magnetStoppedByKeyboard = true;
+    }
+
+    setMagnetIsAnimating( isAnimating ) {
+      this.magnetIsAnimating = isAnimating;
+    }
+
+    resetKeyboardStop() {
+      this._magnetStoppedByKeyboard = false;
+    }
+
+    /**
+    * Get the 0-based row number for a y coordinate.
+    *
+    * @param  {Number} y
+    * @return {int}
+    */
+    static getRow( y ) {
+      return MagnetRegionManager.mapSegment( y, rowHeight );
+    }
+
+    /**
+    * Get the 0-based column number for an x coordinate.
+    * @param  {Number} x
+    * @return {int}
+    */
+    static getColumn( x ) {
+      return MagnetRegionManager.mapSegment( x, columnWidth );
+    }
+
+    /**
+    * Maps a given number to a given segment number based on the size of the segment. This function assumes that there
+    * are an equal number of rows and columns.
+    *
+    * @param  {Number} value
+    * @param  {Number} segmentSize
+    * @return {int}
+    */
+    static mapSegment( value, segmentSize ) {
+      for ( let i = 0; i < NUMBER_OF_ROWS; i++ ) {
+        if ( value <= ( i + 1 ) * segmentSize ) {
+          return i;
+        }
+      }
+      return NUMBER_OF_ROWS - 1;
     }
 
     static mapFieldStrengthToInteger( fieldStrength ) {
@@ -312,5 +334,5 @@ define( require => {
     }
   }
 
-return faradaysLaw.register( 'MagnetRegions', MagnetRegions );
+  return faradaysLaw.register( 'MagnetRegionManager', MagnetRegionManager );
 } );

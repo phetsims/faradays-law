@@ -13,6 +13,7 @@ define( function( require ) {
   // const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
   const FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
@@ -25,11 +26,9 @@ define( function( require ) {
   const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
-  // const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   const Vector2 = require( 'DOT/Vector2' );
-  // const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  // const Property = require( 'AXON/Property' );
+  const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
 
   // strings
   const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
@@ -134,7 +133,9 @@ define( function( require ) {
     draggableNode.addInputListener( dragHandler );
 
     // a11y descriptions - generates text content and alerts for magnet interactions
-    let describer = new MagnetDescriber( model, tandem );
+    const regionManager = new MagnetRegionManager( model );
+    const describer = new MagnetDescriber( model, regionManager, tandem );
+    const alertManager = new FaradaysLawAlertManager( describer, regionManager );
 
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new KeyboardDragListener( {
@@ -174,6 +175,14 @@ define( function( require ) {
             leftJumpArrows.showCue( magnitude );
           }
         }
+
+        // check if the keydown event will interrupt the animation
+        // NOTE: 'this' refers to the MagnetJumpKeyboardListener
+        if ( this.isAnimatingProperty.get() ) {
+          regionManager.stopMagnetAnimationWithKeyboard();
+        }
+
+        // set stepSize and movement direction in the region manager
       },
       onKeyup( event ) {
         if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
@@ -271,8 +280,8 @@ define( function( require ) {
       // magnet location and coil proximity description content updates
       fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
       locationItem.innerContent = describer.positionOfPlayAreaString;
-      twoCoilProximityItem.innerContent = describer.theTwoCoilProximityString;
-      fourCoilProximityItem.innerContent = describer.theFourCoilProximityString;
+      twoCoilProximityItem.innerContent = describer.twoCoilProximityString;
+      fourCoilProximityItem.innerContent = describer.fourCoilProximityString;
 
       // field strength description content updates
       fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
@@ -304,21 +313,22 @@ define( function( require ) {
     } );
 
     // focus/blur alerts
-    draggableNode.addAccessibleInputListener( {
-      focus() {
-        // FaradaysLawAlertManager.magnetFocusAlert( cueVisible );
-        utteranceQueue.addToBack( describer.magnetFocusAlertText );
-        describer.regionMap.justFocused = true;
-      }
+    // draggableNode.addAccessibleInputListener( {
+    //   focus() {
+    //     // FaradaysLawAlertManager.magnetFocusAlert( cueVisible );
+    //     utteranceQueue.addToBack( describer.magnetFocusAlertText );
+    //     describer.regionManager.justFocused = true;
+    //   }
+    // } );
+    draggableNode.addAccessibleInputListener( alertManager.getAccessibleInputListener() );
+
+    model.coilIntersectedEmitter.addListener( intersectedCoil => {
+      regionManager.setMagnetIsAnimating( false );
     } );
 
     // @a11y
-    magnetJumpKeyboardListener._isAnimatingProperty.lazyLink( ( isAnimating ) => {
-
-      // magnet stopped alert
-      if ( !isAnimating ) {
-        utteranceQueue.addToBack( describer.slidingStoppedText );
-      }
+    magnetJumpKeyboardListener.isAnimatingProperty.link( isAnimating => {
+      regionManager.setMagnetIsAnimating( isAnimating );
     } );
   }
 
