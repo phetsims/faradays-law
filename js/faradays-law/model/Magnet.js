@@ -60,7 +60,7 @@ define( function( require ) {
     // @public {BooleanProperty} - show field lines for magnet
     this.showFieldLinesProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showFieldLinesProperty' ),
-      phetioInstanceDocumentation: 'True if the fields lines are visible'
+      phetioInstanceDocumentation: 'True if the field lines are visible'
     } );
   }
 
