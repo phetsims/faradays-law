@@ -127,7 +127,7 @@ define( function( require ) {
       // @public
       this.regionManager = regionManager;
 
-      model.magnet.showFieldLinesProperty.lazyLink( showLines => {
+      model.magnet.fieldLinesVisibleProperty.lazyLink( showLines => {
         const utterance = this.getShowFieldLinesAlertText( showLines );
         utteranceQueue.addToBack( utterance );
       } );
@@ -143,12 +143,12 @@ define( function( require ) {
       alertStringList.push( this.magnetLocationAlertText );  // magnet at {{position}} of play area.
       alertStringList.push( this.fourCoilProximityString );
 
-      if ( this._model.showTopCoilProperty.get() ) {
+      if ( this._model.topCoilVisibleProperty.get() ) {
         // both coils visible
         alertStringList.push( this.twoCoilProximityString );
       }
 
-      if ( this._magnet.showFieldLinesProperty.get() ) {
+      if ( this._magnet.fieldLinesVisibleProperty.get() ) {
         alertStringList.push( fieldLinesDescripitonUpdatedString );
       }
 
@@ -162,7 +162,7 @@ define( function( require ) {
     getFlipMagnetAlertText( orientation ) {
       let northSide = leftString;
       let southSide = rightString;
-      let alertPattern = this._magnet.showFieldLinesProperty.get() ?
+      let alertPattern = this._magnet.fieldLinesVisibleProperty.get() ?
                          flippingMagnetAndFieldPatternString :
                          flippingMagnetPatternString;
 
@@ -178,7 +178,7 @@ define( function( require ) {
 
       var strArray = [ showingFieldLinesString ];
 
-      if ( !this._model.showTopCoilProperty.get() ) {
+      if ( !this._model.topCoilVisibleProperty.get() ) {
         strArray.push( this.strengthThroughFourCoilText );
       } else {
         var topStrength = this.regionManager.getTopCoilFieldStrengthRegion();

@@ -96,7 +96,7 @@ define( require => {
 
       // a11y - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
       // size of the node being highlighted.
-      model.showMagnetArrowsProperty.link( showArrows => {
+      model.magnetArrowsVisibleProperty.link( showArrows => {
         magnetInteractionCueNode.visible = showArrows;
       } );
 
@@ -119,7 +119,7 @@ define( require => {
 
         // Translate on drag events
         drag( event ) {
-          model.showMagnetArrowsProperty.set( false );
+          model.magnetArrowsVisibleProperty.set( false );
           const parentPoint = self.globalToParentPoint( event.pointer.point );
           const desiredPosition = parentPoint.minus( magnetOffset );
           model.moveMagnetToPosition( desiredPosition );
@@ -138,7 +138,7 @@ define( require => {
       // @private - The sticky drag handler for keyboard navigation
       this.keyboardDragListener = new KeyboardDragListener( {
         drag( vectorDelta ) {
-          model.showMagnetArrowsProperty.set( false );
+          model.magnetArrowsVisibleProperty.set( false );
           let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
           newPosition = model.bounds.closestPointTo( newPosition );
           model.moveMagnetToPosition( newPosition );
@@ -161,7 +161,7 @@ define( require => {
         onKeydown( event ) {
           if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
             self.reflectedMagnetNode.visible = true;
-            model.showMagnetArrowsProperty.set( false );
+            model.magnetArrowsVisibleProperty.set( false );
 
             const magnitude = Number( event.key );
 
@@ -283,7 +283,7 @@ define( require => {
         twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
       } );
 
-      model.showTopCoilProperty.link( showTopCoil => {
+      model.topCoilVisibleProperty.link( showTopCoil => {
         fourCoilOnlyNode.visible = !showTopCoil;
         twoAndFourCoilNode.visible = showTopCoil;
 
@@ -302,7 +302,7 @@ define( require => {
         utteranceQueue.addToBack( describer.getFlipMagnetAlertText( orientation ) );
       } );
 
-      model.magnet.showFieldLinesProperty.link( showLines => {
+      model.magnet.fieldLinesVisibleProperty.link( showLines => {
         this.fieldLinesDescriptionNode.visible = showLines;
       } );
 

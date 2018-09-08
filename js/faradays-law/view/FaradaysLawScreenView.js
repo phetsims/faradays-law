@@ -90,10 +90,10 @@ define( function( require ) {
     } );
 
     // wires
-    this.addChild( new CoilsWiresNode( this, model.showTopCoilProperty ) );
+    this.addChild( new CoilsWiresNode( this, model.topCoilVisibleProperty ) );
 
     // exists for the lifetime of the sim, no need to dispose
-    model.showVoltmeterProperty.link( function( showVoltmeter ) {
+    model.voltmeterVisibleProperty.link( function( showVoltmeter ) {
       voltmeterAndWiresNode.visible = showVoltmeter;
     } );
 
@@ -103,7 +103,7 @@ define( function( require ) {
     // coils added
     this.addChild( bottomCoilNode );
     this.addChild( topCoilNode );
-    model.showTopCoilProperty.linkAttribute( topCoilNode, 'visible' );
+    model.topCoilVisibleProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
     var controlPanel = new ControlPanelNode( model, tandem );
@@ -133,7 +133,7 @@ define( function( require ) {
     topCoilNode.frontImage.detach();
     this.addChild( topCoilNode.frontImage );
     topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
-    model.showTopCoilProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
+    model.topCoilVisibleProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
   }
 
   faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );

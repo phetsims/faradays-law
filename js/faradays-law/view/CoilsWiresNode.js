@@ -28,10 +28,10 @@ define( function( require ) {
 
   /**
    * @param {FaradaysLawScreenView} view
-   * @param {BooleanProperty} showTopCoilProperty
+   * @param {BooleanProperty} topCoilVisibleProperty
    * @constructor
    */
-  function CoilsWiresNode( view, showTopCoilProperty ) {
+  function CoilsWiresNode( view, topCoilVisibleProperty ) {
     Node.call( this );
 
     // bottom coil, left bottom wire
@@ -96,8 +96,8 @@ define( function( require ) {
     this.addChild( topCoilsWire2 );
 
     // top coil wires hidden if top coil is hidden
-    showTopCoilProperty.linkAttribute( topCoilsWire1, 'visible' );
-    showTopCoilProperty.linkAttribute( topCoilsWire2, 'visible' );
+    topCoilVisibleProperty.linkAttribute( topCoilsWire1, 'visible' );
+    topCoilVisibleProperty.linkAttribute( topCoilsWire2, 'visible' );
   }
 
   faradaysLaw.register( 'CoilsWiresNode', CoilsWiresNode );

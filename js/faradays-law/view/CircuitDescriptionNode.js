@@ -64,7 +64,7 @@ define( function( require ) {
     var voltmeterItem = new Node( { tagName: 'li', innerContent: voltmeterString } );
 
     Property.multilink(
-      [ model.showTopCoilProperty, model.showVoltmeterProperty ],
+      [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
       function( showTopCoil, showVoltmeter ) {
         if ( !( showTopCoil || showVoltmeter ) ) {
           dynamicChildrenNode.children = [ fourCoilOnlyNode ];

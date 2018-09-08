@@ -103,7 +103,7 @@ define( require => {
       this._bottomCoilFiledStrength = 0;
 
       Property.multilink(
-        [ model.showTopCoilProperty, model.magnet.positionProperty ],
+        [ model.topCoilVisibleProperty, model.magnet.positionProperty ],
         ( showTopCoil, position ) => {
           this._adjacentCoil = this.getCoilAdjacentToVector( position, showTopCoil );
         }

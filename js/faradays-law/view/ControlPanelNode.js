@@ -49,9 +49,9 @@ define( function( require ) {
   function ControlPanelNode( model, tandem ) {
 
     Node.call( this, {
-        tagName: 'ul',
-        labelTagName: 'h3',
-        labelContent: constrolsString
+      tagName: 'ul',
+      labelTagName: 'h3',
+      labelContent: constrolsString
     } );
 
     // reset button - @public for a11y
@@ -95,13 +95,13 @@ define( function( require ) {
       labelContent: '1 coil'
     }, {
       value: true,// var coilRadioButtonsItem = new Node( {
-    //   containerTagName: 'li',
-    //   tagName: 'div',
-    //   labelContent: 'Circuit Mode:',
-    //   labelTagName: 'p'
-    // } );
+      //   containerTagName: 'li',
+      //   tagName: 'div',
+      //   labelContent: 'Circuit Mode:',
+      //   labelTagName: 'p'
+      // } );
 
-    // this.addChild( coilRadioButtonsItem );
+      // this.addChild( coilRadioButtonsItem );
       node: new VBox( _.extend( {
         children: [
           new CoilNode( CoilTypeEnum.TWO_COIL ),
@@ -113,7 +113,7 @@ define( function( require ) {
       labelContent: '2 coil'
     } ];
 
-    var coilRadioButtonGroup = new RadioButtonGroup( model.showTopCoilProperty, coilButtonGroupContents, {
+    var coilRadioButtonGroup = new RadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
       buttonContentXMargin: 20,
       buttonContentYMargin: 4,
       left: 377,
@@ -129,7 +129,7 @@ define( function( require ) {
       labelContent: circuitModeString
     } );
 
-    model.showTopCoilProperty.lazyLink( function( showTopCoil ) {
+    model.topCoilVisibleProperty.lazyLink( function( showTopCoil ) {
       var circuitHasPatternString = 'Circuit now has {{coilPart}}';
       var coilPart = showTopCoil ? 'two coils' : 'one coil';
       utteranceQueue.addToBack( StringUtils.fillIn( circuitHasPatternString, { coilPart: coilPart } ) );
@@ -138,19 +138,19 @@ define( function( require ) {
     var showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
 
-    var showVoltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.showVoltmeterProperty, {
+    var voltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.voltmeterVisibleProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY - 20,
-      tandem: tandem.createTandem( 'showVoltmeterCheckbox' ),
+      tandem: tandem.createTandem( 'voltmeterCheckbox' ),
       phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
       labelContent: connectVoltmeterToCircuitString
     } );
-    showVoltmeterCheckbox.touchArea = showVoltmeterCheckbox.localBounds.dilated( 8 );
-    this.addChild( showVoltmeterCheckbox );
+    voltmeterCheckbox.touchArea = voltmeterCheckbox.localBounds.dilated( 8 );
+    this.addChild( voltmeterCheckbox );
 
-    model.showVoltmeterProperty.lazyLink( function( showVoltmeter ) {
+    model.voltmeterVisibleProperty.lazyLink( function( showVoltmeter ) {
       utteranceQueue.addToBack( showVoltmeter ? connectingVoltmeterString : removingVoltmeterString );
     } );
 
@@ -159,17 +159,17 @@ define( function( require ) {
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
-    var showFieldLinesCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.showFieldLinesProperty, {
+    var fieldLinesCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.fieldLinesVisibleProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
-      tandem: tandem.createTandem( 'showFieldLinesCheckbox' ),
+      tandem: tandem.createTandem( 'fieldLinesCheckbox' ),
       phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic field lines will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
       labelContent: showFieldLabelString
     } );
-    showFieldLinesCheckbox.touchArea = showFieldLinesCheckbox.localBounds.dilated( 8 );
-    this.addChild( showFieldLinesCheckbox );
+    fieldLinesCheckbox.touchArea = fieldLinesCheckbox.localBounds.dilated( 8 );
+    this.addChild( fieldLinesCheckbox );
 
 
     this.addChild( coilRadioButtonGroup );
@@ -178,8 +178,8 @@ define( function( require ) {
 
     // a11y keyboard nav order
     this.accessibleOrder = [
-      showVoltmeterCheckbox,
-      showFieldLinesCheckbox,
+      voltmeterCheckbox,
+      fieldLinesCheckbox,
       coilRadioButtonGroup
     ];
   }

@@ -40,19 +40,19 @@ define( function( require ) {
     this.bounds = bounds;
 
     // @public - Whether the top coil should be shown
-    this.showTopCoilProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showTopCoilProperty' ),
+    this.topCoilVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'topCoilVisibleProperty' ),
       phetioInstanceDocumentation: 'True if and only if the top coil is visible'
     } );
 
     // @public - true if the magnet arrows should be shown
-    this.showMagnetArrowsProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'showMagnetArrowsProperty' ),
+    this.magnetArrowsVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'magnetArrowsVisibleProperty' ),
       phetioInstanceDocumentation: 'True if the magnet arrows are shown'
     } );
 
-    this.showVoltmeterProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'showVoltmeterProperty' ),
+    this.voltmeterVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'voltmeterVisibleProperty' ),
       phetioInstanceDocumentation: 'True if the voltmeter is shown'
     } );
 
@@ -92,7 +92,7 @@ define( function( require ) {
     this.voltmeter = new Voltmeter( this );
 
     // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
-    this.showTopCoilProperty.link( function( showTopCoil ) {
+    this.topCoilVisibleProperty.link( function( showTopCoil ) {
       if ( showTopCoil && self.magnetIntersectsTopCoilArea() ) {
         self.magnet.positionProperty.reset();
       }
@@ -113,8 +113,8 @@ define( function( require ) {
      */
     reset: function() {
       this.magnet.reset();
-      this.showTopCoilProperty.reset();
-      this.showMagnetArrowsProperty.reset();
+      this.topCoilVisibleProperty.reset();
+      this.magnetArrowsVisibleProperty.reset();
       this.bottomCoil.reset();
       this.topCoil.reset();
     },
@@ -126,7 +126,7 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.bottomCoil.step( dt );
-      this.showTopCoilProperty.get() && this.topCoil.step( dt );
+      this.topCoilVisibleProperty.get() && this.topCoil.step( dt );
       this.voltmeter.step( dt );
       // console.log(this.bottomCoil.magneticFieldProperty.get());
     },
@@ -147,7 +147,7 @@ define( function( require ) {
      * @return {Bounds2|null}
      */
     getIntersectedRestrictedBounds: function( bounds ) {
-      var stoppingValue = this.showTopCoilProperty.get() ? 0 : 2;
+      var stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
 
       for ( var i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
         var restrictedBounds = this.listOfRestrictedBounds[ i ];
@@ -179,7 +179,7 @@ define( function( require ) {
       if ( this.intersectedBounds === null ) {
 
         // if first coil not visible, check only second coil restrictions
-        for ( var i = this.showTopCoilProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
+        for ( var i = this.topCoilVisibleProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
           var restrictedBounds = this.listOfRestrictedBounds[ i ];
           if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
 

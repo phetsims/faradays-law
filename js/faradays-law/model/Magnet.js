@@ -58,8 +58,8 @@ define( function( require ) {
     } );
 
     // @public {BooleanProperty} - show field lines for magnet
-    this.showFieldLinesProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showFieldLinesProperty' ),
+    this.fieldLinesVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'fieldLinesVisibleProperty' ),
       phetioInstanceDocumentation: 'True if the field lines are visible'
     } );
   }
@@ -75,7 +75,7 @@ define( function( require ) {
     reset: function() {
       this.positionProperty.reset();
       this.orientationProperty.reset();
-      this.showFieldLinesProperty.reset();
+      this.fieldLinesVisibleProperty.reset();
     }
   } );
 } );

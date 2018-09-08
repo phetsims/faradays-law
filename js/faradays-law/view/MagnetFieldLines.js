@@ -39,7 +39,7 @@ define( function( require ) {
         createSideFieldLines( magnet.orientationProperty, -1 ) // bottom
       ]
     } );
-    magnet.showFieldLinesProperty.linkAttribute( this, 'visible' );
+    magnet.fieldLinesVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   /**
