@@ -159,7 +159,9 @@ define( require => {
       // handle the jump/slide interaction
       const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
         onKeydown( event ) {
-          if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) <= 3 ) {
+          // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
+          // we want to ensure that we're only listening for the 1,2, and 3 keys
+          if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) > 0 && Number( event.key ) <= 3 ) {
             self.reflectedMagnetNode.visible = true;
             model.magnetArrowsVisibleProperty.set( false );
 
@@ -174,9 +176,7 @@ define( require => {
             }
           }
 
-          // check if the keydown event will interrupt the animation
-          // NOTE: 'this' refers to the MagnetJumpKeyboardListener
-          if ( this.isAnimatingProperty.get() ) {
+          if ( magnetJumpKeyboardListener.isAnimatingProperty.get() ) {
             regionManager.stopMagnetAnimationWithKeyboard();
           }
         },
@@ -190,6 +190,7 @@ define( require => {
       } );
 
       draggableNode.addAccessibleInputListener( magnetJumpKeyboardListener );
+
 
       // listener to position the reflected node
       const setReflectedNodeCenter = position => {

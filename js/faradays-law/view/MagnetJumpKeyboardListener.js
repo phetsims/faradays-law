@@ -4,160 +4,139 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  // var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  // var LinearFunction = require( 'DOT/LinearFunction' );
-  var Property = require( 'AXON/Property' );
-  // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var timer = require( 'PHET_CORE/timer' );
-  // var Util = require( 'DOT/Util' );
-  // var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
-  var Vector2 = require( 'DOT/Vector2' );
-
-  // strings
-  // var slowlyString = FaradaysLawA11yStrings.slowly.value;
-  // var normallyString = FaradaysLawA11yStrings.normally.value;
-  // var quicklyString = FaradaysLawA11yStrings.quickly.value;
-  // var leftString = FaradaysLawA11yStrings.left.value;
-  // var rightString = FaradaysLawA11yStrings.right.value;
-  // var magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  const LinearFunction = require( 'DOT/LinearFunction' );
+  const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
+  const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
+  const Property = require( 'AXON/Property' );
+  const timer = require( 'PHET_CORE/timer' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  // var SPEEDS = [ slowlyString, normallyString, quicklyString ];
-  // var DIRECTIONS = { left: leftString, right: rightString };
+  const { LEFT, RIGHT } = MagnetDirectionEnum;
+  const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
+  const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 
-  function MagnetJumpKeyboardListener( model, options ) {
-    var self = this;
+  class MagnetJumpKeyboardListener {
 
-    options = _.extend( {
-      dragBounds: null,
-      defaultVelocity: 10, // in model coordinates / step
-      shiftVelocity: 5,
-      fastVelocity: 15,
-      onKeydown: null,
-      onKeyup: null
-    }, options );
+    constructor( model, options ) {
+      options = _.extend( {
+        defaultVelocity: 10, // in model coordinates / step
+        shiftVelocity: 5,
+        fastVelocity: 15,
+        onKeydown: e => {},
+        onKeyup: e => {}
+      }, options );
 
-    var halfMagnetHeight = model.magnet.height / 2;
-    var halfMagnetWidth = model.magnet.width / 2;
+      const { defaultVelocity, shiftVelocity, fastVelocity } = options;
 
-    // @private
-    this._onKeydown = options.onKeydown;
-    this._onKeyup = options.onKeyup;
-    this.isAnimatingProperty = new BooleanProperty( false );
-    this._dragBounds = options.dragBounds ?
-                       options.dragBounds :
-                       model.bounds.erodedXY( halfMagnetWidth, halfMagnetHeight );
-    this._stepDelta = options._defaultVelocity;
-    this._defaultVelocity = options.defaultVelocity;
-    this._shiftVelocity = options.shiftVelocity;
-    this._fastVelocity = options.fastVelocity;
+      // @private
+      this.isAnimatingProperty = new BooleanProperty( false );
+      this._dragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
+      this._stepDelta = defaultVelocity;
 
-    // @public
-    this.model = model;
-    this.positionProperty = new Property( model.magnet.positionProperty.get().copy() );
-    this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
-    this.targetPositionVector = new Vector2( 0, 0 );
+      // @public
+      this.model = model;
+      this.positionProperty = new Property( model.magnet.positionProperty.get().copy() );
+      this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
+      this.targetPositionVector = new Vector2( 0, 0 );
 
-    // set the target position in response to the magnet's
-    var setReflectedPosition = function( position ) {
-      var leftX = self._dragBounds.minX;
+      // set the target position in response to the magnet's
+      const setReflectedPosition = position => {
+        const leftX = this._dragBounds.minX;
 
-      var targetX = position.x >= ( self._dragBounds.maxX / 2 ) ? leftX : self._dragBounds.maxX;
+        let targetX = position.x >= ( this._dragBounds.maxX / 2 ) ? leftX : this._dragBounds.maxX;
 
-      var magnetPathBounds = new Bounds2(
-        Math.min( targetX, position.x ),
-        position.y,
-        Math.max( targetX, position.x ),
-        position.y
-      ).dilatedXY( halfMagnetWidth - 1, halfMagnetHeight - 1 );
+        const magnetPathBounds = new Bounds2(
+          Math.min( targetX, position.x ),
+          position.y,
+          Math.max( targetX, position.x ),
+          position.y
+        ).dilatedXY( HALF_MAGNET_WIDTH - 1, HALF_MAGNET_HEIGHT - 1 );
 
-      var intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
+        const intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
 
-      if ( intersectedBounds ) {
-        targetX = targetX > leftX ?
-                  intersectedBounds.minX - halfMagnetWidth :
-                  intersectedBounds.maxX + halfMagnetWidth;
-      }
-
-      self.positionProperty.set( position );
-      self.reflectedPositionProperty.set( new Vector2( targetX, position.y ) );
-    };
-
-    model.magnet.positionProperty.link( setReflectedPosition );
-
-
-    this.keydown = function( event ) {
-
-      if ( self._onKeydown ) {
-        self._onKeydown( event );
-      }
-
-      self.isAnimatingProperty.value = false;
-
-      // reset stepDelta
-      self._stepDelta = self._defaultVelocity;
-
-      // set the stepDelta
-      switch ( event.keyCode ) {
-        case 49:
-          self._stepDelta = self._shiftVelocity;
-          break;
-        case 50:
-          self._stepDelta = self._defaultVelocity;
-          break;
-        case 51:
-          self._stepDelta = self._fastVelocity;
-          break;
-        default:
-      }
-    };
-
-    // var speedToText = new LinearFunction( this._shiftVelocity, this._fastVelocity, 0, 2, true );
-
-    this.keyup = function( event ) {
-
-      if ( !self.isAnimatingProperty.value ) {
-        if ( event.keyCode >= 49 && event.keyCode <= 51) {
-          self.targetPositionVector = self.reflectedPositionProperty.get();
-          self.isAnimatingProperty.value = true;
+        if ( intersectedBounds ) {
+          targetX = targetX > leftX ?
+                    intersectedBounds.minX - HALF_MAGNET_WIDTH :
+                    intersectedBounds.maxX + HALF_MAGNET_WIDTH;
         }
-      }
 
-      if ( self._onKeyup ) {
-        self._onKeyup( event );
-      }
-    };
+        this.positionProperty.set( position );
+        this.reflectedPositionProperty.set( new Vector2( targetX, position.y ) );
+      };
 
-    // step the drag listener, must be removed in dispose
-    var stepListener = this.step.bind( this );
-    timer.addListener( stepListener );
+      model.magnet.positionProperty.link( setReflectedPosition );
 
-    // @private - called in dispose
-    this._disposeKeyboardDragListener = function() {
-      timer.removeListener( stepListener );
-    };
-  }
 
-  faradaysLaw.register( 'MagnetJumpKeyboardListener', MagnetJumpKeyboardListener );
+      this.keydown = event => {
 
-  return inherit( Object, MagnetJumpKeyboardListener, {
+        options.onKeydown( event );
 
-    step: function( dt ) {
-      var animating = this.isAnimatingProperty.get();
+        this.isAnimatingProperty.value = false;
+
+        // reset stepDelta
+        this._stepDelta = defaultVelocity;
+
+        // set the stepDelta
+        switch ( event.keyCode ) {
+          case 49:
+            this._stepDelta = shiftVelocity;
+            break;
+          case 50:
+            this._stepDelta = defaultVelocity;
+            break;
+          case 51:
+            this._stepDelta = fastVelocity;
+            break;
+          default:
+        }
+      };
+
+      const speedToText = new LinearFunction( shiftVelocity, fastVelocity, 0, 2, true );
+
+      this.keyup = event => {
+
+        if ( !this.isAnimatingProperty.value ) {
+          if ( event.keyCode >= 49 && event.keyCode <= 51) {
+            this.targetPositionVector = this.reflectedPositionProperty.get();
+            this.isAnimatingProperty.value = true;
+
+            const speed = Util.roundSymmetric( speedToText( this._stepDelta ) );
+            const direction = this.getMagnetDirection( this.positionProperty.get().x - this.targetPositionVector.x );
+            FaradaysLawAlertManager.magnetSlidingAlert( speed, direction );
+          }
+        }
+
+        options.onKeyup( event );
+      };
+
+      // step the drag listener, must be removed in dispose
+      const stepListener = this.step.bind( this );
+      timer.addListener( stepListener );
+
+      // @private - called in dispose
+      this._disposeKeyboardDragListener = function() {
+        timer.removeListener( stepListener );
+      };
+    }
+
+    step( dt ) {
+      const animating = this.isAnimatingProperty.get();
 
       if ( animating ) {
         if ( !this.positionProperty.get().equals( this.targetPositionVector ) ) {
 
-          var diffX = this.targetPositionVector.x - this.positionProperty.get().x;
-          var direction = diffX < 0 ? -1 : 1;
+          const diffX = this.targetPositionVector.x - this.positionProperty.get().x;
+          const direction = diffX < 0 ? -1 : 1;
 
-          var deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );
+          const deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );
 
-          var newPosition = this.positionProperty.get().plus( deltaVector );
+          let newPosition = this.positionProperty.get().plus( deltaVector );
 
           newPosition = this._dragBounds.closestPointTo( newPosition );
 
@@ -166,10 +145,16 @@ define( function( require ) {
           this.isAnimatingProperty.value = false;
         }
       }
-    },
+    }
 
-    dispose: function() {
+    getMagnetDirection( positionDelta ) {
+      return positionDelta > 0 ? LEFT : RIGHT;
+    }
+
+    dispose() {
       this._disposeKeyboardDragListener();
     }
-  } );
+  }
+
+  return faradaysLaw.register( 'MagnetJumpKeyboardListener', MagnetJumpKeyboardListener );
 } );

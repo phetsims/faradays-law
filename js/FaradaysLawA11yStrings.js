@@ -183,7 +183,7 @@ define( function( require ) {
       value: 'at the {{position}} of the Play Area.'
     },
     magnetLocationAlertPattern: {
-      value: 'Magnet at {{position}} of Play Area'
+      value: 'Magnet at {{position}} of Play Area.'
     },
     magnetLocationExtraAlertPattern: {
       value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet.'
@@ -223,16 +223,16 @@ define( function( require ) {
      * Magnet coil proximity values *
      ********************************/
     in: {
-      value: 'in'
+      value: 'In'
     },
     farFrom: {
-      value: 'far from'
+      value: 'Far from'
     },
     closeTo: {
-      value: 'close to'
+      value: 'Close to'
     },
     veryCloseTo: {
-      value: 'very close to'
+      value: 'Very close to'
     },
     exitingCoilPattern: {
       value: 'Exiting {{coil}}'
@@ -244,10 +244,10 @@ define( function( require ) {
       value: '{{coil}} to {{direction}}'
     },
     proximityToFourCoilPattern: {
-      value: '{{proximity}} 4-loop coil.'
+      value: '{{proximity}} 4-loop coil'
     },
     proximityToTwoCoilPattern: {
-      value: '{{proximity}} 2-loop coil.'
+      value: '{{proximity}} 2-loop coil'
     },
     bumpingCoilPattern: {
       value: 'Bumping {{coil}} coil'

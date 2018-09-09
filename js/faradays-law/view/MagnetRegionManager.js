@@ -75,6 +75,7 @@ define( require => {
       this.bounds = model.bounds;
       this.showExtraMoveText = true; // for displaying detailed magnet movement instructions
       this.magnetIsAnimating = false;
+      this.magnetStoppedByKeyboard = false;
 
       // @private
       // generate bounds to indicate if magnet is inside the coil
@@ -272,7 +273,8 @@ define( require => {
     }
 
     stopMagnetAnimationWithKeyboard() {
-      this._magnetStoppedByKeyboard = true;
+      this.magnetStoppedByKeyboard = true;
+      this.magnetIsAnimating = false;
     }
 
     setMagnetIsAnimating( isAnimating ) {
@@ -280,7 +282,7 @@ define( require => {
     }
 
     resetKeyboardStop() {
-      this._magnetStoppedByKeyboard = false;
+      this.magnetStoppedByKeyboard = false;
     }
 
     /**

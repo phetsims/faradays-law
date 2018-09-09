@@ -12,107 +12,112 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  // var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  // var Vector2 = require( 'DOT/Vector2' );
-  // var Bounds2 = require( 'DOT/Bounds2' );
-  // var LinearFunction = require( 'DOT/LinearFunction' );
-  // var MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
-  // var MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
-  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  // var Range = require( 'DOT/Range' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  // var Util = require( 'DOT/Util' );
-  // var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
-  // var Vector2 = require( 'DOT/Vector2' );
+  const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  // const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  // const Vector2 = require( 'DOT/Vector2' );
+  // const Bounds2 = require( 'DOT/Bounds2' );
+  // const LinearFunction = require( 'DOT/LinearFunction' );
+  // const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
+  // const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
+  const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
+  // const Range = require( 'DOT/Range' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  // const Util = require( 'DOT/Util' );
+  // const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  // const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var topLeftString = FaradaysLawA11yStrings.topLeft.value;
-  var topCenterString = FaradaysLawA11yStrings.topCenter.value;
-  var topRightString = FaradaysLawA11yStrings.topRight.value;
-  var middleLeftString = FaradaysLawA11yStrings.middleLeft.value;
-  var centerString = FaradaysLawA11yStrings.center.value;
-  var middleRightString = FaradaysLawA11yStrings.middleRight.value;
-  var bottomLeftString = FaradaysLawA11yStrings.bottomLeft.value;
-  var bottomCenterString = FaradaysLawA11yStrings.bottomCenter.value;
-  var bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
-  var edgeString = FaradaysLawA11yStrings.edge.value;
-  var twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
-  // var threeWordsPatternString = FaradaysLawA11yStrings.threeWordsPattern.value;
-  // var twoItemPatternString = FaradaysLawA11yStrings.twoItemPattern.value;
+  const topLeftString = FaradaysLawA11yStrings.topLeft.value;
+  const topCenterString = FaradaysLawA11yStrings.topCenter.value;
+  const topRightString = FaradaysLawA11yStrings.topRight.value;
+  const middleLeftString = FaradaysLawA11yStrings.middleLeft.value;
+  const centerString = FaradaysLawA11yStrings.center.value;
+  const middleRightString = FaradaysLawA11yStrings.middleRight.value;
+  const bottomLeftString = FaradaysLawA11yStrings.bottomLeft.value;
+  const bottomCenterString = FaradaysLawA11yStrings.bottomCenter.value;
+  const bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
+  const edgeString = FaradaysLawA11yStrings.edge.value;
+  const twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
+  // const threeWordsPatternString = FaradaysLawA11yStrings.threeWordsPattern.value;
+  // const twoItemPatternString = FaradaysLawA11yStrings.twoItemPattern.value;
 
-  var barMagnetPositionPatternString = FaradaysLawA11yStrings.barMagnetPositionPattern.value;
-  var positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
-  var inString = FaradaysLawA11yStrings.in.value;
-  var veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
-  var closeToString = FaradaysLawA11yStrings.closeTo.value;
-  var farFromString = FaradaysLawA11yStrings.farFrom.value;
+  const barMagnetPositionPatternString = FaradaysLawA11yStrings.barMagnetPositionPattern.value;
+  const positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
+  const inString = FaradaysLawA11yStrings.in.value;
+  const veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
+  const closeToString = FaradaysLawA11yStrings.closeTo.value;
+  const farFromString = FaradaysLawA11yStrings.farFrom.value;
 
-  var poleOnThePatternString = FaradaysLawA11yStrings.poleOnThePattern.value;
-  var northString = FaradaysLawA11yStrings.north.value;
-  var southString = FaradaysLawA11yStrings.south.value;
+  const poleOnThePatternString = FaradaysLawA11yStrings.poleOnThePattern.value;
+  const northString = FaradaysLawA11yStrings.north.value;
+  const southString = FaradaysLawA11yStrings.south.value;
 
-  var leftString = FaradaysLawA11yStrings.left.value;
-  var rightString = FaradaysLawA11yStrings.right.value;
+  const leftString = FaradaysLawA11yStrings.left.value;
+  const rightString = FaradaysLawA11yStrings.right.value;
 
-  var minimalString = FaradaysLawA11yStrings.minimal.value;
-  var veryWeakString = FaradaysLawA11yStrings.veryWeak.value;
-  var weakString = FaradaysLawA11yStrings.weak.value;
-  var strongString = FaradaysLawA11yStrings.strong.value;
-  var veryStrongString = FaradaysLawA11yStrings.veryStrong.value;
+  const minimalString = FaradaysLawA11yStrings.minimal.value;
+  const veryWeakString = FaradaysLawA11yStrings.veryWeak.value;
+  const weakString = FaradaysLawA11yStrings.weak.value;
+  const strongString = FaradaysLawA11yStrings.strong.value;
+  const veryStrongString = FaradaysLawA11yStrings.veryStrong.value;
 
-  var fieldLinesDescriptionPatternString = FaradaysLawA11yStrings.fieldLinesDescriptionPattern.value;
-  var fourLoopOnlyFieldStrengthPatternString = FaradaysLawA11yStrings.fourLoopOnlyFieldStrengthPattern.value;
-  var fieldStrengthPatternString = FaradaysLawA11yStrings.fieldStrengthPattern.value;
+  const fieldLinesDescriptionPatternString = FaradaysLawA11yStrings.fieldLinesDescriptionPattern.value;
+  const fourLoopOnlyFieldStrengthPatternString = FaradaysLawA11yStrings.fourLoopOnlyFieldStrengthPattern.value;
+  const fieldStrengthPatternString = FaradaysLawA11yStrings.fieldStrengthPattern.value;
 
-  var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
-  var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
-  var theCoilPatternString = FaradaysLawA11yStrings.theCoilPattern.value;
-  var theFourLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: fourLoopCoilString } );
-  var theTwoLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: twoLoopCoilString } );
+  const fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
+  const twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
+  const theCoilPatternString = FaradaysLawA11yStrings.theCoilPattern.value;
+  const theFourLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: fourLoopCoilString } );
+  const theTwoLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: twoLoopCoilString } );
 
-  var magnetLocationAlertPatternString = FaradaysLawA11yStrings.magnetLocationAlertPattern.value;
-  var magnetLocationExtraAlertPatternString = FaradaysLawA11yStrings.magnetLocationExtraAlertPattern.value;
+  const magnetLocationAlertPatternString = FaradaysLawA11yStrings.magnetLocationAlertPattern.value;
+  const magnetLocationExtraAlertPatternString = FaradaysLawA11yStrings.magnetLocationExtraAlertPattern.value;
 
-  var slidingStoppedString = FaradaysLawA11yStrings.slidingStopped.value;
+  const slidingStoppedString = FaradaysLawA11yStrings.slidingStopped.value;
+  const magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
 
-  // var regularString = FaradaysLawA11yStrings.regular.value;
-  // var smallString = FaradaysLawA11yStrings.small.value;
-  // var largeString = FaradaysLawA11yStrings.large.value;
-  // var stepDirectionPatternString = FaradaysLawA11yStrings.stepDirectionPattern.value;
+  // const regularString = FaradaysLawA11yStrings.regular.value;
+  // const smallString = FaradaysLawA11yStrings.small.value;
+  // const largeString = FaradaysLawA11yStrings.large.value;
+  // const stepDirectionPatternString = FaradaysLawA11yStrings.stepDirectionPattern.value;
 
-  // var fieldStrengthPassingPatternString = FaradaysLawA11yStrings.fieldStrengthPassingPattern.value;
-  var fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
-  var fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
-  var showingFieldLinesString = FaradaysLawA11yStrings.showingFieldLines.value;
-  var hideFieldLinesString = FaradaysLawA11yStrings.hideFieldLines.value;
-  var fieldLinesDescripitonUpdatedString = FaradaysLawA11yStrings.fieldLinesDescriptionUpdated.value;
+  // const fieldStrengthPassingPatternString = FaradaysLawA11yStrings.fieldStrengthPassingPattern.value;
+  const fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
+  const fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
+  const showingFieldLinesString = FaradaysLawA11yStrings.showingFieldLines.value;
+  const hideFieldLinesString = FaradaysLawA11yStrings.hideFieldLines.value;
+  const fieldLinesDescripitonUpdatedString = FaradaysLawA11yStrings.fieldLinesDescriptionUpdated.value;
 
-  var flippingMagnetPatternString = FaradaysLawA11yStrings.flippingMagnetPattern.value;
-  var flippingMagnetAndFieldPatternString = FaradaysLawA11yStrings.flippingMagnetAndFieldPattern.value;
+  const flippingMagnetPatternString = FaradaysLawA11yStrings.flippingMagnetPattern.value;
+  const flippingMagnetAndFieldPatternString = FaradaysLawA11yStrings.flippingMagnetAndFieldPattern.value;
 
-  // var exitingCoilPatternString = FaradaysLawA11yStrings.exitingCoilPattern.value;
-  // var noCoilPatternString = FaradaysLawA11yStrings.noCoilPattern.value;
-  // var coilToDirectionPatternString = FaradaysLawA11yStrings.coilToDirectionPattern.value;
-  // var proximityToFourCoilPatternString = FaradaysLawA11yStrings.proximityToFourCoilPattern.value;
-  // var proximityToTwoCoilPatternString = FaradaysLawA11yStrings.proximityToTwoCoilPattern.value;
-  // var slowlyString = FaradaysLawA11yStrings.slowly.value;
+  // const exitingCoilPatternString = FaradaysLawA11yStrings.exitingCoilPattern.value;
+  // const noCoilPatternString = FaradaysLawA11yStrings.noCoilPattern.value;
+  // const coilToDirectionPatternString = FaradaysLawA11yStrings.coilToDirectionPattern.value;
+  const proximityToFourCoilPatternString = FaradaysLawA11yStrings.proximityToFourCoilPattern.value;
+  const proximityToTwoCoilPatternString = FaradaysLawA11yStrings.proximityToTwoCoilPattern.value;
+  const slowlyString = FaradaysLawA11yStrings.slowly.value;
+  const normallyString = FaradaysLawA11yStrings.normally.value;
+  const quicklyString = FaradaysLawA11yStrings.quickly.value;
 
-  var bumpingCoilPatternString = FaradaysLawA11yStrings.bumpingCoilPattern.value;
+  const bumpingCoilPatternString = FaradaysLawA11yStrings.bumpingCoilPattern.value;
 
   // constants
-  var REGION_DESCRIPTIONS = [ topLeftString,    topCenterString,    topRightString,
+  const REGION_DESCRIPTIONS = [ topLeftString,    topCenterString,    topRightString,
                               middleLeftString, centerString,       middleRightString,
                               bottomLeftString, bottomCenterString, bottomRightString ];
 
   // can create a linear function to map distances to integers 0 - 2
-  var PROXIMITY_STRINGS = [ inString, veryCloseToString, closeToString, farFromString ];
-  // var proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
+  const PROXIMITY_STRINGS = [ inString, veryCloseToString, closeToString, farFromString ];
+  // const proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
 
-  var FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
+  const FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
+  const SPEEDS = [ slowlyString, normallyString, quicklyString ];
+  const DIRECTIONS = { LEFT: leftString, RIGHT: rightString };
 
   class MagnetDescriber {
 
@@ -134,9 +139,10 @@ define( function( require ) {
     }
 
     magnetMovedAlertText() {
+      console.log( 'magnet moved called' );
       let alertStringList = [];
 
-      if ( this.regionManager._magnetStoppedByKeyboard ) {
+      if ( this.regionManager.magnetStoppedByKeyboard ) {
         alertStringList.push( slidingStoppedString );
       }
 
@@ -304,22 +310,31 @@ define( function( require ) {
 
     get fourCoilProximityString() {
       const proximity = PROXIMITY_STRINGS[ this.regionManager.magnetToBottomCoilProximity ];
-      const { adjacentCoil, magnetInCoil } = this.regionManager;
-      let coilDirection = '';
-      if ( adjacentCoil === CoilTypeEnum.FOUR_COIL && !magnetInCoil ) {
-        coilDirection = this.regionManager.magnetScreenSide === 'left' ? ' to the right.' : ' to the left.';
-      }
-      return StringUtils.fillIn( twoWordsPatternString, { first: proximity, second: fourLoopCoilString } ) + coilDirection;
+
+      return this.getCoilProximityString( proximity, CoilTypeEnum.FOUR_COIL );
     }
 
     get twoCoilProximityString() {
       const proximity = PROXIMITY_STRINGS[ this.regionManager.magnetToTopCoilProximity ];
+
+      return this.getCoilProximityString( proximity, CoilTypeEnum.TWO_COIL );
+    }
+
+    getCoilProximityString( proximity, coil ) {
+      const pattern = coil === CoilTypeEnum.FOUR_COIL ? proximityToFourCoilPatternString : proximityToTwoCoilPatternString;
       const { adjacentCoil, magnetInCoil } = this.regionManager;
-      let coilDirection = '';
-      if ( adjacentCoil === CoilTypeEnum.TWO_COIL && !magnetInCoil ) {
+      let coilDirection = '.';
+      if ( adjacentCoil === coil && !magnetInCoil ) {
         coilDirection = this.regionManager.magnetScreenSide === 'left' ? ' to the right.' : ' to the left.';
       }
-      return StringUtils.fillIn( twoWordsPatternString, { first: proximity, second: twoLoopCoilString } ) + coilDirection;
+
+      return StringUtils.fillIn( pattern, { proximity } ) + coilDirection;
+    }
+
+    static getMagnetSlidingAlertText( speedValue, directionValue ) {
+      const speed = SPEEDS[ speedValue ];
+      const direction = DIRECTIONS[ directionValue ];
+      return StringUtils.fillIn( magnetSlidingAlertPatternString, { speed, direction } );
     }
   }
 
