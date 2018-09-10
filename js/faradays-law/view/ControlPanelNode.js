@@ -11,35 +11,35 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Checkbox = require( 'SUN/Checkbox' );
-  var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
-  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  var FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/FlipMagnetButton' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
+  const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
+  const FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/FlipMagnetButton' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
-  var faradaysLawVoltmeterString = require( 'string!FARADAYS_LAW/faradays-law.voltmeter' );
+  const faradaysLawShowFieldLinesString = require( 'string!FARADAYS_LAW/faradays-law.showFieldLines' );
+  const faradaysLawVoltmeterString = require( 'string!FARADAYS_LAW/faradays-law.voltmeter' );
 
   // a11y strings
-  var constrolsString = FaradaysLawA11yStrings.controls.value;
-
-  var connectingVoltmeterString = FaradaysLawA11yStrings.connectingVoltmeter.value;
-  var removingVoltmeterString = FaradaysLawA11yStrings.removingVoltmeter.value;
-  var circuitModeString = FaradaysLawA11yStrings.circuitMode.value;
-  var connectVoltmeterToCircuitString = FaradaysLawA11yStrings.connectVoltmeterToCircuit.value;
-  var showFieldLabelString = FaradaysLawA11yStrings.showFieldLabel.value;
+  const constrolsString = FaradaysLawA11yStrings.controls.value;
+  const voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
+  const voltmeterDescriptionString = FaradaysLawA11yStrings.voltmeterDescription.value;
+  const numberOneCoilString = FaradaysLawA11yStrings.numberOneCoil.value;
+  const numberTwoCoilString = FaradaysLawA11yStrings.numberTwoCoil.value;
+  const circuitModeString = FaradaysLawA11yStrings.circuitMode.value;
+  const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
+  const fieldLinesDescriptionString = FaradaysLawA11yStrings.fieldLinesDescription.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -92,7 +92,7 @@ define( function( require ) {
       }, coilButtonGroupOptions ) ),
       tandemName: 'singleCoilRadioButton',
       phetioInstanceDocumentation: 'Radio button that selects a single coil.',
-      labelContent: '1 coil'
+      labelContent: numberOneCoilString
     }, {
       value: true,// var coilRadioButtonsItem = new Node( {
       //   containerTagName: 'li',
@@ -110,7 +110,7 @@ define( function( require ) {
       }, coilButtonGroupOptions ) ),
       tandemName: 'doubleCoilRadioButton',
       phetioInstanceDocumentation: 'Radio button that selects double coils.',
-      labelContent: '2 coil'
+      labelContent: numberTwoCoilString
     } ];
 
     var coilRadioButtonGroup = new RadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
@@ -130,9 +130,7 @@ define( function( require ) {
     } );
 
     model.topCoilVisibleProperty.lazyLink( function( showTopCoil ) {
-      var circuitHasPatternString = 'Circuit now has {{coilPart}}';
-      var coilPart = showTopCoil ? 'two coils' : 'one coil';
-      utteranceQueue.addToBack( StringUtils.fillIn( circuitHasPatternString, { coilPart: coilPart } ) );
+      FaradaysLawAlertManager.coilConnectionAlert( showTopCoil );
     } );
 
     var showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
@@ -145,13 +143,16 @@ define( function( require ) {
       phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
-      labelContent: connectVoltmeterToCircuitString
+      labelContent: voltmeterString,
+      descriptionContent: voltmeterDescriptionString
     } );
     voltmeterCheckbox.touchArea = voltmeterCheckbox.localBounds.dilated( 8 );
     this.addChild( voltmeterCheckbox );
 
     model.voltmeterVisibleProperty.lazyLink( function( showVoltmeter ) {
-      utteranceQueue.addToBack( showVoltmeter ? connectingVoltmeterString : removingVoltmeterString );
+      FaradaysLawAlertManager.voltmeterAttachmentAlert( showVoltmeter );
+      // const attachmentState = showVoltmeter ? connectedString : removedString;
+      // utteranceQueue.addToBack( StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState } ) );
     } );
 
     // Create the label for the "Show Field Lines" checkbox, scaling it if it's too long.
@@ -166,11 +167,15 @@ define( function( require ) {
       phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic field lines will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
-      labelContent: showFieldLabelString
+      labelContent: fieldLinesString,
+      descriptionContent: fieldLinesDescriptionString
     } );
     fieldLinesCheckbox.touchArea = fieldLinesCheckbox.localBounds.dilated( 8 );
     this.addChild( fieldLinesCheckbox );
 
+    model.magnet.fieldLinesVisibleProperty.lazyLink( showLines => {
+      FaradaysLawAlertManager.fieldLinesVisibilityAlert( showLines );
+    } );
 
     this.addChild( coilRadioButtonGroup );
 

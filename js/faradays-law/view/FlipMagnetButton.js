@@ -24,6 +24,7 @@ define( function( require ) {
 
   // a11y strings
   var flipMagnetString = FaradaysLawA11yStrings.flipMagnet.value;
+  var flipPolesString = FaradaysLawA11yStrings.flipPoles.value;
 
   /**
    * @param {Tandem} tandem
@@ -55,7 +56,7 @@ define( function( require ) {
       tandem: tandem,
       phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.',
       innerContent: flipMagnetString,
-      descriptionContent: 'Flip North and South poles',
+      descriptionContent: flipPolesString,
       appendDescription: true
     }, options ) );
   }

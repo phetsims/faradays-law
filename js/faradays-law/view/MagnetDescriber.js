@@ -15,19 +15,8 @@ define( function( require ) {
   const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  // const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  // const Vector2 = require( 'DOT/Vector2' );
-  // const Bounds2 = require( 'DOT/Bounds2' );
-  // const LinearFunction = require( 'DOT/LinearFunction' );
-  // const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
-  // const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
   const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  // const Range = require( 'DOT/Range' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  // const Util = require( 'DOT/Util' );
-  // const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
-  // const Vector2 = require( 'DOT/Vector2' );
 
   // strings
   const topLeftString = FaradaysLawA11yStrings.topLeft.value;
@@ -41,8 +30,6 @@ define( function( require ) {
   const bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
   const edgeString = FaradaysLawA11yStrings.edge.value;
   const twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
-  // const threeWordsPatternString = FaradaysLawA11yStrings.threeWordsPattern.value;
-  // const twoItemPatternString = FaradaysLawA11yStrings.twoItemPattern.value;
 
   const barMagnetPositionPatternString = FaradaysLawA11yStrings.barMagnetPositionPattern.value;
   const positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
@@ -73,6 +60,9 @@ define( function( require ) {
   const theCoilPatternString = FaradaysLawA11yStrings.theCoilPattern.value;
   const theFourLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: fourLoopCoilString } );
   const theTwoLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: twoLoopCoilString } );
+  const circuitNowHasPatternString = FaradaysLawA11yStrings.circuitNowHasPattern.value;
+  const oneCoilString = FaradaysLawA11yStrings.oneCoil.value;
+  const twoCoilsString = FaradaysLawA11yStrings.twoCoils.value;
 
   const magnetLocationAlertPatternString = FaradaysLawA11yStrings.magnetLocationAlertPattern.value;
   const magnetLocationExtraAlertPatternString = FaradaysLawA11yStrings.magnetLocationExtraAlertPattern.value;
@@ -80,24 +70,18 @@ define( function( require ) {
   const slidingStoppedString = FaradaysLawA11yStrings.slidingStopped.value;
   const magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
 
-  // const regularString = FaradaysLawA11yStrings.regular.value;
-  // const smallString = FaradaysLawA11yStrings.small.value;
-  // const largeString = FaradaysLawA11yStrings.large.value;
-  // const stepDirectionPatternString = FaradaysLawA11yStrings.stepDirectionPattern.value;
-
-  // const fieldStrengthPassingPatternString = FaradaysLawA11yStrings.fieldStrengthPassingPattern.value;
+  const connectedString = FaradaysLawA11yStrings.connected.value;
+  const removedString = FaradaysLawA11yStrings.removed.value;
+  const voltmeterAlertPatternString = FaradaysLawA11yStrings.voltmeterAlertPattern.value;
   const fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
   const fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
-  const showingFieldLinesString = FaradaysLawA11yStrings.showingFieldLines.value;
-  const hideFieldLinesString = FaradaysLawA11yStrings.hideFieldLines.value;
-  const fieldLinesDescripitonUpdatedString = FaradaysLawA11yStrings.fieldLinesDescriptionUpdated.value;
+  const fieldLinesVisibilityPatternString = FaradaysLawA11yStrings.fieldLinesVisibilityPattern.value;
+  const hiddenString = FaradaysLawA11yStrings.hidden.value;
+  const visibleString = FaradaysLawA11yStrings.visible.value;
+  const fieldLinesDescriptionUpdatedString = FaradaysLawA11yStrings.fieldLinesDescriptionUpdated.value;
 
   const flippingMagnetPatternString = FaradaysLawA11yStrings.flippingMagnetPattern.value;
-  const flippingMagnetAndFieldPatternString = FaradaysLawA11yStrings.flippingMagnetAndFieldPattern.value;
 
-  // const exitingCoilPatternString = FaradaysLawA11yStrings.exitingCoilPattern.value;
-  // const noCoilPatternString = FaradaysLawA11yStrings.noCoilPattern.value;
-  // const coilToDirectionPatternString = FaradaysLawA11yStrings.coilToDirectionPattern.value;
   const proximityToFourCoilPatternString = FaradaysLawA11yStrings.proximityToFourCoilPattern.value;
   const proximityToTwoCoilPatternString = FaradaysLawA11yStrings.proximityToTwoCoilPattern.value;
   const slowlyString = FaradaysLawA11yStrings.slowly.value;
@@ -131,15 +115,9 @@ define( function( require ) {
 
       // @public
       this.regionManager = regionManager;
-
-      model.magnet.fieldLinesVisibleProperty.lazyLink( showLines => {
-        const utterance = this.getShowFieldLinesAlertText( showLines );
-        utteranceQueue.addToBack( utterance );
-      } );
     }
 
     magnetMovedAlertText() {
-      console.log( 'magnet moved called' );
       let alertStringList = [];
 
       if ( this.regionManager.magnetStoppedByKeyboard ) {
@@ -155,7 +133,7 @@ define( function( require ) {
       }
 
       if ( this._magnet.fieldLinesVisibleProperty.get() ) {
-        alertStringList.push( fieldLinesDescripitonUpdatedString );
+        alertStringList.push( fieldLinesDescriptionUpdatedString );
       }
 
       return alertStringList.join( ' ' );
@@ -168,36 +146,20 @@ define( function( require ) {
     getFlipMagnetAlertText( orientation ) {
       let northSide = leftString;
       let southSide = rightString;
-      let alertPattern = this._magnet.fieldLinesVisibleProperty.get() ?
-                         flippingMagnetAndFieldPatternString :
-                         flippingMagnetPatternString;
+      let alertPattern = flippingMagnetPatternString;
 
       if ( orientation === OrientationEnum.SN ) {
         northSide = rightString;
         southSide = leftString;
       }
 
-      return StringUtils.fillIn( alertPattern, { northSide, southSide } );
-    }
+      let alert = StringUtils.fillIn( alertPattern, { northSide, southSide } );
 
-    getShowFieldLinesAlertText( showLines ) {
-
-      var strArray = [ showingFieldLinesString ];
-
-      if ( !this._model.topCoilVisibleProperty.get() ) {
-        strArray.push( this.strengthThroughFourCoilText );
-      } else {
-        var topStrength = this.regionManager.getTopCoilFieldStrengthRegion();
-        var bottomStrength = this.regionManager.getBottomCoilFieldStrengthRegion();
-
-        if ( topStrength !== bottomStrength ) {
-          strArray.push( this.strengthThroughFourCoilText, this.strengthThroughTwoCoilText );
-        } else {
-          strArray.push( this.strengthThroughBothCoilsText );
-        }
+      if ( this._model.magnet.fieldLinesVisibleProperty.get() ) {
+        alert += ' ' + fieldLinesDescriptionUpdatedString;
       }
 
-      return showLines ? strArray.join( ' ' ) : hideFieldLinesString;
+      return alert;
     }
 
     get strengthThroughFourCoilText() {
@@ -335,6 +297,27 @@ define( function( require ) {
       const speed = SPEEDS[ speedValue ];
       const direction = DIRECTIONS[ directionValue ];
       return StringUtils.fillIn( magnetSlidingAlertPatternString, { speed, direction } );
+    }
+
+    static getFieldLinesVisibilityAlertText( showLines ) {
+      const visibility = showLines ? visibleString : hiddenString;
+      let alert = StringUtils.fillIn( fieldLinesVisibilityPatternString, { visibility } );
+
+      if ( showLines ) {
+        alert += ' ' + fieldLinesDescriptionUpdatedString;
+      }
+
+      return alert;
+    }
+
+    static getVoltmeterAttachmentAlertText( showVoltmeter ) {
+      const attachmentState = showVoltmeter ? connectedString : removedString;
+      return StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState } );
+    }
+
+    static getCoilConnectionAlertText( showTopCoil ) {
+      const coil = showTopCoil ? twoCoilsString : oneCoilString;
+      return StringUtils.fillIn( circuitNowHasPatternString, { coil } );
     }
   }
 

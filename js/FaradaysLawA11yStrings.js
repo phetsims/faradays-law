@@ -47,11 +47,17 @@ define( function( require ) {
     flipMagnet: {
       value: 'Flip Magnet'
     },
+    flipPoles: {
+      value: 'Flip North and South poles.'
+    },
     coilsStaticDescription: {
       value: 'The coils are open on the left and right - the bar magnet to pass through.'
     },
     voltmeter: {
       value: 'Voltmeter'
+    },
+    voltmeterDescription: {
+      value: 'Play with or without voltmeter connected to light bulb circuit'
     },
     circuitFourCoilOnly: {
       value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right - the bar magnet can pass through.'
@@ -97,14 +103,20 @@ define( function( require ) {
     fieldStrengthPassingBothCoilsPattern: {
       value: '{{strength}} magnetic field passing through both 4 loop and 2 loop coils.'
     },
-    circuitHasPatternString: {
+    circuitNowHasPattern: {
       value: 'Circuit now has {{coil}}.'
     },
     oneCoil: {
       value: 'one coil'
     },
     twoCoils: {
-      value: 'two coils'
+      value: 'two different coils'
+    },
+    numberOneCoil: {
+      value: '1 coil'
+    },
+    numberTwoCoil: {
+      value: '2 coil'
     },
 
     /*************************************
@@ -275,32 +287,32 @@ define( function( require ) {
     /*****************************************************
      * Control Panel Descriptions, Help Text, and Alerts *
      *****************************************************/
-    showingFieldLines: {
-      value: 'Showing magnetic field lines.'
+    fieldLinesVisibilityPattern: {
+      value: 'Magnetic field lines {{visibility}}.'
     },
-    hideFieldLines: {
-      value: 'Hiding magnetic field lines.'
+    hidden: {
+      value: 'hidden'
     },
-    connectingVoltmeter: {
-      value: 'Connecting voltmeter to circuit.'
+    visible: {
+      value: 'visible'
     },
-    removingVoltmeter: {
-      value: 'Removing voltmeter from circuit.'
+    voltmeterAlertPattern: {
+      value: 'Volt meter {{attachmentState}} circuit.'
+    },
+    connected: {
+      value: 'connected to'
+    },
+    removed: {
+      value: 'removed from'
     },
     flippingMagnetPattern: {
-      value: 'Flipping magnet: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
-    },
-    flippingMagnetAndFieldPattern: {
-      value: 'Flipping magnet and its magnetic field: North pole is now on {{northSide}}. South pole now on {{southSide}}.'
+      value: 'Magnet flipped. North pole on {{northSide}}. South pole on {{southSide}}.'
     },
     circuitMode: {
       value: 'Circuit Mode'
     },
-    connectVoltmeterToCircuit: {
-      value: 'Connect voltmeter to circuit'
-    },
-    showFieldLabel: {
-      value: 'Show field'
+    fieldLinesDescription: {
+      value: 'Add or remove magnetic field lines.'
     },
 
     /*********************************

@@ -65,16 +65,31 @@ define( require => {
       utteranceQueue.addToBack( alert );
     }
 
-    static magnetSlidingAlert( speed, direction ) {
-      const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
-      utteranceQueue.addToBack( alert );
-    }
-
     movementEndAlert() {
       const alert = new Utterance( this.describer.magnetMovedAlertText(), { typeId: 'keyboardMove' } );
       utteranceQueue.addToBack( alert );
       this.regionManager.resetKeyboardStop();
       this._justFocused = false;
+    }
+
+    static magnetSlidingAlert( speed, direction ) {
+      const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
+      utteranceQueue.addToBack( alert );
+    }
+
+    static voltmeterAttachmentAlert( showVoltmeter ) {
+      const alert = MagnetDescriber.getVoltmeterAttachmentAlertText( showVoltmeter );
+      utteranceQueue.addToBack( alert );
+    }
+
+    static fieldLinesVisibilityAlert( showLines ) {
+      const alert = MagnetDescriber.getFieldLinesVisibilityAlertText( showLines );
+      utteranceQueue.addToBack( alert );
+    }
+
+    static coilConnectionAlert( showTopCoil ) {
+      const alert = MagnetDescriber.getCoilConnectionAlertText( showTopCoil );
+      utteranceQueue.addToBack( alert );
     }
   }
 
