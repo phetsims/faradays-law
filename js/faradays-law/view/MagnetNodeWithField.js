@@ -23,17 +23,14 @@ define( require => {
   const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
+  const MagnetPDOMNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetPDOMNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   const Vector2 = require( 'DOT/Vector2' );
   const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
 
-  // strings
+  // @a11y strings
   const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
-  const barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
-  const magnetPolarityString = FaradaysLawA11yStrings.magnetPolarity.value;
-  const fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
-  const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -214,104 +211,30 @@ define( require => {
 
       magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
-      // magnet and circuit description content, TODO: refactor into separate node(s)?
-      const fourCoilOnlyNode = new Node( {
-        tagName: 'p'
-      } );
+      const pdomNode = new MagnetPDOMNode( describer );
+      this.addChild( pdomNode );
 
-      const locationItem = new Node( { tagName: 'li' } );
-      const twoCoilProximityItem = new Node( { tagName: 'li' } );
-      const fourCoilProximityItem = new Node( { tagName: 'li' } );
-
-      const twoAndFourCoilNode = new Node( {
-        tagName: 'ul',
-        labelTagName: 'p',
-        labelContent: barMagnetIsString,
-        children: [ locationItem, fourCoilProximityItem, twoCoilProximityItem ]
-      } );
-
-      this.addChild( fourCoilOnlyNode );
-      this.addChild( twoAndFourCoilNode );
-
-      const northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
-      const southNode = new Node( { tagName: 'li', innerContent: describer.southPoleSideString } );
-
-      const polarityNode = new Node(
-        {
-          tagName: 'ul',
-          labelTagName: 'p',
-          labelContent: magnetPolarityString,
-          children: [ northNode, southNode ]
-        }
-      );
-
-      this.addChild( polarityNode );
-
-      const fourLoopOnlyStrengthNode = new Node( { tagName: 'p' } );
-
-      const fourLoopFieldStrengthItem = new Node( { tagName: 'li' } );
-      const twoLoopFieldStrengthItem = new Node( { tagName: 'li' } );
-      const twoLoopStrengthListNode = new Node( {
-        tagName: 'ul',
-        labelTagName: 'p',
-        labelContent: fieldStrengthIsString,
-        children: [ fourLoopFieldStrengthItem, twoLoopFieldStrengthItem ]
-      } );
-
-      // @public - for setting accessible order in the screen view
-      this.fieldLinesDescriptionNode = new Node( {
-        labelTagName: 'h3',
-        labelContent: fieldLinesString,
-        tagName: 'div',
-        descriptionTagName: 'p',
-        children: [ fourLoopOnlyStrengthNode, twoLoopStrengthListNode ]
-      } );
-
-      this.addChild( this.fieldLinesDescriptionNode );
-
-      // position observers
+      // observers to update inner content of the PDOM Node
       model.magnet.positionProperty.link( () => {
-
-        // magnet location and coil proximity description content updates
-        fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
-        locationItem.innerContent = describer.positionOfPlayAreaString;
-        twoCoilProximityItem.innerContent = describer.twoCoilProximityString;
-        fourCoilProximityItem.innerContent = describer.fourCoilProximityString;
-
-        // field strength description content updates
-        fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
-        fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
-        twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
+        pdomNode.updatePositionDescription();
       } );
 
       model.topCoilVisibleProperty.link( showTopCoil => {
-        fourCoilOnlyNode.visible = !showTopCoil;
-        twoAndFourCoilNode.visible = showTopCoil;
-
-        // ensure that the parent node is also visible
-        fourLoopOnlyStrengthNode.visible = this.fieldLinesDescriptionNode.visible && !showTopCoil;
-        twoLoopStrengthListNode.visible = this.fieldLinesDescriptionNode && showTopCoil;
+        pdomNode.updateNodeVisibility( showTopCoil );
       } );
 
       model.magnet.orientationProperty.lazyLink( orientation => {
-
-        // N/S orientation change alert
-        northNode.innerContent = describer.northPoleSideString;
-        southNode.innerContent = describer.southPoleSideString;
-        this.fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
+        pdomNode.updateOrientationDescription( orientation );
 
         utteranceQueue.addToBack( describer.getFlipMagnetAlertText( orientation ) );
       } );
 
       model.magnet.fieldLinesVisibleProperty.link( showLines => {
-        this.fieldLinesDescriptionNode.visible = showLines;
+        pdomNode.updateFieldLinesDescriptionVisibility( showLines );
       } );
 
+      // add the keyboard & focus event listeners from the alert manager (see AlertManager.js)
       draggableNode.addAccessibleInputListener( alertManager.getAccessibleInputListener() );
-
-      model.coilIntersectedEmitter.addListener( intersectedCoil => {
-        regionManager.setMagnetIsAnimating( false );
-      } );
 
       // @a11y
       magnetJumpKeyboardListener.isAnimatingProperty.link( isAnimating => {
