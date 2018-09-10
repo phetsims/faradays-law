@@ -17,17 +17,14 @@ define( function( require ) {
   // var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   // var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
-  // var Range = require( 'DOT/Range' );
-  // var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  // var Util = require( 'DOT/Util' );
 
   // strings
   var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
   var circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
   var inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
-  var coilsStaticDescriptionString = FaradaysLawA11yStrings.coilsStaticDescription.value;
   var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
   var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
   var voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
@@ -55,8 +52,11 @@ define( function( require ) {
       labelTagName: 'p',
       labelContent: inTheCircuitString,
       descriptionTagName: 'p',
-      descriptionContent: coilsStaticDescriptionString,
       appendDescription: true
+    } );
+
+    model.topCoilVisibleProperty.link( showTopCoil => {
+      otherComponentsNode.descriptionContent = MagnetDescriber.getCircuitDescription( showTopCoil );
     } );
 
     var fourLoopItem = new Node( { tagName: 'li', innerContent: fourLoopCoilString } );

@@ -89,6 +89,9 @@ define( function( require ) {
   const quicklyString = FaradaysLawA11yStrings.quickly.value;
 
   const bumpingCoilPatternString = FaradaysLawA11yStrings.bumpingCoilPattern.value;
+  const coilIsAreDescriptionPatternString = FaradaysLawA11yStrings.coilIsAreDescriptionPattern.value;
+  const coilIsString = FaradaysLawA11yStrings.coilIs.value;
+  const coilsAreString = FaradaysLawA11yStrings.coilsAre.value;
 
   // constants
   const REGION_DESCRIPTIONS = [ topLeftString,    topCenterString,    topRightString,
@@ -318,6 +321,11 @@ define( function( require ) {
     static getCoilConnectionAlertText( showTopCoil ) {
       const coil = showTopCoil ? twoCoilsString : oneCoilString;
       return StringUtils.fillIn( circuitNowHasPatternString, { coil } );
+    }
+
+    static getCircuitDescription( showTopCoil ) {
+      const coil = showTopCoil ? coilsAreString : coilIsString;
+      return StringUtils.fillIn( coilIsAreDescriptionPatternString, { coil } );
     }
   }
 
