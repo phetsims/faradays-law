@@ -17,7 +17,7 @@ define( require => {
 
   class MagnetPDOMNode extends Node {
 
-    constructor( describer ) {
+    constructor( model, describer ) {
 
       super();
 
@@ -72,16 +72,8 @@ define( require => {
         children: [ fourLoopOnlyStrengthNode, twoLoopStrengthListNode ]
       } );
 
-      this.addChild( fieldLinesDescriptionNode );
-
-      // @public - methods are registered in the constructor to allow access to the above nodes without making
-      // the nodes themselves public
-
-      /**
-       * Updates the inner content of all children. The describer dynamically sets the strings by watching the model
-       * and RegionManager.
-       */
-      this.updatePositionDescription = () => {
+      // observers to update inner content of the PDOM Node
+      model.magnet.positionProperty.link( () => {
 
         // magnet location and coil proximity description content updates
         fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
@@ -93,43 +85,30 @@ define( require => {
         fourLoopOnlyStrengthNode.innerContent = describer.fourLoopOnlyFieldStrength;
         fourLoopFieldStrengthItem.innerContent = describer.fourLoopFieldStrength;
         twoLoopFieldStrengthItem.innerContent = describer.twoLoopFieldStrength;
-      };
+      } );
 
-      /**
-       * Shows/hides the appropriate description/help text node.
-       *
-       * @param  {boolean} showTopCoil
-       */
-      this.updateNodeVisibility = showTopCoil => {
+      model.topCoilVisibleProperty.link( showTopCoil => {
         fourCoilOnlyNode.visible = !showTopCoil;
         twoAndFourCoilNode.visible = showTopCoil;
 
         // ensure that the parent node is also visible
         fourLoopOnlyStrengthNode.visible = fieldLinesDescriptionNode.visible && !showTopCoil;
         twoLoopStrengthListNode.visible = fieldLinesDescriptionNode && showTopCoil;
-      };
+      } );
 
-      /**
-       * Changes the inner content of the polarity description node.
-       *
-       * @param  {String} orientation one of OrientationEnum
-       */
-      this.updateOrientationDescription = orientation => {
+      model.magnet.orientationProperty.lazyLink( orientation => {
 
         // N/S orientation change alert
         northNode.innerContent = describer.northPoleSideString;
         southNode.innerContent = describer.southPoleSideString;
         fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
-      };
+      } );
 
-      /**
-       * Sets the visibility of the field lines description node.
-       *
-       * @param  {boolean} showFieldLines
-       */
-      this.updateFieldLinesDescriptionVisibility = showFieldLines => {
-        fieldLinesDescriptionNode.visible = showFieldLines;
-      };
+      model.magnet.fieldLinesVisibleProperty.link( showLines => {
+        fieldLinesDescriptionNode.visible = showLines;
+      } );
+
+      this.addChild( fieldLinesDescriptionNode );
     }
   }
 

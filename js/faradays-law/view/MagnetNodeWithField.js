@@ -25,7 +25,6 @@ define( require => {
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const MagnetPDOMNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetPDOMNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
   const Vector2 = require( 'DOT/Vector2' );
   const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
 
@@ -211,26 +210,11 @@ define( require => {
 
       magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
-      const pdomNode = new MagnetPDOMNode( describer );
+      const pdomNode = new MagnetPDOMNode( model, describer );
       this.addChild( pdomNode );
 
-      // observers to update inner content of the PDOM Node
-      model.magnet.positionProperty.link( () => {
-        pdomNode.updatePositionDescription();
-      } );
-
-      model.topCoilVisibleProperty.link( showTopCoil => {
-        pdomNode.updateNodeVisibility( showTopCoil );
-      } );
-
       model.magnet.orientationProperty.lazyLink( orientation => {
-        pdomNode.updateOrientationDescription( orientation );
-
-        utteranceQueue.addToBack( describer.getFlipMagnetAlertText( orientation ) );
-      } );
-
-      model.magnet.fieldLinesVisibleProperty.link( showLines => {
-        pdomNode.updateFieldLinesDescriptionVisibility( showLines );
+        alertManager.flipMagnetAlert( orientation );
       } );
 
       // add the keyboard & focus event listeners from the alert manager (see AlertManager.js)

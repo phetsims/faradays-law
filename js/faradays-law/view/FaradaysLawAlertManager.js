@@ -67,14 +67,19 @@ define( require => {
 
     movementEndAlert() {
       const alert = new Utterance( this.describer.magnetMovedAlertText(), { typeId: 'keyboardMove' } );
-      utteranceQueue.addToBack( alert );
+      utteranceQueue.addToFront( alert );
       this.regionManager.resetKeyboardStop();
       this._justFocused = false;
     }
 
+    flipMagnetAlert( orientation ) {
+      const alert = this.describer.getFlipMagnetAlertText( orientation );
+      utteranceQueue.addToBack( alert );
+    }
+
     static magnetSlidingAlert( speed, direction ) {
       const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
-      utteranceQueue.addToBack( alert );
+      utteranceQueue.addToFront( alert );
     }
 
     static voltmeterAttachmentAlert( showVoltmeter ) {
