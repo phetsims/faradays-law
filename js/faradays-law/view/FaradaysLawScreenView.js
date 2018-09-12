@@ -126,8 +126,7 @@ define( function( require ) {
       this.screenSummaryNode,
       playArea,
       this.magnetNodeWithField,
-      controlPanel,
-      controlPanel.resetAllButton
+      controlPanel
     ];
 
     // move coils to front
