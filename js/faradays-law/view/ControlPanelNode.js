@@ -54,16 +54,18 @@ define( function( require ) {
       labelContent: constrolsString
     } );
 
-    // reset button - @public for a11y
-    this.resetAllButton = new ResetAllButton( {
+    // reset button - added at end of constructor for a11y ordering
+    const resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       right: model.bounds.maxX - 10,
       bottom: 0,
       scale: 0.75,
       touchAreaDilation: 10,
-      tandem: tandem.createTandem( 'resetAllButton' )
+      tandem: tandem.createTandem( 'resetAllButton' ),
+
+      // a11y
+      containerTagName: 'li'
     } );
-    this.addChild( this.resetAllButton );
 
     // flip magnet button
     this.flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
@@ -178,6 +180,9 @@ define( function( require ) {
     } );
 
     this.addChild( coilRadioButtonGroup );
+
+    // for a11y ordering
+    this.addChild( resetAllButton );
 
     this.bottom = model.bounds.maxY - 10;
 

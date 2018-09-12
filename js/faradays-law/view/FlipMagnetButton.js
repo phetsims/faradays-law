@@ -57,7 +57,8 @@ define( function( require ) {
       phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.',
       innerContent: flipMagnetString,
       descriptionContent: flipPolesString,
-      appendDescription: true
+      appendDescription: true,
+      containerTagName: 'li'
     }, options ) );
   }
 
