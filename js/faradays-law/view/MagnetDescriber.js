@@ -85,9 +85,6 @@ define( function( require ) {
 
   const proximityToFourCoilPatternString = FaradaysLawA11yStrings.proximityToFourCoilPattern.value;
   const proximityToTwoCoilPatternString = FaradaysLawA11yStrings.proximityToTwoCoilPattern.value;
-  const slowlyString = FaradaysLawA11yStrings.slowly.value;
-  const normallyString = FaradaysLawA11yStrings.normally.value;
-  const quicklyString = FaradaysLawA11yStrings.quickly.value;
 
   const bumpingCoilPatternString = FaradaysLawA11yStrings.bumpingCoilPattern.value;
   const coilIsAreDescriptionPatternString = FaradaysLawA11yStrings.coilIsAreDescriptionPattern.value;
@@ -104,7 +101,6 @@ define( function( require ) {
   // const proximityMapFunction = new LinearFunction( 95, 260, 0, 2, true ); // determined empirically from sim testing
 
   const FIELD_STRENGTHS = [ minimalString, veryWeakString, weakString, strongString, veryStrongString ];
-  const SPEEDS = [ slowlyString, normallyString, quicklyString ];
   const DIRECTIONS = { LEFT: leftString, RIGHT: rightString };
 
   class MagnetDescriber {
@@ -309,7 +305,6 @@ define( function( require ) {
     }
 
     static getMagnetSlidingAlertText( speedValue, directionValue ) {
-      const speed = SPEEDS[ speedValue ];
       const direction = DIRECTIONS[ directionValue ];
       return StringUtils.fillIn( magnetSlidingAlertPatternString, { direction } );
     }
