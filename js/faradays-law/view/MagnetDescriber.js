@@ -311,7 +311,7 @@ define( function( require ) {
     static getMagnetSlidingAlertText( speedValue, directionValue ) {
       const speed = SPEEDS[ speedValue ];
       const direction = DIRECTIONS[ directionValue ];
-      return StringUtils.fillIn( magnetSlidingAlertPatternString, { speed, direction } );
+      return StringUtils.fillIn( magnetSlidingAlertPatternString, { direction } );
     }
 
     static getFieldLinesVisibilityAlertText( showLines ) {

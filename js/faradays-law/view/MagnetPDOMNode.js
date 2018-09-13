@@ -52,7 +52,7 @@ define( require => {
 
       const movementDescriptionNode = new Node( {
         tagName: 'p',
-        innerContent: 'Use the W A S D keys to move the magnet in four directions. Use 1 2 3 keys to slide magnet left and right.'
+        innerContent: describer.barMagnetHelpText
       } );
 
       this.addChild( fourCoilOnlyNode );

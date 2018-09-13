@@ -176,7 +176,7 @@ define( function( require ) {
        value: 'quickly'
      },
      magnetSlidingAlertPattern: {
-       value: 'Magnet sliding {{speed}} to the {{direction}}. Press Space to stop slide.'
+       value: 'Magnet sliding {{direction}}. Space to stop.'
      },
      slidingStopped: {
        value: 'Sliding stopped.'
