@@ -24,6 +24,7 @@ define( function( require ) {
   // strings
   var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
   var circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
+  var circuitFourCoilAndVoltmeterString =FaradaysLawA11yStrings.circuitFourCoilAndVoltmeter.value;
   var inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
   var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
   var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
@@ -47,6 +48,7 @@ define( function( require ) {
       innerContent: circuitFourCoilOnlyString
     } );
 
+
     var otherComponentsNode = new Node( {
       tagName: 'ul',
       labelTagName: 'p',
@@ -59,6 +61,12 @@ define( function( require ) {
       otherComponentsNode.descriptionContent = MagnetDescriber.getCircuitDescription( showTopCoil );
     } );
 
+    model.voltmeterVisibleProperty.link( showVoltmeter => {
+      fourCoilOnlyNode.innerContent = showVoltmeter ?
+                                      circuitFourCoilAndVoltmeterString :
+                                      circuitFourCoilOnlyString;
+    } );
+
     var fourLoopItem = new Node( { tagName: 'li', innerContent: fourLoopCoilString } );
     var twoLoopItem = new Node( { tagName: 'li', innerContent: twoLoopCoilString } );
     var voltmeterItem = new Node( { tagName: 'li', innerContent: voltmeterString } );
@@ -66,7 +74,7 @@ define( function( require ) {
     Property.multilink(
       [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
       function( showTopCoil, showVoltmeter ) {
-        if ( !( showTopCoil || showVoltmeter ) ) {
+        if ( !showTopCoil ) {
           dynamicChildrenNode.children = [ fourCoilOnlyNode ];
         } else {
           var children = [];

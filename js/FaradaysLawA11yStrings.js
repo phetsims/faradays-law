@@ -24,7 +24,7 @@ define( function( require ) {
 
     // magnet description in summary
     moveMagnetToPlay: {
-      value: 'Move the magnet to play.'
+      value: 'Move the magnet to play using arrow keys, W A S D, or 1 2 3 keys.'
     },
 
     // headings
@@ -67,6 +67,9 @@ define( function( require ) {
     },
     circuitFourCoilOnly: {
       value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right, large enough for the bar magnet can pass through.'
+    },
+    circuitFourCoilAndVoltmeter: {
+      value: 'In circuit are a light bulb, a 4 loop coil, and a voltmeter. The coil is open on the left and right, large enough for the bar magnet can pass through.'
     },
     lightbulbCircuitPattern: {
       value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
@@ -130,11 +133,8 @@ define( function( require ) {
      *************************************/
 
      // polarity
-     magnetPolarity: {
-       value: 'Magnet polarity:'
-     },
      poleOnThePattern: {
-       value: '{{pole}} pole on the {{side}}'
+       value: '{{pole}} pole on {{side}}'
      },
      north: {
        value: 'North'
@@ -200,11 +200,14 @@ define( function( require ) {
     positionOfPlayAreaPattern: {
       value: 'at the {{position}} of the Play Area.'
     },
+    barMagnetHelpText: {
+      value: 'Use the W A S D keys to move the magnet in four directions. Use 1 2 3 keys to slide magnet left and right.'
+    },
     magnetLocationAlertPattern: {
       value: 'Magnet at {{position}} of Play Area.'
     },
     magnetLocationExtraAlertPattern: {
-      value: 'Magnet at {{position}} of Play Area. W A S D keys moves magnet.'
+      value: 'Magnet at {{position}} of Play Area. W A S D and 1 2 3 keys moves magnet.'
     },
     topLeft: {
       value: 'top-left'

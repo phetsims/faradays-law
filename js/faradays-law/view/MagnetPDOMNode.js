@@ -11,7 +11,6 @@ define( require => {
 
   // @a11y strings
   const barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
-  const magnetPolarityString = FaradaysLawA11yStrings.magnetPolarity.value;
   const fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
   const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
 
@@ -21,37 +20,44 @@ define( require => {
 
       super();
 
+      const fourCoilOnlyDescriptionNode = new Node( { tagName: 'p' } );
+      const fourCoilOnlyPolarity = new Node( {
+        tagName: 'p',
+        innerContent: describer.fourCoilOnlyPolarityDescription
+      } );
+
       const fourCoilOnlyNode = new Node( {
-        tagName: 'p'
+        tagName: 'div',
+        children: [ fourCoilOnlyDescriptionNode, fourCoilOnlyPolarity ]
       } );
 
       const locationItem = new Node( { tagName: 'li' } );
       const twoCoilProximityItem = new Node( { tagName: 'li' } );
       const fourCoilProximityItem = new Node( { tagName: 'li' } );
+      const northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
+      const southNode = new Node( { tagName: 'li', innerContent: describer.southPoleSideString } );
 
       const twoAndFourCoilNode = new Node( {
         tagName: 'ul',
         labelTagName: 'p',
         labelContent: barMagnetIsString,
-        children: [ locationItem, fourCoilProximityItem, twoCoilProximityItem ]
+        children: [
+          locationItem,
+          fourCoilProximityItem,
+          twoCoilProximityItem,
+          northNode,
+          southNode
+        ]
+      } );
+
+      const movementDescriptionNode = new Node( {
+        tagName: 'p',
+        innerContent: 'Use the W A S D keys to move the magnet in four directions. Use 1 2 3 keys to slide magnet left and right.'
       } );
 
       this.addChild( fourCoilOnlyNode );
       this.addChild( twoAndFourCoilNode );
-
-      const northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
-      const southNode = new Node( { tagName: 'li', innerContent: describer.southPoleSideString } );
-
-      const polarityNode = new Node(
-        {
-          tagName: 'ul',
-          labelTagName: 'p',
-          labelContent: magnetPolarityString,
-          children: [ northNode, southNode ]
-        }
-      );
-
-      this.addChild( polarityNode );
+      this.addChild( movementDescriptionNode );
 
       const fourLoopOnlyStrengthNode = new Node( { tagName: 'p' } );
 
@@ -76,7 +82,7 @@ define( require => {
       model.magnet.positionProperty.link( () => {
 
         // magnet location and coil proximity description content updates
-        fourCoilOnlyNode.innerContent = describer.fourLoopOnlyMagnetPosition;
+        fourCoilOnlyDescriptionNode.innerContent = describer.fourLoopOnlyMagnetPosition;
         locationItem.innerContent = describer.positionOfPlayAreaString;
         twoCoilProximityItem.innerContent = describer.twoCoilProximityString;
         fourCoilProximityItem.innerContent = describer.fourCoilProximityString;
@@ -102,6 +108,7 @@ define( require => {
         northNode.innerContent = describer.northPoleSideString;
         southNode.innerContent = describer.southPoleSideString;
         fieldLinesDescriptionNode.descriptionContent = describer.fieldLinesDescription;
+        fourCoilOnlyPolarity.innerContent = describer.fourCoilOnlyPolarityDescription;
       } );
 
       model.magnet.fieldLinesVisibleProperty.link( showLines => {

@@ -33,6 +33,7 @@ define( function( require ) {
 
   const barMagnetPositionPatternString = FaradaysLawA11yStrings.barMagnetPositionPattern.value;
   const positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
+  const barMagnetHelpTextString = FaradaysLawA11yStrings.barMagnetHelpText.value;
   const inString = FaradaysLawA11yStrings.in.value;
   const veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
   const closeToString = FaradaysLawA11yStrings.closeTo.value;
@@ -242,6 +243,11 @@ define( function( require ) {
       }
     }
 
+    get fourCoilOnlyPolarityDescription() {
+      const pattern = '{{first}}, {{second}}';
+      return StringUtils.fillIn( pattern, { first: this.northPoleSideString, second: this.southPoleSideString } );
+    }
+
     get northPoleSideString() {
       return this.getPoleSideString( northString, OrientationEnum.NS );
     }
@@ -250,17 +256,23 @@ define( function( require ) {
       return this.getPoleSideString( southString, OrientationEnum.SN );
     }
 
-    getPoleSideString( poleString, orientation ) {
-      var side = this._magnet.orientationProperty.get() === orientation ? leftString : rightString;
-      return StringUtils.fillIn( poleOnThePatternString, { pole: poleString, side: side } );
+    getPoleSideString( pole, orientation ) {
+      const side = this._magnet.orientationProperty.get() === orientation ? leftString : rightString;
+      return StringUtils.fillIn( poleOnThePatternString, { pole, side } );
     }
 
     get fourLoopOnlyMagnetPosition() {
-      return StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
+      const position = StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
+      const proximity = this.fourCoilProximityString;
+      return [ position, proximity ].join( ' ' );
     }
 
     get positionOfPlayAreaString() {
       return StringUtils.fillIn( positionOfPlayAreaPatternString, { position: this.positionString } );
+    }
+
+    get barMagnetHelpText() {
+      return barMagnetHelpTextString;
     }
 
     // handles getting the current position description (e.g. top-left edge, bottom-center, center, etc...)
