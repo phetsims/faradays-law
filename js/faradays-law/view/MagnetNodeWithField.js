@@ -25,7 +25,6 @@ define( require => {
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const MagnetPDOMNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetPDOMNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const Vector2 = require( 'DOT/Vector2' );
   const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
 
   // @a11y strings
