@@ -99,7 +99,7 @@ define( require => {
       magnetInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
 
       // handler
-      let magnetOffset = new Vector2();
+      let magnetOffset = null; // {Vector2|null}
       const dragListener = new DragListener( {
 
         tandem: tandem.createTandem( 'dragListener' ),
@@ -109,8 +109,7 @@ define( require => {
         allowTouchSnag: true,
 
         start( event ) {
-          magnetOffset.x = self.globalToParentPoint( event.pointer.point ).x - self.translation.x;
-          magnetOffset.y = self.globalToParentPoint( event.pointer.point ).y - self.translation.y;
+          magnetOffset = self.globalToParentPoint( event.pointer.point ).minus( self.translation );
         },
 
         // Translate on drag events
