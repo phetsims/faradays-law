@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.47 Thu Sep 20 2018 16:53:58 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.4.0-dev.48 Thu Sep 20 2018 16:56:26 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "a3d9f0d1427488bdfead096019687491222588f9",
+    "sha": "6de5d56dba193efe87a592d10fe3406ebe84173d",
     "branch": "master"
   },
   "joist": {
