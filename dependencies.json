@@ -1,12 +1,12 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.49 Fri Sep 21 2018 10:39:44 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# faradays-law 1.4.0-dev.50 Fri Sep 21 2018 19:08:34 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "64b15cff2887ab17d08f59f8963f9277ff604ac4",
-    "branch": "master"
+    "sha": "298a9fc6c9bc9921edae48118bfe12c1a1db344e",
+    "branch": "data-flow"
   },
   "brand": {
     "sha": "89d28f6309a83eb51b6c1fc0130e76ad7935f09e",
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "22efce11794ee887046b956e4944232a631675bf",
+    "sha": "0a9e851029ce555a9adaa2411f04ae9620ec9c97",
     "branch": "master"
   },
   "joist": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "852b7ba6ca9f95ff2e523cf8c3685638053d9042",
+    "sha": "84e77478a9221f02d76a9c3b6d4f1244c858d9da",
     "branch": "master"
   },
   "phetcommon": {
