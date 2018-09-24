@@ -30,6 +30,7 @@ define( require => {
 
   // @a11y strings
   const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
+  const moveInFourDirectionsString = FaradaysLawA11yStrings.moveInFourDirections.value;
 
   /**
    * @param {FaradaysLawModel} model
@@ -74,6 +75,8 @@ define( require => {
         focusHighlightLayerable: true,
         focusHighlight: draggableNodeFocusHighlight
       } );
+
+      draggableNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
       draggableNode.addAriaLabelledbyAssociation( {
         otherNode: this,
