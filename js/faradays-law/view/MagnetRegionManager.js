@@ -121,7 +121,7 @@ define( require => {
           this.showExtraMoveText = distanceMoved < DISTANCE_MOVED_THRESHOLD;
         }
 
-        this._magnetScreenSide = position >= SCREEN_MIDPOINT_X ? 'right' : 'left';
+        this._magnetScreenSide = position.x >= SCREEN_MIDPOINT_X ? 'right' : 'left';
         this._magnetInCoil = !this.getTopCoilProximityRegion( position ) || !this.getBottomCoilProximityRegion( position );
       } );
     }

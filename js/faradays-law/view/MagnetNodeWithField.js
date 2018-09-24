@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
@@ -72,6 +73,12 @@ define( require => {
         focusable: true,
         focusHighlightLayerable: true,
         focusHighlight: draggableNodeFocusHighlight
+      } );
+
+      draggableNode.addAriaLabelledbyAssociation( {
+        otherNode: this,
+        thisElementName: AccessiblePeer.PRIMARY_SIBLING,
+        otherElementName: AccessiblePeer.LABEL_SIBLING
       } );
 
       this.addChild( draggableNode );
