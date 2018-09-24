@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.51 Mon Sep 24 2018 13:46:31 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# faradays-law 1.4.0-dev.53 Mon Sep 24 2018 17:23:46 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "2852e1dcaf5d7dae607f0c64cf31648ac70f0667",
+    "sha": "ed169ed354d4dbc2b39ae105c146562b2bb7d97d",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "b02430132f90027dfae4575685584ba76a6596eb",
+    "sha": "718ca96288b279c856738263a2b166e2d2160a62",
     "branch": "master"
   },
   "joist": {
-    "sha": "dbbb3729a41d6dcc75b25f5bc19b1a41a128636a",
+    "sha": "79cf90f9d5add5ced4e49a9b804f0b7b03036584",
     "branch": "master"
   },
   "kite": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7219ef4d75207c2892d8598644969d67531fe6e2",
+    "sha": "d205340b3040e4685135f1f057b12a06d9854894",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "f73d2e09d1969e7c42d284acf4cb7d7269efa7e0",
+    "sha": "a567519398a8509e598f58254a41d3b662f527e4",
     "branch": "master"
   },
   "sun": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "tambo": {
-    "sha": "caf14fbcfb5993b52ea716370e3dd1ae6811cfb4",
+    "sha": "5953df971397fdc074d1d0d7512426bcc9406fb7",
     "branch": "master"
   },
   "tandem": {
