@@ -75,13 +75,13 @@ define( function( require ) {
       value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
     },
     voltMeterAttached: {
-      value: 'A volt meter is also attached to the circuit.'
+      value: 'A voltmeter is also attached to the circuit.'
     },
     aLightbulb: {
       value: 'a lightbulb'
     },
     aVoltMeter: {
-      value: 'a volt meter'
+      value: 'a voltmeter'
     },
     aCoilPattern: {
       value: 'a {{coil}}'
@@ -310,7 +310,7 @@ define( function( require ) {
       value: 'visible'
     },
     voltmeterAlertPattern: {
-      value: 'Volt meter {{attachmentState}} circuit.'
+      value: 'Voltmeter {{attachmentState}} circuit.'
     },
     connected: {
       value: 'connected to'
