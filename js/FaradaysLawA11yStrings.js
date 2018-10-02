@@ -66,10 +66,10 @@ define( function( require ) {
       value: 'Play with or without voltmeter connected to light bulb circuit'
     },
     circuitFourCoilOnly: {
-      value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right, large enough for the bar magnet can pass through.'
+      value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right, large enough for the bar magnet to pass through.'
     },
     circuitFourCoilAndVoltmeter: {
-      value: 'In circuit are a light bulb, a 4 loop coil, and a voltmeter. The coil is open on the left and right, large enough for the bar magnet can pass through.'
+      value: 'In circuit are a light bulb, a 4 loop coil, and a voltmeter. The coil is open on the left and right, large enough for the bar magnet to pass through.'
     },
     lightbulbCircuitPattern: {
       value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
