@@ -6,13 +6,13 @@
  *
  * @author Michael Barlow
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
-  var MagnetDirectionEnum = {
+  const MagnetDirectionEnum = {
     LEFT: 'LEFT',
     RIGHT: 'RIGHT',
     UP: 'UP',
@@ -28,7 +28,7 @@ define( function( require ) {
      * @param {string} direction - one of MagnetDirectionEnum
      * @return {Boolean}
      */
-    isRelativeDirection: function( direction ) {
+    isRelativeDirection: direction => {
       return direction === MagnetDirectionEnum.LEFT ||
              direction === MagnetDirectionEnum.RIGHT ||
              direction === MagnetDirectionEnum.UP ||
@@ -39,7 +39,5 @@ define( function( require ) {
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( MagnetDirectionEnum ); }
 
-  faradaysLaw.register( 'MagnetDirectionEnum', MagnetDirectionEnum );
-
-  return MagnetDirectionEnum;
+  return faradaysLaw.register( 'MagnetDirectionEnum', MagnetDirectionEnum );
 } );

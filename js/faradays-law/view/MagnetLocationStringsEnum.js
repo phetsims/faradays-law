@@ -23,7 +23,7 @@ define( require => {
   const bottomCenterString = FaradaysLawA11yStrings.bottomCenter.value;
   const bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
 
-  const MagnetLocationStringsEnum = Object.freeze( [
+  const MagnetLocationStringsEnum = [
     topLeftString,
     topCenterString,
     topRightString,
@@ -33,7 +33,9 @@ define( require => {
     bottomLeftString,
     bottomCenterString,
     bottomRightString
-  ] );
+  ];
+
+  if ( assert ) { Object.feeze( MagnetLocationStringsEnum ); }
 
   return faradaysLaw.register( 'MagnetLocationStringsEnum', MagnetLocationStringsEnum );
 } );

@@ -6,19 +6,19 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
-  var CoilTypeEnum = Object.freeze( {
+  const CoilTypeEnum = {
     TWO_COIL: 'two-coil',
     FOUR_COIL: 'four-coil',
     NO_COIL: 'no coil'
-  } );
+  };
 
-  faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );
+  if ( assert ) { Object.freeze( CoilTypeEnum ); }
 
-  return CoilTypeEnum;
+  return faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );
 } );
