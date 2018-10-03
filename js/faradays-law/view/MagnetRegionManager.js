@@ -14,7 +14,6 @@ define( require => {
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
   const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  // const Emitter = require( 'AXON/Emitter' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
@@ -28,9 +27,7 @@ define( require => {
   const VERTICAL_EDGE_TOLERANCE = Util.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 ) + EDGE_TOLERANCE;
   const HORIZONTAL_EDGE_TOLERANCE = Util.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 ) + EDGE_TOLERANCE;
   const { LEFT, RIGHT } = MagnetDirectionEnum;
-  // const DIRECTION_LIST = [ LEFT, UP_LEFT, UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT ];
   const SCREEN_MIDPOINT_X = FaradaysLawConstants.LAYOUT_BOUNDS.centerX;
-  // const angleToDirection = LinearFunction( -Math.PI, Math.PI, 0, 8 );
 
   const coilProximityToRegion = new LinearFunction( 95, 260, 1, 3, true ); // determined empirically from sim testing
 
@@ -156,6 +153,10 @@ define( require => {
      */
     get magnetInCoil() {
       return this._magnetInCoil;
+    }
+
+    get magnetInOrVeryCloseToCoil() {
+      return this.magnetToTopCoilProximity <= 1 || this.magnetToBottomCoilProximity <= 1;
     }
 
     /**
