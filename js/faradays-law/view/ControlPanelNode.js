@@ -93,7 +93,7 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'singleCoilRadioButton',
-      phetioInstanceDocumentation: 'Radio button that selects a single coil.',
+      phetioDocumentation: 'Radio button that selects a single coil.',
       labelContent: numberOneCoilString
     }, {
       value: true,// var coilRadioButtonsItem = new Node( {
@@ -111,7 +111,7 @@ define( function( require ) {
         ]
       }, coilButtonGroupOptions ) ),
       tandemName: 'doubleCoilRadioButton',
-      phetioInstanceDocumentation: 'Radio button that selects double coils.',
+      phetioDocumentation: 'Radio button that selects double coils.',
       labelContent: numberTwoCoilString
     } ];
 
@@ -125,7 +125,7 @@ define( function( require ) {
       selectedLineWidth: 3,
       deselectedLineWidth: 1,
       tandem: tandem.createTandem( 'coilRadioButtonGroup' ),
-      phetioInstanceDocumentation: 'Radio button group that selects between one or two coils.',
+      phetioDocumentation: 'Radio button group that selects between one or two coils.',
       containerTagName: 'li',
       labelTagName: 'p',
       labelContent: circuitModeString
@@ -142,7 +142,7 @@ define( function( require ) {
       x: 174,
       centerY: coilRadioButtonGroup.centerY - 20,
       tandem: tandem.createTandem( 'voltmeterCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the voltmeter will be shown.',
+      phetioDocumentation: 'Checkbox that selects whether the voltmeter will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
       labelContent: voltmeterString,
@@ -166,7 +166,7 @@ define( function( require ) {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
       tandem: tandem.createTandem( 'fieldLinesCheckbox' ),
-      phetioInstanceDocumentation: 'Checkbox that selects whether the magnetic field lines will be shown.',
+      phetioDocumentation: 'Checkbox that selects whether the magnetic field lines will be shown.',
       containerTagName: 'li',
       labelTagName: 'label',
       labelContent: fieldLinesString,

@@ -42,24 +42,24 @@ define( function( require ) {
     // @public - Whether the top coil should be shown
     this.topCoilVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'topCoilVisibleProperty' ),
-      phetioInstanceDocumentation: 'True if and only if the top coil is visible'
+      phetioDocumentation: 'True if and only if the top coil is visible'
     } );
 
     // @public - true if the magnet arrows should be shown
     this.magnetArrowsVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'magnetArrowsVisibleProperty' ),
-      phetioInstanceDocumentation: 'True if the magnet arrows are shown'
+      phetioDocumentation: 'True if the magnet arrows are shown'
     } );
 
     this.voltmeterVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'voltmeterVisibleProperty' ),
-      phetioInstanceDocumentation: 'True if the voltmeter is shown'
+      phetioDocumentation: 'True if the voltmeter is shown'
     } );
 
     // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
     this.voltageProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'voltageProperty' ),
-      phetioInstanceDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
+      phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
       phetioReadOnly: true,
       highFrequency: true,
       units: 'volts'

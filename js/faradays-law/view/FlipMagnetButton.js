@@ -54,7 +54,7 @@ define( function( require ) {
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
       tandem: tandem,
-      phetioInstanceDocumentation: 'When pressed, changes the orientation of the bar magnet.',
+      phetioDocumentation: 'When pressed, changes the orientation of the bar magnet.',
       innerContent: flipMagnetString,
       descriptionContent: flipPolesString,
       appendDescription: true,

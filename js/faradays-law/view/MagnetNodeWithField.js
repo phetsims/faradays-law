@@ -66,7 +66,7 @@ define( require => {
         // the "parent" magnet instances, see https://github.com/phetsims/faradays-law/issues/116.
         // NOTE: this assumes that tandem is not passed into a mutate or Node.call() in the MagnetNodeWithField type.
         tandem,
-        phetioInstanceDocumentation: 'The draggable container for the magnet and arrows',
+        phetioDocumentation: 'The draggable container for the magnet and arrows',
 
         // a11y
         tagName: 'div',
@@ -112,7 +112,7 @@ define( require => {
       const dragListener = new DragListener( {
 
         tandem: tandem.createTandem( 'dragListener' ),
-        phetioInstanceDocumentation: 'Emits events when dragged by the user',
+        phetioDocumentation: 'Emits events when dragged by the user',
 
         // When dragging across it in a mobile device, pick it up
         allowTouchSnag: true,

@@ -26,7 +26,7 @@ define( function( require ) {
 
     options = _.extend( {
       tandem: tandem,
-      phetioInstanceDocumentation: 'The voltmeter and its connecting wires'
+      phetioDocumentation: 'The voltmeter and its connecting wires'
     }, options );
 
     Node.call( this, options );
