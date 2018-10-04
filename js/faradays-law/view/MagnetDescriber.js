@@ -124,7 +124,10 @@ define( function( require ) {
         alertStringList.push( slidingStoppedString );
       }
 
-      alertStringList.push( this.magnetLocationAlertText );  // magnet at {{position}} of play area.
+      if ( !this.regionManager.magnetInOrVeryCloseToCoil ) {
+          alertStringList.push( this.magnetLocationAlertText );  // magnet at {{position}} of play area.
+      }
+
       alertStringList.push( this.fourCoilProximityString );
 
       if ( this._model.topCoilVisibleProperty.get() ) {
