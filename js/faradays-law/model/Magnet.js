@@ -46,7 +46,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioDocumentation: 'The location of the center of the bar magnet in view coordinates',
       phetioType: PropertyIO( Vector2IO ),
-      highFrequency: true
+      phetioHighFrequency: true
     } );
 
     // @public {BooleanProperty} - true if the magnet is flipped

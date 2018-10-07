@@ -46,7 +46,7 @@ define( function( require ) {
       return voltage;
     }, {
       units: 'radians',
-      highFrequency: true
+      phetioHighFrequency: true
     } );
   }
 

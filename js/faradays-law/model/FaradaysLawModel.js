@@ -61,7 +61,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'voltageProperty' ),
       phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
       phetioReadOnly: true,
-      highFrequency: true,
+      phetioHighFrequency: true,
       units: 'volts'
     } );
 
