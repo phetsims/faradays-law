@@ -81,7 +81,7 @@ define( require => {
         Math.min( model.listOfRestrictedBounds[ 0 ].minY, model.listOfRestrictedBounds[ 1 ].minY ),
         Math.max( model.listOfRestrictedBounds[ 0 ].maxX, model.listOfRestrictedBounds[ 1 ].maxX ),
         Math.max( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY )
-      );
+      ).eroded( 5 );
 
       // @private
       this._bottomCoilInnerBounds = new Bounds2(
@@ -89,10 +89,11 @@ define( require => {
         Math.min( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY ),
         Math.max( model.listOfRestrictedBounds[ 2 ].maxX, model.listOfRestrictedBounds[ 3 ].maxX ),
         Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
-      );
+      ).eroded( 5 );
 
       // @private
       this._adjacentCoil = CoilTypeEnum.NO_COIL;
+      this._touchingCoil =
       this._magnetScreenSide = 'right';
       this._positionRegion = this.getPositionRegion( model.magnet.positionProperty.get() );
       this._topCoilProximity = 0;
@@ -127,6 +128,22 @@ define( require => {
     * Magnet location region methods for adjacent coil and sim screen location. *
     *****************************************************************************/
 
+    /**
+     * Returns the index of the intersected coil region or -1 on error.
+     *
+     * @return {Number}
+     */
+    getTouchingCoil() {
+      const coilSides = [ [ 'top', 'two-coil' ], [ 'bottom', 'two-coil' ], [ 'top', 'four-coil' ], [ 'bottom', 'four-coil' ] ];
+      const intersectedBounds = this.model.getIntersectedRestrictedBounds( createMagnetBounds( this.magnet.positionProperty.value ) );
+      const i = this.model.listOfRestrictedBounds.indexOf( intersectedBounds );
+
+      if ( i >= 0 ) {
+        return coilSides[ i ];
+      } else {
+        return null;
+      }
+    }
 
     /**
     * Get the current value of the adjacent coil.

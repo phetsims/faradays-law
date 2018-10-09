@@ -107,6 +107,11 @@ define( require => {
 
       magnetInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
 
+      // a11y descriptions - generates text content and alerts for magnet interactions
+      const regionManager = new MagnetRegionManager( model );
+      const describer = new MagnetDescriber( model, regionManager, tandem );
+      const alertManager = new FaradaysLawAlertManager( describer, regionManager );
+
       // handler
       let magnetOffset = null; // {Vector2|null}
       const dragListener = new DragListener( {
@@ -127,16 +132,15 @@ define( require => {
           const parentPoint = self.globalToParentPoint( event.pointer.point );
           const desiredPosition = parentPoint.minus( magnetOffset );
           model.moveMagnetToPosition( desiredPosition );
+        },
+
+        end( event ) {
+          alertManager.movementEndAlert();
         }
       } );
       draggableNode.addInputListener( dragListener );
 
       model.magnet.positionProperty.linkAttribute( this, 'translation' );
-
-      // a11y descriptions - generates text content and alerts for magnet interactions
-      const regionManager = new MagnetRegionManager( model );
-      const describer = new MagnetDescriber( model, regionManager, tandem );
-      const alertManager = new FaradaysLawAlertManager( describer, regionManager );
 
 
       // @private - The sticky drag handler for keyboard navigation

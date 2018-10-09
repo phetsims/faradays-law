@@ -261,6 +261,11 @@ define( function( require ) {
     }
 
     get fourLoopOnlyMagnetPosition() {
+      const touchingCoil = this.regionManager.getTouchingCoil();
+      if (touchingCoil) {
+        console.log(touchingCoil);
+      }
+      console.log(this.fourCoilProximityString);
       const position = StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
       const proximity = this.fourCoilProximityString;
       return [ position, proximity ].join( ' ' );
