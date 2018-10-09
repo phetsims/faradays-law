@@ -156,7 +156,8 @@ define( require => {
     }
 
     get magnetInOrVeryCloseToCoil() {
-      return this.magnetToTopCoilProximity <= 1 || this.magnetToBottomCoilProximity <= 1;
+      return this.magnetToBottomCoilProximity <= 1 ||
+             ( this.model.topCoilVisibleProperty.get() && this.magnetToTopCoilProximity <= 1 );
     }
 
     /**
