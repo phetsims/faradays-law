@@ -236,6 +236,8 @@ define( require => {
       magnetJumpKeyboardListener.isAnimatingProperty.link( isAnimating => {
         regionManager.setMagnetIsAnimating( isAnimating );
       } );
+
+      this.regionManager = regionManager;
     }
   }
 

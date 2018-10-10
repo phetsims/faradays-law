@@ -77,21 +77,22 @@ define( require => {
       // @private
       // generate bounds to indicate if magnet is inside the coil
       this._topCoilInnerBounds = new Bounds2(
-        Math.min( model.listOfRestrictedBounds[ 0 ].minX, model.listOfRestrictedBounds[ 1 ].minX ),
-        Math.min( model.listOfRestrictedBounds[ 0 ].minY, model.listOfRestrictedBounds[ 1 ].minY ),
-        Math.max( model.listOfRestrictedBounds[ 0 ].maxX, model.listOfRestrictedBounds[ 1 ].maxX ),
-        Math.max( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY )
-      ).eroded( 5 );
+        Math.max( model.listOfRestrictedBounds[ 0 ].minX, model.listOfRestrictedBounds[ 1 ].minX ),
+        Math.min( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY ),
+        Math.min( model.listOfRestrictedBounds[ 0 ].maxX, model.listOfRestrictedBounds[ 1 ].maxX ),
+        Math.max( model.listOfRestrictedBounds[ 0 ].minY, model.listOfRestrictedBounds[ 1 ].minY )
+      ).eroded( 2 );
 
       // @private
       this._bottomCoilInnerBounds = new Bounds2(
-        Math.min( model.listOfRestrictedBounds[ 2 ].minX, model.listOfRestrictedBounds[ 3 ].minX ),
-        Math.min( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY ),
-        Math.max( model.listOfRestrictedBounds[ 2 ].maxX, model.listOfRestrictedBounds[ 3 ].maxX ),
-        Math.max( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY )
-      ).eroded( 5 );
+        Math.max( model.listOfRestrictedBounds[ 2 ].minX, model.listOfRestrictedBounds[ 3 ].minX ),
+        Math.min( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY ),
+        Math.min( model.listOfRestrictedBounds[ 2 ].maxX, model.listOfRestrictedBounds[ 3 ].maxX ),
+        Math.max( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY )
+      ).eroded( 2 );
 
       // @private
+      // TODO: adjust setting this based on magnet and coil bounds instead of position
       this._adjacentCoil = CoilTypeEnum.NO_COIL;
       this._touchingCoil =
       this._magnetScreenSide = 'right';
@@ -134,7 +135,12 @@ define( require => {
      * @return {Number}
      */
     getTouchingCoil() {
-      const coilSides = [ [ 'top', 'two-coil' ], [ 'bottom', 'two-coil' ], [ 'top', 'four-coil' ], [ 'bottom', 'four-coil' ] ];
+      const coilSides = [
+        { side: 'top', coil: CoilTypeEnum.TWO_COIL },
+        { side: 'bottom', coil: CoilTypeEnum.TWO_COIL },
+        { side: 'top', coil: CoilTypeEnum.FOUR_COIL },
+        { side: 'bottom', coil: CoilTypeEnum.FOUR_COIL }
+      ];
       const intersectedBounds = this.model.getIntersectedRestrictedBounds( createMagnetBounds( this.magnet.positionProperty.value ) );
       const i = this.model.listOfRestrictedBounds.indexOf( intersectedBounds );
 

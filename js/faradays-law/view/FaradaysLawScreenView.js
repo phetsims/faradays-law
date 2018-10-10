@@ -25,6 +25,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   // var Path = require( 'SCENERY/nodes/Path' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   // var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
@@ -138,6 +139,12 @@ define( function( require ) {
     this.addChild( topCoilNode.frontImage );
     topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
     model.topCoilVisibleProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
+
+    // const tcInnerBounds = Shape.bounds( this.magnetNodeWithField.regionManager._bottomCoilInnerBounds ).getStrokedShape();
+
+    // this.addChild( Rectangle.bounds( this.magnetNodeWithField.regionManager._topCoilInnerBounds, { stroke: 'red' } ) )
+    // this.addChild( Rectangle.bounds( this.magnetNodeWithField.regionManager._bottomCoilInnerBounds, { stroke: 'red' } ) )
+
   }
 
   faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );
