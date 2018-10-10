@@ -66,7 +66,7 @@ define( require => {
     }
 
     movementEndAlert() {
-      const alert = new Utterance( this.describer.magnetMovedAlertText(), { typeId: 'keyboardMove' } );
+      const alert = new Utterance( this.describer.magnetMovedAlertText(), { uniqueGroupId: 'keyboardMove' } );
       utteranceQueue.addToFront( alert );
       this.regionManager.resetKeyboardStop();
       this._justFocused = false;
