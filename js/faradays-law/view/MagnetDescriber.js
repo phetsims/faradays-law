@@ -105,7 +105,7 @@ define( function( require ) {
 
   class MagnetDescriber {
 
-    constructor( model, regionManager, tandem ) {
+    constructor( model, regionManager ) {
       // @private
       this._model = model;
       this._bounds = model.bounds;
