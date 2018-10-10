@@ -195,6 +195,9 @@ define( function( require ) {
     /*********************************************
      * Magnet location pattern and value strings *
      *********************************************/
+    magnetAtPositionPattern: {
+      value: 'Magnet at {{position}}.'
+    },
     barMagnetPositionPattern: {
       value: 'The bar magnet is {{areaPosition}}'
     },
@@ -213,6 +216,14 @@ define( function( require ) {
     magnetLocationExtraAlertPattern: {
       value: 'Magnet at {{position}} of Play Area. W A S D and 1 2 3 keys moves magnet.'
     },
+    slidingStoppedLinesInvisibleMagnetLocationPattern: {
+      value: 'Sliding stopped. {{magnetLocation}} {{coilProximity}}'
+    },
+    slidingStoppedLinesVisibleMagnetLocationPattern: {
+      value: 'Sliding stopped. {{magnetLocation}} {{coilProximity}} Field lines description updated.'
+    },
+
+    // play area locations
     topLeft: {
       value: 'top-left'
     },
