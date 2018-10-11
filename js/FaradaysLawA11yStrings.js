@@ -50,32 +50,29 @@ define( function( require ) {
     flipPoles: {
       value: 'Flip North and South poles.'
     },
-    coilIsAreDescriptionPattern: {
-      value: 'The {{coil}} open on the left and right, large enough for the bar magnet to pass through.'
+    singleCoilDescription: {
+      value: 'The coil is open on the left and right, large enough for the bar magnet to pass through.'
     },
-    coilIs: {
-      value: 'coil is'
-    },
-    coilsAre: {
-      value: 'coils are '
+    doubleCoilDescription: {
+      value: 'The coils are open on the left and right, large enough for the bar magnet to pass through.'
     },
     voltmeter: {
       value: 'Voltmeter'
+    },
+    lightBulb: {
+      value: 'Light bulb'
     },
     voltmeterDescription: {
       value: 'Play with or without voltmeter connected to light bulb circuit'
     },
     circuitFourCoilOnly: {
-      value: 'In circuit are a light bulb and 4 loop coil. The coil is open on the left and right, large enough for the bar magnet to pass through.'
+      value: 'In circuit are a light bulb and 4 loop coil.'
     },
     circuitFourCoilAndVoltmeter: {
-      value: 'In circuit are a light bulb, a 4 loop coil, and a voltmeter. The coil is open on the left and right, large enough for the bar magnet to pass through.'
+      value: 'In circuit are a light bulb, a 4 loop coil, and a voltmeter.'
     },
-    lightbulbCircuitPattern: {
-      value: 'The light bulb circuit has a {{loops}} coil connected. {{coils}} open on the left and right, allowing the bar magnet to pass through.'
-    },
-    voltMeterAttached: {
-      value: 'A voltmeter is also attached to the circuit.'
+    circuitDescriptionPattern: {
+      value: '{{circuitContents}} {{coilDescription}}'
     },
     aLightbulb: {
       value: 'a lightbulb'

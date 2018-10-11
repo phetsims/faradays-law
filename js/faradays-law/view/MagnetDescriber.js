@@ -87,9 +87,11 @@ define( function( require ) {
   const proximityToTwoCoilPatternString = FaradaysLawA11yStrings.proximityToTwoCoilPattern.value;
 
   const bumpingCoilPatternString = FaradaysLawA11yStrings.bumpingCoilPattern.value;
-  const coilIsAreDescriptionPatternString = FaradaysLawA11yStrings.coilIsAreDescriptionPattern.value;
-  const coilIsString = FaradaysLawA11yStrings.coilIs.value;
-  const coilsAreString = FaradaysLawA11yStrings.coilsAre.value;
+  const singleCoilDescriptionString = FaradaysLawA11yStrings.singleCoilDescription.value;
+  const doubleCoilDescriptionString = FaradaysLawA11yStrings.doubleCoilDescription.value;
+  const circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
+  const circuitFourCoilAndVoltmeterString =FaradaysLawA11yStrings.circuitFourCoilAndVoltmeter.value;
+  const circuitDescriptionPatternString = FaradaysLawA11yStrings.circuitDescriptionPattern.value;
 
   // constants
   const REGION_DESCRIPTIONS = [ topLeftString,    topCenterString,    topRightString,
@@ -225,23 +227,6 @@ define( function( require ) {
         } );
     }
 
-    mapFieldStrengthToInteger( fieldStrength ) {
-      if ( this._bottomCoil.position.distance( this._magnet.positionProperty.get() ) < 70 ) {
-          return 4;
-      }
-      if ( fieldStrength < 0.025 ) {
-        return 0;
-      } else if ( fieldStrength >= 0.025 && fieldStrength < 0.04 ) {
-        return 1;
-      } else if ( fieldStrength >= 0.04 && fieldStrength < 0.075 ) {
-        return 2;
-      } else if ( fieldStrength >= 0.075 && fieldStrength < 0.18 ) {
-        return 3;
-      } else {
-        return 4;
-      }
-    }
-
     get fourCoilOnlyPolarityDescription() {
       const pattern = '{{first}}, {{second}}';
       return StringUtils.fillIn( pattern, { first: this.northPoleSideString, second: this.southPoleSideString } );
@@ -270,7 +255,7 @@ define( function( require ) {
       }
 
       if ( touchingCoil && !this.regionManager.magnetInCoil ) {
-        return StringUtils.fillIn( 'Touching {{side}} of {{coil}}.', touchingCoil );  
+        return StringUtils.fillIn( 'Touching {{side}} of {{coil}}.', touchingCoil );
       }
       return [ position, proximity ].join( ' ' );
     }
@@ -331,6 +316,9 @@ define( function( require ) {
 
       return alert;
     }
+    /*******************************************
+     * CIRCUIT DESCRIPTION AND ALERT FUNCTIONS *
+     *******************************************/
 
     static getVoltmeterAttachmentAlertText( showVoltmeter ) {
       const attachmentState = showVoltmeter ? connectedString : removedString;
@@ -342,9 +330,14 @@ define( function( require ) {
       return StringUtils.fillIn( circuitNowHasPatternString, { coil } );
     }
 
-    static getCircuitDescription( showTopCoil ) {
-      const coil = showTopCoil ? coilsAreString : coilIsString;
-      return StringUtils.fillIn( coilIsAreDescriptionPatternString, { coil } );
+    static getCoilDescription( showTopCoil ) {
+      return showTopCoil ? doubleCoilDescriptionString : singleCoilDescriptionString;
+    }
+
+    static getFourCoilOnlyDescription( showVoltmeter ) {
+      const circuitContents = showVoltmeter ? circuitFourCoilAndVoltmeterString : circuitFourCoilOnlyString;
+      const coilDescription = singleCoilDescriptionString;
+      return StringUtils.fillIn( circuitDescriptionPatternString, { circuitContents, coilDescription } );
     }
   }
 

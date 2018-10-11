@@ -17,14 +17,13 @@ define( function( require ) {
   // var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   // var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
+  var MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
 
   // strings
   var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
-  var circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
-  var circuitFourCoilAndVoltmeterString =FaradaysLawA11yStrings.circuitFourCoilAndVoltmeter.value;
+  var lightBulbString = FaradaysLawA11yStrings.lightBulb.value;
   var inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
   var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
   var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
@@ -45,7 +44,7 @@ define( function( require ) {
 
     var fourCoilOnlyNode = new Node( {
       tagName: 'p',
-      innerContent: circuitFourCoilOnlyString
+      innerContent: ''
     } );
 
 
@@ -58,18 +57,17 @@ define( function( require ) {
     } );
 
     model.topCoilVisibleProperty.link( showTopCoil => {
-      otherComponentsNode.descriptionContent = MagnetDescriber.getCircuitDescription( showTopCoil );
+      otherComponentsNode.descriptionContent = MagnetDescriber.getCoilDescription( showTopCoil );
     } );
 
     model.voltmeterVisibleProperty.link( showVoltmeter => {
-      fourCoilOnlyNode.innerContent = showVoltmeter ?
-                                      circuitFourCoilAndVoltmeterString :
-                                      circuitFourCoilOnlyString;
+      fourCoilOnlyNode.innerContent = MagnetDescriber.getFourCoilOnlyDescription( showVoltmeter );
     } );
 
-    var fourLoopItem = new Node( { tagName: 'li', innerContent: fourLoopCoilString } );
-    var twoLoopItem = new Node( { tagName: 'li', innerContent: twoLoopCoilString } );
-    var voltmeterItem = new Node( { tagName: 'li', innerContent: voltmeterString } );
+    var lightBulbItem = createListItemNode( lightBulbString );
+    var fourLoopItem = createListItemNode( fourLoopCoilString );
+    var twoLoopItem = createListItemNode( twoLoopCoilString );
+    var voltmeterItem = createListItemNode( voltmeterString );
 
     Property.multilink(
       [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
@@ -77,7 +75,7 @@ define( function( require ) {
         if ( !showTopCoil ) {
           dynamicChildrenNode.children = [ fourCoilOnlyNode ];
         } else {
-          var children = [];
+          var children = [ lightBulbItem  ];
           children.push( fourLoopItem );
           showTopCoil && children.push( twoLoopItem );
           showVoltmeter && children.push( voltmeterItem );
@@ -86,6 +84,10 @@ define( function( require ) {
         }
       }
     );
+  }
+
+  function createListItemNode( innerContent ) {
+    return new Node( { tagName: 'li', innerContent: innerContent } );
   }
 
   faradaysLaw.register( 'CircuitDescriptionNode', CircuitDescriptionNode );
