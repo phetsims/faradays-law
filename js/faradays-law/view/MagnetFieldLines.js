@@ -30,10 +30,12 @@ define( function( require ) {
 
   /**
    * @param {Magnet} magnet - magnet model
+   * @param {Tandem} tandem
    * @constructor
    */
-  function MagnetFieldLines( magnet ) {
+  function MagnetFieldLines( magnet, tandem ) {
     Node.call( this, {
+      tandem: tandem,
       children: [
         createSideFieldLines( magnet.orientationProperty, +1 ), // top
         createSideFieldLines( magnet.orientationProperty, -1 ) // bottom

@@ -52,7 +52,7 @@ define( require => {
       this.magnetNode = createMagnetNode( model.magnet );
 
       // field lines
-      this.addChild( new MagnetFieldLines( model.magnet ) );
+      this.addChild( new MagnetFieldLines( model.magnet, tandem.createTandem( 'fieldLinesNode' ) ) );
 
       // a11y
       // create the focus highlight to pass as an option
