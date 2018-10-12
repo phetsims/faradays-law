@@ -46,7 +46,8 @@ define( require => {
 
         if ( isMovementKey ) {
           this.movementEndAlert();
-        } else {
+        }
+        else {
           if ( !magnetIsAnimating && magnetStoppedByKeyboard ) {
             this.movementEndAlert();
           }
@@ -66,7 +67,7 @@ define( require => {
     }
 
     movementEndAlert() {
-      const alert = new Utterance( this.describer.magnetMovedAlertText(), { uniqueGroupId: 'keyboardMove' } );
+      const alert = new Utterance( { alert: this.describer.magnetMovedAlertText(), uniqueGroupId: 'keyboardMove' } );
       utteranceQueue.addToFront( alert );
       this.regionManager.resetKeyboardStop();
       this._justFocused = false;
