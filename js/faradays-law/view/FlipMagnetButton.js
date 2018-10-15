@@ -60,6 +60,8 @@ define( function( require ) {
       appendDescription: true,
       containerTagName: 'li'
     }, options ) );
+
+    this.addAriaDescribedbyAssociation( { otherNode: this, otherElementName: 'DESCRIPTION_SIBLING', thisElementName: 'PRIMARY_SIBLING' } );
   }
 
   /**
