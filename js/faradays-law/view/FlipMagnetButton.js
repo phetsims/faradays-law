@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -61,7 +62,11 @@ define( function( require ) {
       containerTagName: 'li'
     }, options ) );
 
-    this.addAriaDescribedbyAssociation( { otherNode: this, otherElementName: 'DESCRIPTION_SIBLING', thisElementName: 'PRIMARY_SIBLING' } );
+    this.addAriaDescribedbyAssociation( {
+      otherNode: this,
+      otherElementName: AccessiblePeer.DESCRIPTION_SIBLING,
+      thisElementName: AccessiblePeer.PRIMARY_SIBLING
+    } );
   }
 
   /**

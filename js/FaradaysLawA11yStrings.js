@@ -51,10 +51,10 @@ define( function( require ) {
       value: 'Flip North and South poles.'
     },
     singleCoilDescription: {
-      value: 'The coil is open on the left and right, large enough for the bar magnet to pass through.'
+      value: 'The coil is sideways, with openings on the left and right.'
     },
     doubleCoilDescription: {
-      value: 'The coils are open on the left and right, large enough for the bar magnet to pass through.'
+      value: 'The coils are sideways, with openings on the left and right.'
     },
     voltmeter: {
       value: 'Voltmeter'
