@@ -219,6 +219,12 @@ define( function( require ) {
     slidingStoppedLinesVisibleMagnetLocationPattern: {
       value: 'Sliding stopped. {{magnetLocation}} {{coilProximity}} Field lines description updated.'
     },
+    touchingSideOfCoilPattern: {
+      value: 'Touching {{side}} of {{coil}}.'
+    },
+    magnetPositionProximityPattern: {
+      value: '{{magnetPosition}}. {{coilProximity}}.'
+    },
 
     // play area locations
     topLeft: {
@@ -250,6 +256,23 @@ define( function( require ) {
     },
     edge: {
       value: 'edge'
+    },
+
+    // magnet alert patterns
+    slidingAndPositionFourCoilPattern: {
+      value: '{{slidingAndPositionPhrase}} {{fourCoil}}'
+    },
+    slidingStoppedPositionPattern: {
+      value: '{{slidingStopped}} {{magnetPosition}}'
+    },
+    fourCoilTwoCoilFieldLinesPattern: {
+      value: '{{fourCoil}} {{twoCoilFieldLines}}'
+    },
+    twoCoilFieldLinesPattern: {
+      value: '{{twoCoil}} {{fieldLines}}'
+    },
+    slidingStoppedPositionFourCoilTwoCoilFieldLinesPattern: {
+      value: '{{slidingAndPositionPhrase}} {{fourCoil}} {{twoCoilFieldLines}}'
     },
 
     /********************************

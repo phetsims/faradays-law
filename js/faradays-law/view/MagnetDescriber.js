@@ -38,6 +38,15 @@ define( function( require ) {
   const veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
   const closeToString = FaradaysLawA11yStrings.closeTo.value;
   const farFromString = FaradaysLawA11yStrings.farFrom.value;
+  const touchingSideOfCoilPatternString = FaradaysLawA11yStrings.touchingSideOfCoilPattern.value;
+  const magnetPositionProximityPatternString = FaradaysLawA11yStrings.magnetPositionProximityPattern.value;
+
+  // magnet alert patterns
+  const slidingAndPositionFourCoilPatternString = FaradaysLawA11yStrings.slidingAndPositionFourCoilPattern.value;
+  const slidingStoppedPositionPatternString = FaradaysLawA11yStrings.slidingStoppedPositionPattern.value;
+  const fourCoilTwoCoilFieldLinesPatternString = FaradaysLawA11yStrings.fourCoilTwoCoilFieldLinesPattern.value;
+  const twoCoilFieldLinesPatternString = FaradaysLawA11yStrings.twoCoilFieldLinesPattern.value;
+  const slidingStoppedPositionFourCoilTwoCoilFieldLinesPatternString = FaradaysLawA11yStrings.slidingStoppedPositionFourCoilTwoCoilFieldLinesPattern.value;
 
   const poleOnThePatternString = FaradaysLawA11yStrings.poleOnThePattern.value;
   const northString = FaradaysLawA11yStrings.north.value;
@@ -120,28 +129,72 @@ define( function( require ) {
     }
 
     magnetMovedAlertText() {
-      let alertStringList = [];
+      let slidingAndPositionPhrase = null;
+      let alertText = this.fourCoilProximityString;
+      let twoCoilFieldLines = null;
 
       if ( this.regionManager.magnetStoppedByKeyboard ) {
-        alertStringList.push( slidingStoppedString );
+        slidingAndPositionPhrase = slidingStoppedString;
       }
 
       if ( !this.regionManager.magnetInOrVeryCloseToCoil ) {
-          alertStringList.push( this.magnetLocationAlertText );  // magnet at {{position}} of play area.
+        if ( slidingAndPositionPhrase ) {
+          // phrase exists, magnet stopped by keyboard
+          const pattern = {
+            slidingStopped: slidingStoppedString,
+            magnetPosition: this.magnetLocationAlertText
+          };
+          slidingAndPositionPhrase = StringUtils.fillIn( slidingStoppedPositionPatternString, pattern );
+        } else {
+          slidingAndPositionPhrase = this.magnetLocationAlertText;
+        }
       }
-
-      alertStringList.push( this.fourCoilProximityString );
 
       if ( this._model.topCoilVisibleProperty.get() ) {
         // both coils visible
-        alertStringList.push( this.twoCoilProximityString );
+        twoCoilFieldLines = this.twoCoilProximityString;
       }
 
       if ( this._magnet.fieldLinesVisibleProperty.get() ) {
-        alertStringList.push( fieldLinesDescriptionUpdatedString );
+        if ( twoCoilFieldLines ) {
+          const pattern = {
+            twoCoil: twoCoilFieldLines,
+            fieldLines: fieldLinesDescriptionUpdatedString
+          };
+          twoCoilFieldLines = StringUtils.fillIn( twoCoilFieldLinesPatternString, pattern );
+        } else {
+          twoCoilFieldLines = fieldLinesDescriptionUpdatedString;
+        }
       }
 
-      return alertStringList.join( ' ' );
+      if ( slidingAndPositionPhrase && twoCoilFieldLines ) {
+        alertText = StringUtils.fillIn(
+          slidingStoppedPositionFourCoilTwoCoilFieldLinesPatternString,
+          {
+            slidingAndPositionPhrase,
+            twoCoilFieldLines,
+            fourCoil: this.fourCoilProximityString
+          }
+        );
+      } else if ( slidingAndPositionPhrase ) {
+        alertText = StringUtils.fillIn(
+          slidingAndPositionFourCoilPatternString,
+          {
+            slidingAndPositionPhrase,
+            fourCoil: this.fourCoilProximityString
+          }
+        );
+      } else if ( twoCoilFieldLines ) {
+        alertText = StringUtils.fillIn(
+          fourCoilTwoCoilFieldLinesPatternString,
+          {
+            fourCoil: this.fourCoilProximityString,
+            twoCoilFieldLines
+          }
+        );
+      }
+
+      return alertText;
     }
 
     getBumpingCoilString( coil ) {
@@ -247,17 +300,17 @@ define( function( require ) {
 
     get fourLoopOnlyMagnetPosition() {
       const touchingCoil = this.regionManager.getTouchingCoil();
-      const position = StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
-      const proximity = this.fourCoilProximityString;
+      const magnetPosition = StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
+      const coilProximity = this.fourCoilProximityString;
 
       if ( this.regionManager.magnetInCoil ) {
-        return proximity;
+        return coilProximity;
       }
 
-      if ( touchingCoil && !this.regionManager.magnetInCoil ) {
-        return StringUtils.fillIn( 'Touching {{side}} of {{coil}}.', touchingCoil );
+      if ( touchingCoil >= 0 && !this.regionManager.magnetInCoil ) {
+        return StringUtils.fillIn( touchingSideOfCoilPatternString, touchingCoil );
       }
-      return [ position, proximity ].join( ' ' );
+      return StringUtils.fillIn( magnetPositionProximityPatternString, { magnetPosition, coilProximity } );
     }
 
     get positionOfPlayAreaString() {
@@ -279,6 +332,10 @@ define( function( require ) {
     }
 
     get fourCoilProximityString() {
+
+      // if ( this.regionManager.magnetInCoil ) {
+      //   return th
+      // }
       const proximity = PROXIMITY_STRINGS[ this.regionManager.magnetToBottomCoilProximity ];
 
       return this.getCoilProximityString( proximity, CoilTypeEnum.FOUR_COIL );
@@ -298,7 +355,7 @@ define( function( require ) {
         coilDirection = this.regionManager.magnetScreenSide === 'left' ? ' to the right.' : ' to the left.';
       }
 
-      return StringUtils.fillIn( pattern, { proximity } ) + coilDirection;
+      return StringUtils.fillIn( pattern, { proximity: proximity ? proximity : '' } ) + coilDirection;
     }
 
     static getMagnetSlidingAlertText( speedValue, directionValue ) {

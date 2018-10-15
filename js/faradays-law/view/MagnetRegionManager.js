@@ -147,7 +147,7 @@ define( require => {
       if ( i >= 0 ) {
         return coilSides[ i ];
       } else {
-        return null;
+        return i;
       }
     }
 
@@ -254,6 +254,9 @@ define( require => {
     }
 
     getTopCoilProximityRegion( vector ) {
+      if ( !this.model.topCoilVisibleProperty.get() ) {
+        return -1;
+      }
       return this.getCoilProximityRegion( vector, CoilTypeEnum.TWO_COIL );
     }
 
@@ -262,20 +265,20 @@ define( require => {
     }
 
     getCoilProximityRegion( vector, coilType ) {
-      var magnetBounds = createMagnetBounds( vector );
-      var coilBounds = coilType === CoilTypeEnum.TWO_COIL ? this._topCoilInnerBounds : this._bottomCoilInnerBounds;
+      const magnetBounds = createMagnetBounds( vector );
+      const coilBounds = coilType === CoilTypeEnum.TWO_COIL ? this._topCoilInnerBounds : this._bottomCoilInnerBounds;
 
       if ( coilBounds.intersectsBounds( magnetBounds ) ) {
         return 0;
       }
 
-      var distance = this.getDistanceToCoil( vector, coilType );
+      const distance = this.getDistanceToCoil( vector, coilType );
 
       return Util.roundSymmetric( coilProximityToRegion( distance ) );
     }
 
     getDistanceToCoil( position, coilType ) {
-      var coilPosition = coilType === CoilTypeEnum.TWO_COIL ? this.topCoil.position : this.bottomCoil.position;
+      const coilPosition = coilType === CoilTypeEnum.TWO_COIL ? this.topCoil.position : this.bottomCoil.position;
       return position.distance( coilPosition );
     }
 
@@ -292,7 +295,7 @@ define( require => {
         return 4;
       }
 
-      var fieldStrength = coil.magneticFieldProperty.get();
+      const fieldStrength = coil.magneticFieldProperty.get();
 
       return MagnetRegionManager.mapFieldStrengthToInteger( Math.abs( fieldStrength ) );
     }
