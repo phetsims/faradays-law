@@ -98,7 +98,7 @@ define( function( require ) {
       voltmeterAndWiresNode.visible = showVoltmeter;
     } );
 
-    // When the PhET-iO studio makes the voltmeter invisible, we should also uncheck the checkbox.
+    // When PhET-iO Studio makes the voltmeter invisible, we should also uncheck the checkbox.
     voltmeterAndWiresNode.on( 'visibility', function() {
       model.voltmeterVisibleProperty.value = voltmeterAndWiresNode.visible;
     } );
