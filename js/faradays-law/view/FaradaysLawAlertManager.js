@@ -5,7 +5,6 @@ define( require => {
 
   // modules
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
@@ -13,52 +12,8 @@ define( require => {
   // the alert manager
   class FaradaysLawAlertManager {
 
-    constructor( describer, regionManager ) {
+    constructor( describer  ) {
       this.describer = describer;
-      this.regionManager = regionManager;
-
-      // @private - conditions for alerts
-      this._justFocused = false;
-      this._tabReleased = false;
-      this._shiftDown = false;
-      this._aKeyWasJustPressed = false;
-    }
-
-    getAccessibleInputListener() {
-      return {
-        keyup: this.onKeyup.bind( this ),
-        keydown: this.onKeydown.bind( this ),
-        focus: this.onFocus.bind( this )
-      };
-    }
-
-    onKeydown( event ) {
-      // a keydown event will always allow the movement alerts to occur
-      this._justFocused = false;
-    }
-
-    onKeyup( event ) {
-
-      const isMovementKey = KeyboardUtil.isArrowKey( event.keyCode ) || KeyboardUtil.isWASDKey( event.keyCode );
-      const { magnetIsAnimating, magnetStoppedByKeyboard } = this.regionManager;
-
-      if ( !this._justFocused ) {
-
-        if ( isMovementKey ) {
-          this.movementEndAlert();
-        }
-        else {
-          if ( !magnetIsAnimating && magnetStoppedByKeyboard ) {
-            this.movementEndAlert();
-          }
-        }
-      }
-    }
-
-    onFocus( event ) {
-      // set flag to override the next keyup alert
-      this.magnetFocusAlert();
-      this._justFocused = true;
     }
 
     magnetFocusAlert() {
@@ -69,8 +24,6 @@ define( require => {
     movementEndAlert() {
       const alert = new Utterance( { alert: this.describer.magnetMovedAlertText(), uniqueGroupId: 'keyboardMove' } );
       utteranceQueue.addToFront( alert );
-      this.regionManager.resetKeyboardStop();
-      this._justFocused = false;
     }
 
     flipMagnetAlert( orientation ) {

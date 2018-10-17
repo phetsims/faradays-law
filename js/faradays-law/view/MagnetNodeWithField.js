@@ -15,9 +15,9 @@ define( require => {
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
+  const FaradaysLawKeyboardDragListener = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawKeyboardDragListener' );
   const FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
   const JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
-  const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   const MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
@@ -110,7 +110,7 @@ define( require => {
       // a11y descriptions - generates text content and alerts for magnet interactions
       const regionManager = new MagnetRegionManager( model );
       const describer = new MagnetDescriber( model, regionManager, tandem );
-      const alertManager = new FaradaysLawAlertManager( describer, regionManager );
+      const alertManager = new FaradaysLawAlertManager( describer );
 
       // handler
       let magnetOffset = null; // {Vector2|null}
@@ -144,15 +144,7 @@ define( require => {
 
 
       // @private - The sticky drag handler for keyboard navigation
-      this.keyboardDragListener = new KeyboardDragListener( {
-        drag( vectorDelta ) {
-          model.magnetArrowsVisibleProperty.set( false );
-          let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
-          newPosition = model.bounds.closestPointTo( newPosition );
-          model.moveMagnetToPosition( newPosition );
-        },
-        dragBounds: model.bounds
-      } );
+      this.keyboardDragListener = new FaradaysLawKeyboardDragListener( model, regionManager, alertManager );
 
       // arrows displayed before initiating the sliding/jumping movement
       const leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );
@@ -163,6 +155,9 @@ define( require => {
       this.addChild( rightJumpArrows );
 
       draggableNode.addAccessibleInputListener( this.keyboardDragListener );
+
+      // add the keyboard & focus event listeners from the alert manager (see AlertManager.js)
+      draggableNode.addAccessibleInputListener( this.keyboardDragListener.initializeAccessibleInputListener() );
 
       // handle the jump/slide interaction
       const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
@@ -228,9 +223,6 @@ define( require => {
       model.magnet.orientationProperty.lazyLink( orientation => {
         alertManager.flipMagnetAlert( orientation );
       } );
-
-      // add the keyboard & focus event listeners from the alert manager (see AlertManager.js)
-      draggableNode.addAccessibleInputListener( alertManager.getAccessibleInputListener() );
 
       // @a11y
       magnetJumpKeyboardListener.isAnimatingProperty.link( isAnimating => {
