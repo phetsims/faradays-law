@@ -1,7 +1,7 @@
 // Copyright 2018, University of Colorado Boulder
 
 /**
- * Magnet Node with field lines, draggable.
+ * Strings for a11y-specific usage.
  *
  * @author Michael Barlow (PhET Interactive Simulations)
  */
