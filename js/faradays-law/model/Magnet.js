@@ -24,7 +24,7 @@ define( function( require ) {
   var Vector2IO = require( 'DOT/Vector2IO' );
 
   // ifphetio
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
 
   // constants
   // var DIAGONAL_TOLERANCE = Math.PI / 8;
