@@ -19,12 +19,10 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   // var Range = require( 'DOT/Range' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
   // var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
-
-  // ifphetio
-  var StringIO = require( 'TANDEM/types/StringIO' );
 
   // constants
   // var DIAGONAL_TOLERANCE = Math.PI / 8;
