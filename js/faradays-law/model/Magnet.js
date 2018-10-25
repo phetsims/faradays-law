@@ -10,17 +10,17 @@ define( function( require ) {
   'use strict';
 
   // modules
+  // var LinearFunction = require( 'DOT/LinearFunction' );
+  // var Range = require( 'DOT/Range' );
+  // var Util = require( 'DOT/Util' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  // var LinearFunction = require( 'DOT/LinearFunction' );
   var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  // var Range = require( 'DOT/Range' );
   var StringIO = require( 'TANDEM/types/StringIO' );
-  // var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
 

@@ -16,8 +16,8 @@ define( require => {
   const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   const LinearFunction = require( 'DOT/LinearFunction' );
+  const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
 

@@ -25,8 +25,8 @@ define( require => {
   const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const MagnetPDOMNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetPDOMNode' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
+  const Node = require( 'SCENERY/nodes/Node' );
 
   // @a11y strings
   const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;

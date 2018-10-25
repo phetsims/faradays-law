@@ -12,11 +12,11 @@ define( function ( require ) {
 
   // modules
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
 
   // constants
   var ARROW_HEIGHT = 20; // dimensions for the arrow 

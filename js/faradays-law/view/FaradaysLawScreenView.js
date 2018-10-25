@@ -10,6 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  // var Path = require( 'SCENERY/nodes/Path' );
+  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  // var Shape = require( 'KITE/Shape' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CircuitDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/CircuitDescriptionNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
@@ -21,12 +24,9 @@ define( function( require ) {
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
-  var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  // var Path = require( 'SCENERY/nodes/Path' );
+  var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  // var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 

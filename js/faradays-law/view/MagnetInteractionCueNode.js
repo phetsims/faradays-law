@@ -12,13 +12,13 @@ define( function( require ) {
   'use strict';
 
   var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
   var TextKeyNode = require( 'SCENERY_PHET/keyboard/TextKeyNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants

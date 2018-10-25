@@ -12,10 +12,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   // var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   // var Vector2 = require( 'DOT/Vector2' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   var Node = require( 'SCENERY/nodes/Node' );

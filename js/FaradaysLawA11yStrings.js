@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   // var inherit = require( 'PHET_CORE/inherit' );
+  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   var FaradaysLawA11yStrings = {
 

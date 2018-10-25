@@ -7,9 +7,9 @@ define( function( require ) {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const LinearFunction = require( 'DOT/LinearFunction' );
-  const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
   const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   const Property = require( 'AXON/Property' );
   const timer = require( 'PHET_CORE/timer' );

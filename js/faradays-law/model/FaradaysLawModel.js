@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var NumberProperty = require( 'AXON/NumberProperty' );
+  // var Vector2 = require( 'DOT/Vector2' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
@@ -19,7 +19,7 @@ define( function( require ) {
   var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
-  // var Vector2 = require( 'DOT/Vector2' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
 
   // constants
