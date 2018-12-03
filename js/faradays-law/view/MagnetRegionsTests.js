@@ -37,68 +37,68 @@ define( function( require ) {
   let v = new Vector2( x, y );
 
   test( 'get column numbers', assert => {
-    assert.equal( regionTester.getColumn( x ), 0, `${x} is in column 0`  );
+    assert.equal( MagnetRegionManager.getColumn( x ), 0, `${x} is in column 0`  );
 
     x += columnWidth;
-    assert.equal( regionTester.getColumn( x ), 1, `${x} is in column 1`  );
+    assert.equal( MagnetRegionManager.getColumn( x ), 1, `${x} is in column 1`  );
 
     x += columnWidth;
-    assert.equal( regionTester.getColumn( x ), 2, `${x} is in column 2`  );
+    assert.equal( MagnetRegionManager.getColumn( x ), 2, `${x} is in column 2`  );
 
     x += columnWidth;
-    assert.equal( regionTester.getColumn( x ), 2, `${x} is in column 2`  );
+    assert.equal( MagnetRegionManager.getColumn( x ), 2, `${x} is in column 2`  );
 
     x = -1; // outside layout bounds -> still col 1
-    assert.equal( regionTester.getColumn( x ), 0, `${x} is in column 0` );
+    assert.equal( MagnetRegionManager.getColumn( x ), 0, `${x} is in column 0` );
   } );
 
   test( 'get row numbers', assert => {
 
-    assert.equal( regionTester.getRow( y ), 0, `${y} in row 0` );
+    assert.equal( MagnetRegionManager.getRow( y ), 0, `${y} in row 0` );
 
     y += rowHeight;
-    assert.notEqual( regionTester.getRow( y ), 0, `${y} not in row 0` );
-    assert.equal( regionTester.getRow( y ), 1, `${y} in row 1` );
+    assert.notEqual( MagnetRegionManager.getRow( y ), 0, `${y} not in row 0` );
+    assert.equal( MagnetRegionManager.getRow( y ), 1, `${y} in row 1` );
 
     y += rowHeight;
-    assert.equal( regionTester.getRow( y ), 2, `${y} in row 2` );
+    assert.equal( MagnetRegionManager.getRow( y ), 2, `${y} in row 2` );
 
     y += rowHeight;
-    assert.equal( regionTester.getRow( y ), 2, `${y} in row 2` );
+    assert.equal( MagnetRegionManager.getRow( y ), 2, `${y} in row 2` );
 
     y = 1000;
-    assert.equal( regionTester.getRow( y ), 2, `${y} in row 2` );
+    assert.equal( MagnetRegionManager.getRow( y ), 2, `${y} in row 2` );
   } );
 
   test( 'get region numbers', assert => {
     x = columnWidth / 2;
     y = rowHeight / 2;
 
-    assert.equal( regionTester.getRegion( v ), 0, `point ${x}, ${y} in region 0` );
+    assert.equal( regionTester.getPositionRegion( v ), 0, `point ${x}, ${y} in region 0` );
 
     v.addXY( columnWidth, 0 );
-    assert.equal( regionTester.getRegion( v ), 1, `point ${v.x}, ${v.y} in region 1` );
+    assert.equal( regionTester.getPositionRegion( v ), 1, `point ${v.x}, ${v.y} in region 1` );
 
     v.addXY( columnWidth, 0 );
-    assert.equal( regionTester.getRegion( v ), 2, `point ${v.x}, ${v.y} in region 2` );
+    assert.equal( regionTester.getPositionRegion( v ), 2, `point ${v.x}, ${v.y} in region 2` );
 
     v.setXY( x, v.y + rowHeight );
-    assert.equal( regionTester.getRegion( v ), 3, `point ${v.x}, ${v.y} in region 3` );
+    assert.equal( regionTester.getPositionRegion( v ), 3, `point ${v.x}, ${v.y} in region 3` );
 
     v.addXY( columnWidth, 0 );
-    assert.equal( regionTester.getRegion( v ), 4, `point ${v.x}, ${v.y} in region 4` );
+    assert.equal( regionTester.getPositionRegion( v ), 4, `point ${v.x}, ${v.y} in region 4` );
 
     v.addXY( columnWidth, 0 );
-    assert.equal( regionTester.getRegion( v ), 5, `point ${v.x}, ${v.y} in region 5` );
+    assert.equal( regionTester.getPositionRegion( v ), 5, `point ${v.x}, ${v.y} in region 5` );
 
     v.setXY( x, v.y + rowHeight );
-    assert.equal( regionTester.getRegion( v ), 6, `point ${v.x}, ${v.y} in region 6`);
+    assert.equal( regionTester.getPositionRegion( v ), 6, `point ${v.x}, ${v.y} in region 6`);
 
     v.addXY( columnWidth, 0 );
-    assert.equal( regionTester.getRegion( v ), 7, `point ${v.x}, ${v.y} in region 7` );
+    assert.equal( regionTester.getPositionRegion( v ), 7, `point ${v.x}, ${v.y} in region 7` );
 
     v.addXY( columnWidth, 0 );
-    assert.equal( regionTester.getRegion( v ), 8, `point ${v.x}, ${v.y} in region 8` );
+    assert.equal( regionTester.getPositionRegion( v ), 8, `point ${v.x}, ${v.y} in region 8` );
   } );
 
   test( 'get magnet edge notification', assert => {
@@ -142,50 +142,5 @@ define( function( require ) {
 
     v.addXY( 0, -1 ); // edge tolerance is 5, should return false
     assert.equal( regionTester.isVectorAtEdge( v ), false, `${v} not on edge` );
-  } );
-
-  test( 'region changed events', assert => {
-    const { maxX, maxY } = FaradaysLawConstants.LAYOUT_BOUNDS;
-    let eventsFired = 0;
-    let testNewRegion = null;
-    const testListener = ( newRegion, oldRegion ) => {
-      eventsFired++;
-      testNewRegion = newRegion;
-    };
-
-    regionTester.regionChangedEmitter.addListener( testListener );
-
-    const cycleBounds = ( intersectionPoint ) => {
-      model.moveMagnetToPosition( intersectionPoint.plusXY( -5, -5 ) );
-      assert.equal( eventsFired, 1, 'region changed fired' );
-      model.moveMagnetToPosition( intersectionPoint.plusXY( 5, -5 ) );
-      assert.equal( eventsFired, 2, 'region changed fired' );
-      model.moveMagnetToPosition( intersectionPoint.plusXY( 5, 5 ) );
-      assert.equal( eventsFired, 3, 'region changed fired' );
-      model.moveMagnetToPosition( intersectionPoint.plusXY( -5, 5 ) );
-      assert.equal( eventsFired, 4, 'region changed fired' );
-    };
-
-    let emitTestVector = new Vector2( maxX - columnWidth, maxY - rowHeight );
-
-    cycleBounds( emitTestVector );
-    assert.equal( testNewRegion, 7, 'magnet ended at region 7' );
-    eventsFired = 0;
-
-    emitTestVector.addXY( -columnWidth, 0 );
-    cycleBounds( emitTestVector );
-    assert.equal( testNewRegion, 6, 'magnet should end in region 4' );
-    eventsFired = 0;
-
-    emitTestVector.addXY( 0, -rowHeight );
-    cycleBounds( emitTestVector );
-    assert.equal( testNewRegion, 3, 'magnet should end in region 3' );
-    eventsFired = 0;
-
-    emitTestVector.addXY( columnWidth, 0 );
-    cycleBounds( emitTestVector );
-    assert.equal( testNewRegion, 4, 'magnet should end in region 6' );
-
-    regionTester.regionChangedEmitter.removeListener( testListener );
   } );
 } );
