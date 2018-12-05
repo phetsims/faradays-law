@@ -79,23 +79,25 @@ define( function( require ) {
     };
 
     this.keydown = function( event ) {
+      var domEvent = event.domEvent;
+
       options.startDrag();
 
-      if ( KeyboardUtil.isArrowKey( event.keyCode ) ) {
-        if ( self.model.direction === event.keyCode ) {
+      if ( KeyboardUtil.isArrowKey( domEvent.keyCode ) ) {
+        if ( self.model.direction === domEvent.keyCode ) {
           incrementSpeed();
 
           // do nothing with direction, because the model direction is already set to the correct direction.
         }
         else if ( self.model.direction === DIRECTION_NOT_MOVING ) {
-          self.model.direction = event.keyCode;
+          self.model.direction = domEvent.keyCode;
           incrementSpeed();
         }
         else {
           stopMovement();
         }
       }
-      else if ( event.keyCode === KeyboardUtil.KEY_SPACE ) {
+      else if ( domEvent.keyCode === KeyboardUtil.KEY_SPACE ) {
         reverseDirection();
       }
       else {

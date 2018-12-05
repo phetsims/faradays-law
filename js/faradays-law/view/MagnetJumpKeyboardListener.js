@@ -74,7 +74,6 @@ define( function( require ) {
 
 
       this.keydown = event => {
-
         options.onKeydown( event );
 
         this.isAnimatingProperty.value = false;
@@ -83,7 +82,7 @@ define( function( require ) {
         this._stepDelta = defaultVelocity;
 
         // set the stepDelta
-        switch ( event.keyCode ) {
+        switch ( event.domEvent.keyCode ) {
           case 49:
             this._stepDelta = shiftVelocity;
             break;
@@ -101,8 +100,9 @@ define( function( require ) {
 
       this.keyup = event => {
 
+        var domEvent = event.domEvent;
         if ( !this.isAnimatingProperty.value ) {
-          if ( event.keyCode >= 49 && event.keyCode <= 51) {
+          if ( domEvent.keyCode >= 49 && domEvent.keyCode <= 51) {
             this.targetPositionVector = this.reflectedPositionProperty.get();
             this.isAnimatingProperty.value = true;
 

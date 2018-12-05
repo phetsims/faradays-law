@@ -162,13 +162,15 @@ define( require => {
       // handle the jump/slide interaction
       const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
         onKeydown( event ) {
+          var domEvent = event.domEvent;
+
           // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
           // we want to ensure that we're only listening for the 1,2, and 3 keys
-          if ( KeyboardUtil.isNumberKey( event.keyCode ) && Number( event.key ) > 0 && Number( event.key ) <= 3 ) {
+          if ( KeyboardUtil.isNumberKey( domEvent.keyCode ) && Number( domEvent.key ) > 0 && Number( domEvent.key ) <= 3 ) {
             self.reflectedMagnetNode.visible = true;
             model.magnetArrowsVisibleProperty.set( false );
 
-            const magnitude = Number( event.key );
+            const magnitude = Number( domEvent.key );
 
             if ( model.magnet.positionProperty.get().x <= ( model.bounds.maxX / 2 ) ) {
               // point to right
@@ -184,7 +186,7 @@ define( require => {
           }
         },
         onKeyup( event ) {
-          if ( KeyboardUtil.isNumberKey( event.keyCode ) ) {
+          if ( KeyboardUtil.isNumberKey( event.domEvent.keyCode ) ) {
             self.reflectedMagnetNode.visible = false;
           }
           rightJumpArrows.hideCue();
