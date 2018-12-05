@@ -20,7 +20,7 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
 
   // create model and view
-  const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, new Tandem() );
+  const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.rootTandem.createTandem( 'model' ) );
   // const view = new FaradaysLawScreenView( model, new Tandem() );
 
   const regionTester = new MagnetRegionManager( model );
