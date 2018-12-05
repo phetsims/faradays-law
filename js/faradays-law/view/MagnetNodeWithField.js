@@ -154,10 +154,10 @@ define( require => {
       this.addChild( leftJumpArrows );
       this.addChild( rightJumpArrows );
 
-      draggableNode.addAccessibleInputListener( this.keyboardDragListener );
+      draggableNode.addInputListener( this.keyboardDragListener );
 
       // add the keyboard & focus event listeners from the alert manager (see AlertManager.js)
-      draggableNode.addAccessibleInputListener( this.keyboardDragListener.initializeAccessibleInputListener() );
+      draggableNode.addInputListener( this.keyboardDragListener.initializeAccessibleInputListener() );
 
       // handle the jump/slide interaction
       const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
@@ -192,7 +192,7 @@ define( require => {
         }
       } );
 
-      draggableNode.addAccessibleInputListener( magnetJumpKeyboardListener );
+      draggableNode.addInputListener( magnetJumpKeyboardListener );
 
 
       // listener to position the reflected node
