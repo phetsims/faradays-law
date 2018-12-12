@@ -34,7 +34,7 @@ define( function( require ) {
 
   let x = columnWidth / 2; // center of col 1
   let y = rowHeight / 2; // center of row 1
-  let v = new Vector2( x, y );
+  const v = new Vector2( x, y );
 
   test( 'get column numbers', assert => {
     assert.equal( MagnetRegionManager.getColumn( x ), 0, `${x} is in column 0`  );

@@ -204,7 +204,7 @@ define( function( require ) {
     getFlipMagnetAlertText( orientation ) {
       let northSide = leftString;
       let southSide = rightString;
-      let alertPattern = flippingMagnetPatternString;
+      const alertPattern = flippingMagnetPatternString;
 
       if ( orientation === OrientationEnum.SN ) {
         northSide = rightString;
@@ -221,17 +221,17 @@ define( function( require ) {
     }
 
     get strengthThroughFourCoilText() {
-      let strength = FIELD_STRENGTHS[ this.regionManager.getBottomCoilFieldStrengthRegion() ];
+      const strength = FIELD_STRENGTHS[ this.regionManager.getBottomCoilFieldStrengthRegion() ];
       return StringUtils.fillIn( fieldStrengthPassingCoilPatternString, { strength: strength, coil: theFourLoopCoilString } );
     }
 
     get strengthThroughTwoCoilText() {
-      let strength = FIELD_STRENGTHS[ this.regionManager.getTopCoilFieldStrengthRegion() ];
+      const strength = FIELD_STRENGTHS[ this.regionManager.getTopCoilFieldStrengthRegion() ];
       return StringUtils.fillIn( fieldStrengthPassingCoilPatternString, { strength: strength, coil: theTwoLoopCoilString } );
     }
 
     get strengthThroughBothCoilsText() {
-      let strength = FIELD_STRENGTHS[ this.regionManager.getTopCoilFieldStrengthRegion() ];
+      const strength = FIELD_STRENGTHS[ this.regionManager.getTopCoilFieldStrengthRegion() ];
       return StringUtils.fillIn( fieldStrengthPassingBothCoilsPatternString, { strength: strength } );
     }
 
