@@ -35,7 +35,7 @@ define( function( require ) {
       value: 'Bar Magnet'
     },
     controls: {
-      value: 'Controls Area'
+      value: 'Control Area'
     },
 
     /**************************************
@@ -329,7 +329,7 @@ define( function( require ) {
     },
 
     /*****************************************************
-     * Control Panel Descriptions, Help Text, and Alerts *
+     * Control Area Descriptions, Help Text, and Alerts *
      *****************************************************/
     fieldLinesVisibilityPattern: {
       value: 'Magnetic field lines {{visibility}}.'
