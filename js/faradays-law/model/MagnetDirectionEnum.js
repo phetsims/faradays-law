@@ -26,7 +26,7 @@ define( require => {
      * Returns true if direction is one of the primary relative directions "up", "down", "left", "right".
      *
      * @param {string} direction - one of MagnetDirectionEnum
-     * @return {Boolean}
+     * @returns {Boolean}
      */
     isRelativeDirection: direction => {
       return direction === MagnetDirectionEnum.LEFT ||

@@ -41,7 +41,7 @@ define( require => {
   * Creates a new Bounds2 object centered on the privided vector.
   *
   * @param  {Vector2} vector the position on which to center the bounds
-  * @return {Bounds2}        the bounds of the magnet at the passed position
+   * @returns {Bounds2}        the bounds of the magnet at the passed position
   */
   const createMagnetBounds = vector => {
     var halfWidth = FaradaysLawConstants.MAGNET_WIDTH / 2;
@@ -132,7 +132,7 @@ define( require => {
     /**
      * Returns the index of the intersected coil region or -1 on error.
      *
-     * @return {Number}
+     * @returns {Number}
      */
     getTouchingCoil() {
       const coilSides = [
@@ -154,7 +154,7 @@ define( require => {
     /**
     * Get the current value of the adjacent coil.
     *
-    * @return {String}
+     * @returns {String}
     */
     get adjacentCoil() {
       return this._adjacentCoil;
@@ -163,7 +163,7 @@ define( require => {
     /**
      * Get the side of the sim screen containing the magnet. The midpoint is set to the 'right' side.
      *
-     * @return {String}
+     * @returns {String}
      */
     get magnetScreenSide() {
       return this._magnetScreenSide;
@@ -172,7 +172,7 @@ define( require => {
     /**
      * Returns true if the magnet intersect the bounds of a coil. Used in conjunction with 'adjacentCoil'.
      *
-     * @return {String}
+     * @returns {String}
      */
     get magnetInCoil() {
       return this._magnetInCoil;
@@ -188,7 +188,7 @@ define( require => {
     *
     * @private
     * @param  {Vector2} vector
-    * @return {String}
+     * @returns {String}
     */
     getCoilAdjacentToVector( vector, showTopCoil ) {
       var y = vector.y;
@@ -207,7 +207,7 @@ define( require => {
     /**
     * Get the current region, one of 0..9
     *
-    * @return {int}
+     * @returns {int}
     */
     get positionRegion() {
       return this._positionRegion;
@@ -218,7 +218,7 @@ define( require => {
     * regions that are numbered 0 - 8 in row major order, left to right.
     *
     * @param  {Vector2} vector
-    * @return {int}
+     * @returns {int}
     */
     getPositionRegion( { x, y } ) {
       return ( NUMBER_OF_ROWS * MagnetRegionManager.getRow( y ) ) + MagnetRegionManager.getColumn( x );
@@ -317,7 +317,7 @@ define( require => {
     * Get the 0-based row number for a y coordinate.
     *
     * @param  {Number} y
-    * @return {int}
+     * @returns {int}
     */
     static getRow( y ) {
       return MagnetRegionManager.mapSegment( y, rowHeight );
@@ -326,7 +326,7 @@ define( require => {
     /**
     * Get the 0-based column number for an x coordinate.
     * @param  {Number} x
-    * @return {int}
+     * @returns {int}
     */
     static getColumn( x ) {
       return MagnetRegionManager.mapSegment( x, columnWidth );
@@ -338,7 +338,7 @@ define( require => {
     *
     * @param  {Number} value
     * @param  {Number} segmentSize
-    * @return {int}
+     * @returns {int}
     */
     static mapSegment( value, segmentSize ) {
       for ( let i = 0; i < NUMBER_OF_ROWS; i++ ) {

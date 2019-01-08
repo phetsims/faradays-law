@@ -141,7 +141,7 @@ define( function( require ) {
     /**
      * Return one of the model's restricted bounds if it intersects with the given bounds. Can return null.
      * @param  {Bounds2} bounds
-     * @return {Bounds2|null}
+     * @returns {Bounds2|null}
      */
     getIntersectedRestrictedBounds: function( bounds ) {
       var stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
