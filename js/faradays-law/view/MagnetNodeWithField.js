@@ -15,6 +15,7 @@ define( require => {
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
+  const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const FaradaysLawKeyboardDragListener = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawKeyboardDragListener' );
   const FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
   const JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
@@ -31,6 +32,10 @@ define( require => {
   // @a11y strings
   const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
   const moveInFourDirectionsString = FaradaysLawA11yStrings.moveInFourDirections.value;
+
+  // constants
+  const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
+  const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 
   /**
    * @param {FaradaysLawModel} model
@@ -172,7 +177,8 @@ define( require => {
 
             const magnitude = Number( domEvent.key );
 
-            if ( model.magnet.positionProperty.get().x <= ( model.bounds.maxX / 2 ) ) {
+            const dragBoundsMax = model.bounds.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT ).maxX;
+            if ( model.magnet.positionProperty.get().x < ( dragBoundsMax / 2 ) ) {
               // point to right
               rightJumpArrows.showCue( magnitude );
             }
