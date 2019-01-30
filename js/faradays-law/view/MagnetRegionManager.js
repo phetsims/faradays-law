@@ -35,7 +35,7 @@ define( require => {
   const columnWidth = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / NUMBER_OF_ROWS );
 
   // the distance the magnet must mofe in order for the extra prompt to be removed
-  const DISTANCE_MOVED_THRESHOLD = Math.round( FaradaysLawConstants.LAYOUT_BOUNDS.width / 5 );
+const DISTANCE_MOVED_THRESHOLD = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.width / 5 );
 
   /**
   * Creates a new Bounds2 object centered on the privided vector.
