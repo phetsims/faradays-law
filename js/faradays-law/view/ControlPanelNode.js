@@ -60,7 +60,6 @@ define( function( require ) {
       right: model.bounds.maxX - 10,
       bottom: 0,
       scale: 0.75,
-      tandem: tandem.createTandem( 'resetAllButton' ),
 
       // a11y
       containerTagName: 'li'
