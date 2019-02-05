@@ -12,7 +12,7 @@ define( function( require ) {
   const LinearFunction = require( 'DOT/LinearFunction' );
   const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   const Property = require( 'AXON/Property' );
-  const timer = require( 'PHET_CORE/timer' );
+  const timer = require( 'AXON/timer' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
 
