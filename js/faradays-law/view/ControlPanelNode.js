@@ -62,7 +62,10 @@ define( function( require ) {
       scale: 0.75,
 
       // a11y
-      containerTagName: 'li'
+      containerTagName: 'li',
+
+      // phet-io
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     // flip magnet button
