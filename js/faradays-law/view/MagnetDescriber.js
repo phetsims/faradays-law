@@ -171,8 +171,8 @@ define( function( require ) {
         alertText = StringUtils.fillIn(
           slidingStoppedPositionFourCoilTwoCoilFieldLinesPatternString,
           {
-            slidingAndPositionPhrase,
-            twoCoilFieldLines,
+            slidingAndPositionPhrase: slidingAndPositionPhrase,
+            twoCoilFieldLines: twoCoilFieldLines,
             fourCoil: this.fourCoilProximityString
           }
         );
@@ -180,7 +180,7 @@ define( function( require ) {
         alertText = StringUtils.fillIn(
           slidingAndPositionFourCoilPatternString,
           {
-            slidingAndPositionPhrase,
+            slidingAndPositionPhrase: slidingAndPositionPhrase,
             fourCoil: this.fourCoilProximityString
           }
         );
@@ -189,7 +189,7 @@ define( function( require ) {
           fourCoilTwoCoilFieldLinesPatternString,
           {
             fourCoil: this.fourCoilProximityString,
-            twoCoilFieldLines
+            twoCoilFieldLines: twoCoilFieldLines
           }
         );
       }
@@ -198,7 +198,7 @@ define( function( require ) {
     }
 
     getBumpingCoilString( coil ) {
-      return StringUtils.fillIn( bumpingCoilPatternString, { coil } );
+      return StringUtils.fillIn( bumpingCoilPatternString, { coil: coil } );
     }
 
     getFlipMagnetAlertText( orientation ) {
@@ -211,7 +211,7 @@ define( function( require ) {
         southSide = leftString;
       }
 
-      let alert = StringUtils.fillIn( alertPattern, { northSide, southSide } );
+      let alert = StringUtils.fillIn( alertPattern, { northSide: northSide, southSide: southSide } );
 
       if ( this._model.magnet.fieldLinesVisibleProperty.get() ) {
         alert += ' ' + fieldLinesDescriptionUpdatedString;
@@ -295,7 +295,7 @@ define( function( require ) {
 
     getPoleSideString( pole, orientation ) {
       const side = this._magnet.orientationProperty.get() === orientation ? leftString : rightString;
-      return StringUtils.fillIn( poleOnThePatternString, { pole, side } );
+      return StringUtils.fillIn( poleOnThePatternString, { pole: pole, side: side } );
     }
 
     get fourLoopOnlyMagnetPosition() {
@@ -310,7 +310,7 @@ define( function( require ) {
       if ( touchingCoil >= 0 && !this.regionManager.magnetInCoil ) {
         return StringUtils.fillIn( touchingSideOfCoilPatternString, touchingCoil );
       }
-      return StringUtils.fillIn( magnetPositionProximityPatternString, { magnetPosition, coilProximity } );
+      return StringUtils.fillIn( magnetPositionProximityPatternString, { magnetPosition: magnetPosition, coilProximity: coilProximity } );
     }
 
     get positionOfPlayAreaString() {
@@ -360,12 +360,12 @@ define( function( require ) {
 
     static getMagnetSlidingAlertText( speedValue, directionValue ) {
       const direction = DIRECTIONS[ directionValue ];
-      return StringUtils.fillIn( magnetSlidingAlertPatternString, { direction } );
+      return StringUtils.fillIn( magnetSlidingAlertPatternString, { direction: direction } );
     }
 
     static getFieldLinesVisibilityAlertText( showLines ) {
       const visibility = showLines ? visibleString : hiddenString;
-      let alert = StringUtils.fillIn( fieldLinesVisibilityPatternString, { visibility } );
+      let alert = StringUtils.fillIn( fieldLinesVisibilityPatternString, { visibility: visibility } );
 
       if ( showLines ) {
         alert += ' ' + fieldLinesDescriptionUpdatedString;
@@ -379,12 +379,12 @@ define( function( require ) {
 
     static getVoltmeterAttachmentAlertText( showVoltmeter ) {
       const attachmentState = showVoltmeter ? connectedString : removedString;
-      return StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState } );
+      return StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState: attachmentState } );
     }
 
     static getCoilConnectionAlertText( showTopCoil ) {
       const coil = showTopCoil ? twoCoilsString : oneCoilString;
-      return StringUtils.fillIn( circuitNowHasPatternString, { coil } );
+      return StringUtils.fillIn( circuitNowHasPatternString, { coil: coil } );
     }
 
     static getCoilDescription( showTopCoil ) {
@@ -394,7 +394,7 @@ define( function( require ) {
     static getFourCoilOnlyDescription( showVoltmeter ) {
       const circuitContents = showVoltmeter ? circuitFourCoilAndVoltmeterString : circuitFourCoilOnlyString;
       const coilDescription = singleCoilDescriptionString;
-      return StringUtils.fillIn( circuitDescriptionPatternString, { circuitContents, coilDescription } );
+      return StringUtils.fillIn( circuitDescriptionPatternString, { circuitContents: circuitContents, coilDescription: coilDescription } );
     }
   }
 

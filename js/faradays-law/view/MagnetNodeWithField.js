@@ -70,7 +70,7 @@ define( require => {
         // The parent (MagnetNodeWithField) isn't instrumented, and this is the interactive node, so instrument this as
         // the "parent" magnet instances, see https://github.com/phetsims/faradays-law/issues/116.
         // NOTE: this assumes that tandem is not passed into a mutate or Node.call() in the MagnetNodeWithField type.
-        tandem,
+        tandem: tandem,
         phetioDocumentation: 'The draggable container for the magnet and arrows',
 
         // a11y

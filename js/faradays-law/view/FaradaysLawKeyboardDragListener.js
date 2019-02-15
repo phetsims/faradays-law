@@ -32,7 +32,7 @@ define( require => {
         alertManager.movementEndAlert();
       };
 
-      super( { drag, end, dragBounds: model.bounds } );
+      super( { drag: drag, end: end, dragBounds: model.bounds } );
 
       this.regionManager = regionManager;
       this.alertManager = alertManager;
