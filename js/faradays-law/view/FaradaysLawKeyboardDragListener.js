@@ -10,7 +10,7 @@ define( require => {
 
   // modules
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  const KeyboardDragListener = require( 'SCENERY/listeners/KeyboardDragListener' );
   class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
     // need to implement;
       // drag
