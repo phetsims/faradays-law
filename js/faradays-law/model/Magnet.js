@@ -22,7 +22,7 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
   var StringIO = require( 'TANDEM/types/StringIO' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Vector2IO = require( 'DOT/Vector2IO' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   // var DIAGONAL_TOLERANCE = Math.PI / 8;
@@ -40,10 +40,9 @@ define( function( require ) {
     this.height = FaradaysLawConstants.MAGNET_HEIGHT;
 
     // @public {Property.<Vector2>} - position of the magnet
-    this.positionProperty = new Property( new Vector2( 647, 219 ), {
+    this.positionProperty = new Vector2Property( new Vector2( 647, 219 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioDocumentation: 'The location of the center of the bar magnet in view coordinates',
-      phetioType: PropertyIO( Vector2IO ),
       phetioHighFrequency: true
     } );
 
