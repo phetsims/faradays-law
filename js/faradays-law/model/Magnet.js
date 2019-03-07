@@ -39,7 +39,7 @@ define( function( require ) {
     // @public {number} - height of the magnet
     this.height = FaradaysLawConstants.MAGNET_HEIGHT;
 
-    // @public {Property.<Vector2>} - position of the magnet
+    // @public - position of the magnet
     this.positionProperty = new Vector2Property( new Vector2( 647, 219 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioDocumentation: 'The location of the center of the bar magnet in view coordinates',
