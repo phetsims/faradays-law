@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.15 Tue Nov 06 2018 13:42:38 GMT-0700 (MST)",
+  "comment": "# faradays-law 1.1.15 Fri Mar 08 2019 13:13:38 GMT-0500 (EST)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -9,8 +9,8 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "ca32c317c4383028bc769becb2f8d443ce382f73",
-    "branch": "HEAD"
+    "sha": "c9df867c768f6b1973f6507325929d2b30b57c3f",
+    "branch": "faradays-law-1.1"
   },
   "chipper": {
     "sha": "75eb9dc552480e03e1e80c7cc00a424d86547a73",
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "bdafb66b6032a0b2cf5c6a57ebf6c58db98fea01",
+    "sha": "93978978bd4d5334bb515cba1357a1f075005b10",
     "branch": "1.1"
   },
   "joist": {
-    "sha": "edd95ec98f4eeb0384fbae1de3ddcde91c97b02f",
-    "branch": "HEAD"
+    "sha": "7d17dd9347aa8b7817d3116118987de0cc6d208c",
+    "branch": "faradays-law-1.1"
   },
   "kite": {
     "sha": "7f2df7e9ec52ed32d8c0fe0c1fe6bfa8c043c510",
