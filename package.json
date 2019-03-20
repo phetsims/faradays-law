@@ -18,11 +18,13 @@
       "phet-io",
       "adapted-from-phet"
     ],
-    "preload": [
-      "../faradays-law/phet-io-elements.js"
-    ],
     "accessible": true,
-    "simulation": true
+    "simulation": true,
+    "phet-io": {
+      "preload": [
+        "../faradays-law/phet-io-elements.js"
+      ]
+    }
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js"
