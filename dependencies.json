@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.15 Tue Mar 19 2019 16:18:08 GMT-0400 (EDT)",
+  "comment": "# faradays-law 1.1.16-rc.1 Wed Mar 20 2019 18:54:42 GMT-0400 (EDT)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "567cbc2fe1744b83dee6816615bfeb2dadb2441b",
-    "branch": "faradays-law-1.1"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "b9e3c1e07271b8b4fee91fca360f51563fe479cb",
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "31e3945d4d4ada869958eb9e2059b21f039ce9ad",
+    "sha": "092d02189e166cb6d22ac64c9b9fcfbaedeea359",
     "branch": "1.1"
   },
   "joist": {
