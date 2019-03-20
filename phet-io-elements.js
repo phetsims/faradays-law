@@ -1,6 +1,17 @@
 /* eslint-disable */
 window.phetioElementMetadata=
-  {
+{
+    "phetioEngine": {
+      "phetioTypeName": "PhetioEngineIO",
+      "phetioDocumentation": "Central point for PhET-iO interoperability",
+      "phetioState": false,
+      "phetioReadOnly": false,
+      "phetioEventType": "model",
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioStudioControl": true,
+      "phetioFeatured": false
+    },
     "faradaysLaw.general.phetioCommandProcessor": {
       "phetioTypeName": "PhetioCommandProcessorIO",
       "phetioDocumentation": "Processes messages from the wrapper frame and returns the results. This serves as the source of PhET-iO data stream messages when commands are invoked from the wrapper.",
@@ -1314,12 +1325,12 @@ window.phetioElementMetadata=
       "phetioTypeName": "PropertyIO.<BooleanIO>",
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioState": true,
-      "phetioReadOnly": true,
+      "phetioReadOnly": false,
       "phetioEventType": "model",
-      "phetioHighFrequency": true,
-      "phetioPlayback": true,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
       "phetioStudioControl": true,
-      "phetioFeatured": true
+      "phetioFeatured": false
     },
     "faradaysLaw.faradaysLawScreen.view.fieldLinesCheckbox.pickableProperty": {
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>",
@@ -1327,7 +1338,7 @@ window.phetioElementMetadata=
       "phetioState": true,
       "phetioReadOnly": false,
       "phetioEventType": "model",
-      "phetioHighFrequency": true,
+      "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioStudioControl": true,
       "phetioFeatured": false
@@ -1528,7 +1539,7 @@ window.phetioElementMetadata=
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioStudioControl": true,
-      "phetioFeatured": true
+      "phetioFeatured": false
     },
     "faradaysLaw.general.barrierRectangle.inputListener.releasedEmitter": {
       "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>",
@@ -1539,7 +1550,7 @@ window.phetioElementMetadata=
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioStudioControl": true,
-      "phetioFeatured": true
+      "phetioFeatured": false
     },
     "faradaysLaw.general.barrierRectangle.inputListener.firedEmitter": {
       "phetioTypeName": "EmitterIO.<>",
@@ -1550,6 +1561,6 @@ window.phetioElementMetadata=
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioStudioControl": true,
-      "phetioFeatured": true
+      "phetioFeatured": false
     }
-  }
+  };
