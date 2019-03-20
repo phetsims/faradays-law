@@ -22,7 +22,7 @@
     "simulation": true,
     "phet-io": {
       "preload": [
-        "../faradays-law/phet-io-elements.js"
+        "../faradays-law/js/phet-io-elements-api.js"
       ]
     }
   },

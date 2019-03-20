@@ -1,5 +1,5 @@
 /* eslint-disable */
-window.phetioElementMetadata=
+window.phet.phetio.phetioElementsAPI =
 {
     "phetioEngine": {
       "phetioTypeName": "PhetioEngineIO",
