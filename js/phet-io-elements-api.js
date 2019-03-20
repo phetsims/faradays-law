@@ -1,6 +1,6 @@
 /* eslint-disable */
-window.phet.phetio.phetioElementsAPI =
-{
+window.phet.phetio.phetioElementsAPI=
+  {
     "phetioEngine": {
       "phetioTypeName": "PhetioEngineIO",
       "phetioDocumentation": "Central point for PhET-iO interoperability",
