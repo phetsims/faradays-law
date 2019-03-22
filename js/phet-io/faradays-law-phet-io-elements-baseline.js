@@ -25,7 +25,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.general.soundEnabledProperty": {
       "phetioTypeName": "PropertyIO.<BooleanIO>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": true,
       "phetioReadOnly": false,
       "phetioEventType": "model",
@@ -58,7 +58,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.general.stepSimulationEmitter": {
       "phetioTypeName": "EmitterIO.<NumberIO>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": false,
       "phetioReadOnly": false,
       "phetioEventType": "model",
@@ -102,7 +102,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.general.controller.input.validatePointersEmitter": {
       "phetioTypeName": "EmitterIO.<>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": false,
       "phetioReadOnly": false,
       "phetioEventType": "model",
@@ -344,7 +344,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.firedEmitter": {
       "phetioTypeName": "EmitterIO.<>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": false,
       "phetioReadOnly": false,
       "phetioEventType": "user",
@@ -421,7 +421,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.fullScreenMenuItem.inputListener.firedEmitter": {
       "phetioTypeName": "EmitterIO.<>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": false,
       "phetioReadOnly": false,
       "phetioEventType": "user",
@@ -498,7 +498,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.firedEmitter": {
       "phetioTypeName": "EmitterIO.<>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": false,
       "phetioReadOnly": false,
       "phetioEventType": "user",
@@ -1213,7 +1213,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.faradaysLawScreen.view.voltmeterCheckbox.property": {
       "phetioTypeName": "LinkedElementIO",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": true,
       "phetioReadOnly": true,
       "phetioEventType": "model",
@@ -1290,7 +1290,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.faradaysLawScreen.view.fieldLinesCheckbox.property": {
       "phetioTypeName": "LinkedElementIO",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": true,
       "phetioReadOnly": true,
       "phetioEventType": "model",
@@ -1400,7 +1400,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.faradaysLawScreen.view.magnetNode.fieldLinesNode": {
       "phetioTypeName": "NodeIO",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": true,
       "phetioReadOnly": false,
       "phetioEventType": "model",
@@ -1444,7 +1444,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.faradaysLawScreen.view.magnetNode": {
       "phetioTypeName": "NodeIO",
-      "phetioDocumentation": "The draggable container for the magnet and arrows",
+      "phetioDocumentation": "",
       "phetioState": true,
       "phetioReadOnly": false,
       "phetioEventType": "model",
@@ -1554,7 +1554,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.general.barrierRectangle.inputListener.firedEmitter": {
       "phetioTypeName": "EmitterIO.<>",
-      "phetioDocumentation": null,
+      "phetioDocumentation": "",
       "phetioState": false,
       "phetioReadOnly": false,
       "phetioEventType": "user",
