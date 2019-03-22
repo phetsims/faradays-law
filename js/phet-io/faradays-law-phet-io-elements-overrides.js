@@ -2,26 +2,25 @@
 window.phet.phetio.phetioElementsOverrides =
   {
     "faradaysLaw.faradaysLawScreen.model.topCoilVisibleProperty": {
+      "phetioFeatured": true,
       "phetioReadOnly": true,
-      "phetioHighFrequency": true,
-      "phetioPlayback": true,
-      "phetioFeatured": true
+      "phetioHighFrequency": true
     },
     "faradaysLaw.faradaysLawScreen.model.magnetArrowsVisibleProperty": {
+      "phetioFeatured": true,
       "phetioReadOnly": true,
-      "phetioHighFrequency": true,
-      "phetioPlayback": true,
-      "phetioFeatured": true
+      "phetioHighFrequency": true
     },
     "faradaysLaw.faradaysLawScreen.model.voltmeterVisibleProperty": {
+      "phetioFeatured": true,
       "phetioReadOnly": true,
-      "phetioHighFrequency": true,
-      "phetioPlayback": true,
-      "phetioFeatured": true
+      "phetioHighFrequency": true
     },
     "faradaysLaw.faradaysLawScreen.model.magnet.positionProperty": {
-      "phetioReadOnly": true,
-      "phetioPlayback": true,
+      "phetioFeatured": true,
+      "phetioReadOnly": true
+    },
+    "faradaysLaw.faradaysLawScreen.view.magnetNode": {
       "phetioFeatured": true
     }
   };
