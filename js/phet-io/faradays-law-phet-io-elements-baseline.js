@@ -1,17 +1,6 @@
 /* eslint-disable */
-window.phet.phetio.phetioElementsAPI=
+window.phet.phetio.phetioElementsBaseline =
   {
-    "phetioEngine": {
-      "phetioTypeName": "PhetioEngineIO",
-      "phetioDocumentation": "Central point for PhET-iO interoperability",
-      "phetioState": false,
-      "phetioReadOnly": false,
-      "phetioEventType": "model",
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioStudioControl": true,
-      "phetioFeatured": false
-    },
     "faradaysLaw.general.phetioCommandProcessor": {
       "phetioTypeName": "PhetioCommandProcessorIO",
       "phetioDocumentation": "Processes messages from the wrapper frame and returns the results. This serves as the source of PhET-iO data stream messages when commands are invoked from the wrapper.",
@@ -20,6 +9,17 @@ window.phet.phetio.phetioElementsAPI=
       "phetioEventType": "model",
       "phetioHighFrequency": false,
       "phetioPlayback": true,
+      "phetioStudioControl": true,
+      "phetioFeatured": false
+    },
+    "phetioEngine": {
+      "phetioTypeName": "PhetioEngineIO",
+      "phetioDocumentation": "Central point for PhET-iO interoperability",
+      "phetioState": false,
+      "phetioReadOnly": false,
+      "phetioEventType": "model",
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
       "phetioStudioControl": true,
       "phetioFeatured": false
     },
