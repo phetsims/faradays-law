@@ -1444,7 +1444,7 @@ window.phet.phetio.phetioElementsBaseline =
     },
     "faradaysLaw.faradaysLawScreen.view.magnetNode": {
       "phetioTypeName": "NodeIO",
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The draggable container for the magnet and arrows",
       "phetioState": true,
       "phetioReadOnly": false,
       "phetioEventType": "model",
