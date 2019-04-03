@@ -21,7 +21,6 @@ define( function( require ) {
 
   // create model and view
   const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.rootTandem.createTandem( 'model' ) );
-  // const view = new FaradaysLawScreenView( model, new Tandem() );
 
   const regionTester = new MagnetRegionManager( model );
 
