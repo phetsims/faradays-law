@@ -30,7 +30,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
-  // strings
+  // a11y strings
   var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;
   var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
 
