@@ -14,6 +14,10 @@ define( require => {
 
     constructor( describer  ) {
       this.describer = describer;
+
+      // @private {Utterance} - utterance for end of a keyboard movement, single utterance
+      // gets added to the utteranceQueue to prevent too many alerts with this content
+      this.keyboardMovementUtterance = new Utterance();
     }
 
     magnetFocusAlert() {
@@ -22,8 +26,8 @@ define( require => {
     }
 
     movementEndAlert() {
-      const alert = new Utterance( { alert: this.describer.magnetMovedAlertText(), uniqueGroupId: 'keyboardMove' } );
-      utteranceQueue.addToFront( alert );
+      this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText(); 
+      utteranceQueue.addToFront( this.keyboardMovementUtterance );
     }
 
     flipMagnetAlert( orientation ) {
