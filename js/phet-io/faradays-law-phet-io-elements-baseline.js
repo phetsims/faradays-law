@@ -164,7 +164,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.doubleCoilRadioButton.pressListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -175,7 +175,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.doubleCoilRadioButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
@@ -274,7 +274,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.singleCoilRadioButton.pressListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -285,7 +285,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.singleCoilRadioButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
@@ -373,7 +373,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<BooleanIO>"
+      "phetioTypeName": "ActionIO.<BooleanIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.fieldLinesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
@@ -450,7 +450,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.flipMagnetButton.pressListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -461,7 +461,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.flipMagnetButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
@@ -494,7 +494,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO>"
+      "phetioTypeName": "ActionIO.<EventIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.magnetNode.dragListener.pressedEmitter": {
       "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
@@ -505,7 +505,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.magnetNode.dragListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -516,7 +516,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.magnetNode.fieldLinesNode": {
       "phetioDocumentation": "",
@@ -670,7 +670,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.resetAllButton.pressListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -681,7 +681,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.resetAllButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
@@ -758,7 +758,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<BooleanIO>"
+      "phetioTypeName": "ActionIO.<BooleanIO>"
     },
     "faradaysLaw.faradaysLawScreen.view.voltmeterCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
@@ -912,7 +912,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.general.barrierRectangle.inputListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -923,7 +923,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.general.barrierRectangle.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
@@ -978,7 +978,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.mouseMovedEmitter": {
       "phetioDocumentation": "Emits when the mouse is moved",
@@ -989,7 +989,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.mouseOutEmitter": {
       "phetioDocumentation": "Emits when the mouse moves out of the display",
@@ -1000,7 +1000,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.mouseOverEmitter": {
       "phetioDocumentation": "Emits when the mouse is moved over a Node",
@@ -1011,7 +1011,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.mouseUpEmitter": {
       "phetioDocumentation": "Emits when a mouse button is released",
@@ -1022,7 +1022,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.penCanceledEmitter": {
       "phetioDocumentation": "Emits when a pen is canceled",
@@ -1033,7 +1033,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.penEndedEmitter": {
       "phetioDocumentation": "Emits when a pen is lifted",
@@ -1044,7 +1044,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.penMovedEmitter": {
       "phetioDocumentation": "Emits when a pen is moved",
@@ -1055,7 +1055,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.penStartedEmitter": {
       "phetioDocumentation": "Emits when a pen touches the screen",
@@ -1066,7 +1066,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.touchCanceledEmitter": {
       "phetioDocumentation": "Emits when a touch is canceled",
@@ -1077,7 +1077,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.touchEndedEmitter": {
       "phetioDocumentation": "Emits when a touch ends",
@@ -1088,7 +1088,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.touchMovedEmitter": {
       "phetioDocumentation": "Emits when a touch moves",
@@ -1099,7 +1099,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.touchStartedEmitter": {
       "phetioDocumentation": "Emits when a touch begins",
@@ -1110,7 +1110,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, Vector2IO, DOMEventIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "faradaysLaw.general.controller.input.validatePointersEmitter": {
       "phetioDocumentation": "",
@@ -1121,7 +1121,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<>"
+      "phetioTypeName": "ActionIO.<>"
     },
     "faradaysLaw.general.controller.input.wheelScrolledEmitter": {
       "phetioDocumentation": "Emits when the mouse wheel scrolls",
@@ -1132,7 +1132,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<DOMEventIO>"
+      "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
     "faradaysLaw.general.phetioCommandProcessor": {
       "phetioDocumentation": "Processes messages from the wrapper frame and returns the results. This serves as the source of PhET-iO data stream messages when commands are invoked from the wrapper.",
@@ -1154,7 +1154,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO, NumberIO>"
+      "phetioTypeName": "ActionIO.<NumberIO, NumberIO>"
     },
     "faradaysLaw.general.screenIndexProperty": {
       "phetioDocumentation": "Indicates which screen is selected (0-indexed)",
@@ -1187,7 +1187,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NumberIO>"
+      "phetioTypeName": "ActionIO.<NumberIO>"
     },
     "faradaysLaw.navigationBar.phetButton": {
       "phetioDocumentation": "The button that appears at the right side of the navigation bar, which shows a menu when pressed",
@@ -1264,7 +1264,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -1275,7 +1275,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.aboutMenuItem.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
@@ -1341,7 +1341,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.fullScreenMenuItem.inputListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -1352,7 +1352,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.fullScreenMenuItem.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
@@ -1418,7 +1418,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -1429,7 +1429,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.phetMenu.screenshotMenuItem.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
@@ -1484,7 +1484,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<EventIO, VoidIO, VoidIO>"
+      "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "faradaysLaw.navigationBar.phetButton.pressListener.releasedEmitter": {
       "phetioDocumentation": "Emits whenever a release occurs.",
@@ -1495,7 +1495,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO.<NullableIO.<EventIO>, VoidIO>"
+      "phetioTypeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "faradaysLaw.navigationBar.titleTextNode": {
       "phetioDocumentation": "Displays the title of the simulation in the navigation bar (bottom left)",
