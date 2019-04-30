@@ -77,15 +77,7 @@ define( function( require ) {
       .moveTo( 0, BULB_BASE_WIDTH * 0.3 )
       .cubicCurveTo( -filamentWireHeight * 0.3, BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentBottomPoint.y, filamentBottomPoint.x, filamentBottomPoint.y );
     var filamentSupportWires = new Path( filamentSupportWiresShape, { stroke: 'black' } );
-
-    // Create the filament, which is a zig-zag shape.
-    var filamentShape = new Shape().moveToPoint( filamentTopPoint );
-    for ( var i = 0; i < NUM_FILAMENT_ZIG_ZAGS - 1; i++ ) {
-      var yPos = filamentTopPoint.y + ( filamentBottomPoint.y - filamentTopPoint.y ) / NUM_FILAMENT_ZIG_ZAGS * ( i + 1 );
-      var xZig = i % 2 === 0 ? FILAMENT_ZIG_ZAG_SPAN : 0;
-      filamentShape.lineTo( filamentTopPoint.x + xZig, yPos );
-    }
-    filamentShape.lineToPoint( filamentBottomPoint );
+    var filamentShape = new Shape().moveToPoint( filamentBottomPoint ).zigZagToPoint( filamentTopPoint, FILAMENT_ZIG_ZAG_SPAN, NUM_FILAMENT_ZIG_ZAGS, true );
     var filamentNode = new Path( filamentShape, { stroke: 'black' } );
 
     // Create the 'halo' that makes the bulb look like it is shining.
