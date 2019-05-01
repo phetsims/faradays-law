@@ -1145,7 +1145,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioCommandProcessorIO"
     },
-    "faradaysLaw.general.resizedEmitter": {
+    "faradaysLaw.general.resizedAction": {
       "phetioDocumentation": "Emits when the sim is resized",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -1178,7 +1178,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "faradaysLaw.general.stepSimulationEmitter": {
+    "faradaysLaw.general.stepSimulationAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
