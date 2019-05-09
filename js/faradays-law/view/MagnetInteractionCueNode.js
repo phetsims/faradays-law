@@ -41,7 +41,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var a11yEnabled = phet.chipper.queryParameters.accessibility;
+    var a11yEnabled = phet.chipper.accessibility;
 
     var wNode = a11yEnabled ? this.createA11yMovementKeyNode( 'up' ) : this.createMovementKeyNode( 'up' );
     var aNode = a11yEnabled ? this.createA11yMovementKeyNode( 'left' ) : this.createMovementKeyNode( 'left' );
