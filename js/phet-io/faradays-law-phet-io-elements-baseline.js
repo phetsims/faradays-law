@@ -1,17 +1,6 @@
 /* eslint-disable */
 window.phet.phetio.phetioElementsBaseline =
   {
-    "faradaysLaw.activityMonitor.currentActivityProperty": {
-      "phetioDocumentation": "",
-      "phetioEventType": "model",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO.<ObjectIO>"
-    },
     "faradaysLaw.faradaysLawScreen.activeProperty": {
       "phetioDocumentation": "Indicates whether the screen is active.  For single-screen simulations, the screen is always active.",
       "phetioEventType": "model",
