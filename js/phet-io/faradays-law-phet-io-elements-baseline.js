@@ -111,10 +111,10 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.doubleCoilRadioButton.buttonModel.enabledProperty": {
+    "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.doubleCoilRadioButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -180,7 +180,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.doubleCoilRadioButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -221,10 +221,10 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.singleCoilRadioButton.buttonModel.enabledProperty": {
+    "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.singleCoilRadioButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -290,7 +290,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.singleCoilRadioButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -400,7 +400,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.flipMagnetButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -466,7 +466,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.flipMagnetButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -609,7 +609,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -686,7 +686,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.resetAllButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -1214,7 +1214,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.navigationBar.phetButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
