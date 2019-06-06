@@ -28,8 +28,8 @@ define( function( require ) {
   var BULB_BODY_HEIGHT = 125 - 45;
   var BULB_WIDTH = 65;
   var BULB_BASE_WIDTH = 36;
-  var NUM_FILAMENT_ZIG_ZAGS = 8;
-  var FILAMENT_ZIG_ZAG_SPAN = 8;
+  var NUM_FILAMENT_ZIG_ZAGS = 4;
+  var FILAMENT_ZIG_ZAG_SPAN = 4;
   var BULB_X_DISPLACEMENT = -45; // Bulb dx relative to center position
   var BULB_NECK_WIDTH = BULB_BASE_WIDTH * 0.85;
   var CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
