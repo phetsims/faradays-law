@@ -114,7 +114,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.doubleCoilRadioButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": true,
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -224,7 +224,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.coilRadioButtonGroup.singleCoilRadioButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": true,
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -400,7 +400,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.flipMagnetButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": true,
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -609,7 +609,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.faradaysLawScreen.view.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": true,
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -1214,7 +1214,7 @@ window.phet.phetio.phetioElementsBaseline =
     "faradaysLaw.navigationBar.phetButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": true,
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
