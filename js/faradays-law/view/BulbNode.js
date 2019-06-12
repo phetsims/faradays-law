@@ -52,8 +52,22 @@ define( function( require ) {
 
     // Create the bulb body.
     var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 )
-      .cubicCurveTo( -BULB_BODY_HEIGHT * 0.33, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.95, -CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT, 0 )
-      .cubicCurveTo( -BULB_BODY_HEIGHT * 0.95, CONTROL_POINT_Y_VALUE, -BULB_BODY_HEIGHT * 0.33, CONTROL_POINT_Y_VALUE, 0, BULB_NECK_WIDTH / 2 );
+      .cubicCurveTo(
+        -BULB_BODY_HEIGHT * 0.33,
+        -CONTROL_POINT_Y_VALUE,
+        -BULB_BODY_HEIGHT * 0.95,
+        -CONTROL_POINT_Y_VALUE,
+        -BULB_BODY_HEIGHT,
+        0
+      )
+      .cubicCurveTo(
+        -BULB_BODY_HEIGHT * 0.95,
+        CONTROL_POINT_Y_VALUE,
+        -BULB_BODY_HEIGHT * 0.33,
+        CONTROL_POINT_Y_VALUE,
+        0,
+        BULB_NECK_WIDTH / 2
+      );
     var bulbBodyOutline = new Path( bulbShape, {
       stroke: 'black',
       lineCap: 'round'
@@ -73,11 +87,27 @@ define( function( require ) {
     var filamentBottomPoint = new Vector2( -filamentWireHeight, BULB_WIDTH * 0.3 );
     var filamentSupportWiresShape = new Shape()
       .moveTo( 0, -BULB_BASE_WIDTH * 0.3 )
-      .cubicCurveTo( -filamentWireHeight * 0.3, -BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentTopPoint.y, filamentTopPoint.x, filamentTopPoint.y )
+      .cubicCurveTo(
+        -filamentWireHeight * 0.3,
+        -BULB_BASE_WIDTH * 0.3,
+        -filamentWireHeight * 0.4,
+        filamentTopPoint.y,
+        filamentTopPoint.x,
+        filamentTopPoint.y
+      )
       .moveTo( 0, BULB_BASE_WIDTH * 0.3 )
-      .cubicCurveTo( -filamentWireHeight * 0.3, BULB_BASE_WIDTH * 0.3, -filamentWireHeight * 0.4, filamentBottomPoint.y, filamentBottomPoint.x, filamentBottomPoint.y );
+      .cubicCurveTo(
+        -filamentWireHeight * 0.3,
+        BULB_BASE_WIDTH * 0.3,
+        -filamentWireHeight * 0.4,
+        filamentBottomPoint.y,
+        filamentBottomPoint.x,
+        filamentBottomPoint.y
+      );
     var filamentSupportWires = new Path( filamentSupportWiresShape, { stroke: 'black' } );
-    var filamentShape = new Shape().moveToPoint( filamentBottomPoint ).zigZagToPoint( filamentTopPoint, FILAMENT_ZIG_ZAG_SPAN, NUM_FILAMENT_ZIG_ZAGS, true );
+    var filamentShape = new Shape()
+      .moveToPoint( filamentBottomPoint )
+      .zigZagToPoint( filamentTopPoint, FILAMENT_ZIG_ZAG_SPAN, NUM_FILAMENT_ZIG_ZAGS, true );
     var filamentNode = new Path( filamentShape, { stroke: 'black' } );
 
     // Create the 'halo' that makes the bulb look like it is shining.
