@@ -741,7 +741,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "faradaysLaw.faradaysLawScreen.view.voltmeterCheckbox.property": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": true,
