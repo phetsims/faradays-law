@@ -41,7 +41,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var a11yEnabled = phet.joist.sim.accessibility;
+    var a11yEnabled = phet.joist.sim.isAccessible;
 
     var wNode = a11yEnabled ? this.createA11yMovementKeyNode( 'up' ) : this.createMovementKeyNode( 'up' );
     var aNode = a11yEnabled ? this.createA11yMovementKeyNode( 'left' ) : this.createMovementKeyNode( 'left' );
