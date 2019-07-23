@@ -40,15 +40,15 @@ define( function( require ) {
    * @constructor
    */
   function FaradaysLawScreenView( model, tandem ) {
+
+    var summaryNode = new Node();
+
     ScreenView.call( this, {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
-
-      // a11y - TODO: Remove once https://github.com/phetsims/scenery-phet/issues/393 is complete
-      addScreenSummaryNode: true
+      screenSummaryContent: summaryNode
     } );
 
     // screen Summary
-    var summaryNode = new Node();
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
@@ -57,8 +57,6 @@ define( function( require ) {
     var circuitDescriptionNode = new CircuitDescriptionNode( model );
 
     playArea.addChild( circuitDescriptionNode );
-
-    this.screenSummaryNode.addChild( summaryNode );
     this.addChild( playArea );
 
     // coils
@@ -121,14 +119,15 @@ define( function( require ) {
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
+    playArea.accessibleOrder = [null, this.magnetNodeWithField];
 
-    // a11y keyboard nav order
-    this.accessibleOrder = [
-      this.screenSummaryNode,
-      playArea,
-      this.magnetNodeWithField,
-      controlPanel
-    ];
+    // TODO: this should not be set on the screen view, magnetNodeWithField should be in an accessible section
+    // // a11y keyboard nav order
+    // this.accessibleOrder = [
+    //   playArea,
+    //   this.magnetNodeWithField,
+    //   controlPanel
+    // ];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();
