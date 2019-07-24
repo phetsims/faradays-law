@@ -32,7 +32,6 @@ define( function( require ) {
   const faradaysLawVoltmeterString = require( 'string!FARADAYS_LAW/faradays-law.voltmeter' );
 
   // a11y strings
-  const constrolsString = FaradaysLawA11yStrings.controls.value;
   const voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
   const voltmeterDescriptionString = FaradaysLawA11yStrings.voltmeterDescription.value;
   const numberOneCoilString = FaradaysLawA11yStrings.numberOneCoil.value;
@@ -49,9 +48,7 @@ define( function( require ) {
   function ControlPanelNode( model, tandem ) {
 
     Node.call( this, {
-      tagName: 'ul',
-      labelTagName: 'h3',
-      labelContent: constrolsString
+      tagName: 'ul'
     } );
 
     // reset button - added at end of constructor for a11y ordering

@@ -34,9 +34,6 @@ define( function( require ) {
     barMagnet: {
       value: 'Bar Magnet'
     },
-    controls: {
-      value: 'Control Area'
-    },
 
     /**************************************
      * Circuit descriptions and help text *

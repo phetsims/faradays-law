@@ -10,9 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // var Path = require( 'SCENERY/nodes/Path' );
-  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  // var Shape = require( 'KITE/Shape' );
   var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
   var CircuitDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/CircuitDescriptionNode' );
   var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
@@ -25,7 +22,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
   var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
@@ -52,12 +48,7 @@ define( function( require ) {
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
-    var playArea = new PlayAreaNode( { containerTagName: null } );
-
-    var circuitDescriptionNode = new CircuitDescriptionNode( model );
-
-    playArea.addChild( circuitDescriptionNode );
-    this.addChild( playArea );
+    this.playAreaNode.addChild( new CircuitDescriptionNode( model ) );
 
     // coils
     var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
@@ -119,15 +110,8 @@ define( function( require ) {
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
-    playArea.accessibleOrder = [null, this.magnetNodeWithField];
-
-    // TODO: this should not be set on the screen view, magnetNodeWithField should be in an accessible section
-    // // a11y keyboard nav order
-    // this.accessibleOrder = [
-    //   playArea,
-    //   this.magnetNodeWithField,
-    //   controlPanel
-    // ];
+    this.playAreaNode.accessibleOrder = [null, this.magnetNodeWithField];
+    this.controlAreaNode.accessibleOrder = [controlPanel];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();
