@@ -50,7 +50,6 @@ define( function( require ) {
 
     var otherComponentsNode = new Node( {
       tagName: 'ul',
-      labelTagName: 'p',
       labelContent: inTheCircuitString,
       appendDescription: true
     } );

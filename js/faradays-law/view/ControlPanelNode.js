@@ -97,8 +97,7 @@ define( function( require ) {
       value: true,// var coilRadioButtonsItem = new Node( {
       //   containerTagName: 'li',
       //   tagName: 'div',
-      //   labelContent: 'Circuit Mode:',
-      //   labelTagName: 'p'
+      //   labelContent: 'Circuit Mode:'
       // } );
 
       // this.addChild( coilRadioButtonsItem );
@@ -125,7 +124,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'coilRadioButtonGroup' ),
       phetioDocumentation: 'Radio button group that selects between one or two coils.',
       containerTagName: 'li',
-      labelTagName: 'p',
       labelContent: circuitModeString
     } );
 

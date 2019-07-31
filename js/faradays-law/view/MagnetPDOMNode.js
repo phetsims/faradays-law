@@ -39,7 +39,6 @@ define( require => {
 
       const twoAndFourCoilNode = new Node( {
         tagName: 'ul',
-        labelTagName: 'p',
         labelContent: barMagnetIsString,
         children: [
           locationItem,
@@ -65,7 +64,6 @@ define( require => {
       const twoLoopFieldStrengthItem = new Node( { tagName: 'li' } );
       const twoLoopStrengthListNode = new Node( {
         tagName: 'ul',
-        labelTagName: 'p',
         labelContent: fieldStrengthIsString,
         children: [ fourLoopFieldStrengthItem, twoLoopFieldStrengthItem ]
       } );
