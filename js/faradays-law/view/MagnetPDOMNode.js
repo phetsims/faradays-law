@@ -74,7 +74,6 @@ define( require => {
         labelTagName: 'h3',
         labelContent: fieldLinesString,
         tagName: 'div',
-        descriptionTagName: 'p',
         children: [ fourLoopOnlyStrengthNode, twoLoopStrengthListNode ]
       } );
 

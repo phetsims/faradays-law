@@ -52,7 +52,6 @@ define( function( require ) {
       tagName: 'ul',
       labelTagName: 'p',
       labelContent: inTheCircuitString,
-      descriptionTagName: 'p',
       appendDescription: true
     } );
 
