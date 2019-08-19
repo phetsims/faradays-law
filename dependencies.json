@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.1.19 Mon Aug 05 2019 15:29:24 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.1.19 Mon Aug 19 2019 13:31:59 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "5ebd462a3b11a2250c4545b4159aa0d6698f8d83",
+    "sha": "2256bcc097767a1358023da988237e2a33b81b7f",
     "branch": "1.1"
   },
   "joist": {
-    "sha": "7d17dd9347aa8b7817d3116118987de0cc6d208c",
-    "branch": "HEAD"
+    "sha": "4cc3cee2cdcb4b786fe07e73aabf45d39bc84c03",
+    "branch": "faradays-law-1.1"
   },
   "kite": {
     "sha": "7f2df7e9ec52ed32d8c0fe0c1fe6bfa8c043c510",
@@ -49,8 +49,8 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "0539f7b5ae4c297988206ef6728814c8c00303c2",
-    "branch": "HEAD"
+    "sha": "de59489e175c0c7b0b72fd93b1c2868aeef99295",
+    "branch": "faradays-law-1.1"
   },
   "sherpa": {
     "sha": "f3cf6285fe2e85ce9b8998db4f3361837fc8d9ce",
