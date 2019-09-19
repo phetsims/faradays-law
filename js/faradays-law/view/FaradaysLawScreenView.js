@@ -6,25 +6,25 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
-  var CircuitDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/CircuitDescriptionNode' );
-  var CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
-  var CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
-  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  var ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
+  const BulbNode = require( 'FARADAYS_LAW/faradays-law/view/BulbNode' );
+  const CircuitDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/CircuitDescriptionNode' );
+  const CoilNode = require( 'FARADAYS_LAW/faradays-law/view/CoilNode' );
+  const CoilsWiresNode = require( 'FARADAYS_LAW/faradays-law/view/CoilsWiresNode' );
+  const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
+  const ControlPanelNode = require( 'FARADAYS_LAW/faradays-law/view/ControlPanelNode' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MagnetNodeWithField = require( 'FARADAYS_LAW/faradays-law/view/MagnetNodeWithField' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
   // a11y strings
   var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;

@@ -6,24 +6,24 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const Color = require( 'SCENERY/util/Color' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var faradaysLawNString = require( 'string!FARADAYS_LAW/faradays-law.n' );
-  var faradaysLawSString = require( 'string!FARADAYS_LAW/faradays-law.s' );
+  const faradaysLawNString = require( 'string!FARADAYS_LAW/faradays-law.n' );
+  const faradaysLawSString = require( 'string!FARADAYS_LAW/faradays-law.s' );
 
   // constants for magnet
   // offset for 3D looking, calculated as width*MAGNET_OFFSET_DX_RATIO

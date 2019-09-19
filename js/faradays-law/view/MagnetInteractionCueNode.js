@@ -8,18 +8,18 @@
  * @author Michael Barlow
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Shape = require( 'KITE/Shape' );
-  var TextKeyNode = require( 'SCENERY_PHET/keyboard/TextKeyNode' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Shape = require( 'KITE/Shape' );
+  const TextKeyNode = require( 'SCENERY_PHET/keyboard/TextKeyNode' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var ARROW_HEIGHT = 15; // dimensions for the arrow

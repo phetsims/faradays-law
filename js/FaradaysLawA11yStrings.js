@@ -5,12 +5,12 @@
  *
  * @author Michael Barlow (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  // var inherit = require( 'PHET_CORE/inherit' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  // const inherit = require( 'PHET_CORE/inherit' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
   var FaradaysLawA11yStrings = {
 

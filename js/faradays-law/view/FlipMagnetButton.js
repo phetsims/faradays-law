@@ -6,22 +6,22 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var Shape = require( 'KITE/Shape' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
+  const Matrix3 = require( 'DOT/Matrix3' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  const Shape = require( 'KITE/Shape' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // a11y strings
   var flipMagnetString = FaradaysLawA11yStrings.flipMagnet.value;

@@ -6,21 +6,21 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  // var Vector2 = require( 'DOT/Vector2' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
-  var EdgeEnum = require( 'FARADAYS_LAW/faradays-law/model/EdgeEnum' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
+  // const Vector2 = require( 'DOT/Vector2' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
+  const EdgeEnum = require( 'FARADAYS_LAW/faradays-law/model/EdgeEnum' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
 
   // constants
   // restricted zones for magnet because of coils

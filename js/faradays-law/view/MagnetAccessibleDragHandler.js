@@ -9,14 +9,14 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var SPEEDS = [ 3, 8, 15 ]; // The delta of the positionProperty each step.

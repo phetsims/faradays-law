@@ -6,23 +6,23 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  // var LinearFunction = require( 'DOT/LinearFunction' );
-  // var Range = require( 'DOT/Range' );
-  // var Util = require( 'DOT/Util' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Vector2Property = require( 'DOT/Vector2Property' );
+  // const LinearFunction = require( 'DOT/LinearFunction' );
+  // const Range = require( 'DOT/Range' );
+  // const Util = require( 'DOT/Util' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
+  const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
+  const StringIO = require( 'TANDEM/types/StringIO' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   // var DIAGONAL_TOLERANCE = Math.PI / 8;

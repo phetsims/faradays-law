@@ -5,13 +5,13 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var BULB_POSITION = new Vector2( 190, 244 );

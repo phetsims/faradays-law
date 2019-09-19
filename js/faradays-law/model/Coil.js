@@ -6,14 +6,14 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
-  var Property = require( 'AXON/Property' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
+  const Property = require( 'AXON/Property' );
 
   // constants
   // in pixels, set size for transition from B=constant to B=power law

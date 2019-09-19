@@ -5,17 +5,17 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FaradaysLawScreen = require( 'FARADAYS_LAW/faradays-law/FaradaysLawScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var Tandem = require( 'TANDEM/Tandem' );
+  const FaradaysLawScreen = require( 'FARADAYS_LAW/faradays-law/FaradaysLawScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
+  const Tandem = require( 'TANDEM/Tandem' );
 
   // strings
-  var faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
+  const faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
   var simOptions = {
     credits: {

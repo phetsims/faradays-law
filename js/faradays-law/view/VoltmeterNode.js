@@ -6,27 +6,27 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MinusNode = require( 'SCENERY_PHET/MinusNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var VoltmeterGauge = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterGauge' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MinusNode = require( 'SCENERY_PHET/MinusNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ShadedRectangle = require( 'SCENERY_PHET/ShadedRectangle' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const VoltmeterGauge = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterGauge' );
 
   // strings
-  var faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
+  const faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
 
   // constants
   var TERMINAL_COLOR = '#C0C0C0';

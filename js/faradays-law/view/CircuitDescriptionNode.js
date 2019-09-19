@@ -8,18 +8,18 @@
  * @author Michael Barlow (PhET Interactive Simulations)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  // var FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  // var Vector2 = require( 'DOT/Vector2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
+  // const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
+  // const Vector2 = require( 'DOT/Vector2' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
 
   // strings
   var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;

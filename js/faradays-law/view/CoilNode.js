@@ -6,22 +6,22 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const CoilTypeEnum = require( 'FARADAYS_LAW/faradays-law/view/CoilTypeEnum' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // images
-  var fourLoopBackImage = require( 'mipmap!FARADAYS_LAW/four-loop-back.png' );
-  var fourLoopFrontImage = require( 'mipmap!FARADAYS_LAW/four-loop-front.png' );
-  var twoLoopBackImage = require( 'mipmap!FARADAYS_LAW/two-loop-back.png' );
-  var twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
+  const fourLoopBackImage = require( 'mipmap!FARADAYS_LAW/four-loop-back.png' );
+  const fourLoopFrontImage = require( 'mipmap!FARADAYS_LAW/four-loop-front.png' );
+  const twoLoopBackImage = require( 'mipmap!FARADAYS_LAW/two-loop-back.png' );
+  const twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
 
   var IMAGE_MAP = {};
   IMAGE_MAP[ CoilTypeEnum.TWO_COIL ] = {

@@ -6,21 +6,21 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MinusNode = require( 'SCENERY_PHET/MinusNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var Shape = require( 'KITE/Shape' );
-  var Util = require( 'DOT/Util' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MinusNode = require( 'SCENERY_PHET/MinusNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  const Shape = require( 'KITE/Shape' );
+  const Util = require( 'DOT/Util' );
 
   /**
    * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
