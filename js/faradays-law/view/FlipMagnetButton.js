@@ -24,8 +24,8 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // a11y strings
-  var flipMagnetString = FaradaysLawA11yStrings.flipMagnet.value;
-  var flipPolesString = FaradaysLawA11yStrings.flipPoles.value;
+  const flipMagnetString = FaradaysLawA11yStrings.flipMagnet.value;
+  const flipPolesString = FaradaysLawA11yStrings.flipPoles.value;
 
   /**
    * @param {Tandem} tandem
@@ -34,7 +34,7 @@ define( require => {
    */
   function FlipMagnetButton( tandem, options ) {
 
-    var contentNode = new VBox( {
+    const contentNode = new VBox( {
       children: [
         createCurvedArrow( 0 ),
         new MagnetNode( false, {
@@ -77,18 +77,18 @@ define( require => {
   var createCurvedArrow = function( rotation ) {
 
     // variables for arrow and arc
-    var radius = 20;
-    var lineWidth = 2.3;
-    var arcStartAngle = -Math.PI * 0.90;
-    var arcEndAngle = -Math.PI * 0.18;
+    const radius = 20;
+    const lineWidth = 2.3;
+    const arcStartAngle = -Math.PI * 0.90;
+    const arcEndAngle = -Math.PI * 0.18;
 
-    var arcShape = new Shape()
+    const arcShape = new Shape()
       .moveTo( ( radius + lineWidth / 2 ) * Math.cos( arcStartAngle ), ( radius + lineWidth / 2 ) * Math.sin( arcStartAngle ) ) // Inner edge of end.
       .arc( 0, 0, radius, arcStartAngle, arcEndAngle, false ); // Outer curve.
 
-    var matrix = Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) )
+    const matrix = Matrix3.translation( radius * Math.cos( arcEndAngle ), radius * Math.sin( arcEndAngle ) )
       .timesMatrix( Matrix3.rotation2( arcEndAngle ) );
-    var arrowHeadShape = new Shape()
+    const arrowHeadShape = new Shape()
       .moveTo( 0, 8 )
       .lineTo( 4, 0 )
       .lineTo( -4, 0 )

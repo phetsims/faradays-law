@@ -19,12 +19,12 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var ARC_RADIUS = 7;
-  var BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
-  var WIRE_COLOR = '#7f3521';
-  var WIRE_WIDTH = 3;
-  var LEFT_WIRE_BULB_START = new Vector2( BULB_POSITION.x - 15, BULB_POSITION.y ); // start point for left wire from bulb
-  var RIGHT_WIRE_BULB_START = new Vector2( BULB_POSITION.x + 10, BULB_POSITION.y ); // start point for right wire from bulb
+  const ARC_RADIUS = 7;
+  const BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
+  const WIRE_COLOR = '#7f3521';
+  const WIRE_WIDTH = 3;
+  const LEFT_WIRE_BULB_START = new Vector2( BULB_POSITION.x - 15, BULB_POSITION.y ); // start point for left wire from bulb
+  const RIGHT_WIRE_BULB_START = new Vector2( BULB_POSITION.x + 10, BULB_POSITION.y ); // start point for right wire from bulb
 
   /**
    * @param {FaradaysLawScreenView} view
@@ -35,7 +35,7 @@ define( require => {
     Node.call( this );
 
     // bottom coil, left bottom wire
-    var arcPoint = new Vector2( LEFT_WIRE_BULB_START.x, view.bottomCoilEndPositions.bottomEnd.y );
+    const arcPoint = new Vector2( LEFT_WIRE_BULB_START.x, view.bottomCoilEndPositions.bottomEnd.y );
     this.addChild( new Path( new Shape()
       .moveToPoint( LEFT_WIRE_BULB_START )
       .lineTo( arcPoint.x, arcPoint.y - ARC_RADIUS )
@@ -46,7 +46,7 @@ define( require => {
     } ) );
 
     // bottom coil, right top wire
-    var arcPoint2 = new Vector2( RIGHT_WIRE_BULB_START.x, view.bottomCoilEndPositions.topEnd.y );
+    const arcPoint2 = new Vector2( RIGHT_WIRE_BULB_START.x, view.bottomCoilEndPositions.topEnd.y );
     this.addChild( new Path( new Shape()
       .moveToPoint( RIGHT_WIRE_BULB_START )
       .lineTo( arcPoint2.x, arcPoint2.y - ARC_RADIUS )
@@ -57,12 +57,12 @@ define( require => {
     } ) );
 
     // top coil, top wire
-    var lengthRatio = 0.5; // at length ratio wire change direction to top
-    var horizontalLength = view.topCoilEndPositions.topEnd.x - RIGHT_WIRE_BULB_START.x; // horizontal length of the top wire
-    var yMarginFromBulb = 18; // top margin from bulb y position
-    var arcPointA = RIGHT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb );
-    var arcPointB = new Vector2( RIGHT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.topEnd.y );
-    var topCoilsWire1 = new Path( new Shape()
+    let lengthRatio = 0.5; // at length ratio wire change direction to top
+    let horizontalLength = view.topCoilEndPositions.topEnd.x - RIGHT_WIRE_BULB_START.x; // horizontal length of the top wire
+    let yMarginFromBulb = 18; // top margin from bulb y position
+    const arcPointA = RIGHT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb );
+    const arcPointB = new Vector2( RIGHT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.topEnd.y );
+    const topCoilsWire1 = new Path( new Shape()
       .moveToPoint( RIGHT_WIRE_BULB_START.plusXY( 0, yMarginFromBulb ) )
       .lineTo( arcPointA.x - ARC_RADIUS, arcPointA.y )
       .quadraticCurveTo( arcPointA.x, arcPointA.y, arcPointA.x, arcPointA.y - ARC_RADIUS )
@@ -78,10 +78,10 @@ define( require => {
     horizontalLength = view.topCoilEndPositions.bottomEnd.x - LEFT_WIRE_BULB_START.x; // horizontal length of the bottom wire
     lengthRatio = 0.55; // at length ratio wire change direction to top
     yMarginFromBulb = 35; // vertical margin from center of the bulb for bottom wire of top coil
-    var arcPointX = new Vector2( RIGHT_WIRE_BULB_START.x, LEFT_WIRE_BULB_START.y + yMarginFromBulb ); // top coil, bottom wire, center of crossing with another wire
-    var arcPointY = LEFT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ); // top coil, bottom wire, bottom corner point
-    var arcPointZ = new Vector2( LEFT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.bottomEnd.y ); // top coil, bottom wire, top corner point
-    var topCoilsWire2 = new Path( new Shape()
+    const arcPointX = new Vector2( RIGHT_WIRE_BULB_START.x, LEFT_WIRE_BULB_START.y + yMarginFromBulb ); // top coil, bottom wire, center of crossing with another wire
+    const arcPointY = LEFT_WIRE_BULB_START.plusXY( horizontalLength * lengthRatio, yMarginFromBulb ); // top coil, bottom wire, bottom corner point
+    const arcPointZ = new Vector2( LEFT_WIRE_BULB_START.x + horizontalLength * lengthRatio, view.topCoilEndPositions.bottomEnd.y ); // top coil, bottom wire, top corner point
+    const topCoilsWire2 = new Path( new Shape()
       .moveToPoint( LEFT_WIRE_BULB_START.plusXY( 0, yMarginFromBulb ) )
       .lineTo( arcPointX.x - ARC_RADIUS, arcPointX.y )
       .arc( arcPointX.x, arcPointX.y, ARC_RADIUS, Math.PI, 0, true )

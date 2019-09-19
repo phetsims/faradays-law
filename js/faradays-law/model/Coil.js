@@ -17,7 +17,7 @@ define( require => {
 
   // constants
   // in pixels, set size for transition from B=constant to B=power law
-  var NEAR_FIELD_RADIUS = 50;
+  const NEAR_FIELD_RADIUS = 50;
 
   /**
    * @param {Vector2} position - center of the coil
@@ -77,9 +77,9 @@ define( require => {
      */
     updateMagneticField: function() {
 
-      var sign = this.magnet.orientationProperty.value === OrientationEnum.NS ? -1 : 1;
+      const sign = this.magnet.orientationProperty.value === OrientationEnum.NS ? -1 : 1;
 
-      var rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) /
+      const rSquared = this.position.distanceSquared( this.magnet.positionProperty.get() ) /
                      ( NEAR_FIELD_RADIUS * NEAR_FIELD_RADIUS );  // normalized squared distance from coil to magnet
 
       // if magnet is very close to coil, then B field is at max value;
@@ -94,7 +94,7 @@ define( require => {
         // r - normalized distance between magnet and coil
 
         // normalized x-displacement from coil to magnet
-        var dx = ( this.magnet.positionProperty.get().x - this.position.x ) / NEAR_FIELD_RADIUS;
+        const dx = ( this.magnet.positionProperty.get().x - this.position.x ) / NEAR_FIELD_RADIUS;
         this.magneticFieldProperty.set( sign * ( 3 * dx * dx - rSquared ) / ( rSquared * rSquared ) );
       }
     },
@@ -108,10 +108,10 @@ define( require => {
       this.updateMagneticField();
 
       // number of turns in coil (equal to half the number of turns in the graphic image)
-      var numberOfCoils = this.numberOfSpirals / 2;
+      const numberOfCoils = this.numberOfSpirals / 2;
 
       // emf = (nbr coils)*(change in B)/(change in t)
-      var changeInMagneticField = this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get();
+      const changeInMagneticField = this.magneticFieldProperty.get() - this.previousMagneticFieldProperty.get();
       this.emfProperty.set( numberOfCoils * changeInMagneticField / dt );
       this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
     }

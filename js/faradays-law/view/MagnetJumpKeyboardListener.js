@@ -100,7 +100,7 @@ define( require => {
 
       this.keyup = event => {
 
-        var domEvent = event.domEvent;
+        const domEvent = event.domEvent;
         if ( !this.isAnimatingProperty.value ) {
           if ( domEvent.keyCode >= 49 && domEvent.keyCode <= 51) {
             this.targetPositionVector = this.reflectedPositionProperty.get();

@@ -17,7 +17,7 @@ define( require => {
   // strings
   const faradaysLawTitleString = require( 'string!FARADAYS_LAW/faradays-law.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Bryce Gruneich',
       softwareDevelopment: 'John Blanco, Jonathan Olson',
@@ -30,7 +30,7 @@ define( require => {
 
   // Create and start the sim
   SimLauncher.launch( function() {
-    var sim = new Sim( faradaysLawTitleString, [
+    const sim = new Sim( faradaysLawTitleString, [
       new FaradaysLawScreen( Tandem.rootTandem.createTandem( 'faradaysLawScreen' ) )
     ], simOptions );
     sim.start();

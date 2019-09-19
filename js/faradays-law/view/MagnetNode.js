@@ -27,9 +27,9 @@ define( require => {
 
   // constants for magnet
   // offset for 3D looking, calculated as width*MAGNET_OFFSET_DX_RATIO
-  var MAGNET_OFFSET_DX_RATIO = 1 / 35;
-  var MAGNET_OFFSET_DY_RATIO = 1 / 15;
-  var MAGNET_3D_SHADOW = 0.4;
+  const MAGNET_OFFSET_DX_RATIO = 1 / 35;
+  const MAGNET_OFFSET_DY_RATIO = 1 / 15;
+  const MAGNET_3D_SHADOW = 0.4;
 
   /**
    * @param {OrientationEnum} orientation - is magnet flipped
@@ -48,22 +48,22 @@ define( require => {
     }, options );
 
     // create north pole magnet
-    var northPoleLabel = new Text( faradaysLawNString, {
+    const northPoleLabel = new Text( faradaysLawNString, {
       font: options.font,
       fill: options.fontColor
     } );
-    var northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
+    const northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
       left: -options.width / 2,
       centerY: 0
     } );
     this.addChild( northPole );
 
     // create south pole magnet
-    var southPoleLabel = new Text( faradaysLawSString, {
+    const southPoleLabel = new Text( faradaysLawSString, {
       font: options.font,
       fill: options.fontColor
     } );
-    var southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
+    const southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
       left: 0,
       centerY: 0
     } );
@@ -88,7 +88,7 @@ define( require => {
    * @returns {Node}
    */
   var drawHalfMagnetNode = function( magnetWidth, magnetHeight, label, backgroundColor, options ) {
-    var halfMagnetNode = new Node();
+    const halfMagnetNode = new Node();
 
     // add the top and sides to create a 3D appearance
     halfMagnetNode.addChild( new Path( new Shape()

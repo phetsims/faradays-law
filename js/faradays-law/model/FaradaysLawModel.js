@@ -24,8 +24,8 @@ define( require => {
 
   // constants
   // restricted zones for magnet because of coils
-  var TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
-  var FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
+  const TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
+  const FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
 
   /**
    * @param {Bounds2} bounds of Screen
@@ -33,7 +33,7 @@ define( require => {
    * @constructor
    */
   function FaradaysLawModel( bounds, tandem ) {
-    var self = this;
+    const self = this;
 
     // @public (read-only) (Bounds2}
     this.bounds = bounds;
@@ -134,7 +134,7 @@ define( require => {
      * @private
      */
     magnetIntersectsTopCoilArea: function() {
-      var magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
+      const magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
       return magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 0 ] );
     },
 
@@ -144,10 +144,10 @@ define( require => {
      * @returns {Bounds2|null}
      */
     getIntersectedRestrictedBounds: function( bounds ) {
-      var stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
+      const stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
 
-      for ( var i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
-        var restrictedBounds = this.listOfRestrictedBounds[ i ];
+      for ( let i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
+        const restrictedBounds = this.listOfRestrictedBounds[ i ];
 
         if ( bounds.intersectsBounds( restrictedBounds ) ) {
           return restrictedBounds;
@@ -165,7 +165,7 @@ define( require => {
 
       // Check the bounds of the magnet, but subtract 1 to prevent it from passing through the coils vertically
       // see https://github.com/phetsims/faradays-law/issues/47
-      var magnetBounds = new Bounds2(
+      const magnetBounds = new Bounds2(
         Math.min( position.x, this.magnet.positionProperty.get().x ),
         Math.min( position.y, this.magnet.positionProperty.get().y ),
         Math.max( position.x, this.magnet.positionProperty.get().x ),
@@ -176,12 +176,12 @@ define( require => {
       if ( this.intersectedBounds === null ) {
 
         // if first coil not visible, check only second coil restrictions
-        for ( var i = this.topCoilVisibleProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
-          var restrictedBounds = this.listOfRestrictedBounds[ i ];
+        for ( let i = this.topCoilVisibleProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
+          const restrictedBounds = this.listOfRestrictedBounds[ i ];
           if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
 
             // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-            var movingDelta = position.minus( this.magnet.positionProperty.get() );
+            const movingDelta = position.minus( this.magnet.positionProperty.get() );
             this.intersectedBounds = restrictedBounds.copy();
             if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 

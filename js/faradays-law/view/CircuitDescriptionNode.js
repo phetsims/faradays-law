@@ -22,12 +22,12 @@ define( require => {
   const Property = require( 'AXON/Property' );
 
   // strings
-  var lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
-  var lightBulbString = FaradaysLawA11yStrings.lightBulb.value;
-  var inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
-  var fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
-  var twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
-  var voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
+  const lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
+  const lightBulbString = FaradaysLawA11yStrings.lightBulb.value;
+  const inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
+  const fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
+  const twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
+  const voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
 
   function CircuitDescriptionNode ( model, options ) {
 
@@ -39,16 +39,16 @@ define( require => {
 
     Node.call( this, options );
 
-    var dynamicChildrenNode = new Node();
+    const dynamicChildrenNode = new Node();
     this.addChild( dynamicChildrenNode );
 
-    var fourCoilOnlyNode = new Node( {
+    const fourCoilOnlyNode = new Node( {
       tagName: 'p',
       innerContent: ''
     } );
 
 
-    var otherComponentsNode = new Node( {
+    const otherComponentsNode = new Node( {
       tagName: 'ul',
       labelContent: inTheCircuitString,
       appendDescription: true
@@ -62,10 +62,10 @@ define( require => {
       fourCoilOnlyNode.innerContent = MagnetDescriber.getFourCoilOnlyDescription( showVoltmeter );
     } );
 
-    var lightBulbItem = createListItemNode( lightBulbString );
-    var fourLoopItem = createListItemNode( fourLoopCoilString );
-    var twoLoopItem = createListItemNode( twoLoopCoilString );
-    var voltmeterItem = createListItemNode( voltmeterString );
+    const lightBulbItem = createListItemNode( lightBulbString );
+    const fourLoopItem = createListItemNode( fourLoopCoilString );
+    const twoLoopItem = createListItemNode( twoLoopCoilString );
+    const voltmeterItem = createListItemNode( voltmeterString );
 
     Property.multilink(
       [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
@@ -73,7 +73,7 @@ define( require => {
         if ( !showTopCoil ) {
           dynamicChildrenNode.children = [ fourCoilOnlyNode ];
         } else {
-          var children = [ lightBulbItem  ];
+          const children = [ lightBulbItem  ];
           children.push( fourLoopItem );
           showTopCoil && children.push( twoLoopItem );
           showVoltmeter && children.push( voltmeterItem );

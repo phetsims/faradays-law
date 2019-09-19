@@ -29,13 +29,13 @@ define( require => {
   const faradaysLawVoltageString = require( 'string!FARADAYS_LAW/faradays-law.voltage' );
 
   // constants
-  var TERMINAL_COLOR = '#C0C0C0';
-  var TERMINAL_STROKE = '#000000';
-  var TERMINAL_BORDER_RADIUS = 3;
-  var RECTANGLE_HEIGHT = 107;
-  var READOUT_WIDTH = 132;
-  var TERMINAL_SIZE = 18; // size of terminals at the bottom of the voltmeter
-  var TERMINAL_SIGN_SIZE = new Dimension2( 12, 2 ); // size of plus and minus signs
+  const TERMINAL_COLOR = '#C0C0C0';
+  const TERMINAL_STROKE = '#000000';
+  const TERMINAL_BORDER_RADIUS = 3;
+  const RECTANGLE_HEIGHT = 107;
+  const READOUT_WIDTH = 132;
+  const TERMINAL_SIZE = 18; // size of terminals at the bottom of the voltmeter
+  const TERMINAL_SIGN_SIZE = new Dimension2( 12, 2 ); // size of plus and minus signs
 
   /**
    * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
@@ -45,7 +45,7 @@ define( require => {
   function VoltmeterNode( needleAngleProperty, tandem ) {
     Node.call( this );
 
-    var background = new ShadedRectangle( new Bounds2( 0, 0, 170, RECTANGLE_HEIGHT ), {
+    const background = new ShadedRectangle( new Bounds2( 0, 0, 170, RECTANGLE_HEIGHT ), {
       cornerRadius: 10,
       baseColor: new Color( '#232674' ),
       center: Vector2.ZERO
@@ -53,7 +53,7 @@ define( require => {
     this.addChild( background );
 
     // background rectangle with a deflecting needle meter inside
-    var readoutBackground = new Rectangle( 0, 0, READOUT_WIDTH, 72, {
+    const readoutBackground = new Rectangle( 0, 0, READOUT_WIDTH, 72, {
       cornerRadius: 5,
       fill: '#FFF',
       centerX: 0,
@@ -68,7 +68,7 @@ define( require => {
     this.addChild( readoutBackground );
 
     // create the label and scale it if it's too long
-    var label = new Text( faradaysLawVoltageString, {
+    const label = new Text( faradaysLawVoltageString, {
       font: new PhetFont( 18 ),
       fill: 'yellow',
       tandem: tandem.createTandem( 'label' ),

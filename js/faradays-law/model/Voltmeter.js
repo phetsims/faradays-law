@@ -16,9 +16,9 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
 
   // constants
-  var ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
-  var NEEDLE_RESPONSIVENESS = 50;  // needle responsiveness
-  var NEEDLE_FRICTION = 10; // friction coefficient, so needle motion looks realistic
+  const ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
+  const NEEDLE_RESPONSIVENESS = 50;  // needle responsiveness
+  const NEEDLE_FRICTION = 10; // friction coefficient, so needle motion looks realistic
 
   /**
    * @param {FaradaysLawModel} model - simulation model
@@ -66,8 +66,8 @@ define( require => {
 
       this.needleAngularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.model.voltageProperty.get() ) - NEEDLE_FRICTION * this.needleAngularVelocity; // angular acceleration of needle
       this.model.voltageProperty.set( this.model.voltageProperty.get() + this.needleAngularVelocity * dt + 0.5 * this.needleAngularAcceleration * dt * dt ); // angle of needle
-      var angularVelocity = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
-      var angularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.model.voltageProperty.get() ) - NEEDLE_FRICTION * angularVelocity;
+      const angularVelocity = this.needleAngularVelocity + this.needleAngularAcceleration * dt;
+      const angularAcceleration = NEEDLE_RESPONSIVENESS * ( this.signalProperty.get() - this.model.voltageProperty.get() ) - NEEDLE_FRICTION * angularVelocity;
       this.needleAngularVelocity = this.needleAngularVelocity + 0.5 * dt * ( this.needleAngularAcceleration + angularAcceleration );
 
       // Clamp the needle angle when its position, velocity, and acceleration go below a threshold so that it doesn't

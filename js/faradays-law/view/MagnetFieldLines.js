@@ -17,11 +17,11 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var ARROW_WIDTH = 16;
-  var ARROW_HEIGHT = 18;
+  const ARROW_WIDTH = 16;
+  const ARROW_HEIGHT = 18;
 
   // describes ellipse lines properties (sizes + arrows)
-  var LINE_DESCRIPTION = [
+  const LINE_DESCRIPTION = [
     { a: 600, b: 300, arrowPositions: [ Math.PI / 3.5, Math.PI - Math.PI / 3.5 ] },
     { a: 350, b: 125, arrowPositions: [ Math.PI / 7, Math.PI - Math.PI / 7 ] },
     { a: 180, b: 50, arrowPositions: [ -Math.PI / 2 ] },
@@ -49,7 +49,7 @@ define( require => {
    * @param {Object} [options]
    * @returns {Path}
    */
-  var createArrow = function( options ) {
+  const createArrow = function( options ) {
     return new Path( new Shape()
         .moveTo( -ARROW_WIDTH, -ARROW_HEIGHT / 2 )
         .lineTo( 0, 0 )
@@ -69,15 +69,15 @@ define( require => {
    * @param {Object} [options]
    * @returns {Node}
    */
-  var createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientationProperty, options ) {
-    var arcWithArrow = new Node();
+  const createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientationProperty, options ) {
+    const arcWithArrow = new Node();
     options = _.extend( {
       stroke: '#ffffff',
       lineWidth: 3
     }, options );
 
     // arc
-    var ellipticalShape = new Shape().ellipticalArc( 0, 0, radiusX, radiusY, 0, 0, 2 * Math.PI );
+    const ellipticalShape = new Shape().ellipticalArc( 0, 0, radiusX, radiusY, 0, 0, 2 * Math.PI );
     arcWithArrow.addChild( new Path( ellipticalShape, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
@@ -85,16 +85,16 @@ define( require => {
 
     // arrows on arc
     arrowPositions.forEach( function( angle ) {
-      var arrow = createArrow( {
+      const arrow = createArrow( {
         stroke: options.stroke,
         lineWidth: options.lineWidth
       } );
-      var arrowPosition = ellipticalShape.getLastSegment().positionAtAngle( angle );
+      const arrowPosition = ellipticalShape.getLastSegment().positionAtAngle( angle );
       arrow.right = arrowPosition.x;
       arrow.centerY = arrowPosition.y;
 
-      var arrowTangent = ellipticalShape.getLastSegment().tangentAtAngle( angle );
-      var rotationAngle = Math.atan( arrowTangent.y / arrowTangent.x ); // angle of tangent to an ellipse
+      const arrowTangent = ellipticalShape.getLastSegment().tangentAtAngle( angle );
+      let rotationAngle = Math.atan( arrowTangent.y / arrowTangent.x ); // angle of tangent to an ellipse
 
       if ( arrowPosition.y > 0 ) {
         rotationAngle += Math.PI;
@@ -118,13 +118,13 @@ define( require => {
    * @returns {Node}
    */
   var createSideFieldLines = function( orientationProperty, scaleY ) {
-    var sideFieldLinesContainer = new Node();
+    const sideFieldLinesContainer = new Node();
 
-    var dy = 3;
+    const dy = 3;
 
     // each ellipse change a bit position to show a near constant field
     LINE_DESCRIPTION.forEach( function( line, index ) {
-      var arc = createArcWithArrow( line.a, line.b, line.arrowPositions, orientationProperty );
+      const arc = createArcWithArrow( line.a, line.b, line.arrowPositions, orientationProperty );
       arc.bottom = 2 - index * dy;
       arc.centerX = 0;
       sideFieldLinesContainer.addChild( arc );

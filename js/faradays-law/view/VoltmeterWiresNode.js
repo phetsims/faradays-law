@@ -21,28 +21,28 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
-  var VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
+  const BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
+  const VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
 
   /**
    * @param {VoltmeterNode} voltmeterNode
    * @constructor
    */
   function VoltmeterWiresNode( voltmeterNode ) {
-    var self = this;
+    const self = this;
     Node.call( this );
 
-    var wireColor = '#353a89';
-    var wireWidth = 3;
+    const wireColor = '#353a89';
+    const wireWidth = 3;
 
     // variables, used for measuring pads too
-    var leftWireX = VOLTMETER_POSITION.x + voltmeterNode.minusNode.centerX;
-    var rightWireX = VOLTMETER_POSITION.x + voltmeterNode.plusNode.centerX;
-    var wireTop = VOLTMETER_POSITION.y + voltmeterNode.height / 2;
+    const leftWireX = VOLTMETER_POSITION.x + voltmeterNode.minusNode.centerX;
+    const rightWireX = VOLTMETER_POSITION.x + voltmeterNode.plusNode.centerX;
+    const wireTop = VOLTMETER_POSITION.y + voltmeterNode.height / 2;
 
     // wires goes not to exactly to bulb position, need small deltas
-    var leftWireBottom = BULB_POSITION.y - 23;
-    var rightWireBottom = BULB_POSITION.y - 10;
+    const leftWireBottom = BULB_POSITION.y - 23;
+    const rightWireBottom = BULB_POSITION.y - 10;
 
     this.addChild( new Path( new Shape()
       .moveTo( leftWireX, wireTop )
@@ -69,7 +69,7 @@ define( require => {
     } ) );
 
     // For PhET-iO, synchronize visibility with the VoltmeterNode
-    var updateVisible = function() {
+    const updateVisible = function() {
       self.visible = voltmeterNode.visible;
     };
     voltmeterNode.on( 'visibility', updateVisible );
@@ -84,31 +84,31 @@ define( require => {
   var createPad = function( options ) {
 
     // params
-    var baseColor = new Color( '#b4b5b5' );
-    var transparentColor = baseColor.withAlpha( 0 );
-    var radius = 7;
-    var gradientLength = 2;
-    var innerGradientRadius = radius - gradientLength / 2;
-    var outerGradientRadius = radius + gradientLength / 2;
-    var gradientOffset = gradientLength / 2;
+    const baseColor = new Color( '#b4b5b5' );
+    const transparentColor = baseColor.withAlpha( 0 );
+    const radius = 7;
+    const gradientLength = 2;
+    const innerGradientRadius = radius - gradientLength / 2;
+    const outerGradientRadius = radius + gradientLength / 2;
+    const gradientOffset = gradientLength / 2;
 
-    var pad = new Node();
+    const pad = new Node();
 
     // Create the gradient fills
-    var highlightFill = new RadialGradient( gradientOffset, gradientOffset, innerGradientRadius, gradientOffset, gradientOffset, outerGradientRadius )
+    const highlightFill = new RadialGradient( gradientOffset, gradientOffset, innerGradientRadius, gradientOffset, gradientOffset, outerGradientRadius )
       .addColorStop( 0, baseColor )
       .addColorStop( 1, baseColor.colorUtilsBrighter( 0.7 ) );
 
-    var shadowFill = new RadialGradient( -gradientOffset, -gradientOffset, innerGradientRadius, -gradientOffset, -gradientOffset, outerGradientRadius )
+    const shadowFill = new RadialGradient( -gradientOffset, -gradientOffset, innerGradientRadius, -gradientOffset, -gradientOffset, outerGradientRadius )
       .addColorStop( 0, transparentColor )
       .addColorStop( 1, baseColor.colorUtilsDarker( 0.5 ) );
 
     // base circle with white gradient
-    var baseCircle = new Circle( radius, { fill: highlightFill } );
+    const baseCircle = new Circle( radius, { fill: highlightFill } );
     pad.addChild( baseCircle );
 
     // black gradient
-    var overlayForShadowGradient = new Circle( radius, { fill: shadowFill } );
+    const overlayForShadowGradient = new Circle( radius, { fill: shadowFill } );
     pad.addChild( overlayForShadowGradient );
 
     pad.mutate( options );

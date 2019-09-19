@@ -44,8 +44,8 @@ const DISTANCE_MOVED_THRESHOLD = Util.roundSymmetric( FaradaysLawConstants.LAYOU
    * @returns {Bounds2}        the bounds of the magnet at the passed position
   */
   const createMagnetBounds = vector => {
-    var halfWidth = FaradaysLawConstants.MAGNET_WIDTH / 2;
-    var halfHeight = FaradaysLawConstants.MAGNET_HEIGHT / 2;
+    const halfWidth = FaradaysLawConstants.MAGNET_WIDTH / 2;
+    const halfHeight = FaradaysLawConstants.MAGNET_HEIGHT / 2;
     return new Bounds2 (
       vector.x - halfWidth,
       vector.y - halfHeight,
@@ -191,7 +191,7 @@ const DISTANCE_MOVED_THRESHOLD = Util.roundSymmetric( FaradaysLawConstants.LAYOU
      * @returns {String}
     */
     getCoilAdjacentToVector( vector, showTopCoil ) {
-      var y = vector.y;
+      const y = vector.y;
 
       if ( showTopCoil && y <= this._topCoilInnerBounds.maxY && y >= this._topCoilInnerBounds.minY ) {
         return CoilTypeEnum.TWO_COIL;
@@ -237,7 +237,7 @@ const DISTANCE_MOVED_THRESHOLD = Util.roundSymmetric( FaradaysLawConstants.LAYOU
     }
 
     get coilDirection() {
-      var coilsCenterX = this.topCoil.position.x + ( this.bottomCoil.position.x - this.topCoil.position.x ) / 2;
+      const coilsCenterX = this.topCoil.position.x + ( this.bottomCoil.position.x - this.topCoil.position.x ) / 2;
       return ( this.magnet.positionProperty.get().x - coilsCenterX ) < 0 ? RIGHT : LEFT;
     }
 

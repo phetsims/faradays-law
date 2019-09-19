@@ -23,7 +23,7 @@ define( require => {
   const twoLoopBackImage = require( 'mipmap!FARADAYS_LAW/two-loop-back.png' );
   const twoLoopFrontImage = require( 'mipmap!FARADAYS_LAW/two-loop-front.png' );
 
-  var IMAGE_MAP = {};
+  const IMAGE_MAP = {};
   IMAGE_MAP[ CoilTypeEnum.TWO_COIL ] = {
     frontImage: twoLoopFrontImage,
     backImage: twoLoopBackImage
@@ -34,7 +34,7 @@ define( require => {
   };
 
   // each coil have 2 ends, coordinates of each end relative to center of the coil
-  var COIL_END_COORDINATES_MAP = {};
+  const COIL_END_COORDINATES_MAP = {};
   COIL_END_COORDINATES_MAP[ CoilTypeEnum.TWO_COIL ] = {
     topEnd: new Vector2( 30, -10 ),
     bottomEnd: new Vector2( 60, 6 )
@@ -53,9 +53,9 @@ define( require => {
     options = options || {};
     Node.call( this );
 
-    var scale = 1 / 3;
+    const scale = 1 / 3;
 
-    var xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
+    const xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
     this.addChild( new Image( IMAGE_MAP[ coilType ].backImage, {
       centerX: xOffset,

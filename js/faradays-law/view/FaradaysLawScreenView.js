@@ -27,8 +27,8 @@ define( require => {
   const VoltmeterAndWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterAndWiresNode' );
 
   // a11y strings
-  var summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;
-  var moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
+  const summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;
+  const moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
 
   /**
    * @param {FaradaysLawModel} model - Faraday's Law simulation model object
@@ -37,7 +37,7 @@ define( require => {
    */
   function FaradaysLawScreenView( model, tandem ) {
 
-    var summaryNode = new Node();
+    const summaryNode = new Node();
 
     ScreenView.call( this, {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
@@ -51,12 +51,12 @@ define( require => {
     this.playAreaNode.addChild( new CircuitDescriptionNode( model ) );
 
     // coils
-    var bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
+    const bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
       x: model.bottomCoil.position.x,
       y: model.bottomCoil.position.y
     } );
 
-    var topCoilNode = new CoilNode( CoilTypeEnum.TWO_COIL, {
+    const topCoilNode = new CoilNode( CoilTypeEnum.TWO_COIL, {
       x: model.topCoil.position.x,
       y: model.topCoil.position.y
     } );
@@ -74,8 +74,8 @@ define( require => {
     };
 
     // voltmeter and bulb created
-    var voltmeterAndWiresNode = new VoltmeterAndWiresNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
-    var bulbNode = new BulbNode( model.voltageProperty, {
+    const voltmeterAndWiresNode = new VoltmeterAndWiresNode( model.voltmeter.needleAngleProperty, tandem.createTandem( 'voltmeterNode' ) );
+    const bulbNode = new BulbNode( model.voltageProperty, {
       center: FaradaysLawConstants.BULB_POSITION
     } );
 
@@ -101,7 +101,7 @@ define( require => {
     model.topCoilVisibleProperty.linkAttribute( topCoilNode, 'visible' );
 
     // control panel
-    var controlPanel = new ControlPanelNode( model, tandem );
+    const controlPanel = new ControlPanelNode( model, tandem );
     this.addChild( controlPanel );
 
     // voltmeter added

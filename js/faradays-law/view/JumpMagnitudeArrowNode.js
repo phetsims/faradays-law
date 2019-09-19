@@ -19,13 +19,13 @@ define( function ( require ) {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var ARROW_HEIGHT = 20; // dimensions for the arrow 
-  var ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * ARROW_HEIGHT; // for equilateral triangle
-  var ARROW_SPACING = 5;
-  var NODE_PADDING = 8;
+  const ARROW_HEIGHT = 20; // dimensions for the arrow 
+  const ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * ARROW_HEIGHT; // for equilateral triangle
+  const ARROW_SPACING = 5;
+  const NODE_PADDING = 8;
 
   // possible directions or the directional cues
-  var DIRECTION_ANGLES = {
+  const DIRECTION_ANGLES = {
     left: -Math.PI / 2,
     right: Math.PI / 2
   };
@@ -38,7 +38,7 @@ define( function ( require ) {
       this.arrows.push( this.createArrow( direction ) );
     }
 
-    var arrowsContainer = new HBox( { children: this.arrows, spacing: ARROW_SPACING } );
+    const arrowsContainer = new HBox( { children: this.arrows, spacing: ARROW_SPACING } );
 
     if ( direction === 'left' ) {
       this.arrows = this.arrows.reverse();
@@ -63,9 +63,9 @@ define( function ( require ) {
   return inherit( Node, JumpMagnitudeArrowNode, {
 
     createArrow: function ( direction ) {
-      var arrowShape = new Shape();
+      const arrowShape = new Shape();
       arrowShape.moveTo( ARROW_HEIGHT / 2, 0 ).lineTo( ARROW_HEIGHT, ARROW_WIDTH ).lineTo( 0, ARROW_WIDTH ).close();
-      var arrowIcon = new Path( arrowShape, {
+      const arrowIcon = new Path( arrowShape, {
         fill: 'white',
         stroke: 'black',
         lineJoin: 'bevel',
@@ -80,13 +80,13 @@ define( function ( require ) {
     },
 
     showCue: function ( magnitude ) {
-      for ( var i = 0; i < magnitude; i++ ) {
+      for ( let i = 0; i < magnitude; i++ ) {
         this.arrows[ i ].visible = true;
       }
     },
 
     hideCue: function () {
-      for ( var i = 0; i < this.arrows.length; i++ ) {
+      for ( let i = 0; i < this.arrows.length; i++ ) {
         this.arrows[ i ].visible = false;
       }
     }

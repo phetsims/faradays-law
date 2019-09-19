@@ -22,15 +22,15 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var ARROW_HEIGHT = 15; // dimensions for the arrow
-  var KEY_HEIGHT = 24; // height of the arrow key, larger than default KeyNode height
-  var ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * ARROW_HEIGHT; // for equilateral triangle
-  var TEXT_KEY_OPTIONS = { font: new PhetFont( 14 ), forceSquareKey: true, keyHeight: KEY_HEIGHT };
-  var KEY_ARROW_SPACING = 2;
-  var NODE_PADDING = 8;
+  const ARROW_HEIGHT = 15; // dimensions for the arrow
+  const KEY_HEIGHT = 24; // height of the arrow key, larger than default KeyNode height
+  const ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * ARROW_HEIGHT; // for equilateral triangle
+  const TEXT_KEY_OPTIONS = { font: new PhetFont( 14 ), forceSquareKey: true, keyHeight: KEY_HEIGHT };
+  const KEY_ARROW_SPACING = 2;
+  const NODE_PADDING = 8;
 
   // possible directions or the directional cues
-  var DIRECTION_ANGLES = {
+  const DIRECTION_ANGLES = {
     up: 0,
     down: Math.PI,
     left: -Math.PI / 2,
@@ -41,12 +41,12 @@ define( require => {
 
     Node.call( this );
 
-    var a11yEnabled = phet.joist.sim.isAccessible;
+    const a11yEnabled = phet.joist.sim.isAccessible;
 
-    var wNode = a11yEnabled ? this.createA11yMovementKeyNode( 'up' ) : this.createMovementKeyNode( 'up' );
-    var aNode = a11yEnabled ? this.createA11yMovementKeyNode( 'left' ) : this.createMovementKeyNode( 'left' );
-    var sNode = a11yEnabled ? this.createA11yMovementKeyNode( 'down' ) : this.createMovementKeyNode( 'down' );
-    var dNode = a11yEnabled ? this.createA11yMovementKeyNode( 'right' ) : this.createMovementKeyNode( 'right' );
+    const wNode = a11yEnabled ? this.createA11yMovementKeyNode( 'up' ) : this.createMovementKeyNode( 'up' );
+    const aNode = a11yEnabled ? this.createA11yMovementKeyNode( 'left' ) : this.createMovementKeyNode( 'left' );
+    const sNode = a11yEnabled ? this.createA11yMovementKeyNode( 'down' ) : this.createMovementKeyNode( 'down' );
+    const dNode = a11yEnabled ? this.createA11yMovementKeyNode( 'right' ) : this.createMovementKeyNode( 'right' );
 
     this.children = [ wNode, aNode, sNode, dNode ];
 
@@ -66,9 +66,9 @@ define( require => {
     createMovementKeyNode: function( direction ) {
 
       // create the arrow icon
-      var arrowShape = new Shape();
+      const arrowShape = new Shape();
       arrowShape.moveTo( ARROW_HEIGHT / 2, 0 ).lineTo( ARROW_HEIGHT, ARROW_WIDTH ).lineTo( 0, ARROW_WIDTH ).close();
-      var arrowIcon = new Path( arrowShape, {
+      const arrowIcon = new Path( arrowShape, {
         fill: 'white',
         stroke: 'black',
         lineJoin: 'bevel',
@@ -78,7 +78,7 @@ define( require => {
       } );
 
       // determine direction dependent variables
-      var box;
+      let box;
       if ( direction === 'up' ) {
         box = new VBox( { children: [ arrowIcon ], spacing: KEY_ARROW_SPACING } );
       }
@@ -99,9 +99,9 @@ define( require => {
     createA11yMovementKeyNode: function( direction ) {
 
       // create the arrow icon
-      var arrowShape = new Shape();
+      const arrowShape = new Shape();
       arrowShape.moveTo( ARROW_HEIGHT / 2, 0 ).lineTo( ARROW_HEIGHT, ARROW_WIDTH ).lineTo( 0, ARROW_WIDTH ).close();
-      var arrowIcon = new Path( arrowShape, {
+      const arrowIcon = new Path( arrowShape, {
         fill: 'white',
         stroke: 'black',
         lineJoin: 'bevel',
@@ -111,8 +111,8 @@ define( require => {
       } );
 
       // determine direction dependent variables
-      var keyIcon;
-      var box;
+      let keyIcon;
+      let box;
       if ( direction === 'up' ) {
         keyIcon = new TextKeyNode( 'W', TEXT_KEY_OPTIONS );
         box = new VBox( { children: [ arrowIcon, keyIcon ], spacing: KEY_ARROW_SPACING } );

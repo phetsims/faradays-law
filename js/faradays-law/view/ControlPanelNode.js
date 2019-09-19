@@ -76,13 +76,13 @@ define( require => {
     this.addChild( this.flipMagnetButton );
 
     // add radio button group for showing/hiding the second coil
-    var coilButtonGroupOptions = {
+    const coilButtonGroupOptions = {
       spacing: 10,
       align: 'left',
       scale: 0.21
     };
 
-    var coilButtonGroupContents = [ {
+    const coilButtonGroupContents = [ {
       value: false,
       node: new VBox( _.extend( {
         children: [
@@ -112,7 +112,7 @@ define( require => {
       labelContent: numberTwoCoilString
     } ];
 
-    var coilRadioButtonGroup = new RadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
+    const coilRadioButtonGroup = new RadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
       buttonContentXMargin: 20,
       buttonContentYMargin: 4,
       left: 377,
@@ -131,10 +131,10 @@ define( require => {
       FaradaysLawAlertManager.coilConnectionAlert( showTopCoil );
     } );
 
-    var showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
+    const showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
 
-    var voltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.voltmeterVisibleProperty, {
+    const voltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.voltmeterVisibleProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY - 20,
       tandem: tandem.createTandem( 'voltmeterCheckbox' ),
@@ -154,11 +154,11 @@ define( require => {
     } );
 
     // Create the label for the "Show Field Lines" checkbox, scaling it if it's too long.
-    var showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );
+    const showFieldLinesLabel = new Text( faradaysLawShowFieldLinesString, { font: new PhetFont( 16 ) } );
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
-    var fieldLinesCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.fieldLinesVisibleProperty, {
+    const fieldLinesCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.fieldLinesVisibleProperty, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
       tandem: tandem.createTandem( 'fieldLinesCheckbox' ),

@@ -51,7 +51,7 @@ define( require => {
         labelContent: barMagnetString
       } );
 
-      var self = this;
+      const self = this;
 
       // magnet
       this.magnetNode = createMagnetNode( model.magnet );
@@ -167,7 +167,7 @@ define( require => {
       // handle the jump/slide interaction
       const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
         onKeydown( event ) {
-          var domEvent = event.domEvent;
+          const domEvent = event.domEvent;
 
           // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
           // we want to ensure that we're only listening for the 1,2, and 3 keys

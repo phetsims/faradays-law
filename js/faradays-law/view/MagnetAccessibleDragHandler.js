@@ -19,18 +19,18 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var SPEEDS = [ 3, 8, 15 ]; // The delta of the positionProperty each step.
-  var DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
-  var SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
+  const SPEEDS = [ 3, 8, 15 ]; // The delta of the positionProperty each step.
+  const DIRECTION_NOT_MOVING = null; // the direction value when magnet is not moving.
+  const SPEED_INDEX_NOT_MOVING = -1; // the speedIndex value when magnet is not moving.
 
-  var LEFT = KeyboardUtil.KEY_LEFT_ARROW;
-  var RIGHT = KeyboardUtil.KEY_RIGHT_ARROW;
-  var UP = KeyboardUtil.KEY_UP_ARROW;
-  var DOWN = KeyboardUtil.KEY_DOWN_ARROW;
-  var LEGAL_DIRECTIONS = [ LEFT, RIGHT, UP, DOWN ];
+  const LEFT = KeyboardUtil.KEY_LEFT_ARROW;
+  const RIGHT = KeyboardUtil.KEY_RIGHT_ARROW;
+  const UP = KeyboardUtil.KEY_UP_ARROW;
+  const DOWN = KeyboardUtil.KEY_DOWN_ARROW;
+  const LEGAL_DIRECTIONS = [ LEFT, RIGHT, UP, DOWN ];
 
   // This may not be the best way to store this data, but it made sense to zepumph at the time.
-  var DIRECTION_REVERSE_MAPPINGS = {};
+  const DIRECTION_REVERSE_MAPPINGS = {};
   DIRECTION_REVERSE_MAPPINGS[ LEFT ] = RIGHT;
   DIRECTION_REVERSE_MAPPINGS[ RIGHT ] = LEFT;
   DIRECTION_REVERSE_MAPPINGS[ UP ] = DOWN;
@@ -42,7 +42,7 @@ define( require => {
    * @constructor
    */
   function MagnetAccessibleDragHandler( positionProperty, options ) {
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       onDrag: function() {}, // supplemental function called each time a drag step occurs
@@ -62,24 +62,24 @@ define( require => {
      */
     this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
 
-    var stopMovement = function() {
+    const stopMovement = function() {
       self.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
     };
-    var incrementSpeed = function() {
+    const incrementSpeed = function() {
       if ( self.model.speedIndex !== SPEEDS.length - 1 ) {
         self.model.speedIndex += 1;
       }
     };
 
     // switch the direction of motion 180 degrees
-    var reverseDirection = function() {
+    const reverseDirection = function() {
       if ( LEGAL_DIRECTIONS.indexOf( self.model.direction ) >= 0 ) {
         self.model.direction = DIRECTION_REVERSE_MAPPINGS[ self.model.direction ];
       }
     };
 
     this.keydown = function( event ) {
-      var domEvent = event.domEvent;
+      const domEvent = event.domEvent;
 
       options.startDrag();
 
@@ -120,9 +120,9 @@ define( require => {
       if ( this.model.direction !== DIRECTION_NOT_MOVING ) {
         assert && assert( this.model.speedIndex >= 0 && this.model.speedIndex < SPEEDS.length,
           'speedIndex must correspond to a proper speed' );
-        var deltaX = 0;
-        var deltaY = 0;
-        var positionDelta = SPEEDS[ this.model.speedIndex ];
+        let deltaX = 0;
+        let deltaY = 0;
+        const positionDelta = SPEEDS[ this.model.speedIndex ];
 
         if ( this.model.direction === LEFT ) {
           deltaX = -positionDelta;
@@ -138,8 +138,8 @@ define( require => {
         }
 
         // determine if the new position is within the constraints of the drag bounds
-        var vectorDelta = new Vector2( deltaX, deltaY );
-        var newPosition = this.positionProperty.get().plus( vectorDelta );
+        const vectorDelta = new Vector2( deltaX, deltaY );
+        const newPosition = this.positionProperty.get().plus( vectorDelta );
 
         // update the position if it is different
         if ( !newPosition.equals( this.positionProperty.get() ) ) {

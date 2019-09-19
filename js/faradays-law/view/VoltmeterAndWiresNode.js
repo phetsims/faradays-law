@@ -32,8 +32,8 @@ define( require => {
     Node.call( this, options );
 
     // pass an unmodified tandem in so that the VoltmeterNode's children look the this types children.
-    var voltmeterNode = new VoltmeterNode( needleAngleProperty, tandem );
-    var voltmeterWiresNode = new VoltmeterWiresNode( voltmeterNode );
+    const voltmeterNode = new VoltmeterNode( needleAngleProperty, tandem );
+    const voltmeterWiresNode = new VoltmeterWiresNode( voltmeterNode );
     voltmeterNode.center = FaradaysLawConstants.VOLTMETER_POSITION;
 
     this.children = [ voltmeterNode, voltmeterWiresNode ];

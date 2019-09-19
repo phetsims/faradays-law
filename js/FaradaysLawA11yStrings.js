@@ -12,7 +12,7 @@ define( require => {
   // const inherit = require( 'PHET_CORE/inherit' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
 
-  var FaradaysLawA11yStrings = {
+  const FaradaysLawA11yStrings = {
 
     /************************
      * SUMMARY AND HEADINGS *

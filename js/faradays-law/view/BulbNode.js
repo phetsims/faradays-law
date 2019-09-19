@@ -25,14 +25,14 @@ define( require => {
   const bulbBaseImage = require( 'mipmap!SCENERY_PHET/light-bulb-base.png' );
 
   // constants
-  var BULB_BODY_HEIGHT = 125 - 45;
-  var BULB_WIDTH = 65;
-  var BULB_BASE_WIDTH = 36;
-  var NUM_FILAMENT_ZIG_ZAGS = 4;
-  var FILAMENT_ZIG_ZAG_SPAN = 4;
-  var BULB_X_DISPLACEMENT = -45; // Bulb dx relative to center position
-  var BULB_NECK_WIDTH = BULB_BASE_WIDTH * 0.85;
-  var CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
+  const BULB_BODY_HEIGHT = 125 - 45;
+  const BULB_WIDTH = 65;
+  const BULB_BASE_WIDTH = 36;
+  const NUM_FILAMENT_ZIG_ZAGS = 4;
+  const FILAMENT_ZIG_ZAG_SPAN = 4;
+  const BULB_X_DISPLACEMENT = -45; // Bulb dx relative to center position
+  const BULB_NECK_WIDTH = BULB_BASE_WIDTH * 0.85;
+  const CONTROL_POINT_Y_VALUE = BULB_WIDTH * 0.7;
 
   /**
    * @param {NumberProperty} voltageProperty - indicated on the voltmeter
@@ -43,7 +43,7 @@ define( require => {
     Node.call( this );
 
     // Create the base of the bulb
-    var bulbBase = new Image( bulbBaseImage );
+    const bulbBase = new Image( bulbBaseImage );
     bulbBase.scale( BULB_BASE_WIDTH / bulbBase.height );
 
     // Important Note: For the drawing code below, the reference frame is assumed to be such that the point x=0, y=0 is
@@ -51,7 +51,7 @@ define( require => {
     // center of both.  This was the easiest to work with.
 
     // Create the bulb body.
-    var bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 )
+    const bulbShape = new Shape().moveTo( 0, -BULB_NECK_WIDTH / 2 )
       .cubicCurveTo(
         -BULB_BODY_HEIGHT * 0.33,
         -CONTROL_POINT_Y_VALUE,
@@ -68,11 +68,11 @@ define( require => {
         0,
         BULB_NECK_WIDTH / 2
       );
-    var bulbBodyOutline = new Path( bulbShape, {
+    const bulbBodyOutline = new Path( bulbShape, {
       stroke: 'black',
       lineCap: 'round'
     } );
-    var bulbBodyFill = new Path( bulbShape, {
+    const bulbBodyFill = new Path( bulbShape, {
       fill: new RadialGradient(
         bulbBodyOutline.centerX, bulbBodyOutline.centerY,
         BULB_WIDTH / 10, bulbBodyOutline.centerX, bulbBodyOutline.centerY,
@@ -82,10 +82,10 @@ define( require => {
     } );
 
     // Create the filament support wires.
-    var filamentWireHeight = BULB_BODY_HEIGHT * 0.6;
-    var filamentTopPoint = new Vector2( -filamentWireHeight, -BULB_WIDTH * 0.3 );
-    var filamentBottomPoint = new Vector2( -filamentWireHeight, BULB_WIDTH * 0.3 );
-    var filamentSupportWiresShape = new Shape()
+    const filamentWireHeight = BULB_BODY_HEIGHT * 0.6;
+    const filamentTopPoint = new Vector2( -filamentWireHeight, -BULB_WIDTH * 0.3 );
+    const filamentBottomPoint = new Vector2( -filamentWireHeight, BULB_WIDTH * 0.3 );
+    const filamentSupportWiresShape = new Shape()
       .moveTo( 0, -BULB_BASE_WIDTH * 0.3 )
       .cubicCurveTo(
         -filamentWireHeight * 0.3,
@@ -104,14 +104,14 @@ define( require => {
         filamentBottomPoint.x,
         filamentBottomPoint.y
       );
-    var filamentSupportWires = new Path( filamentSupportWiresShape, { stroke: 'black' } );
-    var filamentShape = new Shape()
+    const filamentSupportWires = new Path( filamentSupportWiresShape, { stroke: 'black' } );
+    const filamentShape = new Shape()
       .moveToPoint( filamentBottomPoint )
       .zigZagToPoint( filamentTopPoint, FILAMENT_ZIG_ZAG_SPAN, NUM_FILAMENT_ZIG_ZAGS, true );
-    var filamentNode = new Path( filamentShape, { stroke: 'black' } );
+    const filamentNode = new Path( filamentShape, { stroke: 'black' } );
 
     // Create the 'halo' that makes the bulb look like it is shining.
-    var haloNode = new Node( {
+    const haloNode = new Node( {
       children: [ new Circle( 5, {
         fill: 'white',
         opacity: 0.46
@@ -127,7 +127,7 @@ define( require => {
     voltageProperty.link( function( voltage ) {
 
       // in angle = 1, we would have 200x200 halo (max circle diameter - 10px, so 200/10 = 20)
-      var scale = 20 * Math.abs( voltage );
+      const scale = 20 * Math.abs( voltage );
       if ( scale < 0.1 ) {
         haloNode.visible = false;
       }

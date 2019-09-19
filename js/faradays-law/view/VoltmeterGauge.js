@@ -29,11 +29,11 @@ define( require => {
    */
   function VoltmeterGauge( needleAngleProperty, options ) {
     Node.call( this );
-    var arcRadius = 55; // radius of voltmeter scale
-    var needleColor = '#3954a5'; // blue
+    const arcRadius = 55; // radius of voltmeter scale
+    const needleColor = '#3954a5'; // blue
 
     // background panel within which the needle moves
-    var background = new Path( new Shape()
+    const background = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( 0, -arcRadius )
       .moveTo( -arcRadius, 0 )
@@ -63,7 +63,7 @@ define( require => {
     } ) );
 
     // needle
-    var needleArrowNode = new ArrowNode( 0, 0, 0, -53, {
+    const needleArrowNode = new ArrowNode( 0, 0, 0, -53, {
       headHeight: 12,
       headWidth: 8,
       tailWidth: 2,

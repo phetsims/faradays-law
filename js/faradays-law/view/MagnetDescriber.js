@@ -251,13 +251,13 @@ define( require => {
     }
 
     get fieldLinesDescription() {
-      var northSide = this._magnet.orientationProperty.get() === OrientationEnum.NS ? leftString : rightString;
-      var southSide = this._magnet.orientationProperty.get() === OrientationEnum.SN ? leftString : rightString;
+      const northSide = this._magnet.orientationProperty.get() === OrientationEnum.NS ? leftString : rightString;
+      const southSide = this._magnet.orientationProperty.get() === OrientationEnum.SN ? leftString : rightString;
       return StringUtils.fillIn( fieldLinesDescriptionPatternString, { northSide: northSide, southSide: southSide } );
     }
 
     get fourLoopOnlyFieldStrength() {
-      var valueString = FIELD_STRENGTHS[ this.regionManager.getFieldStrengthAtCoilRegion( this._bottomCoil ) ];
+      const valueString = FIELD_STRENGTHS[ this.regionManager.getFieldStrengthAtCoilRegion( this._bottomCoil ) ];
       return StringUtils.fillIn( fourLoopOnlyFieldStrengthPatternString, { fieldStrength: valueString } );
     }
 
@@ -270,8 +270,8 @@ define( require => {
     }
 
     getFieldStrengthAtCoil( coil ) {
-      var fieldStrengthString = FIELD_STRENGTHS[ this.regionManager.getFieldStrengthAtCoilRegion( coil ) ];
-      var coilString = coil === this._topCoil ? theTwoLoopCoilString : theFourLoopCoilString;
+      const fieldStrengthString = FIELD_STRENGTHS[ this.regionManager.getFieldStrengthAtCoilRegion( coil ) ];
+      const coilString = coil === this._topCoil ? theTwoLoopCoilString : theFourLoopCoilString;
       return StringUtils.fillIn(
         fieldStrengthPatternString,
         {
@@ -323,7 +323,7 @@ define( require => {
 
     // handles getting the current position description (e.g. top-left edge, bottom-center, center, etc...)
     get positionString() {
-      var description = REGION_DESCRIPTIONS[ this.regionManager.positionRegion ];
+      let description = REGION_DESCRIPTIONS[ this.regionManager.positionRegion ];
       if ( this.regionManager.magnetAtEdge ) {
         description = StringUtils.fillIn( twoWordsPatternString, { first: description, second: edgeString } );
       }
