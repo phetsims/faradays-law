@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2019, University of Colorado Boulder
 
 /**
  * A Node that holds the Voltmeter and the Voltmeter wires. This is handy for phet-io because we want both of these
