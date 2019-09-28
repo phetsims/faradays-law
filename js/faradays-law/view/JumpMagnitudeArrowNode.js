@@ -6,8 +6,7 @@
  *
  * @author Michael Barlow
  */
-
-define( function ( require ) {
+define( function( require ) {
   'use strict';
 
   // modules
@@ -43,7 +42,7 @@ define( function ( require ) {
     if ( direction === 'left' ) {
       this.arrows = this.arrows.reverse();
     }
-      
+
     Node.call( this );
 
     this.addChild( arrowsContainer );
@@ -52,7 +51,8 @@ define( function ( require ) {
     this.setKeyPositions = function( nodeBounds ) {
       if ( direction === 'left' ) {
         arrowsContainer.rightCenter = nodeBounds.leftCenter.plusXY( -NODE_PADDING, 0 );
-      } else {
+      }
+      else {
         arrowsContainer.leftCenter = nodeBounds.rightCenter.plusXY( NODE_PADDING, 0 );
       }
     };
@@ -62,7 +62,7 @@ define( function ( require ) {
 
   return inherit( Node, JumpMagnitudeArrowNode, {
 
-    createArrow: function ( direction ) {
+    createArrow: function( direction ) {
       const arrowShape = new Shape();
       arrowShape.moveTo( ARROW_HEIGHT / 2, 0 ).lineTo( ARROW_HEIGHT, ARROW_WIDTH ).lineTo( 0, ARROW_WIDTH ).close();
       const arrowIcon = new Path( arrowShape, {
@@ -79,16 +79,16 @@ define( function ( require ) {
       return arrowIcon;
     },
 
-    showCue: function ( magnitude ) {
+    showCue: function( magnitude ) {
       for ( let i = 0; i < magnitude; i++ ) {
         this.arrows[ i ].visible = true;
       }
     },
 
-    hideCue: function () {
+    hideCue: function() {
       for ( let i = 0; i < this.arrows.length; i++ ) {
         this.arrows[ i ].visible = false;
       }
     }
   } );
-} ); 
+} );

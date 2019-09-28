@@ -12,7 +12,7 @@ define( require => {
   // the alert manager
   class FaradaysLawAlertManager {
 
-    constructor( describer  ) {
+    constructor( describer ) {
       this.describer = describer;
 
       // @private {Utterance} - utterance for end of a keyboard movement, single utterance
@@ -26,7 +26,7 @@ define( require => {
     }
 
     movementEndAlert() {
-      this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText(); 
+      this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText();
       utteranceQueue.addToFront( this.keyboardMovementUtterance );
     }
 
