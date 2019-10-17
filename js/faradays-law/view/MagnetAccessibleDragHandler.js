@@ -16,6 +16,7 @@ define( require => {
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const inherit = require( 'PHET_CORE/inherit' );
   const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
+  const merge = require( 'PHET_CORE/merge' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -44,7 +45,7 @@ define( require => {
   function MagnetAccessibleDragHandler( positionProperty, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       onDrag: function() {}, // supplemental function called each time a drag step occurs
       startDrag: function() {} // supplemental function called at the beginning of each drag
     }, options );

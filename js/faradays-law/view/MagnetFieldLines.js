@@ -12,6 +12,7 @@ define( require => {
   // modules
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
@@ -71,7 +72,7 @@ define( require => {
    */
   const createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientationProperty, options ) {
     const arcWithArrow = new Node();
-    options = _.extend( {
+    options = merge( {
       stroke: '#ffffff',
       lineWidth: 3
     }, options );

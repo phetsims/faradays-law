@@ -16,6 +16,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
   const Matrix3 = require( 'DOT/Matrix3' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -47,7 +48,7 @@ define( require => {
       spacing: 1
     } );
 
-    RectangularPushButton.call( this, _.extend( {
+    RectangularPushButton.call( this, merge( {
       content: contentNode,
       baseColor: 'rgb(205,254,195)',
       minWidth: 118,

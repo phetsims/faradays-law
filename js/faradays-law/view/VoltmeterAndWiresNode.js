@@ -12,6 +12,7 @@ define( require => {
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const VoltmeterNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterNode' );
   const VoltmeterWiresNode = require( 'FARADAYS_LAW/faradays-law/view/VoltmeterWiresNode' );
@@ -24,7 +25,7 @@ define( require => {
    */
   function VoltmeterAndWiresNode( needleAngleProperty, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       tandem: tandem,
       phetioDocumentation: 'The voltmeter and its connecting wires'
     }, options );

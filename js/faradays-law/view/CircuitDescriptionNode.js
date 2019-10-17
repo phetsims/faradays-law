@@ -18,6 +18,7 @@ define( require => {
   const FaradaysLawA11yStrings = require( 'FARADAYS_LAW/FaradaysLawA11yStrings' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
 
@@ -31,7 +32,7 @@ define( require => {
 
   function CircuitDescriptionNode ( model, options ) {
 
-    options = _.extend( {
+    options = merge( {
       tagName: 'div',
       labelTagName: 'h3',
       labelContent: lightBulbCircuitLabelString

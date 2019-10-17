@@ -13,6 +13,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -40,7 +41,7 @@ define( require => {
     Node.call( this, { cursor: 'pointer' } );
 
     // options of magnetNode
-    options = _.extend( {
+    options = merge( {
       width: 140,
       height: 30,
       font: new PhetFont( 24 ),

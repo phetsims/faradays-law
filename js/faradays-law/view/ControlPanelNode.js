@@ -19,6 +19,7 @@ define( require => {
   const FaradaysLawAlertManager = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawAlertManager' );
   const FlipMagnetButton = require( 'FARADAYS_LAW/faradays-law/view/FlipMagnetButton' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const OrientationEnum = require( 'FARADAYS_LAW/faradays-law/model/OrientationEnum' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -84,7 +85,7 @@ define( require => {
 
     const coilButtonGroupContents = [ {
       value: false,
-      node: new VBox( _.extend( {
+      node: new VBox( merge( {
         children: [
           new CoilNode( CoilTypeEnum.TWO_COIL, { visible: false } ),
           new CoilNode( CoilTypeEnum.FOUR_COIL )
@@ -101,7 +102,7 @@ define( require => {
       // } );
 
       // this.addChild( coilRadioButtonsItem );
-      node: new VBox( _.extend( {
+      node: new VBox( merge( {
         children: [
           new CoilNode( CoilTypeEnum.TWO_COIL ),
           new CoilNode( CoilTypeEnum.FOUR_COIL )

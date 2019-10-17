@@ -11,6 +11,7 @@ define( require => {
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
   const LinearFunction = require( 'DOT/LinearFunction' );
   const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const timer = require( 'AXON/timer' );
   const Util = require( 'DOT/Util' );
@@ -24,7 +25,7 @@ define( require => {
   class MagnetJumpKeyboardListener {
 
     constructor( model, options ) {
-      options = _.extend( {
+      options = merge( {
         defaultVelocity: 10, // in model coordinates / step
         shiftVelocity: 5,
         fastVelocity: 15,
