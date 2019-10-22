@@ -6,8 +6,8 @@ define( require => {
   // modules
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
-  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
+  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
 
   // the alert manager
   class FaradaysLawAlertManager {
