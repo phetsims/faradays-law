@@ -111,7 +111,7 @@ define( require => {
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
     this.pdomPlayAreaNode.accessibleOrder = [null, this.magnetNodeWithField];
-    this.controlAreaNode.accessibleOrder = [controlPanel];
+    this.pdomControlAreaNode.accessibleOrder = [controlPanel];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();
