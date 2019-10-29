@@ -48,7 +48,7 @@ define( require => {
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
-    this.playAreaNode.addChild( new CircuitDescriptionNode( model ) );
+    this.pdomPlayAreaNode.addChild( new CircuitDescriptionNode( model ) );
 
     // coils
     const bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
@@ -110,7 +110,7 @@ define( require => {
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
-    this.playAreaNode.accessibleOrder = [null, this.magnetNodeWithField];
+    this.pdomPlayAreaNode.accessibleOrder = [null, this.magnetNodeWithField];
     this.controlAreaNode.accessibleOrder = [controlPanel];
 
     // move coils to front
