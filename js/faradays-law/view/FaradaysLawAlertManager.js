@@ -7,9 +7,7 @@ define( require => {
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
-  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
-
-  // the alert manager
+// the alert manager
   class FaradaysLawAlertManager {
 
     constructor( describer ) {
@@ -22,37 +20,37 @@ define( require => {
 
     magnetFocusAlert() {
       const alert = this.describer.magnetFocusAlertText;
-      utteranceQueue.addToBack( alert );
+      phet.joist.sim.display.utteranceQueue.addToBack( alert );
     }
 
     movementEndAlert() {
       this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText();
-      utteranceQueue.addToFront( this.keyboardMovementUtterance );
+      phet.joist.sim.display.utteranceQueue.addToFront( this.keyboardMovementUtterance );
     }
 
     flipMagnetAlert( orientation ) {
       const alert = this.describer.getFlipMagnetAlertText( orientation );
-      utteranceQueue.addToBack( alert );
+      phet.joist.sim.display.utteranceQueue.addToBack( alert );
     }
 
     static magnetSlidingAlert( speed, direction ) {
       const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
-      utteranceQueue.addToFront( alert );
+      phet.joist.sim.display.utteranceQueue.addToFront( alert );
     }
 
     static voltmeterAttachmentAlert( showVoltmeter ) {
       const alert = MagnetDescriber.getVoltmeterAttachmentAlertText( showVoltmeter );
-      utteranceQueue.addToBack( alert );
+      phet.joist.sim.display.utteranceQueue.addToBack( alert );
     }
 
     static fieldLinesVisibilityAlert( showLines ) {
       const alert = MagnetDescriber.getFieldLinesVisibilityAlertText( showLines );
-      utteranceQueue.addToBack( alert );
+      phet.joist.sim.display.utteranceQueue.addToBack( alert );
     }
 
     static coilConnectionAlert( showTopCoil ) {
       const alert = MagnetDescriber.getCoilConnectionAlertText( showTopCoil );
-      utteranceQueue.addToBack( alert );
+      phet.joist.sim.display.utteranceQueue.addToBack( alert );
     }
   }
 

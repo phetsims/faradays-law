@@ -151,7 +151,7 @@ define( require => {
     model.voltmeterVisibleProperty.lazyLink( function( showVoltmeter ) {
       FaradaysLawAlertManager.voltmeterAttachmentAlert( showVoltmeter );
       // const attachmentState = showVoltmeter ? connectedString : removedString;
-      // utteranceQueue.addToBack( StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState } ) );
+      // phet.joist.sim.display.utteranceQueue.addToBack( StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState } ) );
     } );
 
     // Create the label for the "Show Field Lines" checkbox, scaling it if it's too long.
