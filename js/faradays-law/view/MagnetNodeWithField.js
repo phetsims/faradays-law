@@ -31,7 +31,6 @@ define( require => {
 
   // @a11y strings
   const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
-  const moveInFourDirectionsString = FaradaysLawA11yStrings.moveInFourDirections.value;
 
   // constants
   const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
@@ -80,8 +79,6 @@ define( require => {
         focusHighlightLayerable: true,
         focusHighlight: draggableNodeFocusHighlight
       } );
-
-      draggableNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
       draggableNode.addAriaLabelledbyAssociation( {
         otherNode: this,

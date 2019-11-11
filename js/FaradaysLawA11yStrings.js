@@ -126,10 +126,6 @@ define( require => {
      * Magnet Descriptions and Help Text *
      *************************************/
 
-     moveInFourDirections: {
-       value: 'move in four directions'
-     },
-
      // polarity
      poleOnThePattern: {
        value: '{{pole}} pole on {{side}}'
