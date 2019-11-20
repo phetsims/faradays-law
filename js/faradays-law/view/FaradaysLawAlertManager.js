@@ -20,37 +20,37 @@ define( require => {
 
     magnetFocusAlert() {
       const alert = this.describer.magnetFocusAlertText;
-      phet.joist.sim.display.utteranceQueue.addToBack( alert );
+      phet.joist.sim.utteranceQueue.addToBack( alert );
     }
 
     movementEndAlert() {
       this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText();
-      phet.joist.sim.display.utteranceQueue.addToFront( this.keyboardMovementUtterance );
+      phet.joist.sim.utteranceQueue.addToFront( this.keyboardMovementUtterance );
     }
 
     flipMagnetAlert( orientation ) {
       const alert = this.describer.getFlipMagnetAlertText( orientation );
-      phet.joist.sim.display.utteranceQueue.addToBack( alert );
+      phet.joist.sim.utteranceQueue.addToBack( alert );
     }
 
     static magnetSlidingAlert( speed, direction ) {
       const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
-      phet.joist.sim.display.utteranceQueue.addToFront( alert );
+      phet.joist.sim.utteranceQueue.addToFront( alert );
     }
 
     static voltmeterAttachmentAlert( showVoltmeter ) {
       const alert = MagnetDescriber.getVoltmeterAttachmentAlertText( showVoltmeter );
-      phet.joist.sim.display.utteranceQueue.addToBack( alert );
+      phet.joist.sim.utteranceQueue.addToBack( alert );
     }
 
     static fieldLinesVisibilityAlert( showLines ) {
       const alert = MagnetDescriber.getFieldLinesVisibilityAlertText( showLines );
-      phet.joist.sim.display.utteranceQueue.addToBack( alert );
+      phet.joist.sim.utteranceQueue.addToBack( alert );
     }
 
     static coilConnectionAlert( showTopCoil ) {
       const alert = MagnetDescriber.getCoilConnectionAlertText( showTopCoil );
-      phet.joist.sim.display.utteranceQueue.addToBack( alert );
+      phet.joist.sim.utteranceQueue.addToBack( alert );
     }
   }
 
