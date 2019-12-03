@@ -25,7 +25,7 @@ define( require => {
   const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
   const MagnetJumpKeyboardListener = require( 'FARADAYS_LAW/faradays-law/view/MagnetJumpKeyboardListener' );
   const MagnetNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetNode' );
-  const MagnetPDOMNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetPDOMNode' );
+  const MagnetDescriptionNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriptionNode' );
   const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
   const Node = require( 'SCENERY/nodes/Node' );
 
@@ -222,7 +222,7 @@ define( require => {
 
       magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
 
-      const pdomNode = new MagnetPDOMNode( model, describer );
+      const pdomNode = new MagnetDescriptionNode( model, describer );
       this.addChild( pdomNode );
 
       model.magnet.orientationProperty.lazyLink( orientation => {

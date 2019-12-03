@@ -14,7 +14,7 @@ define( require => {
   const fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
   const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
 
-  class MagnetPDOMNode extends Node {
+  class MagnetDescriptionNode extends Node {
 
     constructor( model, describer ) {
 
@@ -116,5 +116,5 @@ define( require => {
     }
   }
 
-  return faradaysLaw.register( 'MagnetPDOMNode', MagnetPDOMNode );
+  return faradaysLaw.register( 'MagnetDescriptionNode', MagnetDescriptionNode );
 } );
