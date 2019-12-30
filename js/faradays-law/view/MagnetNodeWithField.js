@@ -19,7 +19,7 @@ define( require => {
   const FaradaysLawKeyboardDragListener = require( 'FARADAYS_LAW/faradays-law/view/FaradaysLawKeyboardDragListener' );
   const FocusHighlightFromNode = require( 'SCENERY/accessibility/FocusHighlightFromNode' );
   const JumpMagnitudeArrowNode = require( 'FARADAYS_LAW/faradays-law/view/JumpMagnitudeArrowNode' );
-  const KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
+  const KeyboardUtils = require( 'SCENERY/accessibility/KeyboardUtils' );
   const MagnetDescriber = require( 'FARADAYS_LAW/faradays-law/view/MagnetDescriber' );
   const MagnetFieldLines = require( 'FARADAYS_LAW/faradays-law/view/MagnetFieldLines' );
   const MagnetInteractionCueNode = require( 'FARADAYS_LAW/faradays-law/view/MagnetInteractionCueNode' );
@@ -168,7 +168,7 @@ define( require => {
 
           // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
           // we want to ensure that we're only listening for the 1,2, and 3 keys
-          if ( KeyboardUtil.isNumberKey( domEvent.keyCode ) && Number( domEvent.key ) > 0 && Number( domEvent.key ) <= 3 ) {
+          if ( KeyboardUtils.isNumberKey( domEvent.keyCode ) && Number( domEvent.key ) > 0 && Number( domEvent.key ) <= 3 ) {
             self.reflectedMagnetNode.visible = true;
             model.magnetArrowsVisibleProperty.set( false );
 
@@ -189,7 +189,7 @@ define( require => {
           }
         },
         onKeyup( event ) {
-          if ( KeyboardUtil.isNumberKey( event.domEvent.keyCode ) ) {
+          if ( KeyboardUtils.isNumberKey( event.domEvent.keyCode ) ) {
             self.reflectedMagnetNode.visible = false;
           }
           rightJumpArrows.hideCue();
