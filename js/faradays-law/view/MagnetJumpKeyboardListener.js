@@ -14,7 +14,7 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const timer = require( 'AXON/timer' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -107,7 +107,7 @@ define( require => {
             this.targetPositionVector = this.reflectedPositionProperty.get();
             this.isAnimatingProperty.value = true;
 
-            const speed = Util.roundSymmetric( speedToText( this._stepDelta ) );
+            const speed = Utils.roundSymmetric( speedToText( this._stepDelta ) );
             const direction = this.getMagnetDirection( this.positionProperty.get().x - this.targetPositionVector.x );
             FaradaysLawAlertManager.magnetSlidingAlert( speed, direction );
           }

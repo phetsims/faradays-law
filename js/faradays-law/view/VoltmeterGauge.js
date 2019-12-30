@@ -20,7 +20,7 @@ define( require => {
   const Path = require( 'SCENERY/nodes/Path' );
   const PlusNode = require( 'SCENERY_PHET/PlusNode' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
@@ -74,7 +74,7 @@ define( require => {
 
     // observers
     needleAngleProperty.link( function( needleAngle ) {
-      needleArrowNode.rotation = Util.clamp( needleAngle, -Math.PI / 2, Math.PI / 2 );
+      needleArrowNode.rotation = Utils.clamp( needleAngle, -Math.PI / 2, Math.PI / 2 );
     } );
 
     this.mutate( options );

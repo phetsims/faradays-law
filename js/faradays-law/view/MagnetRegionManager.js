@@ -19,23 +19,23 @@ define( require => {
   const LinearFunction = require( 'DOT/LinearFunction' );
   const MagnetDirectionEnum = require( 'FARADAYS_LAW/faradays-law/model/MagnetDirectionEnum' );
   const Property = require( 'AXON/Property' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // constants
   const NUMBER_OF_ROWS = 3;
   const EDGE_TOLERANCE = 5;
-  const VERTICAL_EDGE_TOLERANCE = Util.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 ) + EDGE_TOLERANCE;
-  const HORIZONTAL_EDGE_TOLERANCE = Util.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 ) + EDGE_TOLERANCE;
+  const VERTICAL_EDGE_TOLERANCE = Utils.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 ) + EDGE_TOLERANCE;
+  const HORIZONTAL_EDGE_TOLERANCE = Utils.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 ) + EDGE_TOLERANCE;
   const { LEFT, RIGHT } = MagnetDirectionEnum;
   const SCREEN_MIDPOINT_X = FaradaysLawConstants.LAYOUT_BOUNDS.centerX;
 
   const coilProximityToRegion = new LinearFunction( 95, 260, 1, 3, true ); // determined empirically from sim testing
 
-  const rowHeight = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getHeight() / NUMBER_OF_ROWS );
-  const columnWidth = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / NUMBER_OF_ROWS );
+  const rowHeight = Utils.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getHeight() / NUMBER_OF_ROWS );
+  const columnWidth = Utils.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / NUMBER_OF_ROWS );
 
   // the distance the magnet must mofe in order for the extra prompt to be removed
-const DISTANCE_MOVED_THRESHOLD = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.width / 5 );
+const DISTANCE_MOVED_THRESHOLD = Utils.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.width / 5 );
 
   /**
   * Creates a new Bounds2 object centered on the privided vector.
@@ -274,7 +274,7 @@ const DISTANCE_MOVED_THRESHOLD = Util.roundSymmetric( FaradaysLawConstants.LAYOU
 
       const distance = this.getDistanceToCoil( vector, coilType );
 
-      return Util.roundSymmetric( coilProximityToRegion( distance ) );
+      return Utils.roundSymmetric( coilProximityToRegion( distance ) );
     }
 
     getDistanceToCoil( position, coilType ) {

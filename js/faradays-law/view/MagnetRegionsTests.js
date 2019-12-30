@@ -16,7 +16,7 @@ define( require => {
   const FaradaysLawModel = require( 'FARADAYS_LAW/faradays-law/model/FaradaysLawModel' );
   const MagnetRegionManager = require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionManager' );
   const Tandem = require( 'TANDEM/Tandem' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // create model and view
@@ -28,8 +28,8 @@ define( require => {
 
   QUnit.module( 'MagnetRegionManager' );
 
-  const columnWidth = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / 3 );
-  const rowHeight = Util.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getHeight() / 3 );
+  const columnWidth = Utils.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / 3 );
+  const rowHeight = Utils.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getHeight() / 3 );
 
   let x = columnWidth / 2; // center of col 1
   let y = rowHeight / 2; // center of row 1
@@ -101,8 +101,8 @@ define( require => {
   } );
 
   test( 'get magnet edge notification', assert => {
-    const halfMagnetWidth = Util.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 );
-    const halfMagnetHeight = Util.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 );
+    const halfMagnetWidth = Utils.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 );
+    const halfMagnetHeight = Utils.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 );
 
     // set position to middle of vertical bounds and left edge
     v.setXY( FaradaysLawConstants.LAYOUT_BOUNDS.minX + halfMagnetWidth, FaradaysLawConstants.LAYOUT_BOUNDS.center.y );

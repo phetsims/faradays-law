@@ -12,7 +12,7 @@ define( require => {
   // modules
   // const LinearFunction = require( 'DOT/LinearFunction' );
   // const Range = require( 'DOT/Range' );
-  // const Util = require( 'DOT/Util' );
+  // const Utils = require( 'DOT/Utils' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
   const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
