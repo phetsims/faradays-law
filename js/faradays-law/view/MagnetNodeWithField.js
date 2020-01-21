@@ -90,7 +90,7 @@ define( require => {
       this.addChild( draggableNodeFocusHighlight );
       draggableNode.addChild( this.magnetNode );
 
-      // magnet reflection - node to indicate the future location when sliding the magnet
+      // magnet reflection - node to indicate the future position when sliding the magnet
       this.reflectedMagnetNode = createMagnetNode( model.magnet );
       this.addChild( this.reflectedMagnetNode );
       this.reflectedMagnetNode.opacity = 0.5;
