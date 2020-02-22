@@ -9,7 +9,7 @@ define( require => {
   'use strict';
 
   // modules
-  require( 'SCENERY/util/Trail' ); // Why isn't Trail added to scenery namespace for these tests??
+  require( 'SCENERY/util/Trail' ); // Why is Trail not added to scenery namespace for these tests??
   require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionsTests' );
 
   // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
