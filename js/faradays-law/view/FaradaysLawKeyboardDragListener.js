@@ -5,61 +5,58 @@
  * @extends KeyboardDragListener
  */
 
-define( require => {
-  'use strict';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import faradaysLaw from '../../faradaysLaw.js';
 
-  // modules
-  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  const KeyboardDragListener = require( 'SCENERY/listeners/KeyboardDragListener' );
-  class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
-    // need to implement;
-      // drag
-      // end
-      // jump behavior
-    // this type needs to handle all the keyboard interaction - for now, I suppose it's possible to simply add 2
-    // a11yInputListeners...let's try!
+class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
+  // need to implement;
+  // drag
+  // end
+  // jump behavior
+  // this type needs to handle all the keyboard interaction - for now, I suppose it's possible to simply add 2
+  // a11yInputListeners...let's try!
 
-    constructor( model, regionManager, alertManager ) {
+  constructor( model, regionManager, alertManager ) {
 
-      const drag = vectorDelta => {
-        model.magnetArrowsVisibleProperty.set( false );
-        let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
-        newPosition = model.bounds.closestPointTo( newPosition );
-        model.moveMagnetToPosition( newPosition );
-      };
+    const drag = vectorDelta => {
+      model.magnetArrowsVisibleProperty.set( false );
+      let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
+      newPosition = model.bounds.closestPointTo( newPosition );
+      model.moveMagnetToPosition( newPosition );
+    };
 
-      const end = event => {
-        alertManager.movementEndAlert();
-      };
+    const end = event => {
+      alertManager.movementEndAlert();
+    };
 
-      super( { drag: drag, end: end, dragBounds: model.bounds } );
+    super( { drag: drag, end: end, dragBounds: model.bounds } );
 
-      this.regionManager = regionManager;
-      this.alertManager = alertManager;
-    }
-
-    initializeAccessibleInputListener() {
-      return {
-        keyup: onKeyup.bind( this ),
-        focus: onFocus.bind( this )
-      };
-    }
+    this.regionManager = regionManager;
+    this.alertManager = alertManager;
   }
 
-  function onKeyup( event ) {
-    const { magnetIsAnimating, magnetStoppedByKeyboard } = this.regionManager;
-
-    if ( !magnetIsAnimating && magnetStoppedByKeyboard ) {
-      this.alertManager.movementEndAlert();
-      this.regionManager.resetKeyboardStop();
-    }
+  initializeAccessibleInputListener() {
+    return {
+      keyup: onKeyup.bind( this ),
+      focus: onFocus.bind( this )
+    };
   }
+}
 
-  function onFocus( event ) {
-    // set flag to override the next keyup alert
-    this.alertManager.magnetFocusAlert();
+function onKeyup( event ) {
+  const { magnetIsAnimating, magnetStoppedByKeyboard } = this.regionManager;
+
+  if ( !magnetIsAnimating && magnetStoppedByKeyboard ) {
+    this.alertManager.movementEndAlert();
     this.regionManager.resetKeyboardStop();
   }
+}
 
-  return faradaysLaw.register( 'FaradaysLawKeyboardDragListener', FaradaysLawKeyboardDragListener );
-} );
+function onFocus( event ) {
+  // set flag to override the next keyup alert
+  this.alertManager.magnetFocusAlert();
+  this.regionManager.resetKeyboardStop();
+}
+
+faradaysLaw.register( 'FaradaysLawKeyboardDragListener', FaradaysLawKeyboardDragListener );
+export default FaradaysLawKeyboardDragListener;

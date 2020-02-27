@@ -5,28 +5,24 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Bounds2 from '../../../dot/js/Bounds2.js';
+import Vector2 from '../../../dot/js/Vector2.js';
+import faradaysLaw from '../faradaysLaw.js';
 
-  // constants
-  const BULB_POSITION = new Vector2( 190, 244 );
+// constants
+const BULB_POSITION = new Vector2( 190, 244 );
 
-  const FaradaysLawConstants = {
-    LAYOUT_BOUNDS: new Bounds2( 0, 0, 834, 504 ),
-    BULB_POSITION: BULB_POSITION,
-    VOLTMETER_POSITION: BULB_POSITION.minusXY( 0, 165 ),
-    MAGNET_HEIGHT: 30,
-    MAGNET_WIDTH: 140,
-    TOP_COIL_POSITION: new Vector2( 422, 131 ),
-    BOTTOM_COIL_POSITION: new Vector2( 448, 328 )
-  };
+const FaradaysLawConstants = {
+  LAYOUT_BOUNDS: new Bounds2( 0, 0, 834, 504 ),
+  BULB_POSITION: BULB_POSITION,
+  VOLTMETER_POSITION: BULB_POSITION.minusXY( 0, 165 ),
+  MAGNET_HEIGHT: 30,
+  MAGNET_WIDTH: 140,
+  TOP_COIL_POSITION: new Vector2( 422, 131 ),
+  BOTTOM_COIL_POSITION: new Vector2( 448, 328 )
+};
 
-  faradaysLaw.register( 'FaradaysLawConstants', FaradaysLawConstants );
+faradaysLaw.register( 'FaradaysLawConstants', FaradaysLawConstants );
 
-  return FaradaysLawConstants;
-} );
+export default FaradaysLawConstants;

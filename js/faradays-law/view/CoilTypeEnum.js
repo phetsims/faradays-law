@@ -6,19 +6,16 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+import faradaysLaw from '../../faradaysLaw.js';
 
-  const CoilTypeEnum = {
-    TWO_COIL: 'two-coil',
-    FOUR_COIL: 'four-coil',
-    NO_COIL: 'no coil'
-  };
+const CoilTypeEnum = {
+  TWO_COIL: 'two-coil',
+  FOUR_COIL: 'four-coil',
+  NO_COIL: 'no coil'
+};
 
-  if ( assert ) { Object.freeze( CoilTypeEnum ); }
+if ( assert ) { Object.freeze( CoilTypeEnum ); }
 
-  return faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );
-} );
+faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );
+export default CoilTypeEnum;

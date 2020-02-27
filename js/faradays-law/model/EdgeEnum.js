@@ -5,20 +5,17 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+import faradaysLaw from '../../faradaysLaw.js';
 
-  const EdgeEnum = {
-    TOP: 'top',
-    BOTTOM: 'bottom',
-    LEFT: 'left',
-    RIGHT: 'right'
-  };
+const EdgeEnum = {
+  TOP: 'top',
+  BOTTOM: 'bottom',
+  LEFT: 'left',
+  RIGHT: 'right'
+};
 
-  if ( assert ) { Object.freeze( EdgeEnum ); }
+if ( assert ) { Object.freeze( EdgeEnum ); }
 
-  return faradaysLaw.register( 'EdgeEnum', EdgeEnum );
-} );
+faradaysLaw.register( 'EdgeEnum', EdgeEnum );
+export default EdgeEnum;

@@ -5,13 +5,9 @@
  *
  * @author Michael Barlow (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  require( 'SCENERY/util/Trail' ); // Why is Trail not added to scenery namespace for these tests??
-  require( 'FARADAYS_LAW/faradays-law/view/MagnetRegionsTests' );
+import '../../scenery/js/util/Trail.js'; // Why is Trail not added to scenery namespace for these tests??
+import './faradays-law/view/MagnetRegionsTests.js';
 
-  // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
-  QUnit.start();
-} );
+// Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
+QUnit.start();

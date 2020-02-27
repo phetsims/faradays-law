@@ -6,240 +6,238 @@
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  // const Vector2 = require( 'DOT/Vector2' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const Coil = require( 'FARADAYS_LAW/faradays-law/model/Coil' );
-  const EdgeEnum = require( 'FARADAYS_LAW/faradays-law/model/EdgeEnum' );
-  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
-  const FaradaysLawConstants = require( 'FARADAYS_LAW/faradays-law/FaradaysLawConstants' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Magnet = require( 'FARADAYS_LAW/faradays-law/model/Magnet' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Voltmeter = require( 'FARADAYS_LAW/faradays-law/model/Voltmeter' );
 
-  // constants
-  // restricted zones for magnet because of coils
-  const TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
-  const FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
+// modules
+// const Vector2 = require( '/dot/js/Vector2' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import faradaysLaw from '../../faradaysLaw.js';
+import FaradaysLawConstants from '../FaradaysLawConstants.js';
+import Coil from './Coil.js';
+import EdgeEnum from './EdgeEnum.js';
+import Magnet from './Magnet.js';
+import Voltmeter from './Voltmeter.js';
+
+// constants
+// restricted zones for magnet because of coils
+const TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
+const FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
+
+/**
+ * @param {Bounds2} bounds of Screen
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function FaradaysLawModel( bounds, tandem ) {
+  const self = this;
+
+  // @public (read-only) (Bounds2}
+  this.bounds = bounds;
+
+  // @public - Whether the top coil should be shown
+  this.topCoilVisibleProperty = new BooleanProperty( false, {
+    tandem: tandem.createTandem( 'topCoilVisibleProperty' ),
+    phetioDocumentation: 'True if and only if the top coil is visible'
+  } );
+
+  // @public - true if the magnet arrows should be shown
+  this.magnetArrowsVisibleProperty = new BooleanProperty( true, {
+    tandem: tandem.createTandem( 'magnetArrowsVisibleProperty' ),
+    phetioDocumentation: 'True if the magnet arrows are shown'
+  } );
+
+  this.voltmeterVisibleProperty = new BooleanProperty( true, {
+    tandem: tandem.createTandem( 'voltmeterVisibleProperty' ),
+    phetioDocumentation: 'True if the voltmeter is shown'
+  } );
+
+  // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
+  this.voltageProperty = new NumberProperty( 0, {
+    tandem: tandem.createTandem( 'voltageProperty' ),
+    phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
+    phetioReadOnly: true,
+    phetioHighFrequency: true,
+    units: 'volts'
+  } );
+
+  // @public - the magnet which can be dragged
+  this.magnet = new Magnet( tandem.createTandem( 'magnet' ) );
+
+  // @public - bottom coil
+  this.bottomCoil = new Coil( FaradaysLawConstants.BOTTOM_COIL_POSITION, 4, this.magnet );
+
+  // @public - top coil
+  this.topCoil = new Coil( FaradaysLawConstants.TOP_COIL_POSITION, 2, this.magnet );
+
+  // @private - regions the magnet cannot be dragged
+  this.listOfRestrictedBounds = [
+    TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
+    TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x, this.topCoil.position.y + 67 ),
+    FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
+    FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
+  ];
+
+  // @private - see this.moveMagnetToPosition method, used to calculate magnet position
+  this.intersectedBounds = null;
+
+  // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
+  this.magnetMovingDirection = null;
+
+  // @public - the Voltmeter
+  this.voltmeter = new Voltmeter( this );
+
+  // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
+  this.topCoilVisibleProperty.link( function( showTopCoil ) {
+    if ( showTopCoil && self.magnetIntersectsTopCoilArea() ) {
+      self.magnet.positionProperty.reset();
+    }
+    self.intersectedBounds = null;
+    self.topCoil.reset();
+  } );
+}
+
+faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
+
+export default inherit( Object, FaradaysLawModel, {
 
   /**
-   * @param {Bounds2} bounds of Screen
-   * @param {Tandem} tandem
-   * @constructor
+   * Restore to initial conditions
+   * @public
    */
-  function FaradaysLawModel( bounds, tandem ) {
-    const self = this;
+  reset: function() {
+    this.magnet.reset();
+    this.topCoilVisibleProperty.reset();
+    this.magnetArrowsVisibleProperty.reset();
+    this.bottomCoil.reset();
+    this.topCoil.reset();
+  },
 
-    // @public (read-only) (Bounds2}
-    this.bounds = bounds;
+  /**
+   * Move the model forward in time
+   * @param {number} dt - in seconds
+   * @public
+   */
+  step: function( dt ) {
+    this.bottomCoil.step( dt );
+    this.topCoilVisibleProperty.get() && this.topCoil.step( dt );
+    this.voltmeter.step( dt );
+    // console.log(this.bottomCoil.magneticFieldProperty.get());
+  },
 
-    // @public - Whether the top coil should be shown
-    this.topCoilVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'topCoilVisibleProperty' ),
-      phetioDocumentation: 'True if and only if the top coil is visible'
-    } );
+  /**
+   * Returns true if magnet intersects coil bounds
+   * @returns {boolean}
+   * @private
+   */
+  magnetIntersectsTopCoilArea: function() {
+    const magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
+    return magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 0 ] );
+  },
 
-    // @public - true if the magnet arrows should be shown
-    this.magnetArrowsVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'magnetArrowsVisibleProperty' ),
-      phetioDocumentation: 'True if the magnet arrows are shown'
-    } );
+  /**
+   * Return one of the model's restricted bounds if it intersects with the given bounds. Can return null.
+   * @param  {Bounds2} bounds
+   * @returns {Bounds2|null}
+   */
+  getIntersectedRestrictedBounds: function( bounds ) {
+    const stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
 
-    this.voltmeterVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'voltmeterVisibleProperty' ),
-      phetioDocumentation: 'True if the voltmeter is shown'
-    } );
+    for ( let i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
+      const restrictedBounds = this.listOfRestrictedBounds[ i ];
 
-    // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
-    this.voltageProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'voltageProperty' ),
-      phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
-      phetioReadOnly: true,
-      phetioHighFrequency: true,
-      units: 'volts'
-    } );
-
-    // @public - the magnet which can be dragged
-    this.magnet = new Magnet( tandem.createTandem( 'magnet' ) );
-
-    // @public - bottom coil
-    this.bottomCoil = new Coil( FaradaysLawConstants.BOTTOM_COIL_POSITION, 4, this.magnet );
-
-    // @public - top coil
-    this.topCoil = new Coil( FaradaysLawConstants.TOP_COIL_POSITION, 2, this.magnet );
-
-    // @private - regions the magnet cannot be dragged
-    this.listOfRestrictedBounds = [
-      TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
-      TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x, this.topCoil.position.y + 67 ),
-      FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
-      FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
-    ];
-
-    // @private - see this.moveMagnetToPosition method, used to calculate magnet position
-    this.intersectedBounds = null;
-
-    // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
-    this.magnetMovingDirection = null;
-
-    // @public - the Voltmeter
-    this.voltmeter = new Voltmeter( this );
-
-    // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
-    this.topCoilVisibleProperty.link( function( showTopCoil ) {
-      if ( showTopCoil && self.magnetIntersectsTopCoilArea() ) {
-        self.magnet.positionProperty.reset();
+      if ( bounds.intersectsBounds( restrictedBounds ) ) {
+        return restrictedBounds;
       }
-      self.intersectedBounds = null;
-      self.topCoil.reset();
-    } );
-  }
+    }
 
-  faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
+    return null;
+  },
 
-  return inherit( Object, FaradaysLawModel, {
+  /**
+   * @param {Vector2} position - position of magnet
+   * @public
+   */
+  moveMagnetToPosition: function( position ) {
 
-    /**
-     * Restore to initial conditions
-     * @public
-     */
-    reset: function() {
-      this.magnet.reset();
-      this.topCoilVisibleProperty.reset();
-      this.magnetArrowsVisibleProperty.reset();
-      this.bottomCoil.reset();
-      this.topCoil.reset();
-    },
+    // Check the bounds of the magnet, but subtract 1 to prevent it from passing through the coils vertically
+    // see https://github.com/phetsims/faradays-law/issues/47
+    const magnetBounds = new Bounds2(
+      Math.min( position.x, this.magnet.positionProperty.get().x ),
+      Math.min( position.y, this.magnet.positionProperty.get().y ),
+      Math.max( position.x, this.magnet.positionProperty.get().x ),
+      Math.max( position.y, this.magnet.positionProperty.get().y )
+    ).dilatedXY( this.magnet.width / 2 - 1, this.magnet.height / 2 - 1 );
 
-    /**
-     * Move the model forward in time
-     * @param {number} dt - in seconds
-     * @public
-     */
-    step: function( dt ) {
-      this.bottomCoil.step( dt );
-      this.topCoilVisibleProperty.get() && this.topCoil.step( dt );
-      this.voltmeter.step( dt );
-      // console.log(this.bottomCoil.magneticFieldProperty.get());
-    },
+    // check intersection with any restricted areas if not intersected yet
+    if ( this.intersectedBounds === null ) {
 
-    /**
-     * Returns true if magnet intersects coil bounds
-     * @returns {boolean}
-     * @private
-     */
-    magnetIntersectsTopCoilArea: function() {
-      const magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
-      return magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 0 ] );
-    },
-
-    /**
-     * Return one of the model's restricted bounds if it intersects with the given bounds. Can return null.
-     * @param  {Bounds2} bounds
-     * @returns {Bounds2|null}
-     */
-    getIntersectedRestrictedBounds: function( bounds ) {
-      const stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
-
-      for ( let i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
+      // if first coil not visible, check only second coil restrictions
+      for ( let i = this.topCoilVisibleProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
         const restrictedBounds = this.listOfRestrictedBounds[ i ];
+        if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
 
-        if ( bounds.intersectsBounds( restrictedBounds ) ) {
-          return restrictedBounds;
-        }
-      }
+          // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
+          const movingDelta = position.minus( this.magnet.positionProperty.get() );
+          this.intersectedBounds = restrictedBounds.copy();
+          if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 
-      return null;
-    },
-
-    /**
-     * @param {Vector2} position - position of magnet
-     * @public
-     */
-    moveMagnetToPosition: function( position ) {
-
-      // Check the bounds of the magnet, but subtract 1 to prevent it from passing through the coils vertically
-      // see https://github.com/phetsims/faradays-law/issues/47
-      const magnetBounds = new Bounds2(
-        Math.min( position.x, this.magnet.positionProperty.get().x ),
-        Math.min( position.y, this.magnet.positionProperty.get().y ),
-        Math.max( position.x, this.magnet.positionProperty.get().x ),
-        Math.max( position.y, this.magnet.positionProperty.get().y )
-      ).dilatedXY( this.magnet.width / 2 - 1, this.magnet.height / 2 - 1 );
-
-      // check intersection with any restricted areas if not intersected yet
-      if ( this.intersectedBounds === null ) {
-
-        // if first coil not visible, check only second coil restrictions
-        for ( let i = this.topCoilVisibleProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
-          const restrictedBounds = this.listOfRestrictedBounds[ i ];
-          if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
-
-            // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-            const movingDelta = position.minus( this.magnet.positionProperty.get() );
-            this.intersectedBounds = restrictedBounds.copy();
-            if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
-
-              // vertical direction
-              if ( movingDelta.y > 0 ) {
-                this.magnetMovingDirection = EdgeEnum.BOTTOM;
-                this.intersectedBounds.setMaxY( 3000 );
-              }
-              else {
-                this.magnetMovingDirection = EdgeEnum.TOP;
-                this.intersectedBounds.setMinY( -3000 );
-              }
+            // vertical direction
+            if ( movingDelta.y > 0 ) {
+              this.magnetMovingDirection = EdgeEnum.BOTTOM;
+              this.intersectedBounds.setMaxY( 3000 );
             }
             else {
-
-              // horizontal
-              if ( movingDelta.x > 0 ) {
-                this.magnetMovingDirection = EdgeEnum.RIGHT;
-                this.intersectedBounds.setMaxX( 3000 );
-              }
-              else {
-                this.magnetMovingDirection = EdgeEnum.LEFT;
-                this.intersectedBounds.setMinX( -3000 );
-              }
+              this.magnetMovingDirection = EdgeEnum.TOP;
+              this.intersectedBounds.setMinY( -3000 );
             }
-            break;
           }
+          else {
+
+            // horizontal
+            if ( movingDelta.x > 0 ) {
+              this.magnetMovingDirection = EdgeEnum.RIGHT;
+              this.intersectedBounds.setMaxX( 3000 );
+            }
+            else {
+              this.magnetMovingDirection = EdgeEnum.LEFT;
+              this.intersectedBounds.setMinX( -3000 );
+            }
+          }
+          break;
         }
       }
+    }
 
-      // intersection with any bounds
-      if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
-        if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
-          position.y = this.intersectedBounds.y - this.magnet.height / 2;
-        }
-        else if ( this.magnetMovingDirection === EdgeEnum.TOP ) {
-          position.y = this.intersectedBounds.maxY + this.magnet.height / 2;
-        }
-        else if ( this.magnetMovingDirection === EdgeEnum.LEFT ) {
-          position.x = this.intersectedBounds.maxX + this.magnet.width / 2;
-        }
-        else if ( this.magnetMovingDirection === EdgeEnum.RIGHT ) {
-          position.x = this.intersectedBounds.x - this.magnet.width / 2;
-        }
-        else {
-          throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
-        }
+    // intersection with any bounds
+    if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
+      if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
+        position.y = this.intersectedBounds.y - this.magnet.height / 2;
+      }
+      else if ( this.magnetMovingDirection === EdgeEnum.TOP ) {
+        position.y = this.intersectedBounds.maxY + this.magnet.height / 2;
+      }
+      else if ( this.magnetMovingDirection === EdgeEnum.LEFT ) {
+        position.x = this.intersectedBounds.maxX + this.magnet.width / 2;
+      }
+      else if ( this.magnetMovingDirection === EdgeEnum.RIGHT ) {
+        position.x = this.intersectedBounds.x - this.magnet.width / 2;
       }
       else {
-        this.intersectedBounds = null;
-
-        // out of simulation bounds
-        if ( !this.bounds.containsBounds( magnetBounds ) ) {
-          position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
-          position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
-        }
+        throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
       }
-      this.magnet.positionProperty.set( position );
     }
-  } );
+    else {
+      this.intersectedBounds = null;
+
+      // out of simulation bounds
+      if ( !this.bounds.containsBounds( magnetBounds ) ) {
+        position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
+        position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
+      }
+    }
+    this.magnet.positionProperty.set( position );
+  }
 } );

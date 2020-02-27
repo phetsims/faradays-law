@@ -5,24 +5,21 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const faradaysLaw = require( 'FARADAYS_LAW/faradaysLaw' );
+import faradaysLaw from '../../faradaysLaw.js';
 
-  const OrientationEnum = {
-    NS: 'NS',
-    SN: 'SN'
-  };
+const OrientationEnum = {
+  NS: 'NS',
+  SN: 'SN'
+};
 
-  OrientationEnum.values = _.keys( OrientationEnum );
-  OrientationEnum.opposite = function( value ) {
-    assert && assert( value === OrientationEnum.NS || value === OrientationEnum.SN, 'invalid enum value: ' + value );
-    return value === OrientationEnum.NS ? OrientationEnum.SN : OrientationEnum.NS;
-  };
+OrientationEnum.values = _.keys( OrientationEnum );
+OrientationEnum.opposite = function( value ) {
+  assert && assert( value === OrientationEnum.NS || value === OrientationEnum.SN, 'invalid enum value: ' + value );
+  return value === OrientationEnum.NS ? OrientationEnum.SN : OrientationEnum.NS;
+};
 
-  if ( assert ) { Object.freeze( OrientationEnum ); }
+if ( assert ) { Object.freeze( OrientationEnum ); }
 
-  return faradaysLaw.register( 'OrientationEnum', OrientationEnum );
-} );
+faradaysLaw.register( 'OrientationEnum', OrientationEnum );
+export default OrientationEnum;
