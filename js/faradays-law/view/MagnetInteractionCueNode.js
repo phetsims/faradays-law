@@ -38,7 +38,7 @@ function MagnetInteractionCueNode() {
 
   Node.call( this );
 
-  const a11yEnabled = phet.joist.sim.isAccessible;
+  const a11yEnabled = phet.joist.sim.supportsInteractiveDescriptions;
 
   const wNode = a11yEnabled ? this.createA11yMovementKeyNode( 'up' ) : this.createMovementKeyNode( 'up' );
   const aNode = a11yEnabled ? this.createA11yMovementKeyNode( 'left' ) : this.createMovementKeyNode( 'left' );
