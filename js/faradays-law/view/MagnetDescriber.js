@@ -10,93 +10,93 @@
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
 
 // strings
-const topLeftString = FaradaysLawA11yStrings.topLeft.value;
-const topCenterString = FaradaysLawA11yStrings.topCenter.value;
-const topRightString = FaradaysLawA11yStrings.topRight.value;
-const middleLeftString = FaradaysLawA11yStrings.middleLeft.value;
-const centerString = FaradaysLawA11yStrings.center.value;
-const middleRightString = FaradaysLawA11yStrings.middleRight.value;
-const bottomLeftString = FaradaysLawA11yStrings.bottomLeft.value;
-const bottomCenterString = FaradaysLawA11yStrings.bottomCenter.value;
-const bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
-const edgeString = FaradaysLawA11yStrings.edge.value;
-const twoWordsPatternString = FaradaysLawA11yStrings.twoWordsPattern.value;
+const topLeftString = faradaysLawStrings.a11y.topLeft;
+const topCenterString = faradaysLawStrings.a11y.topCenter;
+const topRightString = faradaysLawStrings.a11y.topRight;
+const middleLeftString = faradaysLawStrings.a11y.middleLeft;
+const centerString = faradaysLawStrings.a11y.center;
+const middleRightString = faradaysLawStrings.a11y.middleRight;
+const bottomLeftString = faradaysLawStrings.a11y.bottomLeft;
+const bottomCenterString = faradaysLawStrings.a11y.bottomCenter;
+const bottomRightString = faradaysLawStrings.a11y.bottomRight;
+const edgeString = faradaysLawStrings.a11y.edge;
+const twoWordsPatternString = faradaysLawStrings.a11y.twoWordsPattern;
 
-const barMagnetPositionPatternString = FaradaysLawA11yStrings.barMagnetPositionPattern.value;
-const positionOfPlayAreaPatternString = FaradaysLawA11yStrings.positionOfPlayAreaPattern.value;
-const barMagnetHelpTextString = FaradaysLawA11yStrings.barMagnetHelpText.value;
-const inString = FaradaysLawA11yStrings.in.value;
-const veryCloseToString = FaradaysLawA11yStrings.veryCloseTo.value;
-const closeToString = FaradaysLawA11yStrings.closeTo.value;
-const farFromString = FaradaysLawA11yStrings.farFrom.value;
-const touchingSideOfCoilPatternString = FaradaysLawA11yStrings.touchingSideOfCoilPattern.value;
-const magnetPositionProximityPatternString = FaradaysLawA11yStrings.magnetPositionProximityPattern.value;
+const barMagnetPositionPatternString = faradaysLawStrings.a11y.barMagnetPositionPattern;
+const positionOfPlayAreaPatternString = faradaysLawStrings.a11y.positionOfPlayAreaPattern;
+const barMagnetHelpTextString = faradaysLawStrings.a11y.barMagnetHelpText;
+const inString = faradaysLawStrings.a11y.in;
+const veryCloseToString = faradaysLawStrings.a11y.veryCloseTo;
+const closeToString = faradaysLawStrings.a11y.closeTo;
+const farFromString = faradaysLawStrings.a11y.farFrom;
+const touchingSideOfCoilPatternString = faradaysLawStrings.a11y.touchingSideOfCoilPattern;
+const magnetPositionProximityPatternString = faradaysLawStrings.a11y.magnetPositionProximityPattern;
 
 // magnet alert patterns
-const slidingAndPositionFourCoilPatternString = FaradaysLawA11yStrings.slidingAndPositionFourCoilPattern.value;
-const slidingStoppedPositionPatternString = FaradaysLawA11yStrings.slidingStoppedPositionPattern.value;
-const fourCoilTwoCoilFieldLinesPatternString = FaradaysLawA11yStrings.fourCoilTwoCoilFieldLinesPattern.value;
-const twoCoilFieldLinesPatternString = FaradaysLawA11yStrings.twoCoilFieldLinesPattern.value;
-const slidingStoppedPositionFourCoilTwoCoilFieldLinesPatternString = FaradaysLawA11yStrings.slidingStoppedPositionFourCoilTwoCoilFieldLinesPattern.value;
+const slidingAndPositionFourCoilPatternString = faradaysLawStrings.a11y.slidingAndPositionFourCoilPattern;
+const slidingStoppedPositionPatternString = faradaysLawStrings.a11y.slidingStoppedPositionPattern;
+const fourCoilTwoCoilFieldLinesPatternString = faradaysLawStrings.a11y.fourCoilTwoCoilFieldLinesPattern;
+const twoCoilFieldLinesPatternString = faradaysLawStrings.a11y.twoCoilFieldLinesPattern;
+const slidingStoppedPositionFourCoilTwoCoilFieldLinesPatternString = faradaysLawStrings.a11y.slidingStoppedPositionFourCoilTwoCoilFieldLinesPattern;
 
-const poleOnThePatternString = FaradaysLawA11yStrings.poleOnThePattern.value;
-const northString = FaradaysLawA11yStrings.north.value;
-const southString = FaradaysLawA11yStrings.south.value;
+const poleOnThePatternString = faradaysLawStrings.a11y.poleOnThePattern;
+const northString = faradaysLawStrings.a11y.north;
+const southString = faradaysLawStrings.a11y.south;
 
-const leftString = FaradaysLawA11yStrings.left.value;
-const rightString = FaradaysLawA11yStrings.right.value;
+const leftString = faradaysLawStrings.a11y.left;
+const rightString = faradaysLawStrings.a11y.right;
 
-const minimalString = FaradaysLawA11yStrings.minimal.value;
-const veryWeakString = FaradaysLawA11yStrings.veryWeak.value;
-const weakString = FaradaysLawA11yStrings.weak.value;
-const strongString = FaradaysLawA11yStrings.strong.value;
-const veryStrongString = FaradaysLawA11yStrings.veryStrong.value;
+const minimalString = faradaysLawStrings.a11y.minimal;
+const veryWeakString = faradaysLawStrings.a11y.veryWeak;
+const weakString = faradaysLawStrings.a11y.weak;
+const strongString = faradaysLawStrings.a11y.strong;
+const veryStrongString = faradaysLawStrings.a11y.veryStrong;
 
-const fieldLinesDescriptionPatternString = FaradaysLawA11yStrings.fieldLinesDescriptionPattern.value;
-const fourLoopOnlyFieldStrengthPatternString = FaradaysLawA11yStrings.fourLoopOnlyFieldStrengthPattern.value;
-const fieldStrengthPatternString = FaradaysLawA11yStrings.fieldStrengthPattern.value;
+const fieldLinesDescriptionPatternString = faradaysLawStrings.a11y.fieldLinesDescriptionPattern;
+const fourLoopOnlyFieldStrengthPatternString = faradaysLawStrings.a11y.fourLoopOnlyFieldStrengthPattern;
+const fieldStrengthPatternString = faradaysLawStrings.a11y.fieldStrengthPattern;
 
-const fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
-const twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
-const theCoilPatternString = FaradaysLawA11yStrings.theCoilPattern.value;
+const fourLoopCoilString = faradaysLawStrings.a11y.fourLoopCoil;
+const twoLoopCoilString = faradaysLawStrings.a11y.twoLoopCoil;
+const theCoilPatternString = faradaysLawStrings.a11y.theCoilPattern;
 const theFourLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: fourLoopCoilString } );
 const theTwoLoopCoilString = StringUtils.fillIn( theCoilPatternString, { coil: twoLoopCoilString } );
-const circuitNowHasPatternString = FaradaysLawA11yStrings.circuitNowHasPattern.value;
-const oneCoilString = FaradaysLawA11yStrings.oneCoil.value;
-const twoCoilsString = FaradaysLawA11yStrings.twoCoils.value;
+const circuitNowHasPatternString = faradaysLawStrings.a11y.circuitNowHasPattern;
+const oneCoilString = faradaysLawStrings.a11y.oneCoil;
+const twoCoilsString = faradaysLawStrings.a11y.twoCoils;
 
-const magnetLocationAlertPatternString = FaradaysLawA11yStrings.magnetLocationAlertPattern.value;
-const magnetLocationExtraAlertPatternString = FaradaysLawA11yStrings.magnetLocationExtraAlertPattern.value;
+const magnetLocationAlertPatternString = faradaysLawStrings.a11y.magnetLocationAlertPattern;
+const magnetLocationExtraAlertPatternString = faradaysLawStrings.a11y.magnetLocationExtraAlertPattern;
 
-const slidingStoppedString = FaradaysLawA11yStrings.slidingStopped.value;
-const magnetSlidingAlertPatternString = FaradaysLawA11yStrings.magnetSlidingAlertPattern.value;
+const slidingStoppedString = faradaysLawStrings.a11y.slidingStopped;
+const magnetSlidingAlertPatternString = faradaysLawStrings.a11y.magnetSlidingAlertPattern;
 
-const connectedString = FaradaysLawA11yStrings.connected.value;
-const removedString = FaradaysLawA11yStrings.removed.value;
-const voltmeterAlertPatternString = FaradaysLawA11yStrings.voltmeterAlertPattern.value;
-const fieldStrengthPassingCoilPatternString = FaradaysLawA11yStrings.fieldStrengthPassingCoilPattern.value;
-const fieldStrengthPassingBothCoilsPatternString = FaradaysLawA11yStrings.fieldStrengthPassingBothCoilsPattern.value;
-const fieldLinesVisibilityPatternString = FaradaysLawA11yStrings.fieldLinesVisibilityPattern.value;
-const hiddenString = FaradaysLawA11yStrings.hidden.value;
-const visibleString = FaradaysLawA11yStrings.visible.value;
-const fieldLinesDescriptionUpdatedString = FaradaysLawA11yStrings.fieldLinesDescriptionUpdated.value;
+const connectedString = faradaysLawStrings.a11y.connected;
+const removedString = faradaysLawStrings.a11y.removed;
+const voltmeterAlertPatternString = faradaysLawStrings.a11y.voltmeterAlertPattern;
+const fieldStrengthPassingCoilPatternString = faradaysLawStrings.a11y.fieldStrengthPassingCoilPattern;
+const fieldStrengthPassingBothCoilsPatternString = faradaysLawStrings.a11y.fieldStrengthPassingBothCoilsPattern;
+const fieldLinesVisibilityPatternString = faradaysLawStrings.a11y.fieldLinesVisibilityPattern;
+const hiddenString = faradaysLawStrings.a11y.hidden;
+const visibleString = faradaysLawStrings.a11y.visible;
+const fieldLinesDescriptionUpdatedString = faradaysLawStrings.a11y.fieldLinesDescriptionUpdated;
 
-const flippingMagnetPatternString = FaradaysLawA11yStrings.flippingMagnetPattern.value;
+const flippingMagnetPatternString = faradaysLawStrings.a11y.flippingMagnetPattern;
 
-const proximityToFourCoilPatternString = FaradaysLawA11yStrings.proximityToFourCoilPattern.value;
-const proximityToTwoCoilPatternString = FaradaysLawA11yStrings.proximityToTwoCoilPattern.value;
+const proximityToFourCoilPatternString = faradaysLawStrings.a11y.proximityToFourCoilPattern;
+const proximityToTwoCoilPatternString = faradaysLawStrings.a11y.proximityToTwoCoilPattern;
 
-const bumpingCoilPatternString = FaradaysLawA11yStrings.bumpingCoilPattern.value;
-const singleCoilDescriptionString = FaradaysLawA11yStrings.singleCoilDescription.value;
-const doubleCoilDescriptionString = FaradaysLawA11yStrings.doubleCoilDescription.value;
-const circuitFourCoilOnlyString = FaradaysLawA11yStrings.circuitFourCoilOnly.value;
-const circuitFourCoilAndVoltmeterString = FaradaysLawA11yStrings.circuitFourCoilAndVoltmeter.value;
-const circuitDescriptionPatternString = FaradaysLawA11yStrings.circuitDescriptionPattern.value;
+const bumpingCoilPatternString = faradaysLawStrings.a11y.bumpingCoilPattern;
+const singleCoilDescriptionString = faradaysLawStrings.a11y.singleCoilDescription;
+const doubleCoilDescriptionString = faradaysLawStrings.a11y.doubleCoilDescription;
+const circuitFourCoilOnlyString = faradaysLawStrings.a11y.circuitFourCoilOnly;
+const circuitFourCoilAndVoltmeterString = faradaysLawStrings.a11y.circuitFourCoilAndVoltmeter;
+const circuitDescriptionPatternString = faradaysLawStrings.a11y.circuitDescriptionPattern;
 
 // constants
 const REGION_DESCRIPTIONS = [ topLeftString, topCenterString, topRightString,

@@ -19,7 +19,6 @@ import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import faradaysLawStrings from '../../faradays-law-strings.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilNode from './CoilNode.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
@@ -28,15 +27,13 @@ import FlipMagnetButton from './FlipMagnetButton.js';
 
 const faradaysLawShowFieldLinesString = faradaysLawStrings[ 'faradays-law' ].showFieldLines;
 const faradaysLawVoltmeterString = faradaysLawStrings[ 'faradays-law' ].voltmeter;
-
-// a11y strings
-const voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
-const voltmeterDescriptionString = FaradaysLawA11yStrings.voltmeterDescription.value;
-const numberOneCoilString = FaradaysLawA11yStrings.numberOneCoil.value;
-const numberTwoCoilString = FaradaysLawA11yStrings.numberTwoCoil.value;
-const circuitModeString = FaradaysLawA11yStrings.circuitMode.value;
-const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
-const fieldLinesDescriptionString = FaradaysLawA11yStrings.fieldLinesDescription.value;
+const voltmeterString = faradaysLawStrings.a11y.voltmeter;
+const voltmeterDescriptionString = faradaysLawStrings.a11y.voltmeterDescription;
+const numberOneCoilString = faradaysLawStrings.a11y.numberOneCoil;
+const numberTwoCoilString = faradaysLawStrings.a11y.numberTwoCoil;
+const circuitModeString = faradaysLawStrings.a11y.circuitMode;
+const fieldLinesString = faradaysLawStrings.a11y.fieldLines;
+const fieldLinesDescriptionString = faradaysLawStrings.a11y.fieldLinesDescription;
 
 /**
  * @param {FaradaysLawModel} model

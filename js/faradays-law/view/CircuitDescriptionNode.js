@@ -10,23 +10,21 @@
 
 
 // modules
-// const FaradaysLawConstants = require( '/faradays-law/js/faradays-law/FaradaysLawConstants' );
-// const Vector2 = require( '/dot/js/Vector2' );
 import Property from '../../../../axon/js/Property.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
 import MagnetDescriber from './MagnetDescriber.js';
 
 // strings
-const lightBulbCircuitLabelString = FaradaysLawA11yStrings.lightBulbCircuitLabel.value;
-const lightBulbString = FaradaysLawA11yStrings.lightBulb.value;
-const inTheCircuitString = FaradaysLawA11yStrings.inTheCircuit.value;
-const fourLoopCoilString = FaradaysLawA11yStrings.fourLoopCoil.value;
-const twoLoopCoilString = FaradaysLawA11yStrings.twoLoopCoil.value;
-const voltmeterString = FaradaysLawA11yStrings.voltmeter.value;
+const lightBulbCircuitLabelString = faradaysLawStrings.a11y.lightBulbCircuitLabel;
+const lightBulbString = faradaysLawStrings.a11y.lightBulb;
+const inTheCircuitString = faradaysLawStrings.a11y.inTheCircuit;
+const fourLoopCoilString = faradaysLawStrings.a11y.fourLoopCoil;
+const twoLoopCoilString = faradaysLawStrings.a11y.twoLoopCoil;
+const voltmeterString = faradaysLawStrings.a11y.voltmeter;
 
 function CircuitDescriptionNode( model, options ) {
 

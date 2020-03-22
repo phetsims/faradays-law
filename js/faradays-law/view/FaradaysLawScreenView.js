@@ -12,7 +12,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import BulbNode from './BulbNode.js';
 import CircuitDescriptionNode from './CircuitDescriptionNode.js';
@@ -24,8 +24,8 @@ import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
 
 // a11y strings
-const summaryDescriptionString = FaradaysLawA11yStrings.summaryDescription.value;
-const moveMagnetToPlayString = FaradaysLawA11yStrings.moveMagnetToPlay.value;
+const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
+const moveMagnetToPlayString = faradaysLawStrings.a11y.moveMagnetToPlay;
 
 /**
  * @param {FaradaysLawModel} model - Faraday's Law simulation model object

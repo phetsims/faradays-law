@@ -18,12 +18,11 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 import MagnetNode from './MagnetNode.js';
 
-// a11y strings
-const flipMagnetString = FaradaysLawA11yStrings.flipMagnet.value;
-const flipPolesString = FaradaysLawA11yStrings.flipPoles.value;
+const flipMagnetString = faradaysLawStrings.a11y.flipMagnet;
+const flipPolesString = faradaysLawStrings.a11y.flipPoles;
 
 /**
  * @param {Tandem} tandem

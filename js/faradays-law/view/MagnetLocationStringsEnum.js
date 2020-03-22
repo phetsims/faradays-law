@@ -7,18 +7,18 @@
  */
 
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 
 // strings
-const topLeftString = FaradaysLawA11yStrings.topLeft.value;
-const topCenterString = FaradaysLawA11yStrings.topCenter.value;
-const topRightString = FaradaysLawA11yStrings.topRight.value;
-const middleLeftString = FaradaysLawA11yStrings.middleLeft.value;
-const centerString = FaradaysLawA11yStrings.center.value;
-const middleRightString = FaradaysLawA11yStrings.middleRight.value;
-const bottomLeftString = FaradaysLawA11yStrings.bottomLeft.value;
-const bottomCenterString = FaradaysLawA11yStrings.bottomCenter.value;
-const bottomRightString = FaradaysLawA11yStrings.bottomRight.value;
+const topLeftString = faradaysLawStrings.a11y.topLeft;
+const topCenterString = faradaysLawStrings.a11y.topCenter;
+const topRightString = faradaysLawStrings.a11y.topRight;
+const middleLeftString = faradaysLawStrings.a11y.middleLeft;
+const centerString = faradaysLawStrings.a11y.center;
+const middleRightString = faradaysLawStrings.a11y.middleRight;
+const bottomLeftString = faradaysLawStrings.a11y.bottomLeft;
+const bottomCenterString = faradaysLawStrings.a11y.bottomCenter;
+const bottomRightString = faradaysLawStrings.a11y.bottomRight;
 
 const MagnetLocationStringsEnum = [
   topLeftString,

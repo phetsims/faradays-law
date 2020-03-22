@@ -3,12 +3,11 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 
-// @a11y strings
-const barMagnetIsString = FaradaysLawA11yStrings.barMagnetIs.value; // The bar magnet is
-const fieldStrengthIsString = FaradaysLawA11yStrings.fieldStrengthIs.value;
-const fieldLinesString = FaradaysLawA11yStrings.fieldLines.value;
+const barMagnetIsString = faradaysLawStrings.a11y.barMagnetIs;
+const fieldStrengthIsString = faradaysLawStrings.a11y.fieldStrengthIs;
+const fieldLinesString = faradaysLawStrings.a11y.fieldLines;
 
 class MagnetDescriptionNode extends Node {
 

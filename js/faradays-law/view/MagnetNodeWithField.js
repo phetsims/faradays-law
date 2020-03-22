@@ -13,7 +13,7 @@ import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import FaradaysLawA11yStrings from '../../FaradaysLawA11yStrings.js';
+import faradaysLawStrings from '../../faradays-law-strings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FaradaysLawKeyboardDragListener from './FaradaysLawKeyboardDragListener.js';
@@ -26,12 +26,10 @@ import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
-// @a11y strings
-const barMagnetString = FaradaysLawA11yStrings.barMagnet.value;
-
 // constants
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
+const barMagnetString = faradaysLawStrings.a11y.barMagnet;
 
 /**
  * @param {FaradaysLawModel} model
