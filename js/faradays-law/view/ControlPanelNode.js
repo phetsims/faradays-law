@@ -17,7 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilNode from './CoilNode.js';

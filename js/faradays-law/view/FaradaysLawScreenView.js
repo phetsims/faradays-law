@@ -12,7 +12,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import BulbNode from './BulbNode.js';
 import CircuitDescriptionNode from './CircuitDescriptionNode.js';

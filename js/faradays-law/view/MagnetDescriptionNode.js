@@ -3,7 +3,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 
 const barMagnetIsString = faradaysLawStrings.a11y.barMagnetIs;
 const fieldStrengthIsString = faradaysLawStrings.a11y.fieldStrengthIs;

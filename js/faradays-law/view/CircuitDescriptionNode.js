@@ -14,7 +14,7 @@ import Property from '../../../../axon/js/Property.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import MagnetDescriber from './MagnetDescriber.js';
 

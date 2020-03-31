@@ -18,7 +18,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import MagnetNode from './MagnetNode.js';
 
 const flipMagnetString = faradaysLawStrings.a11y.flipMagnet;

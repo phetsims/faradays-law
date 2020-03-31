@@ -7,7 +7,7 @@
  */
 
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 
 // strings
 const topLeftString = faradaysLawStrings.a11y.topLeft;

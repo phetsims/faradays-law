@@ -13,7 +13,7 @@ import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FaradaysLawKeyboardDragListener from './FaradaysLawKeyboardDragListener.js';

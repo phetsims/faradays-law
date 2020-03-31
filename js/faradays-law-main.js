@@ -9,7 +9,7 @@
 import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import faradaysLawStrings from './faradays-law-strings.js';
+import faradaysLawStrings from './faradaysLawStrings.js';
 import FaradaysLawScreen from './faradays-law/FaradaysLawScreen.js';
 
 const faradaysLawTitleString = faradaysLawStrings[ 'faradays-law' ].title;

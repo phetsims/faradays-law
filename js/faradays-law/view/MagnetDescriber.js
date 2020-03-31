@@ -10,7 +10,7 @@
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradays-law-strings.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
 
