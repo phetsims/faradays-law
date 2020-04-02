@@ -1,6 +1,6 @@
 
 /* eslint-disable */
-window.phet.phetio.preload.phetioElementsOverrides =
+window.phet.preloads.phetio.phetioElementsOverrides =
   {
     "faradaysLaw.faradaysLawScreen.activeProperty": {
       "phetioFeatured": true
