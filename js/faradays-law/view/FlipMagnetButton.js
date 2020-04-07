@@ -12,7 +12,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import AccessiblePeer from '../../../../scenery/js/accessibility/pdom/AccessiblePeer.js';
+import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -61,8 +61,8 @@ function FlipMagnetButton( tandem, options ) {
 
   this.addAriaDescribedbyAssociation( {
     otherNode: this,
-    otherElementName: AccessiblePeer.DESCRIPTION_SIBLING,
-    thisElementName: AccessiblePeer.PRIMARY_SIBLING
+    otherElementName: PDOMPeer.DESCRIPTION_SIBLING,
+    thisElementName: PDOMPeer.PRIMARY_SIBLING
   } );
 }
 

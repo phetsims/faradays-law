@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import AccessiblePeer from '../../../../scenery/js/accessibility/pdom/AccessiblePeer.js';
+import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -77,8 +77,8 @@ class MagnetNodeWithField extends Node {
 
     draggableNode.addAriaLabelledbyAssociation( {
       otherNode: this,
-      thisElementName: AccessiblePeer.PRIMARY_SIBLING,
-      otherElementName: AccessiblePeer.LABEL_SIBLING
+      thisElementName: PDOMPeer.PRIMARY_SIBLING,
+      otherElementName: PDOMPeer.LABEL_SIBLING
     } );
 
     this.addChild( draggableNode );
