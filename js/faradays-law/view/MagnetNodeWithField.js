@@ -53,7 +53,7 @@ class MagnetNodeWithField extends Node {
     // field lines
     this.addChild( new MagnetFieldLines( model.magnet, tandem.createTandem( 'fieldLinesNode' ) ) );
 
-    // a11y
+    // pdom
     // create the focus highlight to pass as an option
     const draggableNodeFocusHighlight = new FocusHighlightFromNode( this.magnetNode ); // overridden once the draggableNode is fully constructed
 
@@ -67,7 +67,7 @@ class MagnetNodeWithField extends Node {
       tandem: tandem,
       phetioDocumentation: 'The draggable container for the magnet and arrows',
 
-      // a11y
+      // pdom
       tagName: 'div',
       ariaRole: 'application',
       focusable: true,
@@ -96,7 +96,7 @@ class MagnetNodeWithField extends Node {
 
     this.addChild( magnetInteractionCueNode );
 
-    // a11y - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
+    // pdom - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
     // size of the node being highlighted.
     model.magnetArrowsVisibleProperty.link( showArrows => {
       magnetInteractionCueNode.visible = showArrows;
@@ -104,7 +104,7 @@ class MagnetNodeWithField extends Node {
 
     magnetInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
 
-    // a11y descriptions - generates text content and alerts for magnet interactions
+    // pdom descriptions - generates text content and alerts for magnet interactions
     const regionManager = new MagnetRegionManager( model );
     const describer = new MagnetDescriber( model, regionManager, tandem );
     const alertManager = new FaradaysLawAlertManager( describer );

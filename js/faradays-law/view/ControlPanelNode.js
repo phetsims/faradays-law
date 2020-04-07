@@ -53,7 +53,7 @@ function ControlPanelNode( model, tandem ) {
     bottom: 0,
     scale: 0.75,
 
-    // a11y
+    // pdom
     containerTagName: 'li',
 
     // phet-io
@@ -177,7 +177,7 @@ function ControlPanelNode( model, tandem ) {
 
   this.bottom = model.bounds.maxY - 10;
 
-  // a11y keyboard nav order
+  // pdom keyboard nav order
   this.accessibleOrder = [
     voltmeterCheckbox,
     fieldLinesCheckbox,
