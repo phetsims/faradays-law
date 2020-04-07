@@ -23,7 +23,6 @@ import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
 
-// a11y strings
 const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
 const moveMagnetToPlayString = faradaysLawStrings.a11y.moveMagnetToPlay;
 
