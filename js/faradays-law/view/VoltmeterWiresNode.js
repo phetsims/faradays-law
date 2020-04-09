@@ -69,7 +69,7 @@ function VoltmeterWiresNode( voltmeterNode ) {
   const updateVisible = function() {
     self.visible = voltmeterNode.visible;
   };
-  voltmeterNode.on( 'visibility', updateVisible );
+  voltmeterNode.visibleProperty.lazyLink( updateVisible );
   updateVisible();
 }
 

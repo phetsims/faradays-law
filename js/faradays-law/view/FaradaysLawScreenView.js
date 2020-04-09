@@ -84,7 +84,7 @@ function FaradaysLawScreenView( model, tandem ) {
   } );
 
   // When PhET-iO Studio makes the voltmeter invisible, we should also uncheck the checkbox.
-  voltmeterAndWiresNode.on( 'visibility', function() {
+  voltmeterAndWiresNode.visibleProperty.lazyLink( function() {
     model.voltmeterVisibleProperty.value = voltmeterAndWiresNode.visible;
   } );
 

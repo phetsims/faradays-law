@@ -79,7 +79,7 @@ function VoltmeterNode( needleAngleProperty, tandem ) {
   label.centerY = ( readoutBackground.bottom + background.bottom ) * 0.48;
 
   // When the text changes (via PhET-iO), re-center it
-  label.on( 'text', function() {
+  label.textProperty.lazyLink( function() {
     label.centerX = 0;
   } );
   this.addChild( label );
