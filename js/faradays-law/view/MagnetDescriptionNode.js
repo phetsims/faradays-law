@@ -26,7 +26,7 @@ class MagnetDescriptionNode extends Node {
       children: [ fourCoilOnlyDescriptionNode, fourCoilOnlyPolarity ]
     } );
 
-    const locationItem = new Node( { tagName: 'li' } );
+    const positionItem = new Node( { tagName: 'li' } );
     const twoCoilProximityItem = new Node( { tagName: 'li' } );
     const fourCoilProximityItem = new Node( { tagName: 'li' } );
     const northNode = new Node( { tagName: 'li', innerContent: describer.northPoleSideString } );
@@ -36,7 +36,7 @@ class MagnetDescriptionNode extends Node {
       tagName: 'ul',
       labelContent: barMagnetIsString,
       children: [
-        locationItem,
+        positionItem,
         fourCoilProximityItem,
         twoCoilProximityItem,
         northNode,
@@ -73,9 +73,9 @@ class MagnetDescriptionNode extends Node {
     // observers to update inner content of the PDOM Node
     model.magnet.positionProperty.link( () => {
 
-      // magnet location and coil proximity description content updates
+      // magnet position and coil proximity description content updates
       fourCoilOnlyDescriptionNode.innerContent = describer.fourLoopOnlyMagnetPosition;
-      locationItem.innerContent = describer.positionOfPlayAreaString;
+      positionItem.innerContent = describer.positionOfPlayAreaString;
       twoCoilProximityItem.innerContent = describer.twoCoilProximityString;
       fourCoilProximityItem.innerContent = describer.fourCoilProximityString;
 

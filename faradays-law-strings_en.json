@@ -174,17 +174,17 @@
     "barMagnetHelpText": {
       "value": "Use the W A S D keys to move the magnet in four directions. Use 1 2 3 keys to slide magnet left and right."
     },
-    "magnetLocationAlertPattern": {
+    "magnetPositionAlertPattern": {
       "value": "Magnet at {{position}} of Play Area."
     },
-    "magnetLocationExtraAlertPattern": {
+    "magnetPositionExtraAlertPattern": {
       "value": "Magnet at {{position}} of Play Area. W A S D and 1 2 3 keys moves magnet."
     },
-    "slidingStoppedLinesInvisibleMagnetLocationPattern": {
-      "value": "Sliding stopped. {{magnetLocation}} {{coilProximity}}"
+    "slidingStoppedLinesInvisibleMagnetPositionPattern": {
+      "value": "Sliding stopped. {{magnetPosition}} {{coilProximity}}"
     },
-    "slidingStoppedLinesVisibleMagnetLocationPattern": {
-      "value": "Sliding stopped. {{magnetLocation}} {{coilProximity}} Field lines description updated."
+    "slidingStoppedLinesVisibleMagnetPositionPattern": {
+      "value": "Sliding stopped. {{magnetPosition}} {{coilProximity}} Field lines description updated."
     },
     "touchingSideOfCoilPattern": {
       "value": "Touching {{side}} of {{coil}}."

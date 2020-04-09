@@ -2,8 +2,8 @@
 
 
 /**
- * Base type for handling accessibility alert and description logic associated with the location of the magnet. This
- * includes proximity to one or both coils, field strength at one or both coils, sim screen location, and coil entrance/exit
+ * Base type for handling accessibility alert and description logic associated with the position of the magnet. This
+ * includes proximity to one or both coils, field strength at one or both coils, sim screen position, and coil entrance/exit
  * regions (informs the user of upper/lower coil position relative to the magnet).
  *
  * @author Michael Barlow (PhET Interactive Simulations)
@@ -124,7 +124,7 @@ class MagnetRegionManager {
   }
 
   /*****************************************************************************
-   * Magnet location region methods for adjacent coil and sim screen location. *
+   * Magnet position region methods for adjacent coil and sim screen position. *
    *****************************************************************************/
 
   /**

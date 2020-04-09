@@ -70,8 +70,8 @@ const circuitNowHasPatternString = faradaysLawStrings.a11y.circuitNowHasPattern;
 const oneCoilString = faradaysLawStrings.a11y.oneCoil;
 const twoCoilsString = faradaysLawStrings.a11y.twoCoils;
 
-const magnetLocationAlertPatternString = faradaysLawStrings.a11y.magnetLocationAlertPattern;
-const magnetLocationExtraAlertPatternString = faradaysLawStrings.a11y.magnetLocationExtraAlertPattern;
+const magnetPositionAlertPatternString = faradaysLawStrings.a11y.magnetPositionAlertPattern;
+const magnetPositionExtraAlertPatternString = faradaysLawStrings.a11y.magnetPositionExtraAlertPattern;
 
 const slidingStoppedString = faradaysLawStrings.a11y.slidingStopped;
 const magnetSlidingAlertPatternString = faradaysLawStrings.a11y.magnetSlidingAlertPattern;
@@ -138,12 +138,12 @@ class MagnetDescriber {
         // phrase exists, magnet stopped by keyboard
         const pattern = {
           slidingStopped: slidingStoppedString,
-          magnetPosition: this.magnetLocationAlertText
+          magnetPosition: this.magnetPositionAlertText
         };
         slidingAndPositionPhrase = StringUtils.fillIn( slidingStoppedPositionPatternString, pattern );
       }
       else {
-        slidingAndPositionPhrase = this.magnetLocationAlertText;
+        slidingAndPositionPhrase = this.magnetPositionAlertText;
       }
     }
 
@@ -241,18 +241,18 @@ class MagnetDescriber {
     return StringUtils.fillIn( fieldStrengthPassingBothCoilsPatternString, { strength: strength } );
   }
 
-  get magnetLocationAlertText() {
-    return StringUtils.fillIn( magnetLocationAlertPatternString, { position: this.positionString } );
+  get magnetPositionAlertText() {
+    return StringUtils.fillIn( magnetPositionAlertPatternString, { position: this.positionString } );
   }
 
   // get magnetFocusAlertText() {
   //   var position = this.positionString;
-  //   var pattern = this.regionManager.showExtraMoveText ? magnetLocationAlertPatternString : magnetLocationExtraAlertPatternString;
+  //   var pattern = this.regionManager.showExtraMoveText ? magnetPositionAlertPatternString : magnetPositionExtraAlertPatternString;
   //   return StringUtils.fillIn( pattern, { position: position } );
   // }
 
   get magnetFocusAlertText() {
-    const pattern = this.regionManager.showExtraMoveText ? magnetLocationExtraAlertPatternString : magnetLocationAlertPatternString;
+    const pattern = this.regionManager.showExtraMoveText ? magnetPositionExtraAlertPatternString : magnetPositionAlertPatternString;
     return StringUtils.fillIn( pattern, { position: this.positionString } );
   }
 

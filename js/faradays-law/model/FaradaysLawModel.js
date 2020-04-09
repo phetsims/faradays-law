@@ -54,10 +54,10 @@ function FaradaysLawModel( bounds, tandem ) {
     phetioDocumentation: 'True if the voltmeter is shown'
   } );
 
-  // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.
+  // @public {NumberProperty} Voltage indicated by the voltmeter. This drives the needle position and the light bulb brightness.
   this.voltageProperty = new NumberProperty( 0, {
     tandem: tandem.createTandem( 'voltageProperty' ),
-    phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.',
+    phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle position and the light bulb brightness.',
     phetioReadOnly: true,
     phetioHighFrequency: true,
     units: 'volts'

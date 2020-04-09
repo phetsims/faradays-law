@@ -54,7 +54,7 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<StringIO>"
     },
     "faradaysLaw.faradaysLawScreen.model.magnet.positionProperty": {
-      "phetioDocumentation": "The location of the center of the bar magnet in view coordinates",
+      "phetioDocumentation": "The position of the center of the bar magnet in view coordinates",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -93,7 +93,7 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "faradaysLaw.faradaysLawScreen.model.voltageProperty": {
-      "phetioDocumentation": "Voltage indicated by the voltmeter. This drives the needle location and the light bulb brightness.",
+      "phetioDocumentation": "Voltage indicated by the voltmeter. This drives the needle position and the light bulb brightness.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,

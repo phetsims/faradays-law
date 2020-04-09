@@ -1,7 +1,7 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
 /**
- * Possible magnet region location strings.
+ * Possible magnet region position strings.
  *
  * @author Michael Barlow (PhET Interactive Simulations)
  */
@@ -20,7 +20,7 @@ const bottomLeftString = faradaysLawStrings.a11y.bottomLeft;
 const bottomCenterString = faradaysLawStrings.a11y.bottomCenter;
 const bottomRightString = faradaysLawStrings.a11y.bottomRight;
 
-const MagnetLocationStringsEnum = [
+const MagnetPositionStringsEnum = [
   topLeftString,
   topCenterString,
   topRightString,
@@ -32,7 +32,7 @@ const MagnetLocationStringsEnum = [
   bottomRightString
 ];
 
-if ( assert ) { Object.feeze( MagnetLocationStringsEnum ); }
+if ( assert ) { Object.feeze( MagnetPositionStringsEnum ); }
 
-faradaysLaw.register( 'MagnetLocationStringsEnum', MagnetLocationStringsEnum );
-export default MagnetLocationStringsEnum;
+faradaysLaw.register( 'MagnetPositionStringsEnum', MagnetPositionStringsEnum );
+export default MagnetPositionStringsEnum;

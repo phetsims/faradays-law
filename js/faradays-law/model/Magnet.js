@@ -41,7 +41,7 @@ function Magnet( tandem ) {
   // @public - position of the magnet
   this.positionProperty = new Vector2Property( new Vector2( 647, 219 ), {
     tandem: tandem.createTandem( 'positionProperty' ),
-    phetioDocumentation: 'The location of the center of the bar magnet in view coordinates',
+    phetioDocumentation: 'The position of the center of the bar magnet in view coordinates',
     phetioHighFrequency: true
   } );
 
