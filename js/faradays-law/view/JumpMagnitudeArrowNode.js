@@ -15,7 +15,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
-const ARROW_HEIGHT = 20; // dimensions for the arrow 
+const ARROW_HEIGHT = 20; // dimensions for the arrow
 const ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * ARROW_HEIGHT; // for equilateral triangle
 const ARROW_SPACING = 5;
 const NODE_PADDING = 8;
@@ -34,7 +34,11 @@ function JumpMagnitudeArrowNode( direction, options ) {
     this.arrows.push( this.createArrow( direction ) );
   }
 
-  const arrowsContainer = new HBox( { children: this.arrows, spacing: ARROW_SPACING } );
+  const arrowsContainer = new HBox( {
+    children: this.arrows,
+    spacing: ARROW_SPACING,
+    excludeInvisibleChildrenFromBounds: false
+  } );
 
   if ( direction === 'left' ) {
     this.arrows = this.arrows.reverse();

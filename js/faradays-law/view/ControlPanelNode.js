@@ -83,7 +83,8 @@ function ControlPanelNode( model, tandem ) {
       children: [
         new CoilNode( CoilTypeEnum.TWO_COIL, { visible: false } ),
         new CoilNode( CoilTypeEnum.FOUR_COIL )
-      ]
+      ],
+      excludeInvisibleChildrenFromBounds: false
     }, coilButtonGroupOptions ) ),
     tandemName: 'singleCoilRadioButton',
     phetioDocumentation: 'Radio button that selects a single coil.',
@@ -100,7 +101,8 @@ function ControlPanelNode( model, tandem ) {
       children: [
         new CoilNode( CoilTypeEnum.TWO_COIL ),
         new CoilNode( CoilTypeEnum.FOUR_COIL )
-      ]
+      ],
+      excludeInvisibleChildrenFromBounds: false
     }, coilButtonGroupOptions ) ),
     tandemName: 'doubleCoilRadioButton',
     phetioDocumentation: 'Radio button that selects double coils.',
