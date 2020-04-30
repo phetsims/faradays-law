@@ -18,7 +18,7 @@ import FaradaysLawModel from '../model/FaradaysLawModel.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
 // create model and view
-const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.ROOT.createTandem( 'model' ) );
+const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
 
 const regionTester = new MagnetRegionManager( model );
 
