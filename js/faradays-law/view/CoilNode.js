@@ -75,9 +75,11 @@ function CoilNode( coilType, options ) {
 
 faradaysLaw.register( 'CoilNode', CoilNode );
 
-export default inherit( Node, CoilNode, {}, {
+inherit( Node, CoilNode, {}, {
 
   // extra offset is applied to the two-coil image to align with the wires
   twoOffset: 8,
   xOffset: 8
 } );
+
+export default CoilNode;
