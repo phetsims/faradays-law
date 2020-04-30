@@ -61,7 +61,7 @@ function JumpMagnitudeArrowNode( direction, options ) {
 
 faradaysLaw.register( 'JumpMagnitudeArrowNode', JumpMagnitudeArrowNode );
 
-export default inherit( Node, JumpMagnitudeArrowNode, {
+inherit( Node, JumpMagnitudeArrowNode, {
 
   createArrow: function( direction ) {
     const arrowShape = new Shape();
@@ -92,3 +92,5 @@ export default inherit( Node, JumpMagnitudeArrowNode, {
     }
   }
 } );
+
+export default JumpMagnitudeArrowNode;

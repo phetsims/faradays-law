@@ -106,7 +106,7 @@ function MagnetAccessibleDragHandler( positionProperty, options ) {
 
 faradaysLaw.register( 'MagnetAccessibleDragHandler', MagnetAccessibleDragHandler );
 
-export default inherit( Object, MagnetAccessibleDragHandler, {
+inherit( Object, MagnetAccessibleDragHandler, {
 
   /**
    * Move the magnet with the accessibility controls.
@@ -149,3 +149,5 @@ export default inherit( Object, MagnetAccessibleDragHandler, {
     }
   }
 } );
+
+export default MagnetAccessibleDragHandler;

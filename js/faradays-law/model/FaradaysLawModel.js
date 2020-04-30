@@ -101,7 +101,7 @@ function FaradaysLawModel( bounds, tandem ) {
 
 faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
 
-export default inherit( Object, FaradaysLawModel, {
+inherit( Object, FaradaysLawModel, {
 
   /**
    * Restore to initial conditions
@@ -241,3 +241,5 @@ export default inherit( Object, FaradaysLawModel, {
     this.magnet.positionProperty.set( position );
   }
 } );
+
+export default FaradaysLawModel;

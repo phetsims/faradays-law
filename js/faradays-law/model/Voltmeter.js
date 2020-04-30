@@ -49,7 +49,7 @@ function Voltmeter( model ) {
 
 faradaysLaw.register( 'Voltmeter', Voltmeter );
 
-export default inherit( Object, Voltmeter, {
+inherit( Object, Voltmeter, {
 
   /**
    * Voltmeter needle evolution over time
@@ -78,3 +78,5 @@ export default inherit( Object, Voltmeter, {
     }
   }
 } );
+
+export default Voltmeter;

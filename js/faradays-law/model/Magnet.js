@@ -62,7 +62,7 @@ function Magnet( tandem ) {
 
 faradaysLaw.register( 'Magnet', Magnet );
 
-export default inherit( Object, Magnet, {
+inherit( Object, Magnet, {
 
   /**
    * Restore the initial conditions
@@ -74,3 +74,5 @@ export default inherit( Object, Magnet, {
     this.fieldLinesVisibleProperty.reset();
   }
 } );
+
+export default Magnet;

@@ -58,7 +58,7 @@ function MagnetInteractionCueNode() {
 
 faradaysLaw.register( 'MagnetInteractionCueNode', MagnetInteractionCueNode );
 
-export default inherit( Node, MagnetInteractionCueNode, {
+inherit( Node, MagnetInteractionCueNode, {
 
   createMovementKeyNode: function( direction ) {
 
@@ -131,3 +131,5 @@ export default inherit( Node, MagnetInteractionCueNode, {
     return box;
   }
 } );
+
+export default MagnetInteractionCueNode;

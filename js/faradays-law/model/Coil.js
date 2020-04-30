@@ -54,7 +54,7 @@ function Coil( position, numberOfSpirals, magnet ) {
 
 faradaysLaw.register( 'Coil', Coil );
 
-export default inherit( Object, Coil, {
+inherit( Object, Coil, {
 
   /**
    * Restore initial conditions
@@ -113,3 +113,5 @@ export default inherit( Object, Coil, {
     this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
   }
 } );
+
+export default Coil;
