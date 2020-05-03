@@ -7,7 +7,6 @@
  * @author Michael Barlow (PhET Interactive Simulations)
  */
 
-
 // modules
 // const FaradaysLawScreenView = require( '/faradays-law/js/faradays-law/view/FaradaysLawScreenView' );
 import Utils from '../../../../dot/js/Utils.js';
@@ -19,8 +18,6 @@ import MagnetRegionManager from './MagnetRegionManager.js';
 
 // create model and view
 const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
-
-const regionTester = new MagnetRegionManager( model );
 
 const { test } = QUnit;
 
@@ -71,6 +68,8 @@ test( 'get region numbers', assert => {
   x = columnWidth / 2;
   y = rowHeight / 2;
 
+  const regionTester = new MagnetRegionManager( model );
+
   assert.equal( regionTester.getPositionRegion( v ), 0, `point ${x}, ${y} in region 0` );
 
   v.addXY( columnWidth, 0 );
@@ -99,6 +98,9 @@ test( 'get region numbers', assert => {
 } );
 
 test( 'get magnet edge notification', assert => {
+
+  const regionTester = new MagnetRegionManager( model );
+
   const halfMagnetWidth = Utils.roundSymmetric( FaradaysLawConstants.MAGNET_WIDTH / 2 );
   const halfMagnetHeight = Utils.roundSymmetric( FaradaysLawConstants.MAGNET_HEIGHT / 2 );
 
