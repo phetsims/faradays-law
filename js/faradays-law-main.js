@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import faradaysLawStrings from './faradaysLawStrings.js';
 import FaradaysLawScreen from './faradays-law/FaradaysLawScreen.js';
@@ -26,7 +26,7 @@ const simOptions = {
 };
 
 // Create and start the sim
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
   const sim = new Sim( faradaysLawTitleString, [
     new FaradaysLawScreen( Tandem.ROOT.createTandem( 'faradaysLawScreen' ) )
   ], simOptions );
