@@ -35,6 +35,9 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
     this.alertManager = alertManager;
   }
 
+  /**
+   * @public
+   */
   initializeAccessibleInputListener() {
     return {
       keyup: onKeyup.bind( this ),

@@ -129,6 +129,7 @@ class MagnetRegionManager {
 
   /**
    * Returns the index of the intersected coil region or -1 on error.
+   * @public
    *
    * @returns {Number}
    */
@@ -152,6 +153,7 @@ class MagnetRegionManager {
 
   /**
    * Get the current value of the adjacent coil.
+   * @public
    *
    * @returns {String}
    */
@@ -161,6 +163,7 @@ class MagnetRegionManager {
 
   /**
    * Get the side of the sim screen containing the magnet. The midpoint is set to the 'right' side.
+   * @public
    *
    * @returns {String}
    */
@@ -170,6 +173,7 @@ class MagnetRegionManager {
 
   /**
    * Returns true if the magnet intersect the bounds of a coil. Used in conjunction with 'adjacentCoil'.
+   * @public
    *
    * @returns {String}
    */
@@ -177,6 +181,10 @@ class MagnetRegionManager {
     return this._magnetInCoil;
   }
 
+  /**
+   * @public
+   * @returns {boolean}
+   */
   get magnetInOrVeryCloseToCoil() {
     return this.magnetToBottomCoilProximity <= 1 ||
            ( this.model.topCoilVisibleProperty.get() && this.magnetToTopCoilProximity <= 1 );
@@ -215,6 +223,7 @@ class MagnetRegionManager {
   /**
    * Get the region of the screen that contains the provided vector. For Faraday's Law, the screen is divided into 9
    * regions that are numbered 0 - 8 in row major order, left to right.
+   * @public
    *
    * @param  {Vector2} vector
    * @returns {int}
@@ -227,6 +236,12 @@ class MagnetRegionManager {
     return this.isVectorAtEdge( this.magnet.positionProperty.get() );
   }
 
+  /**
+   * @public
+   * @param {number} x
+   * @param {number} y
+   * @returns {boolean}
+   */
   isVectorAtEdge( { x, y } ) {
     const { minX, minY, maxX, maxY } = this.bounds;
     const verticalMinDistance = Math.min( Math.abs( y - minY ), Math.abs( y - maxY ) );
@@ -235,23 +250,45 @@ class MagnetRegionManager {
     return verticalMinDistance <= VERTICAL_EDGE_TOLERANCE || horizontalMinDistance <= HORIZONTAL_EDGE_TOLERANCE;
   }
 
+  /**
+   * @public
+   * @returns {MagnetDirectionEnum}
+   */
   get coilDirection() {
     const coilsCenterX = this.topCoil.position.x + ( this.bottomCoil.position.x - this.topCoil.position.x ) / 2;
     return ( this.magnet.positionProperty.get().x - coilsCenterX ) < 0 ? RIGHT : LEFT;
   }
 
+  /**
+   * @public
+   * @param {Vector2} vector
+   * @returns {string}
+   */
   getBottomCoilDirection( vector ) {
     return ( vector.x - this.bottomCoil.position ) < 0 ? RIGHT : LEFT;
   }
 
+  /**
+   * @public
+   * @returns {number}
+   */
   get magnetToTopCoilProximity() {
     return this.getTopCoilProximityRegion( this.magnet.positionProperty.get() );
   }
 
+  /**
+   * @public
+   * @returns {number}
+   */
   get magnetToBottomCoilProximity() {
     return this.getBottomCoilProximityRegion( this.magnet.positionProperty.get() );
   }
 
+  /**
+   * @public
+   * @param Vector2
+   * @returns {number}
+   */
   getTopCoilProximityRegion( vector ) {
     if ( !this.model.topCoilVisibleProperty.get() ) {
       return -1;
@@ -259,10 +296,21 @@ class MagnetRegionManager {
     return this.getCoilProximityRegion( vector, CoilTypeEnum.TWO_COIL );
   }
 
+  /**
+   * @public
+   * @param {Vector2} vector
+   * @returns {number}
+   */
   getBottomCoilProximityRegion( vector ) {
     return this.getCoilProximityRegion( vector, CoilTypeEnum.FOUR_COIL );
   }
 
+  /**
+   * @public
+   * @param {Vector2} vector
+   * @param {CoilTypeEnum} coilType
+   * @returns {number}
+   */
   getCoilProximityRegion( vector, coilType ) {
     const magnetBounds = createMagnetBounds( vector );
     const coilBounds = coilType === CoilTypeEnum.TWO_COIL ? this._topCoilInnerBounds : this._bottomCoilInnerBounds;
@@ -276,19 +324,38 @@ class MagnetRegionManager {
     return Utils.roundSymmetric( coilProximityToRegion( distance ) );
   }
 
+  /**
+   * @public
+   * @param position
+   * @param coilType
+   * @returns {number}
+   */
   getDistanceToCoil( position, coilType ) {
     const coilPosition = coilType === CoilTypeEnum.TWO_COIL ? this.topCoil.position : this.bottomCoil.position;
     return position.distance( coilPosition );
   }
 
+  /**
+   * @public
+   * @returns {number}
+   */
   getTopCoilFieldStrengthRegion() {
     return this.getFieldStrengthAtCoilRegion( this.topCoil );
   }
 
+  /**
+   * @public
+   * @returns {number}
+   */
   getBottomCoilFieldStrengthRegion() {
     return this.getFieldStrengthAtCoilRegion( this.bottomCoil );
   }
 
+  /**
+   * @public
+   * @param {Coil} coil
+   * @returns {number}
+   */
   getFieldStrengthAtCoilRegion( coil ) {
     if ( coil.position.distance( this.magnet.positionProperty.get() ) < 70 ) {
       return 4;
@@ -299,22 +366,32 @@ class MagnetRegionManager {
     return MagnetRegionManager.mapFieldStrengthToInteger( Math.abs( fieldStrength ) );
   }
 
+  /**
+   * @public
+   */
   stopMagnetAnimationWithKeyboard() {
     this.magnetStoppedByKeyboard = true;
     this.magnetIsAnimating = false;
   }
 
+  /**
+   * @public
+   * @param isAnimating
+   */
   setMagnetIsAnimating( isAnimating ) {
     this.magnetIsAnimating = isAnimating;
   }
 
+  /**
+   * @public
+   */
   resetKeyboardStop() {
     this.magnetStoppedByKeyboard = false;
   }
 
   /**
    * Get the 0-based row number for a y coordinate.
-   *
+   * @public
    * @param  {Number} y
    * @returns {int}
    */
@@ -324,6 +401,7 @@ class MagnetRegionManager {
 
   /**
    * Get the 0-based column number for an x coordinate.
+   * @public
    * @param  {Number} x
    * @returns {int}
    */
@@ -334,6 +412,7 @@ class MagnetRegionManager {
   /**
    * Maps a given number to a given segment number based on the size of the segment. This function assumes that there
    * are an equal number of rows and columns.
+   * @public
    *
    * @param  {Number} value
    * @param  {Number} segmentSize
@@ -348,6 +427,11 @@ class MagnetRegionManager {
     return NUMBER_OF_ROWS - 1;
   }
 
+  /**
+   * @public
+   * @param {number} fieldStrength
+   * @returns {number}
+   */
   static mapFieldStrengthToInteger( fieldStrength ) {
     if ( fieldStrength < 0.025 ) {
       return 0;

@@ -123,6 +123,10 @@ class MagnetJumpKeyboardListener {
     };
   }
 
+  /**
+   * @public
+   * @param {number} dt - in seconds
+   */
   step( dt ) {
     const animating = this.isAnimatingProperty.get();
 
@@ -146,10 +150,18 @@ class MagnetJumpKeyboardListener {
     }
   }
 
+  /**
+   * @public
+   * @param {number} positionDelta
+   * @returns {string}
+   */
   getMagnetDirection( positionDelta ) {
     return positionDelta > 0 ? LEFT : RIGHT;
   }
 
+  /**
+   * @public
+   */
   dispose() {
     this._disposeKeyboardDragListener();
   }

@@ -16,36 +16,63 @@ class FaradaysLawAlertManager {
     this.keyboardMovementUtterance = new Utterance();
   }
 
+  /**
+   * @public
+   */
   magnetFocusAlert() {
     const alert = this.describer.magnetFocusAlertText;
     phet.joist.sim.utteranceQueue.addToBack( alert );
   }
 
+  /**
+   * @public
+   */
   movementEndAlert() {
     this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText();
     phet.joist.sim.utteranceQueue.addToFront( this.keyboardMovementUtterance );
   }
 
+  /**
+   * @public
+   * @param {OrientationEnum} orientation
+   */
   flipMagnetAlert( orientation ) {
     const alert = this.describer.getFlipMagnetAlertText( orientation );
     phet.joist.sim.utteranceQueue.addToBack( alert );
   }
 
+  /**
+   * @public
+   * @param speed
+   * @param direction
+   */
   static magnetSlidingAlert( speed, direction ) {
     const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
     phet.joist.sim.utteranceQueue.addToFront( alert );
   }
 
+  /**
+   * @public
+   * @param showVoltmeter
+   */
   static voltmeterAttachmentAlert( showVoltmeter ) {
     const alert = MagnetDescriber.getVoltmeterAttachmentAlertText( showVoltmeter );
     phet.joist.sim.utteranceQueue.addToBack( alert );
   }
 
+  /**
+   * @public
+   * @param showLines
+   */
   static fieldLinesVisibilityAlert( showLines ) {
     const alert = MagnetDescriber.getFieldLinesVisibilityAlertText( showLines );
     phet.joist.sim.utteranceQueue.addToBack( alert );
   }
 
+  /**
+   * @public
+   * @param showTopCoil
+   */
   static coilConnectionAlert( showTopCoil ) {
     const alert = MagnetDescriber.getCoilConnectionAlertText( showTopCoil );
     phet.joist.sim.utteranceQueue.addToBack( alert );

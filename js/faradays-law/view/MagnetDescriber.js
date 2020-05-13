@@ -91,7 +91,6 @@ const flippingMagnetPatternString = faradaysLawStrings.a11y.flippingMagnetPatter
 const proximityToFourCoilPatternString = faradaysLawStrings.a11y.proximityToFourCoilPattern;
 const proximityToTwoCoilPatternString = faradaysLawStrings.a11y.proximityToTwoCoilPattern;
 
-const bumpingCoilPatternString = faradaysLawStrings.a11y.bumpingCoilPattern;
 const singleCoilDescriptionString = faradaysLawStrings.a11y.singleCoilDescription;
 const doubleCoilDescriptionString = faradaysLawStrings.a11y.doubleCoilDescription;
 const circuitFourCoilOnlyString = faradaysLawStrings.a11y.circuitFourCoilOnly;
@@ -124,6 +123,10 @@ class MagnetDescriber {
     this.regionManager = regionManager;
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   magnetMovedAlertText() {
     let slidingAndPositionPhrase = null;
     let alertText = this.fourCoilProximityString;
@@ -197,10 +200,11 @@ class MagnetDescriber {
     return alertText;
   }
 
-  getBumpingCoilString( coil ) {
-    return StringUtils.fillIn( bumpingCoilPatternString, { coil: coil } );
-  }
-
+  /**
+   * @public
+   * @param {OrientationEnum} orientation
+   * @returns {string}
+   */
   getFlipMagnetAlertText( orientation ) {
     let northSide = leftString;
     let southSide = rightString;
@@ -220,6 +224,10 @@ class MagnetDescriber {
     return alert;
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get strengthThroughFourCoilText() {
     const strength = FIELD_STRENGTHS[ this.regionManager.getBottomCoilFieldStrengthRegion() ];
     return StringUtils.fillIn( fieldStrengthPassingCoilPatternString, {
@@ -228,6 +236,10 @@ class MagnetDescriber {
     } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get strengthThroughTwoCoilText() {
     const strength = FIELD_STRENGTHS[ this.regionManager.getTopCoilFieldStrengthRegion() ];
     return StringUtils.fillIn( fieldStrengthPassingCoilPatternString, {
@@ -236,11 +248,19 @@ class MagnetDescriber {
     } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get strengthThroughBothCoilsText() {
     const strength = FIELD_STRENGTHS[ this.regionManager.getTopCoilFieldStrengthRegion() ];
     return StringUtils.fillIn( fieldStrengthPassingBothCoilsPatternString, { strength: strength } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get magnetPositionAlertText() {
     return StringUtils.fillIn( magnetPositionAlertPatternString, { position: this.positionString } );
   }
@@ -251,30 +271,55 @@ class MagnetDescriber {
   //   return StringUtils.fillIn( pattern, { position: position } );
   // }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get magnetFocusAlertText() {
     const pattern = this.regionManager.showExtraMoveText ? magnetPositionExtraAlertPatternString : magnetPositionAlertPatternString;
     return StringUtils.fillIn( pattern, { position: this.positionString } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get fieldLinesDescription() {
     const northSide = this._magnet.orientationProperty.get() === OrientationEnum.NS ? leftString : rightString;
     const southSide = this._magnet.orientationProperty.get() === OrientationEnum.SN ? leftString : rightString;
     return StringUtils.fillIn( fieldLinesDescriptionPatternString, { northSide: northSide, southSide: southSide } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get fourLoopOnlyFieldStrength() {
     const valueString = FIELD_STRENGTHS[ this.regionManager.getFieldStrengthAtCoilRegion( this._bottomCoil ) ];
     return StringUtils.fillIn( fourLoopOnlyFieldStrengthPatternString, { fieldStrength: valueString } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get fourLoopFieldStrength() {
     return this.getFieldStrengthAtCoil( this._bottomCoil );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get twoLoopFieldStrength() {
     return this.getFieldStrengthAtCoil( this._topCoil );
   }
 
+  /**
+   * @public
+   * @param {CoilTypeEnum} coil
+   * @returns {string}
+   */
   getFieldStrengthAtCoil( coil ) {
     const fieldStrengthString = FIELD_STRENGTHS[ this.regionManager.getFieldStrengthAtCoilRegion( coil ) ];
     const coilString = coil === this._topCoil ? theTwoLoopCoilString : theFourLoopCoilString;
@@ -286,24 +331,46 @@ class MagnetDescriber {
       } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get fourCoilOnlyPolarityDescription() {
     const pattern = '{{first}}, {{second}}';
     return StringUtils.fillIn( pattern, { first: this.northPoleSideString, second: this.southPoleSideString } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get northPoleSideString() {
     return this.getPoleSideString( northString, OrientationEnum.NS );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get southPoleSideString() {
     return this.getPoleSideString( southString, OrientationEnum.SN );
   }
 
+  /**
+   * @public
+   * @param {string} pole
+   * @param {OrientationEnum} orientation
+   * @returns {string}
+   */
   getPoleSideString( pole, orientation ) {
     const side = this._magnet.orientationProperty.get() === orientation ? leftString : rightString;
     return StringUtils.fillIn( poleOnThePatternString, { pole: pole, side: side } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get fourLoopOnlyMagnetPosition() {
     const touchingCoil = this.regionManager.getTouchingCoil();
     const magnetPosition = StringUtils.fillIn( barMagnetPositionPatternString, { areaPosition: this.positionOfPlayAreaString } );
@@ -322,10 +389,17 @@ class MagnetDescriber {
     } );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get positionOfPlayAreaString() {
     return StringUtils.fillIn( positionOfPlayAreaPatternString, { position: this.positionString } );
   }
 
+  /**
+   * @public
+   */
   get barMagnetHelpText() {
     return barMagnetHelpTextString;
   }
@@ -340,6 +414,10 @@ class MagnetDescriber {
     return description;
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get fourCoilProximityString() {
 
     // if ( this.regionManager.magnetInCoil ) {
@@ -350,12 +428,22 @@ class MagnetDescriber {
     return this.getCoilProximityString( proximity, CoilTypeEnum.FOUR_COIL );
   }
 
+  /**
+   * @public
+   * @returns {string}
+   */
   get twoCoilProximityString() {
     const proximity = PROXIMITY_STRINGS[ this.regionManager.magnetToTopCoilProximity ];
 
     return this.getCoilProximityString( proximity, CoilTypeEnum.TWO_COIL );
   }
 
+  /**
+   * @public
+   * @param {string} proximity
+   * @param {CoilTypeEnum} coil
+   * @returns {string}
+   */
   getCoilProximityString( proximity, coil ) {
     const pattern = coil === CoilTypeEnum.FOUR_COIL ? proximityToFourCoilPatternString : proximityToTwoCoilPatternString;
     const { adjacentCoil, magnetInCoil } = this.regionManager;
@@ -367,11 +455,22 @@ class MagnetDescriber {
     return StringUtils.fillIn( pattern, { proximity: proximity ? proximity : '' } ) + coilDirection;
   }
 
+  /**
+   * @public
+   * @param {number} speedValue
+   * @param {string} directionValue
+   * @returns {string}
+   */
   static getMagnetSlidingAlertText( speedValue, directionValue ) {
     const direction = DIRECTIONS[ directionValue ];
     return StringUtils.fillIn( magnetSlidingAlertPatternString, { direction: direction } );
   }
 
+  /**
+   * @public
+   * @param {boolean} showLines
+   * @returns {string}
+   */
   static getFieldLinesVisibilityAlertText( showLines ) {
     const visibility = showLines ? visibleString : hiddenString;
     let alert = StringUtils.fillIn( fieldLinesVisibilityPatternString, { visibility: visibility } );
@@ -387,20 +486,40 @@ class MagnetDescriber {
    * CIRCUIT DESCRIPTION AND ALERT FUNCTIONS *
    *******************************************/
 
+  /**
+   * @public
+   * @param {boolean} showVoltmeter
+   * @returns {string}
+   */
   static getVoltmeterAttachmentAlertText( showVoltmeter ) {
     const attachmentState = showVoltmeter ? connectedString : removedString;
     return StringUtils.fillIn( voltmeterAlertPatternString, { attachmentState: attachmentState } );
   }
 
+  /**
+   * @public
+   * @param {boolean} showTopCoil
+   * @returns {string}
+   */
   static getCoilConnectionAlertText( showTopCoil ) {
     const coil = showTopCoil ? twoCoilsString : oneCoilString;
     return StringUtils.fillIn( circuitNowHasPatternString, { coil: coil } );
   }
 
+  /**
+   * @public
+   * @param {boolean} showTopCoil
+   * @returns {string}
+   */
   static getCoilDescription( showTopCoil ) {
     return showTopCoil ? doubleCoilDescriptionString : singleCoilDescriptionString;
   }
 
+  /**
+   * @public
+   * @param {boolean} showVoltmeter
+   * @returns {string}
+   */
   static getFourCoilOnlyDescription( showVoltmeter ) {
     const circuitContents = showVoltmeter ? circuitFourCoilAndVoltmeterString : circuitFourCoilOnlyString;
     const coilDescription = singleCoilDescriptionString;
