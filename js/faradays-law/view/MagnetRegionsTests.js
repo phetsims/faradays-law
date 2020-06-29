@@ -17,7 +17,7 @@ import FaradaysLawModel from '../model/FaradaysLawModel.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
 // create model and view
-const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
+
 
 const { test } = QUnit;
 
@@ -65,6 +65,9 @@ test( 'get row numbers', assert => {
 } );
 
 test( 'get region numbers', assert => {
+
+  const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
+
   x = columnWidth / 2;
   y = rowHeight / 2;
 
@@ -98,6 +101,8 @@ test( 'get region numbers', assert => {
 } );
 
 test( 'get magnet edge notification', assert => {
+
+  const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
 
   const regionTester = new MagnetRegionManager( model );
 
