@@ -7,7 +7,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -40,9 +39,7 @@ class MagnetNodeWithField extends Node {
   constructor( model, tandem ) {
 
     super( {
-      tagName: 'div',
-      labelTagName: 'h3',
-      labelContent: barMagnetString
+      tagName: 'div'
     } );
 
     const self = this;
@@ -71,14 +68,9 @@ class MagnetNodeWithField extends Node {
       tagName: 'div',
       ariaRole: 'application',
       focusable: true,
+      innerContent: barMagnetString,
       focusHighlightLayerable: true,
       focusHighlight: draggableNodeFocusHighlight
-    } );
-
-    draggableNode.addAriaLabelledbyAssociation( {
-      otherNode: this,
-      thisElementName: PDOMPeer.PRIMARY_SIBLING,
-      otherElementName: PDOMPeer.LABEL_SIBLING
     } );
 
     this.addChild( draggableNode );
