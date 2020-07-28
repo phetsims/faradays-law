@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.56 Tue Jul 28 2020 17:48:33 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.4.0-dev.57 Tue Jul 28 2020 17:51:49 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "1a41cef653bbed1025af5768bea958d7e3e0f8ae",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "1998a2f04ac23c3958239ac4f7ad69a84ec2c347",
+    "sha": "16bd443d89a6626f0233922cebaa3760cda69f30",
     "branch": "master"
   },
   "joist": {
