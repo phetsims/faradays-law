@@ -22,6 +22,10 @@ import CoilTypeEnum from './CoilTypeEnum.js';
 import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
+import lowerCoilBumpSound from '../../../sounds/coil-bump-option-3-low_mp3.js';
+import upperCoilBumpSound from '../../../sounds/coil-bump-option-3-high_mp3.js';
+import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
 
 const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
 const moveMagnetToPlayString = faradaysLawStrings.a11y.moveMagnetToPlay;
@@ -118,6 +122,15 @@ function FaradaysLawScreenView( model, tandem ) {
   this.addChild( topCoilNode.frontImage );
   topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
   model.topCoilVisibleProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
+
+  // sound generation
+  const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound );
+  soundManager.addSoundGenerator( lowerCoilBumpSoundClip );
+  const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound );
+  soundManager.addSoundGenerator( upperCoilBumpSoundClip );
+  model.coilBumpEmitter.addListener( coilNumber => {
+    coilNumber === 0 ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
+  } );
 
   // const tcInnerBounds = Shape.bounds( this.magnetNodeWithField.regionManager._bottomCoilInnerBounds ).getStrokedShape();
 

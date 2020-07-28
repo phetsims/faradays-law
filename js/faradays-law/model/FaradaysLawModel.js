@@ -7,9 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-
 // modules
-// const Vector2 = require( '/dot/js/Vector2' );
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -20,11 +18,15 @@ import Coil from './Coil.js';
 import EdgeEnum from './EdgeEnum.js';
 import Magnet from './Magnet.js';
 import Voltmeter from './Voltmeter.js';
+import Emitter from '../../../../axon/js/Emitter.js';
 
 // constants
-// restricted zones for magnet because of coils
-const TWO_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 25, 11 );
-const FOUR_COIL_RESTRICTED_BOUNDS = new Bounds2( 0, 0, 55, 11 );
+
+// Values used for the restricted zones where the magnet can't be dragged due to the presence of the coils.  These
+// numbers were empirically determined based upon how the artwork for the coils appear in the view.
+const COIL_RESTRICTED_AREA_HEIGHT = 11;
+const TOP_COIL_RESTRICTED_AREA_WIDTH = 25;
+const BOTTOM_COIL_RESTRICTED_AREA_WIDTH = 55;
 
 /**
  * @param {Bounds2} bounds of Screen
@@ -49,6 +51,7 @@ function FaradaysLawModel( bounds, tandem ) {
     phetioDocumentation: 'True if the magnet arrows are shown'
   } );
 
+  // @public
   this.voltmeterVisibleProperty = new BooleanProperty( true, {
     tandem: tandem.createTandem( 'voltmeterVisibleProperty' ),
     phetioDocumentation: 'True if the voltmeter is shown'
@@ -72,22 +75,58 @@ function FaradaysLawModel( bounds, tandem ) {
   // @public - top coil
   this.topCoil = new Coil( FaradaysLawConstants.TOP_COIL_POSITION, 2, this.magnet );
 
-  // @private - regions the magnet cannot be dragged
-  this.listOfRestrictedBounds = [
-    TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x - 7, this.topCoil.position.y - 76 ),
-    TWO_COIL_RESTRICTED_BOUNDS.shifted( this.topCoil.position.x, this.topCoil.position.y + 67 ),
-    FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 30, this.bottomCoil.position.y - 76 ),
-    FOUR_COIL_RESTRICTED_BOUNDS.shifted( this.bottomCoil.position.x - 23, this.bottomCoil.position.y + 67 )
+  // @public (read-only) {Bounds2[]} - Regions where the magnet cannot be dragged.  There are two for each coil, one for
+  // the upper portion of the coil and one for the lower portion.  The hard coded numbers are empirically determined
+  // based upon how the artwork for the coils ended up projecting into the view.
+  this.topCoilRestrictedBounds = [
+
+    // upper portion of the coil
+    Bounds2.rect(
+      this.topCoil.position.x - 7,
+      this.topCoil.position.y - 76,
+      TOP_COIL_RESTRICTED_AREA_WIDTH,
+      COIL_RESTRICTED_AREA_HEIGHT
+    ),
+
+    // lower portion of the coil
+    Bounds2.rect(
+      this.topCoil.position.x,
+      this.topCoil.position.y + 67,
+      TOP_COIL_RESTRICTED_AREA_WIDTH,
+      COIL_RESTRICTED_AREA_HEIGHT
+    )
   ];
+  this.bottomCoilRestrictedBounds = [
+
+    // upper portion of the coil
+    Bounds2.rect(
+      this.bottomCoil.position.x - 30,
+      this.bottomCoil.position.y - 76,
+      BOTTOM_COIL_RESTRICTED_AREA_WIDTH,
+      COIL_RESTRICTED_AREA_HEIGHT
+    ),
+
+    // lower portion of the coil
+    Bounds2.rect(
+      this.bottomCoil.position.x - 23,
+      this.bottomCoil.position.y + 67,
+      BOTTOM_COIL_RESTRICTED_AREA_WIDTH,
+      COIL_RESTRICTED_AREA_HEIGHT
+    )
+  ];
+
+  // @public - the Voltmeter
+  this.voltmeter = new Voltmeter( this );
+
+
+  // @public (listen-only) - emitter that fires when the magnet bumps into a coil
+  this.coilBumpEmitter = new Emitter( { parameters: [{ valueType: 'number' }] } );
 
   // @private - see this.moveMagnetToPosition method, used to calculate magnet position
   this.intersectedBounds = null;
 
   // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
   this.magnetMovingDirection = null;
-
-  // @public - the Voltmeter
-  this.voltmeter = new Voltmeter( this );
 
   // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
   this.topCoilVisibleProperty.link( function( showTopCoil ) {
@@ -134,7 +173,9 @@ inherit( Object, FaradaysLawModel, {
    */
   magnetIntersectsTopCoilArea: function() {
     const magnetBounds = Bounds2.point( this.magnet.positionProperty.get() ).dilatedXY( this.magnet.width / 2, this.magnet.height / 2 );
-    return magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.listOfRestrictedBounds[ 0 ] );
+    return magnetBounds.intersectsBounds(
+      this.topCoilRestrictedBounds[ 1 ] ) || magnetBounds.intersectsBounds( this.topCoilRestrictedBounds[ 0 ]
+    );
   },
 
   /**
@@ -143,17 +184,24 @@ inherit( Object, FaradaysLawModel, {
    * @returns {Bounds2|null}
    */
   getIntersectedRestrictedBounds: function( bounds ) {
-    const stoppingValue = this.topCoilVisibleProperty.get() ? 0 : 2;
 
-    for ( let i = this.listOfRestrictedBounds.length - 1; i >= stoppingValue; i-- ) {
-      const restrictedBounds = this.listOfRestrictedBounds[ i ];
+    let intersectedRestrictedBounds = null;
 
-      if ( bounds.intersectsBounds( restrictedBounds ) ) {
-        return restrictedBounds;
+    // Handle whether one or both coils are visible.
+    const restrictedBoundsList = [...this.bottomCoilRestrictedBounds];
+    if ( this.topCoilVisibleProperty.get() ) {
+      restrictedBoundsList.concat( this.topCoilRestrictedBounds );
+    }
+
+    // test against all restricted bounds
+    for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
+      if ( bounds.intersectsBounds( restrictedBoundsList[ i ] ) ) {
+        intersectedRestrictedBounds = restrictedBoundsList[ i ];
+        break;
       }
     }
 
-    return null;
+    return intersectedRestrictedBounds;
   },
 
   /**
@@ -175,13 +223,29 @@ inherit( Object, FaradaysLawModel, {
     if ( this.intersectedBounds === null ) {
 
       // if first coil not visible, check only second coil restrictions
-      for ( let i = this.topCoilVisibleProperty.get() ? 0 : 2; i < this.listOfRestrictedBounds.length; i++ ) {
-        const restrictedBounds = this.listOfRestrictedBounds[ i ];
+      let restrictedBoundsList;
+      if ( this.topCoilVisibleProperty.value ) {
+        restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
+      }
+      else {
+        restrictedBoundsList = [...this.bottomCoilRestrictedBounds];
+      }
+      for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
+        const restrictedBounds = restrictedBoundsList[ i ];
         if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
+
+          // Emit an event to indicate that the magnet has bumped into one of the coils.
+          if ( this.bottomCoilRestrictedBounds.includes( restrictedBounds ) ) {
+            this.coilBumpEmitter.emit( 0 );
+          }
+          else {
+            this.coilBumpEmitter.emit( 1 );
+          }
 
           // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
           const movingDelta = position.minus( this.magnet.positionProperty.get() );
           this.intersectedBounds = restrictedBounds.copy();
+
           if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
 
             // vertical direction

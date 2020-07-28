@@ -3,12 +3,11 @@
 
 /**
  * Base type for handling accessibility alert and description logic associated with the position of the magnet. This
- * includes proximity to one or both coils, field strength at one or both coils, sim screen position, and coil entrance/exit
- * regions (informs the user of upper/lower coil position relative to the magnet).
+ * includes proximity to one or both coils, field strength at one or both coils, sim screen position, and coil
+ * entrance/exit regions (informs the user of upper/lower coil position relative to the magnet).
  *
  * @author Michael Barlow (PhET Interactive Simulations)
  */
-
 
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -75,18 +74,18 @@ class MagnetRegionManager {
     // @private
     // generate bounds to indicate if magnet is inside the coil
     this._topCoilInnerBounds = new Bounds2(
-      Math.max( model.listOfRestrictedBounds[ 0 ].minX, model.listOfRestrictedBounds[ 1 ].minX ),
-      Math.min( model.listOfRestrictedBounds[ 0 ].maxY, model.listOfRestrictedBounds[ 1 ].maxY ),
-      Math.min( model.listOfRestrictedBounds[ 0 ].maxX, model.listOfRestrictedBounds[ 1 ].maxX ),
-      Math.max( model.listOfRestrictedBounds[ 0 ].minY, model.listOfRestrictedBounds[ 1 ].minY )
+      Math.max( model.topCoilRestrictedBounds[ 0 ].minX, model.topCoilRestrictedBounds[ 1 ].minX ),
+      Math.min( model.topCoilRestrictedBounds[ 0 ].maxY, model.topCoilRestrictedBounds[ 1 ].maxY ),
+      Math.min( model.topCoilRestrictedBounds[ 0 ].maxX, model.topCoilRestrictedBounds[ 1 ].maxX ),
+      Math.max( model.topCoilRestrictedBounds[ 0 ].minY, model.topCoilRestrictedBounds[ 1 ].minY )
     ).eroded( 2 );
 
     // @private
     this._bottomCoilInnerBounds = new Bounds2(
-      Math.max( model.listOfRestrictedBounds[ 2 ].minX, model.listOfRestrictedBounds[ 3 ].minX ),
-      Math.min( model.listOfRestrictedBounds[ 2 ].maxY, model.listOfRestrictedBounds[ 3 ].maxY ),
-      Math.min( model.listOfRestrictedBounds[ 2 ].maxX, model.listOfRestrictedBounds[ 3 ].maxX ),
-      Math.max( model.listOfRestrictedBounds[ 2 ].minY, model.listOfRestrictedBounds[ 3 ].minY )
+      Math.max( model.bottomCoilRestrictedBounds[ 0 ].minX, model.bottomCoilRestrictedBounds[ 1 ].minX ),
+      Math.min( model.bottomCoilRestrictedBounds[ 0 ].maxY, model.bottomCoilRestrictedBounds[ 1 ].maxY ),
+      Math.min( model.bottomCoilRestrictedBounds[ 0 ].maxX, model.bottomCoilRestrictedBounds[ 1 ].maxX ),
+      Math.max( model.bottomCoilRestrictedBounds[ 0 ].minY, model.bottomCoilRestrictedBounds[ 1 ].minY )
     ).eroded( 2 );
 
     // @private
@@ -141,7 +140,13 @@ class MagnetRegionManager {
       { side: 'bottom', coil: CoilTypeEnum.FOUR_COIL }
     ];
     const intersectedBounds = this.model.getIntersectedRestrictedBounds( createMagnetBounds( this.magnet.positionProperty.value ) );
-    const i = this.model.listOfRestrictedBounds.indexOf( intersectedBounds );
+    const listOfRestrictedBounds = this.model.bottomCoilRestrictedBounds.concat( this.model.topCoilRestrictedBounds );
+    const i = listOfRestrictedBounds.indexOf( intersectedBounds );
+
+    // TODO: The code below looks wrong.  The return type doesn't match the header docs, and the whole thing is too
+    //  tightly coupled to the way bounds are managed in the model.  See
+    // https://github.com/phetsims/faradays-law/issues/164. Also, it seems like it should return null instead of -1 if
+    // no intersection is found.
 
     if ( i >= 0 ) {
       return coilSides[ i ];
