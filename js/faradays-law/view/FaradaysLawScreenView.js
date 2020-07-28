@@ -24,12 +24,11 @@ import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
 import lowerCoilBumpSound from '../../../sounds/coil-bump-option-3-low_mp3.js';
 import upperCoilBumpSound from '../../../sounds/coil-bump-option-3-high_mp3.js';
-import lightBulbTone1 from '../../../sounds/lightbulb-sound-chord-g3-loop_mp3.js';
-import lightBulbTone2 from '../../../sounds/lightbulb-sound-chord-e4-loop_mp3.js';
-import lightBulbTone3 from '../../../sounds/lightbulb-sound-chord-c5-loop_mp3.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import VoltageSoundGenerator from './VoltageSoundGenerator.js';
 
+// constants
 const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
 const moveMagnetToPlayString = faradaysLawStrings.a11y.moveMagnetToPlay;
 
@@ -113,8 +112,8 @@ function FaradaysLawScreenView( model, tandem ) {
   // @private
   this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
   this.addChild( this.magnetNodeWithField );
-  this.pdomPlayAreaNode.accessibleOrder = [ null, this.magnetNodeWithField ];
-  this.pdomControlAreaNode.accessibleOrder = [ controlPanel ];
+  this.pdomPlayAreaNode.accessibleOrder = [null, this.magnetNodeWithField];
+  this.pdomControlAreaNode.accessibleOrder = [controlPanel];
 
   // move coils to front
   bottomCoilNode.frontImage.detach();
@@ -131,40 +130,16 @@ function FaradaysLawScreenView( model, tandem ) {
   // ------------------------------------------------------------------------------------------------------------------
 
   // sounds for when the magnet bumps into the coils
-  const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound );
+  const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound, { initialOutputLevel: 0.25 } );
   soundManager.addSoundGenerator( lowerCoilBumpSoundClip );
-  const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound );
+  const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound, { initialOutputLevel: 0.25 } );
   soundManager.addSoundGenerator( upperCoilBumpSoundClip );
   model.coilBumpEmitter.addListener( coilNumber => {
     coilNumber === 0 ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
   } );
 
-  // sound for the voltage
-  const voltageSoundClips = [
-    new SoundClip( lightBulbTone1, { loop: true } ),
-    new SoundClip( lightBulbTone2, { loop: true } ),
-    new SoundClip( lightBulbTone3, { loop: true } )
-  ];
-  voltageSoundClips.forEach( voltageSoundClip => {
-    soundManager.addSoundGenerator( voltageSoundClip );
-  } );
-  model.voltageProperty.link( voltage => {
-    if ( Math.abs( voltage ) > 0.02 ) {
-      voltageSoundClips.forEach( ( clip, index ) => {
-        if ( !clip.isPlaying ) {
-          clip.play();
-        }
-        clip.setOutputLevel( Math.min( voltage / 3, 1 ) );
-      } );
-    }
-    else {
-      voltageSoundClips.forEach( clip => {
-        if ( clip.isPlaying ) {
-          clip.stop();
-        }
-      } );
-    }
-  } );
+  // sound generation for voltage
+  soundManager.addSoundGenerator( new VoltageSoundGenerator( model.voltageProperty ) );
 
   // const tcInnerBounds = Shape.bounds( this.magnetNodeWithField.regionManager._bottomCoilInnerBounds ).getStrokedShape();
 

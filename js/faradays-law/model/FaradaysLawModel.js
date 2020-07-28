@@ -118,6 +118,8 @@ function FaradaysLawModel( bounds, tandem ) {
   // @public - the Voltmeter
   this.voltmeter = new Voltmeter( this );
 
+  // @public (read-only)
+  this.resetInProgressProperty = new BooleanProperty( false );
 
   // @public (listen-only) - emitter that fires when the magnet bumps into a coil
   this.coilBumpEmitter = new Emitter( { parameters: [{ valueType: 'number' }] } );
@@ -147,11 +149,13 @@ inherit( Object, FaradaysLawModel, {
    * @public
    */
   reset: function() {
+    this.resetInProgressProperty.set( true );
     this.magnet.reset();
     this.topCoilVisibleProperty.reset();
     this.magnetArrowsVisibleProperty.reset();
     this.bottomCoil.reset();
     this.topCoil.reset();
+    this.resetInProgressProperty.set( true );
   },
 
   /**
