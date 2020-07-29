@@ -22,8 +22,8 @@ import CoilTypeEnum from './CoilTypeEnum.js';
 import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
-import lowerCoilBumpSound from '../../../sounds/coil-bump-option-3-low_mp3.js';
-import upperCoilBumpSound from '../../../sounds/coil-bump-option-3-high_mp3.js';
+import lowerCoilBumpSound from '../../../sounds/coil-bump-low_mp3.js';
+import upperCoilBumpSound from '../../../sounds/coil-bump-high_mp3.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import VoltageSoundGenerator from './VoltageSoundGenerator.js';
@@ -31,6 +31,7 @@ import VoltageSoundGenerator from './VoltageSoundGenerator.js';
 // constants
 const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
 const moveMagnetToPlayString = faradaysLawStrings.a11y.moveMagnetToPlay;
+const COIL_BUMP_SOUND_LEVEL = 0.25;
 
 /**
  * @param {FaradaysLawModel} model - Faraday's Law simulation model object
@@ -130,12 +131,12 @@ function FaradaysLawScreenView( model, tandem ) {
   // ------------------------------------------------------------------------------------------------------------------
 
   // sounds for when the magnet bumps into the coils
-  const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound, { initialOutputLevel: 0.25 } );
+  const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
   soundManager.addSoundGenerator( lowerCoilBumpSoundClip );
-  const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound, { initialOutputLevel: 0.25 } );
+  const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
   soundManager.addSoundGenerator( upperCoilBumpSoundClip );
-  model.coilBumpEmitter.addListener( coilNumber => {
-    coilNumber === 0 ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
+  model.coilBumpEmitter.addListener( coilType => {
+    coilType === CoilTypeEnum.FOUR_COIL ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
   } );
 
   // sound generation for voltage

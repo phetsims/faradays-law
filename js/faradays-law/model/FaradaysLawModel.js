@@ -14,6 +14,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
+import CoilTypeEnum from '../view/CoilTypeEnum.js';
 import Coil from './Coil.js';
 import EdgeEnum from './EdgeEnum.js';
 import Magnet from './Magnet.js';
@@ -122,7 +123,7 @@ function FaradaysLawModel( bounds, tandem ) {
   this.resetInProgressProperty = new BooleanProperty( false );
 
   // @public (listen-only) - emitter that fires when the magnet bumps into a coil
-  this.coilBumpEmitter = new Emitter( { parameters: [{ valueType: 'number' }] } );
+  this.coilBumpEmitter = new Emitter( { parameters: [ { valueType: 'string' } ] } );
 
   // @private - see this.moveMagnetToPosition method, used to calculate magnet position
   this.intersectedBounds = null;
@@ -240,10 +241,10 @@ inherit( Object, FaradaysLawModel, {
 
           // Emit an event to indicate that the magnet has bumped into one of the coils.
           if ( this.bottomCoilRestrictedBounds.includes( restrictedBounds ) ) {
-            this.coilBumpEmitter.emit( 0 );
+            this.coilBumpEmitter.emit( CoilTypeEnum.FOUR_COIL );
           }
           else {
-            this.coilBumpEmitter.emit( 1 );
+            this.coilBumpEmitter.emit( CoilTypeEnum.TWO_COIL );
           }
 
           // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
