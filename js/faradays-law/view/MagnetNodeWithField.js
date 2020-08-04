@@ -11,6 +11,8 @@ import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHi
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import grabSoundPlayer from '../../../../tambo/js/shared-sound-players/grabSoundPlayer.js';
+import releaseSoundPlayer from '../../../../tambo/js/shared-sound-players/releaseSoundPlayer.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -112,6 +114,7 @@ class MagnetNodeWithField extends Node {
       allowTouchSnag: true,
 
       start( event ) {
+        grabSoundPlayer.play();
         magnetOffset = self.globalToParentPoint( event.pointer.point ).minus( self.translation );
       },
 
@@ -124,13 +127,13 @@ class MagnetNodeWithField extends Node {
       },
 
       end( event ) {
+        releaseSoundPlayer.play();
         alertManager.movementEndAlert();
       }
     } );
     draggableNode.addInputListener( dragListener );
 
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
-
 
     // @private - The sticky drag handler for keyboard navigation
     this.keyboardDragListener = new FaradaysLawKeyboardDragListener( model, regionManager, alertManager );
