@@ -9,9 +9,6 @@
 
 
 // modules
-// const LinearFunction = require( '/dot/js/LinearFunction' );
-// const Range = require( '/dot/js/Range' );
-// const Utils = require( '/dot/js/Utils' );
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import PropertyIO from '../../../../axon/js/PropertyIO.js';
@@ -22,9 +19,6 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import OrientationEnum from './OrientationEnum.js';
-
-// constants
-// var DIAGONAL_TOLERANCE = Math.PI / 8;
 
 /**
  * @param {Tandem} tandem
