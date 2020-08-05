@@ -11,6 +11,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import generalBoundaryBoopSoundPlayer from '../../../../tambo/js/shared-sound-players/generalBoundaryBoopSoundPlayer.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -137,6 +138,9 @@ function FaradaysLawScreenView( model, tandem ) {
   soundManager.addSoundGenerator( upperCoilBumpSoundClip );
   model.coilBumpEmitter.addListener( coilType => {
     coilType === CoilTypeEnum.FOUR_COIL ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
+  } );
+  model.edgeBumpEmitter.addListener( () => {
+    generalBoundaryBoopSoundPlayer.play();
   } );
 
   // sound generation for voltage

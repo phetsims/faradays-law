@@ -9,6 +9,7 @@
 
 // modules
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
@@ -19,7 +20,6 @@ import Coil from './Coil.js';
 import EdgeEnum from './EdgeEnum.js';
 import Magnet from './Magnet.js';
 import Voltmeter from './Voltmeter.js';
-import Emitter from '../../../../axon/js/Emitter.js';
 
 // constants
 
@@ -28,6 +28,10 @@ import Emitter from '../../../../axon/js/Emitter.js';
 const COIL_RESTRICTED_AREA_HEIGHT = 11;
 const TOP_COIL_RESTRICTED_AREA_WIDTH = 25;
 const BOTTOM_COIL_RESTRICTED_AREA_WIDTH = 55;
+
+// Amount that coil bounds are extended to prevent magnet from jumping around the edges, in model units, empirically
+// determined.
+const COIL_BOUNDS_EXTENSION_AMOUNT = 3000;
 
 /**
  * @param {Bounds2} bounds of Screen
@@ -125,11 +129,18 @@ function FaradaysLawModel( bounds, tandem ) {
   // @public (listen-only) - emitter that fires when the magnet bumps into a coil
   this.coilBumpEmitter = new Emitter( { parameters: [ { valueType: 'string' } ] } );
 
-  // @private - see this.moveMagnetToPosition method, used to calculate magnet position
+  // @public (listen-only) - emitter that fires when the magnet bumps into the outer drag bounds
+  this.edgeBumpEmitter = new Emitter();
+
+  // @private - see this.moveMagnetToPosition method, used to calculate allowed magnet positions
   this.intersectedBounds = null;
 
   // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
   this.magnetMovingDirection = null;
+
+  // @private {Bounds2|null} - bounds where magnet was set to on the last movement attempt, used to detect transitions
+  // between being totally in bounds and reaching the boundary edge
+  this.previousMagnetBounds = null;
 
   // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
   this.topCoilVisibleProperty.link( function( showTopCoil ) {
@@ -193,7 +204,7 @@ inherit( Object, FaradaysLawModel, {
     let intersectedRestrictedBounds = null;
 
     // Handle whether one or both coils are visible.
-    const restrictedBoundsList = [...this.bottomCoilRestrictedBounds];
+    const restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
     if ( this.topCoilVisibleProperty.get() ) {
       restrictedBoundsList.concat( this.topCoilRestrictedBounds );
     }
@@ -233,7 +244,7 @@ inherit( Object, FaradaysLawModel, {
         restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
       }
       else {
-        restrictedBoundsList = [...this.bottomCoilRestrictedBounds];
+        restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
       }
       for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
         const restrictedBounds = restrictedBoundsList[ i ];
@@ -256,11 +267,11 @@ inherit( Object, FaradaysLawModel, {
             // vertical direction
             if ( movingDelta.y > 0 ) {
               this.magnetMovingDirection = EdgeEnum.BOTTOM;
-              this.intersectedBounds.setMaxY( 3000 );
+              this.intersectedBounds.setMaxY( COIL_BOUNDS_EXTENSION_AMOUNT );
             }
             else {
               this.magnetMovingDirection = EdgeEnum.TOP;
-              this.intersectedBounds.setMinY( -3000 );
+              this.intersectedBounds.setMinY( -COIL_BOUNDS_EXTENSION_AMOUNT );
             }
           }
           else {
@@ -268,11 +279,11 @@ inherit( Object, FaradaysLawModel, {
             // horizontal
             if ( movingDelta.x > 0 ) {
               this.magnetMovingDirection = EdgeEnum.RIGHT;
-              this.intersectedBounds.setMaxX( 3000 );
+              this.intersectedBounds.setMaxX( COIL_BOUNDS_EXTENSION_AMOUNT );
             }
             else {
               this.magnetMovingDirection = EdgeEnum.LEFT;
-              this.intersectedBounds.setMinX( -3000 );
+              this.intersectedBounds.setMinX( -COIL_BOUNDS_EXTENSION_AMOUNT );
             }
           }
           break;
@@ -280,7 +291,7 @@ inherit( Object, FaradaysLawModel, {
       }
     }
 
-    // intersection with any bounds
+    // limit the magnet's position based on bounds with which it intersects
     if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
       if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
         position.y = this.intersectedBounds.y - this.magnet.height / 2;
@@ -301,12 +312,28 @@ inherit( Object, FaradaysLawModel, {
     else {
       this.intersectedBounds = null;
 
-      // out of simulation bounds
+      // limit the motion of the magnet to be within the sim bounds, which are generally the layout bounds of the view
       if ( !this.bounds.containsBounds( magnetBounds ) ) {
         position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
         position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
       }
     }
+
+    // Check whether the position has changed such that the magnet has hit a boundary.
+    if ( this.previousMagnetBounds &&
+         ( ( this.previousMagnetBounds.maxX < this.bounds.maxX && magnetBounds.maxX >= this.bounds.maxX ) ||
+           ( this.previousMagnetBounds.minX > this.bounds.minX && magnetBounds.minX <= this.bounds.minX ) ||
+           ( this.previousMagnetBounds.maxY < this.bounds.maxY && magnetBounds.maxY >= this.bounds.maxY ) ||
+           ( this.previousMagnetBounds.minY > this.bounds.minY && magnetBounds.minY <= this.bounds.minY )
+         )
+    ) {
+      this.edgeBumpEmitter.emit();
+    }
+
+    // Keep a history of the bounds so that edge bumps can be detected.
+    this.previousMagnetBounds = magnetBounds;
+
+    // Set the resultant position.
     this.magnet.positionProperty.set( position );
   }
 } );
