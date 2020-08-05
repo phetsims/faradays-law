@@ -11,6 +11,11 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import boundaryReachedSoundPlayer from '../../../../tambo/js/shared-sound-players/boundaryReachedSoundPlayer.js';
+import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
+import upperCoilBumpSound from '../../../sounds/coil-bump-high_mp3.js';
+import lowerCoilBumpSound from '../../../sounds/coil-bump-low_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -21,12 +26,8 @@ import CoilsWiresNode from './CoilsWiresNode.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
 import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
-import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
-import lowerCoilBumpSound from '../../../sounds/coil-bump-low_mp3.js';
-import upperCoilBumpSound from '../../../sounds/coil-bump-high_mp3.js';
-import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
-import soundManager from '../../../../tambo/js/soundManager.js';
 import VoltageSoundGenerator from './VoltageSoundGenerator.js';
+import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
 
 // constants
 const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
@@ -137,6 +138,9 @@ function FaradaysLawScreenView( model, tandem ) {
   soundManager.addSoundGenerator( upperCoilBumpSoundClip );
   model.coilBumpEmitter.addListener( coilType => {
     coilType === CoilTypeEnum.FOUR_COIL ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
+  } );
+  model.edgeBumpEmitter.addListener( () => {
+    boundaryReachedSoundPlayer.play();
   } );
 
   // sound generation for voltage
