@@ -127,7 +127,7 @@ function FaradaysLawModel( bounds, tandem ) {
   this.resetInProgressProperty = new BooleanProperty( false );
 
   // @public (listen-only) - emitter that fires when the magnet bumps into a coil
-  this.coilBumpEmitter = new Emitter( { parameters: [ { valueType: 'string' } ] } );
+  this.coilBumpEmitter = new Emitter( { parameters: [ { valueType: CoilTypeEnum } ] } );
 
   // @public (listen-only) - emitter that fires when the magnet bumps into the outer drag bounds
   this.edgeBumpEmitter = new Emitter();

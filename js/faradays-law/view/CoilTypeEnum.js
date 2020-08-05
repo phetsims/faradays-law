@@ -7,15 +7,10 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
-const CoilTypeEnum = {
-  TWO_COIL: 'two-coil',
-  FOUR_COIL: 'four-coil',
-  NO_COIL: 'no coil'
-};
-
-if ( assert ) { Object.freeze( CoilTypeEnum ); }
+const CoilTypeEnum = Enumeration.byKeys( [ 'TWO_COIL', 'FOUR_COIL', 'NO_COIL' ] );
 
 faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );
 export default CoilTypeEnum;
