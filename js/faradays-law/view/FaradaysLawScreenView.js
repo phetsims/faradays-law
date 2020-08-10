@@ -145,12 +145,6 @@ function FaradaysLawScreenView( model, tandem ) {
 
   // sound generation for voltage
   soundManager.addSoundGenerator( new VoltageSoundGenerator( model.voltageProperty ) );
-
-  // const tcInnerBounds = Shape.bounds( this.magnetNodeWithField.regionManager._bottomCoilInnerBounds ).getStrokedShape();
-
-  // this.addChild( Rectangle.bounds( this.magnetNodeWithField.regionManager._topCoilInnerBounds, { stroke: 'red' } ) )
-  // this.addChild( Rectangle.bounds( this.magnetNodeWithField.regionManager._bottomCoilInnerBounds, { stroke: 'red' } ) )
-
 }
 
 faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );

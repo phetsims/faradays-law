@@ -13,6 +13,11 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import grabSoundPlayer from '../../../../tambo/js/shared-sound-players/grabSoundPlayer.js';
 import releaseSoundPlayer from '../../../../tambo/js/shared-sound-players/releaseSoundPlayer.js';
+import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
+import pickupMagnetJustMetalSound from '../../../sounds/pickup-magnet-just-metal_mp3.js';
+import pickupMagnetSound from '../../../sounds/pickup-magnet_mp3.js';
+import putDownMagnetSound from '../../../sounds/put-down-magnet_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -26,6 +31,7 @@ import MagnetInteractionCueNode from './MagnetInteractionCueNode.js';
 import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
+
 
 // constants
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
@@ -103,6 +109,52 @@ class MagnetNodeWithField extends Node {
     const describer = new MagnetDescriber( model, regionManager, tandem );
     const alertManager = new FaradaysLawAlertManager( describer );
 
+    // sound generation
+    const pickupMagnetSoundClip = new SoundClip( pickupMagnetSound, {
+      initialOutputLevel: 0.5
+    } );
+    soundManager.addSoundGenerator( pickupMagnetSoundClip );
+    const pickupMagnetJustMetalSoundClip = new SoundClip( pickupMagnetJustMetalSound, {
+      initialOutputLevel: 0.5
+    } );
+    soundManager.addSoundGenerator( pickupMagnetJustMetalSoundClip );
+    const putDownMagnetSoundClip = new SoundClip( putDownMagnetSound, {
+      initialOutputLevel: 0.5
+    } );
+    soundManager.addSoundGenerator( putDownMagnetSoundClip );
+
+    // sound players that use global configuration information, set via the Options dialog, to decide which sound to play
+    const playPickupSound = () => {
+      switch( phet.faradaysLaw.magnetSoundSetIndexProperty.value ) {
+        case 0:
+          pickupMagnetSoundClip.play();
+          break;
+        case 1:
+          pickupMagnetJustMetalSoundClip.play();
+          break;
+        case 2:
+          grabSoundPlayer.play();
+          break;
+        default:
+          assert && assert( false, 'invalid sound index for magnet' );
+          break;
+      }
+    };
+    const playReleaseSound = () => {
+      switch( phet.faradaysLaw.magnetSoundSetIndexProperty.value ) {
+        case 0:
+        case 1:
+          putDownMagnetSoundClip.play();
+          break;
+        case 2:
+          releaseSoundPlayer.play();
+          break;
+        default:
+          assert && assert( false, 'invalid sound index for magnet' );
+          break;
+      }
+    };
+
     // handler
     let magnetOffset = null; // {Vector2|null}
     const dragListener = new DragListener( {
@@ -114,7 +166,7 @@ class MagnetNodeWithField extends Node {
       allowTouchSnag: true,
 
       start( event ) {
-        grabSoundPlayer.play();
+        playPickupSound();
         magnetOffset = self.globalToParentPoint( event.pointer.point ).minus( self.translation );
       },
 
@@ -127,7 +179,7 @@ class MagnetNodeWithField extends Node {
       },
 
       end( event ) {
-        releaseSoundPlayer.play();
+        playReleaseSound();
         alertManager.movementEndAlert();
       }
     } );

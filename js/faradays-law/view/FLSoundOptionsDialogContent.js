@@ -25,15 +25,15 @@ class SoundOptionsDialogContent extends Node {
     const items = [
       {
         value: 0,
-        node: new Text( '1st option', TEXT_OPTIONS )
+        node: new Text( 'Metal 1', TEXT_OPTIONS )
       },
       {
         value: 1,
-        node: new Text( '2nd option', TEXT_OPTIONS )
+        node: new Text( 'Metal 2', TEXT_OPTIONS )
       },
       {
         value: 2,
-        node: new Text( '3rd option', TEXT_OPTIONS )
+        node: new Text( 'Default Grab/Release', TEXT_OPTIONS )
       }
     ];
 
