@@ -2,13 +2,14 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
-const TEXT_OPTIONS = { font: new PhetFont( 24 ) };
+const HEADER_TEXT_OPTIONS = { font: new PhetFont( 24 ), weight: 'bold' };
+const SELECTION_TEXT_OPTIONS = { font: new PhetFont( 18 ) };
 
 // globals that are controlled by this dialog
 phet.faradaysLaw.magnetSoundSetIndexProperty = new NumberProperty( 0 );
@@ -18,31 +19,38 @@ phet.faradaysLaw.magnetSoundSetIndexProperty = new NumberProperty( 0 );
  * and that enables the user to select between different candidate sounds that are under consideration for use in a
  * sound design.
  */
-class SoundOptionsDialogContent extends Node {
+class SoundOptionsDialogContent extends VBox {
 
   constructor() {
 
-    const items = [
+    const magnetPickupAndDropItems = [
       {
         value: 0,
-        node: new Text( 'Metal 1', TEXT_OPTIONS )
+        node: new Text( 'Metal 1', SELECTION_TEXT_OPTIONS )
       },
       {
         value: 1,
-        node: new Text( 'Metal 2', TEXT_OPTIONS )
+        node: new Text( 'Metal 2', SELECTION_TEXT_OPTIONS )
       },
       {
         value: 2,
-        node: new Text( 'Default Grab/Release', TEXT_OPTIONS )
+        node: new Text( 'Default Grab/Release', SELECTION_TEXT_OPTIONS )
       }
     ];
 
-    const radioButtonGroup = new AquaRadioButtonGroup( phet.faradaysLaw.magnetSoundSetIndexProperty, items, {
+    const magnetPickupAndDropSoundSelector = new AquaRadioButtonGroup( phet.faradaysLaw.magnetSoundSetIndexProperty, magnetPickupAndDropItems, {
       orientation: 'vertical',
       align: 'left'
     } );
 
-    super( { children: [ radioButtonGroup ] } );
+    super( {
+      children: [
+        new Text( 'Magnet Pick Up and Release Sounds:', HEADER_TEXT_OPTIONS ),
+        magnetPickupAndDropSoundSelector
+      ],
+      spacing: 15,
+      align: 'left'
+    } );
   }
 }
 
