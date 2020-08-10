@@ -11,8 +11,11 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import faradaysLawStrings from './faradaysLawStrings.js';
 import FaradaysLawScreen from './faradays-law/FaradaysLawScreen.js';
+import FLSoundOptionsDialogContent from './faradays-law/view/FLSoundOptionsDialogContent.js';
 
+// constants
 const faradaysLawTitleString = faradaysLawStrings[ 'faradays-law' ].title;
+const SOUND_OPTIONS_DIALOG_CONTENT = new FLSoundOptionsDialogContent();
 
 const simOptions = {
   credits: {
@@ -22,7 +25,8 @@ const simOptions = {
     qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Bryan Yoelin',
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
-  }
+  },
+  createOptionsDialogContent: () => SOUND_OPTIONS_DIALOG_CONTENT
 };
 
 // Create and start the sim
