@@ -15,7 +15,6 @@ import FLSoundOptionsDialogContent from './faradays-law/view/FLSoundOptionsDialo
 
 // constants
 const faradaysLawTitleString = faradaysLawStrings[ 'faradays-law' ].title;
-const SOUND_OPTIONS_DIALOG_CONTENT = new FLSoundOptionsDialogContent();
 
 const simOptions = {
   credits: {
@@ -26,7 +25,7 @@ const simOptions = {
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
   },
-  createOptionsDialogContent: () => SOUND_OPTIONS_DIALOG_CONTENT
+  createOptionsDialogContent: tandem => new FLSoundOptionsDialogContent( tandem )
 };
 
 // Create and start the sim
