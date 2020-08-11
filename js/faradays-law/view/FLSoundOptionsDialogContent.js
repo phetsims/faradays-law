@@ -1,10 +1,12 @@
 // Copyright 2020, University of Colorado Boulder
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
@@ -14,6 +16,7 @@ const SELECTION_TEXT_OPTIONS = { font: new PhetFont( 18 ) };
 
 // globals that are controlled by this dialog
 phet.faradaysLaw.magnetSoundSetIndexProperty = new NumberProperty( 0 );
+phet.faradaysLaw.maxVoltageClicksEnabled = new BooleanProperty( false );
 
 /**
  * SoundOptionsDialogContent is intended as an example of a node that can serve as the content for an options dialog,
@@ -55,10 +58,18 @@ class SoundOptionsDialogContent extends VBox {
       }
     );
 
+    const maxVoltageClicksCheckbox = new Checkbox(
+      new Text( 'Max Voltage Clicks', SELECTION_TEXT_OPTIONS ),
+      phet.faradaysLaw.maxVoltageClicksEnabled,
+      { tandem: Tandem.OPT_OUT }
+    );
+
     super( {
       children: [
         new Text( 'Magnet Pick Up and Release Sounds:', HEADER_TEXT_OPTIONS ),
-        magnetPickupAndDropSoundSelector
+        magnetPickupAndDropSoundSelector,
+        new Text( 'Voltage Sound Options:', HEADER_TEXT_OPTIONS ),
+        maxVoltageClicksCheckbox
       ],
       spacing: 15,
       align: 'left',

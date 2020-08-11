@@ -144,7 +144,7 @@ function FaradaysLawScreenView( model, tandem ) {
   } );
 
   // sound generation for voltage
-  soundManager.addSoundGenerator( new VoltageSoundGenerator( model.voltageProperty ) );
+  soundManager.addSoundGenerator( new VoltageSoundGenerator( model.voltageProperty, model.voltmeterVisibleProperty ) );
 }
 
 faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );

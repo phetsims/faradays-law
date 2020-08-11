@@ -15,7 +15,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-sound-chord-c5-loop.mp3": {
+  "lightbulb-voltage-note-b-4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -23,7 +23,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-sound-chord-e4-loop.mp3": {
+  "lightbulb-voltage-note-b-flat-4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -31,7 +31,31 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-sound-chord-g3-loop.mp3": {
+  "lightbulb-voltage-note-c-4.mp3": {
+    "text": [
+      "Copyright 2002-2020 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
+  },
+  "lightbulb-voltage-note-c-5.mp3": {
+    "text": [
+      "Copyright 2002-2020 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
+  },
+  "lightbulb-voltage-note-e-4.mp3": {
+    "text": [
+      "Copyright 2002-2020 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
+  },
+  "lightbulb-voltage-note-g-4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -56,6 +80,14 @@
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
   "put-down-magnet.mp3": {
+    "text": [
+      "Copyright 2002-2020 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
+  },
+  "voltage-max-click.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
