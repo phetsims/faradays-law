@@ -34,17 +34,17 @@ class SoundOptionsDialogContent extends VBox {
       {
         value: 0,
         node: new Text( 'Metal 1', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice1'
+        tandemName: 'choice1RadioButton'
       },
       {
         value: 1,
         node: new Text( 'Metal 2', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice2'
+        tandemName: 'choice2RadioButton'
       },
       {
         value: 2,
         node: new Text( 'Default Grab/Release', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice3'
+        tandemName: 'choice3RadioButton'
       }
     ];
 
