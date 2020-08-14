@@ -21,6 +21,8 @@ import MagnetRegionManager from './MagnetRegionManager.js';
 
 const { test } = QUnit;
 
+const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
+
 QUnit.module( 'MagnetRegionManager' );
 
 const columnWidth = Utils.roundSymmetric( FaradaysLawConstants.LAYOUT_BOUNDS.getWidth() / 3 );
@@ -66,11 +68,10 @@ test( 'get row numbers', assert => {
 
 test( 'get region numbers', assert => {
 
-  const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
-
   x = columnWidth / 2;
   y = rowHeight / 2;
 
+  model.reset();
   const regionTester = new MagnetRegionManager( model );
 
   assert.equal( regionTester.getPositionRegion( v ), 0, `point ${x}, ${y} in region 0` );
@@ -101,8 +102,7 @@ test( 'get region numbers', assert => {
 } );
 
 test( 'get magnet edge notification', assert => {
-
-  const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
+  model.reset();
 
   const regionTester = new MagnetRegionManager( model );
 
