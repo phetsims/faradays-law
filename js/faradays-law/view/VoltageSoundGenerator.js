@@ -69,7 +69,7 @@ class VoltageSoundGenerator extends SoundGenerator {
     const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound );
     soundManager.addSoundGenerator( maxPositiveVoltageSoundClip );
     const maxNegativeVoltageSoundClip = new SoundClip( maxVoltageSound, {
-      initialPlaybackRate: 0.94387431268
+      initialPlaybackRate: 0.89089871814
     } );
     soundManager.addSoundGenerator( maxNegativeVoltageSoundClip );
 

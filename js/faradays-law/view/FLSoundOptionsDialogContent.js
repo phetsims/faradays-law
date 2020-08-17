@@ -16,7 +16,7 @@ const SELECTION_TEXT_OPTIONS = { font: new PhetFont( 18 ) };
 
 // globals that are controlled by this dialog
 phet.faradaysLaw.magnetSoundSetIndexProperty = new NumberProperty( 0 );
-phet.faradaysLaw.maxVoltageClicksEnabled = new BooleanProperty( false );
+phet.faradaysLaw.maxVoltageClicksEnabled = new BooleanProperty( true );
 
 /**
  * SoundOptionsDialogContent is intended as an example of a node that can serve as the content for an options dialog,
