@@ -11,13 +11,17 @@ import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHi
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import grabSoundPlayer from '../../../../tambo/js/shared-sound-players/grabSoundPlayer.js';
-import releaseSoundPlayer from '../../../../tambo/js/shared-sound-players/releaseSoundPlayer.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import pickupMagnetJustMetalSound from '../../../sounds/pickup-magnet-just-metal_mp3.js';
 import pickupMagnetSound from '../../../sounds/pickup-magnet_mp3.js';
+import pickupMagnetFmV1Sound from '../../../sounds/pickup-magnet-fm-v1_mp3.js';
+import pickupMagnetFmV2Sound from '../../../sounds/pickup-magnet-fm-v2_mp3.js';
+import pickupMagnetFmV3Sound from '../../../sounds/pickup-magnet-fm-v3_mp3.js';
 import putDownMagnetSound from '../../../sounds/put-down-magnet_mp3.js';
+import putDownMagnetFmV1Sound from '../../../sounds/put-down-magnet-fm-v1_mp3.js';
+import putDownMagnetFmV2Sound from '../../../sounds/put-down-magnet-fm-v2_mp3.js';
+import putDownMagnetFmV3Sound from '../../../sounds/put-down-magnet-fm-v3_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -37,6 +41,30 @@ import MagnetRegionManager from './MagnetRegionManager.js';
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 const barMagnetString = faradaysLawStrings.a11y.barMagnet;
+
+// sounds used for pick up and release of the magnet, order must match that of the sound options dialog
+const PICK_UP_AND_RELEASE_SOUNDS = [
+  {
+    pickUp: pickupMagnetJustMetalSound,
+    release: putDownMagnetSound
+  },
+  {
+    pickUp: pickupMagnetSound,
+    release: putDownMagnetSound
+  },
+  {
+    pickUp: pickupMagnetFmV1Sound,
+    release: putDownMagnetFmV1Sound
+  },
+  {
+    pickUp: pickupMagnetFmV2Sound,
+    release: putDownMagnetFmV2Sound
+  },
+  {
+    pickUp: pickupMagnetFmV3Sound,
+    release: putDownMagnetFmV3Sound
+  }
+];
 
 /**
  * @param {FaradaysLawModel} model
@@ -110,49 +138,23 @@ class MagnetNodeWithField extends Node {
     const alertManager = new FaradaysLawAlertManager( describer );
 
     // sound generation
-    const pickupMagnetSoundClip = new SoundClip( pickupMagnetSound, {
-      initialOutputLevel: 0.5
+    const pickUpMagnetSoundPlayers = [];
+    const releaseMagnetSoundPlayers = [];
+    PICK_UP_AND_RELEASE_SOUNDS.forEach( sound => {
+      const pickUpSoundClip = new SoundClip( sound.pickUp, { initialOutputLevel: 0.25 } );
+      soundManager.addSoundGenerator( pickUpSoundClip );
+      pickUpMagnetSoundPlayers.push( pickUpSoundClip );
+      const releaseSoundClip = new SoundClip( sound.release, { initialOutputLevel: 0.25 } );
+      soundManager.addSoundGenerator( releaseSoundClip );
+      releaseMagnetSoundPlayers.push( releaseSoundClip );
     } );
-    soundManager.addSoundGenerator( pickupMagnetSoundClip );
-    const pickupMagnetJustMetalSoundClip = new SoundClip( pickupMagnetJustMetalSound, {
-      initialOutputLevel: 0.5
-    } );
-    soundManager.addSoundGenerator( pickupMagnetJustMetalSoundClip );
-    const putDownMagnetSoundClip = new SoundClip( putDownMagnetSound, {
-      initialOutputLevel: 0.5
-    } );
-    soundManager.addSoundGenerator( putDownMagnetSoundClip );
 
     // sound players that use global configuration information, set via the Options dialog, to decide which sound to play
     const playPickupSound = () => {
-      switch( phet.faradaysLaw.magnetSoundSetIndexProperty.value ) {
-        case 0:
-          pickupMagnetSoundClip.play();
-          break;
-        case 1:
-          pickupMagnetJustMetalSoundClip.play();
-          break;
-        case 2:
-          grabSoundPlayer.play();
-          break;
-        default:
-          assert && assert( false, 'invalid sound index for magnet' );
-          break;
-      }
+      pickUpMagnetSoundPlayers[ phet.faradaysLaw.magnetSoundSetIndexProperty.value ].play();
     };
     const playReleaseSound = () => {
-      switch( phet.faradaysLaw.magnetSoundSetIndexProperty.value ) {
-        case 0:
-        case 1:
-          putDownMagnetSoundClip.play();
-          break;
-        case 2:
-          releaseSoundPlayer.play();
-          break;
-        default:
-          assert && assert( false, 'invalid sound index for magnet' );
-          break;
-      }
+      releaseMagnetSoundPlayers[ phet.faradaysLaw.magnetSoundSetIndexProperty.value ].play();
     };
 
     // handler
