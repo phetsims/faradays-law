@@ -41,16 +41,15 @@ const COIL_BUMP_SOUND_LEVEL = 0.25;
  */
 function FaradaysLawScreenView( model, tandem ) {
 
+  // PDOM - screen Summary
   const summaryNode = new Node();
+  summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
+  summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
   ScreenView.call( this, {
     layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
     screenSummaryContent: summaryNode
   } );
-
-  // screen Summary
-  summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
-  summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
 
   this.pdomPlayAreaNode.addChild( new CircuitDescriptionNode( model ) );
 
@@ -114,8 +113,8 @@ function FaradaysLawScreenView( model, tandem ) {
   // @private
   this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
   this.addChild( this.magnetNodeWithField );
-  this.pdomPlayAreaNode.accessibleOrder = [null, this.magnetNodeWithField];
-  this.pdomControlAreaNode.accessibleOrder = [controlPanel];
+  this.pdomPlayAreaNode.accessibleOrder = [ null, this.magnetNodeWithField ];
+  this.pdomControlAreaNode.accessibleOrder = [ controlPanel ];
 
   // move coils to front
   bottomCoilNode.frontImage.detach();
