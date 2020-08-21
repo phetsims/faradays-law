@@ -148,15 +148,6 @@ function FaradaysLawScreenView( model, tandem ) {
 
 faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );
 
-inherit( ScreenView, FaradaysLawScreenView, {
-
-  /**
-   * Step in time
-   * @param {number} dt - elapsed time in seconds
-   */
-  step: function( dt ) {
-    // this.magnetNodeWithField.step( dt );
-  }
-} );
+inherit( ScreenView, FaradaysLawScreenView );
 
 export default FaradaysLawScreenView;
