@@ -74,9 +74,7 @@ const PICK_UP_AND_RELEASE_SOUNDS = [
 class MagnetNodeWithField extends Node {
   constructor( model, tandem ) {
 
-    super( {
-      tagName: 'div'
-    } );
+    super();
 
     const self = this;
 
