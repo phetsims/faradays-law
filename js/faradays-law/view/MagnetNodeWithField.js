@@ -31,7 +31,6 @@ import JumpMagnitudeArrowNode from './JumpMagnitudeArrowNode.js';
 import MagnetDescriber from './MagnetDescriber.js';
 import MagnetDescriptionNode from './MagnetDescriptionNode.js';
 import MagnetFieldLines from './MagnetFieldLines.js';
-import MagnetInteractionCueNode from './MagnetInteractionCueNode.js';
 import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
@@ -116,19 +115,6 @@ class MagnetNodeWithField extends Node {
     this.addChild( this.reflectedMagnetNode );
     this.reflectedMagnetNode.opacity = 0.5;
     this.reflectedMagnetNode.visible = false;
-
-    // help arrows around the magnet
-    const magnetInteractionCueNode = new MagnetInteractionCueNode();
-
-    this.addChild( magnetInteractionCueNode );
-
-    // pdom - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
-    // size of the node being highlighted.
-    model.magnetArrowsVisibleProperty.link( showArrows => {
-      magnetInteractionCueNode.visible = showArrows;
-    } );
-
-    magnetInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
 
     // pdom descriptions - generates text content and alerts for magnet interactions
     const regionManager = new MagnetRegionManager( model );
