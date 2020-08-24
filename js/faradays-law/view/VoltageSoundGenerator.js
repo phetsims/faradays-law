@@ -122,27 +122,29 @@ class VoltageSoundGenerator extends SoundGenerator {
       }
 
       // max voltage sound generation
-      if ( voltage > VOLTMETER_PEGGED_THRESHOLD ) {
-        if ( !voltmeterPeggedPositive ) {
-          voltmeterPeggedPositive = true;
-          if ( phet.faradaysLaw.maxVoltageClicksEnabled.value ) {
-            maxPositiveVoltageSoundClip.play();
+      if ( voltmeterVisibleProperty.value ) {
+        if ( voltage > VOLTMETER_PEGGED_THRESHOLD ) {
+          if ( !voltmeterPeggedPositive ) {
+            voltmeterPeggedPositive = true;
+            if ( phet.faradaysLaw.maxVoltageClicksEnabled.value ) {
+              maxPositiveVoltageSoundClip.play();
+            }
           }
+          voltmeterPeggedNegative = false;
         }
-        voltmeterPeggedNegative = false;
-      }
-      else if ( voltage < -VOLTMETER_PEGGED_THRESHOLD ) {
-        if ( !voltmeterPeggedNegative ) {
-          voltmeterPeggedNegative = true;
-          if ( phet.faradaysLaw.maxVoltageClicksEnabled.value ) {
-            maxNegativeVoltageSoundClip.play();
+        else if ( voltage < -VOLTMETER_PEGGED_THRESHOLD ) {
+          if ( !voltmeterPeggedNegative ) {
+            voltmeterPeggedNegative = true;
+            if ( phet.faradaysLaw.maxVoltageClicksEnabled.value ) {
+              maxNegativeVoltageSoundClip.play();
+            }
           }
+          voltmeterPeggedPositive = false;
         }
-        voltmeterPeggedPositive = false;
-      }
-      else {
-        voltmeterPeggedPositive = false;
-        voltmeterPeggedNegative = false;
+        else {
+          voltmeterPeggedPositive = false;
+          voltmeterPeggedNegative = false;
+        }
       }
     };
 
