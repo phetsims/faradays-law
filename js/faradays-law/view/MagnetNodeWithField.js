@@ -13,13 +13,8 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import pickupMagnetJustMetalSound from '../../../sounds/pickup-magnet-just-metal_mp3.js';
-import pickupMagnetSound from '../../../sounds/pickup-magnet_mp3.js';
-import pickupMagnetFmV1Sound from '../../../sounds/pickup-magnet-fm-v1_mp3.js';
 import pickupMagnetFmV2Sound from '../../../sounds/pickup-magnet-fm-v2_mp3.js';
 import pickupMagnetFmV3Sound from '../../../sounds/pickup-magnet-fm-v3_mp3.js';
-import putDownMagnetSound from '../../../sounds/put-down-magnet_mp3.js';
-import putDownMagnetFmV1Sound from '../../../sounds/put-down-magnet-fm-v1_mp3.js';
 import putDownMagnetFmV2Sound from '../../../sounds/put-down-magnet-fm-v2_mp3.js';
 import putDownMagnetFmV3Sound from '../../../sounds/put-down-magnet-fm-v3_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
@@ -43,18 +38,6 @@ const barMagnetString = faradaysLawStrings.a11y.barMagnet;
 
 // sounds used for pick up and release of the magnet, order must match that of the sound options dialog
 const PICK_UP_AND_RELEASE_SOUNDS = [
-  {
-    pickUp: pickupMagnetJustMetalSound,
-    release: putDownMagnetSound
-  },
-  {
-    pickUp: pickupMagnetSound,
-    release: putDownMagnetSound
-  },
-  {
-    pickUp: pickupMagnetFmV1Sound,
-    release: putDownMagnetFmV1Sound
-  },
   {
     pickUp: pickupMagnetFmV2Sound,
     release: putDownMagnetFmV2Sound

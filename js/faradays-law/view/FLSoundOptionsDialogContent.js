@@ -33,28 +33,13 @@ class SoundOptionsDialogContent extends VBox {
     const magnetPickupAndDropItems = [
       {
         value: 0,
-        node: new Text( 'Just Metal', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice1RadioButton'
+        node: new Text( 'FM Version 2', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice0RadioButton'
       },
       {
         value: 1,
-        node: new Text( 'Metal+', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice2RadioButton'
-      },
-      {
-        value: 2,
-        node: new Text( 'FM Version 1', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice3RadioButton'
-      },
-      {
-        value: 3,
-        node: new Text( 'FM Version 2', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice4RadioButton'
-      },
-      {
-        value: 4,
         node: new Text( 'FM Version 3', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice5RadioButton'
+        tandemName: 'choice1RadioButton'
       }
     ];
 
