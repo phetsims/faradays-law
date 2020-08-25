@@ -15,6 +15,7 @@ const SELECTION_TEXT_OPTIONS = { font: new PhetFont( 18 ) };
 // globals that are controlled by this dialog
 phet.faradaysLaw.magnetSoundSetIndexProperty = new NumberProperty( 0 );
 phet.faradaysLaw.maxVoltageClicksIndexProperty = new NumberProperty( 0 );
+phet.faradaysLaw.highNoteBehaviorProperty = new NumberProperty( 0 );
 
 /**
  * SoundOptionsDialogContent is intended as an example of a node that can serve as the content for an options dialog,
@@ -94,12 +95,42 @@ class SoundOptionsDialogContent extends VBox {
       }
     );
 
+    const highNoteBehaviorItems = [
+      {
+        value: 0,
+        node: new Text( 'Always play high notes', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice0RadioButton'
+      },
+      {
+        value: 1,
+        node: new Text( 'Play high notes when voltmeter visible', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice1RadioButton'
+      },
+      {
+        value: 2,
+        node: new Text( 'Never play high notes', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice2RadioButton'
+      }
+    ];
+
+    const highNoteBehaviorSelector = new AquaRadioButtonGroup(
+      phet.faradaysLaw.highNoteBehaviorProperty,
+      highNoteBehaviorItems,
+      {
+        orientation: 'vertical',
+        align: 'left',
+        tandem: Tandem.OPT_OUT
+      }
+    );
+
     super( {
       children: [
         new Text( 'Magnet Pick Up and Release Sounds:', HEADER_TEXT_OPTIONS ),
         magnetPickupAndDropSoundSelector,
         new Text( 'Max Voltage Click Sounds:', HEADER_TEXT_OPTIONS ),
-        maxVoltageClicksSoundSelector
+        maxVoltageClicksSoundSelector,
+        new Text( 'High note behavior options:', HEADER_TEXT_OPTIONS ),
+        highNoteBehaviorSelector
       ],
       spacing: 15,
       align: 'left',
