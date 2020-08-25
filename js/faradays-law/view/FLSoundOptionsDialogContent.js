@@ -38,8 +38,23 @@ class SoundOptionsDialogContent extends VBox {
       },
       {
         value: 1,
-        node: new Text( 'FM Version 3', SELECTION_TEXT_OPTIONS ),
+        node: new Text( 'FM Version 2 up an octave', SELECTION_TEXT_OPTIONS ),
         tandemName: 'choice1RadioButton'
+      },
+      {
+        value: 2,
+        node: new Text( 'FM Version 3', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice2RadioButton'
+      },
+      {
+        value: 3,
+        node: new Text( 'FM Version 3 up a fifth', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice3RadioButton'
+      },
+      {
+        value: 4,
+        node: new Text( 'FM Version 3 up an octave', SELECTION_TEXT_OPTIONS ),
+        tandemName: 'choice4RadioButton'
       }
     ];
 

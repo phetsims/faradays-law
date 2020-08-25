@@ -13,10 +13,14 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import pickupMagnetFmV2Sound from '../../../sounds/pickup-magnet-fm-v2_mp3.js';
-import pickupMagnetFmV3Sound from '../../../sounds/pickup-magnet-fm-v3_mp3.js';
+import pickUpMagnetFmV2Sound from '../../../sounds/pick-up-magnet-fm-v2_mp3.js';
+import pickUpMagnetFmV3Sound from '../../../sounds/pick-up-magnet-fm-v3_mp3.js';
+import pickUpMagnetFmV3FifthSound from '../../../sounds/pick-up-magnet-fm-v3-fifth_mp3.js';
+import pickUpMagnetFmV3OctaveSound from '../../../sounds/pick-up-magnet-fm-v3-octave_mp3.js';
 import putDownMagnetFmV2Sound from '../../../sounds/put-down-magnet-fm-v2_mp3.js';
 import putDownMagnetFmV3Sound from '../../../sounds/put-down-magnet-fm-v3_mp3.js';
+import putDownMagnetFmV3FifthSound from '../../../sounds/put-down-magnet-fm-v3-fifth_mp3.js';
+import putDownMagnetFmV3OctaveSound from '../../../sounds/put-down-magnet-fm-v3-octave_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -39,12 +43,24 @@ const barMagnetString = faradaysLawStrings.a11y.barMagnet;
 // sounds used for pick up and release of the magnet, order must match that of the sound options dialog
 const PICK_UP_AND_RELEASE_SOUNDS = [
   {
-    pickUp: pickupMagnetFmV2Sound,
+    pickUp: pickUpMagnetFmV2Sound,
     release: putDownMagnetFmV2Sound
   },
   {
-    pickUp: pickupMagnetFmV3Sound,
+    pickUp: pickUpMagnetFmV2Sound,
+    release: putDownMagnetFmV2Sound
+  },
+  {
+    pickUp: pickUpMagnetFmV3Sound,
     release: putDownMagnetFmV3Sound
+  },
+  {
+    pickUp: pickUpMagnetFmV3FifthSound,
+    release: putDownMagnetFmV3FifthSound
+  },
+  {
+    pickUp: pickUpMagnetFmV3OctaveSound,
+    release: putDownMagnetFmV3OctaveSound
   }
 ];
 
@@ -107,11 +123,23 @@ class MagnetNodeWithField extends Node {
     // sound generation
     const pickUpMagnetSoundPlayers = [];
     const releaseMagnetSoundPlayers = [];
-    PICK_UP_AND_RELEASE_SOUNDS.forEach( sound => {
-      const pickUpSoundClip = new SoundClip( sound.pickUp, { initialOutputLevel: 0.25 } );
+    PICK_UP_AND_RELEASE_SOUNDS.forEach( ( sound, index ) => {
+
+      // TWEAK WARNING - very specific code for trying out sounds, should not exist for long (created 8.25.2020)
+      let playbackRate = 1;
+      if ( index === 1 ) {
+        playbackRate = 2;
+      }
+      const pickUpSoundClip = new SoundClip( sound.pickUp, {
+        initialOutputLevel: 0.25,
+        initialPlaybackRate: playbackRate
+      } );
       soundManager.addSoundGenerator( pickUpSoundClip );
       pickUpMagnetSoundPlayers.push( pickUpSoundClip );
-      const releaseSoundClip = new SoundClip( sound.release, { initialOutputLevel: 0.25 } );
+      const releaseSoundClip = new SoundClip( sound.release, {
+        initialOutputLevel: 0.25,
+        initialPlaybackRate: playbackRate
+      } );
       soundManager.addSoundGenerator( releaseSoundClip );
       releaseMagnetSoundPlayers.push( releaseSoundClip );
     } );
