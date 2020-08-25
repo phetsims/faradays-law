@@ -67,7 +67,9 @@ class VoltageSoundGenerator extends SoundGenerator {
     soundManager.addSoundGenerator( positiveVoltmeterLowTone );
 
     // sound players for when the voltage reaches the max positive or negative values, i.e. "pegs"
-    const maxPositiveVoltageLowerSoundClip = new SoundClip( maxVoltageSound );
+    const maxPositiveVoltageLowerSoundClip = new SoundClip( maxVoltageSound, {
+      initialPlaybackRate: 1.12246204831
+    } );
     soundManager.addSoundGenerator( maxPositiveVoltageLowerSoundClip );
     const maxNegativeVoltageLowerSoundClip = new SoundClip( maxVoltageSound, {
       initialPlaybackRate: 0.89089871814
