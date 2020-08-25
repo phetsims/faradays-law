@@ -17,6 +17,7 @@ import lightBulbToneTop1 from '../../../sounds/lightbulb-voltage-note-c-5_mp3.js
 import lightBulbTone2 from '../../../sounds/lightbulb-voltage-note-e-4_mp3.js';
 import lightBulbTone3 from '../../../sounds/lightbulb-voltage-note-g-4_mp3.js';
 import maxVoltageSound from '../../../sounds/voltage-max-click_mp3.js';
+import maxVoltageHigherSound from '../../../sounds/voltage-max-octave-higher_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
@@ -65,19 +66,59 @@ class VoltageSoundGenerator extends SoundGenerator {
     const positiveVoltmeterLowTone = new SoundClip( lightBulbToneTop2 );
     soundManager.addSoundGenerator( positiveVoltmeterLowTone );
 
-    // sound clips for when the voltage reaches the max positive or negative values, i.e. "pegs"
-    const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound );
-    soundManager.addSoundGenerator( maxPositiveVoltageSoundClip );
-    const maxNegativeVoltageSoundClip = new SoundClip( maxVoltageSound, {
+    // sound players for when the voltage reaches the max positive or negative values, i.e. "pegs"
+    const maxPositiveVoltageLowerSoundClip = new SoundClip( maxVoltageSound );
+    soundManager.addSoundGenerator( maxPositiveVoltageLowerSoundClip );
+    const maxNegativeVoltageLowerSoundClip = new SoundClip( maxVoltageSound, {
       initialPlaybackRate: 0.89089871814
     } );
-    soundManager.addSoundGenerator( maxNegativeVoltageSoundClip );
+    soundManager.addSoundGenerator( maxNegativeVoltageLowerSoundClip );
+    const maxPositiveVoltageHigherSoundClip = new SoundClip( maxVoltageHigherSound );
+    soundManager.addSoundGenerator( maxPositiveVoltageHigherSoundClip );
+    const maxNegativeVoltageHigherSoundClip = new SoundClip( maxVoltageHigherSound, {
+      initialPlaybackRate: 0.74915353843
+    } );
+    soundManager.addSoundGenerator( maxNegativeVoltageHigherSoundClip );
+    const maxPositiveVoltageSoundPlayer = {
+      play: () => {
+        switch( phet.faradaysLaw.maxVoltageClicksIndexProperty.value ) {
+          case 0:
+            maxPositiveVoltageHigherSoundClip.play();
+            break;
+          case 1:
+            maxPositiveVoltageLowerSoundClip.play();
+            break;
+          case 2:
+            // no sound
+            break;
+          default:
+            throw new Error( 'invalid value for maxVoltageClicksIndexProperty' );
+        }
+      }
+    };
+    const maxNegativeVoltageSoundPlayer = {
+      play: () => {
+        switch( phet.faradaysLaw.maxVoltageClicksIndexProperty.value ) {
+          case 0:
+            maxNegativeVoltageHigherSoundClip.play();
+            break;
+          case 1:
+            maxNegativeVoltageLowerSoundClip.play();
+            break;
+          case 2:
+            // no sound
+            break;
+          default:
+            throw new Error( 'invalid value for maxVoltageClicksIndexProperty' );
+        }
+      }
+    };
 
     // flags used to decide when the voltmeter is transitioning in and out of being "pegged" at the min or max
     let voltmeterPeggedPositive = false;
     let voltmeterPeggedNegative = false;
 
-    const voltageListener = ( voltage, previousVoltage ) => {
+    const voltageListener = voltage => {
 
       const voltageMagnitude = Math.abs( voltage );
 
@@ -126,18 +167,14 @@ class VoltageSoundGenerator extends SoundGenerator {
         if ( voltage > VOLTMETER_PEGGED_THRESHOLD ) {
           if ( !voltmeterPeggedPositive ) {
             voltmeterPeggedPositive = true;
-            if ( phet.faradaysLaw.maxVoltageClicksEnabled.value ) {
-              maxPositiveVoltageSoundClip.play();
-            }
+            maxPositiveVoltageSoundPlayer.play();
           }
           voltmeterPeggedNegative = false;
         }
         else if ( voltage < -VOLTMETER_PEGGED_THRESHOLD ) {
           if ( !voltmeterPeggedNegative ) {
             voltmeterPeggedNegative = true;
-            if ( phet.faradaysLaw.maxVoltageClicksEnabled.value ) {
-              maxNegativeVoltageSoundClip.play();
-            }
+            maxNegativeVoltageSoundPlayer.play();
           }
           voltmeterPeggedPositive = false;
         }
