@@ -17,7 +17,15 @@ import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
+import maxVoltageSound from '../../../sounds/voltage-max-click_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
+
+// constants
+const MIN_ANGLE = -Math.PI / 2;
+const MAX_ANGLE = Math.PI / 2;
+const CLICK_SOUND_OUTPUT_LEVEL = 0.5; // empirically determined
 
 /**
  * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
@@ -26,7 +34,7 @@ import faradaysLaw from '../../faradaysLaw.js';
  */
 function VoltmeterGauge( needleAngleProperty, options ) {
   Node.call( this );
-  const arcRadius = 55; // radius of voltmeter scale
+  const arcRadius = 55; // radius of voltmeter scale, empirically determined
   const needleColor = '#3954a5'; // blue
 
   // background panel within which the needle moves
@@ -69,9 +77,37 @@ function VoltmeterGauge( needleAngleProperty, options ) {
   } );
   this.addChild( needleArrowNode );
 
+  // sound generators
+  const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound, {
+    initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL,
+    initialPlaybackRate: 1.12246204831
+  } );
+  soundManager.addSoundGenerator( maxPositiveVoltageSoundClip );
+  const maxNegativeVoltageSoundClip = new SoundClip( maxVoltageSound, {
+    initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL
+  } );
+  soundManager.addSoundGenerator( maxNegativeVoltageSoundClip );
+
   // observers
-  needleAngleProperty.link( function( needleAngle ) {
-    needleArrowNode.rotation = Utils.clamp( needleAngle, -Math.PI / 2, Math.PI / 2 );
+  let previousClampedNeedleAngle = needleAngleProperty.value;
+  needleAngleProperty.link( needleAngle => {
+
+    // Set the angle of the needle, making sure that it doesn't exceed the max or min values.
+    const clampedNeedleAngle = Utils.clamp( needleAngle, MIN_ANGLE, MAX_ANGLE );
+    needleArrowNode.rotation = clampedNeedleAngle;
+
+    // Play a sound when the needle first hits the min or max value, but only if visible.
+    if ( _.some( this.getTrailsTo( phet.joist.display.rootNode ), trail => trail.isVisible() ) ) {
+      if ( clampedNeedleAngle === MAX_ANGLE && previousClampedNeedleAngle < MAX_ANGLE ) {
+        maxPositiveVoltageSoundClip.play();
+      }
+      else if ( clampedNeedleAngle === MIN_ANGLE && previousClampedNeedleAngle > MIN_ANGLE ) {
+        maxNegativeVoltageSoundClip.play();
+      }
+    }
+
+    // Save the needle angle for comparison the next time through.
+    previousClampedNeedleAngle = clampedNeedleAngle;
   } );
 
   this.mutate( options );
