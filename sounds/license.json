@@ -15,6 +15,14 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
+  "grab-magnet.mp3": {
+    "text": [
+      "Copyright 2002-2020 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
+  },
   "lightbulb-voltage-note-b-flat-4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
@@ -55,63 +63,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "pick-up-magnet-fm-v2.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "pick-up-magnet-fm-v3.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "pick-up-magnet-fm-v3-fifth.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "pick-up-magnet-fm-v3-octave.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "put-down-magnet-fm-v2.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "put-down-magnet-fm-v3.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "put-down-magnet-fm-v3-fifth.mp3": {
-    "text": [
-      "Copyright 2002-2020 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris (PhET Interactive Simulations)"
-  },
-  "put-down-magnet-fm-v3-octave.mp3": {
+  "release-magnet.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],

@@ -13,7 +13,6 @@ const HEADER_TEXT_OPTIONS = { font: new PhetFont( 24 ), weight: 'bold' };
 const SELECTION_TEXT_OPTIONS = { font: new PhetFont( 18 ) };
 
 // globals that are controlled by this dialog
-phet.faradaysLaw.magnetSoundSetIndexProperty = new NumberProperty( 0 );
 phet.faradaysLaw.maxVoltageClicksIndexProperty = new NumberProperty( 0 );
 phet.faradaysLaw.highNoteBehaviorProperty = new NumberProperty( 0 );
 
@@ -28,44 +27,6 @@ class SoundOptionsDialogContent extends VBox {
    * @param {Tandem} tandem
    */
   constructor( tandem ) {
-
-    const magnetPickupAndDropItems = [
-      {
-        value: 0,
-        node: new Text( 'FM Version 2', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice0RadioButton'
-      },
-      {
-        value: 1,
-        node: new Text( 'FM Version 2 up an octave', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice1RadioButton'
-      },
-      {
-        value: 2,
-        node: new Text( 'FM Version 3', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice2RadioButton'
-      },
-      {
-        value: 3,
-        node: new Text( 'FM Version 3 up a fifth', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice3RadioButton'
-      },
-      {
-        value: 4,
-        node: new Text( 'FM Version 3 up an octave', SELECTION_TEXT_OPTIONS ),
-        tandemName: 'choice4RadioButton'
-      }
-    ];
-
-    const magnetPickupAndDropSoundSelector = new AquaRadioButtonGroup(
-      phet.faradaysLaw.magnetSoundSetIndexProperty,
-      magnetPickupAndDropItems,
-      {
-        orientation: 'vertical',
-        align: 'left',
-        tandem: Tandem.OPT_OUT
-      }
-    );
 
     const maxVoltageClickItems = [
       {
@@ -125,8 +86,6 @@ class SoundOptionsDialogContent extends VBox {
 
     super( {
       children: [
-        new Text( 'Magnet Pick Up and Release Sounds:', HEADER_TEXT_OPTIONS ),
-        magnetPickupAndDropSoundSelector,
         new Text( 'Max Voltage Click Sounds:', HEADER_TEXT_OPTIONS ),
         maxVoltageClicksSoundSelector,
         new Text( 'High note behavior options:', HEADER_TEXT_OPTIONS ),

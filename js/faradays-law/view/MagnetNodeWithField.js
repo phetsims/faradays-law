@@ -13,14 +13,8 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import pickUpMagnetFmV2Sound from '../../../sounds/pick-up-magnet-fm-v2_mp3.js';
-import pickUpMagnetFmV3Sound from '../../../sounds/pick-up-magnet-fm-v3_mp3.js';
-import pickUpMagnetFmV3FifthSound from '../../../sounds/pick-up-magnet-fm-v3-fifth_mp3.js';
-import pickUpMagnetFmV3OctaveSound from '../../../sounds/pick-up-magnet-fm-v3-octave_mp3.js';
-import putDownMagnetFmV2Sound from '../../../sounds/put-down-magnet-fm-v2_mp3.js';
-import putDownMagnetFmV3Sound from '../../../sounds/put-down-magnet-fm-v3_mp3.js';
-import putDownMagnetFmV3FifthSound from '../../../sounds/put-down-magnet-fm-v3-fifth_mp3.js';
-import putDownMagnetFmV3OctaveSound from '../../../sounds/put-down-magnet-fm-v3-octave_mp3.js';
+import grabMagnetSound from '../../../sounds/grab-magnet_mp3.js';
+import releaseMagnetSound from '../../../sounds/release-magnet_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -39,30 +33,6 @@ import MagnetRegionManager from './MagnetRegionManager.js';
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 const barMagnetString = faradaysLawStrings.a11y.barMagnet;
-
-// sounds used for pick up and release of the magnet, order must match that of the sound options dialog
-const PICK_UP_AND_RELEASE_SOUNDS = [
-  {
-    pickUp: pickUpMagnetFmV2Sound,
-    release: putDownMagnetFmV2Sound
-  },
-  {
-    pickUp: pickUpMagnetFmV2Sound,
-    release: putDownMagnetFmV2Sound
-  },
-  {
-    pickUp: pickUpMagnetFmV3Sound,
-    release: putDownMagnetFmV3Sound
-  },
-  {
-    pickUp: pickUpMagnetFmV3FifthSound,
-    release: putDownMagnetFmV3FifthSound
-  },
-  {
-    pickUp: pickUpMagnetFmV3OctaveSound,
-    release: putDownMagnetFmV3OctaveSound
-  }
-];
 
 /**
  * @param {FaradaysLawModel} model
@@ -121,36 +91,14 @@ class MagnetNodeWithField extends Node {
     const alertManager = new FaradaysLawAlertManager( describer );
 
     // sound generation
-    const pickUpMagnetSoundPlayers = [];
-    const releaseMagnetSoundPlayers = [];
-    PICK_UP_AND_RELEASE_SOUNDS.forEach( ( sound, index ) => {
-
-      // TWEAK WARNING - very specific code for trying out sounds, should not exist for long (created 8.25.2020)
-      let playbackRate = 1;
-      if ( index === 1 ) {
-        playbackRate = 2;
-      }
-      const pickUpSoundClip = new SoundClip( sound.pickUp, {
-        initialOutputLevel: 0.25,
-        initialPlaybackRate: playbackRate
-      } );
-      soundManager.addSoundGenerator( pickUpSoundClip );
-      pickUpMagnetSoundPlayers.push( pickUpSoundClip );
-      const releaseSoundClip = new SoundClip( sound.release, {
-        initialOutputLevel: 0.25,
-        initialPlaybackRate: playbackRate
-      } );
-      soundManager.addSoundGenerator( releaseSoundClip );
-      releaseMagnetSoundPlayers.push( releaseSoundClip );
+    const grabMagnetSoundPlayer = new SoundClip( grabMagnetSound, {
+      initialOutputLevel: 0.25 // empirically determined
     } );
-
-    // sound players that use global configuration information, set via the Options dialog, to decide which sound to play
-    const playPickupSound = () => {
-      pickUpMagnetSoundPlayers[ phet.faradaysLaw.magnetSoundSetIndexProperty.value ].play();
-    };
-    const playReleaseSound = () => {
-      releaseMagnetSoundPlayers[ phet.faradaysLaw.magnetSoundSetIndexProperty.value ].play();
-    };
+    soundManager.addSoundGenerator( grabMagnetSoundPlayer );
+    const releaseMagnetSoundPlayer = new SoundClip( releaseMagnetSound, {
+      initialOutputLevel: 0.25 // empirically determined
+    } );
+    soundManager.addSoundGenerator( releaseMagnetSoundPlayer );
 
     // handler
     let magnetOffset = null; // {Vector2|null}
@@ -163,7 +111,7 @@ class MagnetNodeWithField extends Node {
       allowTouchSnag: true,
 
       start( event ) {
-        playPickupSound();
+        grabMagnetSoundPlayer.play();
         magnetOffset = self.globalToParentPoint( event.pointer.point ).minus( self.translation );
       },
 
@@ -176,7 +124,7 @@ class MagnetNodeWithField extends Node {
       },
 
       end( event ) {
-        playReleaseSound();
+        releaseMagnetSoundPlayer.play();
         alertManager.movementEndAlert();
       }
     } );
