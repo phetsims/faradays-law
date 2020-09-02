@@ -5,6 +5,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawQueryParameters from '../FaradaysLawQueryParameters.js';
 
@@ -22,7 +23,7 @@ phet.faradaysLaw.onlyPlayHighNoteWhenVoltmeterVisibleProperty = new BooleanPrope
  * and that enables the user to select between different candidate sounds that are under consideration for use in a
  * sound design.
  */
-class SoundOptionsDialogContent extends VBox {
+class FLSoundOptionsDialogContent extends VBox {
 
   /**
    * @param {Tandem} tandem
@@ -31,7 +32,8 @@ class SoundOptionsDialogContent extends VBox {
 
     const highNoteOnlyWhenVoltmeterVisibleCheckbox = new Checkbox(
       new Text( 'Voltage sound is affected by voltmeter visibility', SELECTION_TEXT_OPTIONS ),
-      phet.faradaysLaw.onlyPlayHighNoteWhenVoltmeterVisibleProperty
+      phet.faradaysLaw.onlyPlayHighNoteWhenVoltmeterVisibleProperty,
+      { tandem: Tandem.OPT_OUT }
     );
 
     super( {
@@ -46,5 +48,5 @@ class SoundOptionsDialogContent extends VBox {
   }
 }
 
-faradaysLaw.register( 'SoundOptionsDialogContent', SoundOptionsDialogContent );
-export default SoundOptionsDialogContent;
+faradaysLaw.register( 'FLSoundOptionsDialogContent', FLSoundOptionsDialogContent );
+export default FLSoundOptionsDialogContent;
