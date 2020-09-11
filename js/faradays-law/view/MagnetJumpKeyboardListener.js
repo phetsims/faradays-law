@@ -3,7 +3,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import timer from '../../../../axon/js/timer.js';
+import stepTimer from '../../../../axon/js/stepTimer.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -115,11 +115,11 @@ class MagnetJumpKeyboardListener {
 
     // step the drag listener, must be removed in dispose
     const stepListener = this.step.bind( this );
-    timer.addListener( stepListener );
+    stepTimer.addListener( stepListener );
 
     // @private - called in dispose
     this._disposeKeyboardDragListener = function() {
-      timer.removeListener( stepListener );
+      stepTimer.removeListener( stepListener );
     };
   }
 
