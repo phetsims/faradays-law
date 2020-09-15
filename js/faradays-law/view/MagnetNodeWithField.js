@@ -194,8 +194,8 @@ class MagnetNodeWithField extends Node {
       }
     } );
 
-    // @private - set up keyboard grab/drag interaction
-    this.grabDragInteraction = new GrabDragInteraction( draggableNode, {
+    // set up keyboard grab/drag interaction
+    const grabDragInteraction = new GrabDragInteraction( draggableNode, {
       listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
       grabCueOptions: {
 
@@ -241,6 +241,13 @@ class MagnetNodeWithField extends Node {
     } );
 
     this.regionManager = regionManager;
+
+    // monitor the model for a reset, perform any local resetting that is necessary
+    model.resetInProgressProperty.lazyLink( resetInProgress => {
+      if ( resetInProgress ) {
+        grabDragInteraction.reset();
+      }
+    } );
   }
 }
 
