@@ -30,7 +30,6 @@ import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
-
 // constants
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
@@ -87,18 +86,9 @@ class MagnetNodeWithField extends Node {
     this.reflectedMagnetNode.opacity = 0.5;
     this.reflectedMagnetNode.visible = false;
 
-    // help arrows around the magnet
-    const magnetInteractionCueNode = new MagnetInteractionCueNode();
-
-    this.addChild( magnetInteractionCueNode );
-
-    // pdom - Update the focusHighlight according to arrow visibility. The dilationCoefficient changes based on the
-    // size of the node being highlighted.
-    model.magnetArrowsVisibleProperty.link( showArrows => {
-      magnetInteractionCueNode.visible = showArrows;
-    } );
-
-    magnetInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
+    // node with information about how to move magnet from the keyboard
+    const keyboardInteractionCueNode = new MagnetInteractionCueNode();
+    keyboardInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
 
     // pdom descriptions - generates text content and alerts for magnet interactions
     const regionManager = new MagnetRegionManager( model );
@@ -194,6 +184,14 @@ class MagnetNodeWithField extends Node {
       }
     } );
 
+    // flag that tracks whether the magnet has been dragged since initial load or since a reset
+    let magnetDragged = false;
+    model.magnet.positionProperty.lazyLink( () => {
+      if ( !model.resetInProgressProperty.value ) {
+        magnetDragged = true;
+      }
+    } );
+
     // set up keyboard grab/drag interaction
     const grabDragInteraction = new GrabDragInteraction( draggableNode, {
       listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
@@ -203,7 +201,9 @@ class MagnetNodeWithField extends Node {
         // movement cue arrows and doesn't go off the right edge of the sim when strings are long.
         right: -20,
         bottom: -this.magnetNode.height * 0.7
-      }
+      },
+      dragCueNode: keyboardInteractionCueNode,
+      successfulDrag: () => magnetDragged
     } );
 
     // listener to position the reflected node
@@ -245,6 +245,7 @@ class MagnetNodeWithField extends Node {
     // monitor the model for a reset, perform any local resetting that is necessary
     model.resetInProgressProperty.lazyLink( resetInProgress => {
       if ( resetInProgress ) {
+        magnetDragged = false;
         grabDragInteraction.reset();
       }
     } );

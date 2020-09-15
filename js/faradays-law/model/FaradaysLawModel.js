@@ -167,7 +167,7 @@ inherit( Object, FaradaysLawModel, {
     this.magnetArrowsVisibleProperty.reset();
     this.bottomCoil.reset();
     this.topCoil.reset();
-    this.resetInProgressProperty.set( true );
+    this.resetInProgressProperty.set( false );
   },
 
   /**
