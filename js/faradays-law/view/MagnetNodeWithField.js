@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -146,8 +147,8 @@ class MagnetNodeWithField extends Node {
 
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
-    // @private - The sticky drag handler for keyboard navigation
-    this.keyboardDragListener = new FaradaysLawKeyboardDragListener( model, regionManager, alertManager );
+    // @private - drag handler for keyboard navigation
+    const keyboardDragListener = new FaradaysLawKeyboardDragListener( model, regionManager, alertManager );
 
     // arrows displayed before initiating the sliding/jumping movement
     const leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );
@@ -157,12 +158,7 @@ class MagnetNodeWithField extends Node {
     this.addChild( leftJumpArrows );
     this.addChild( rightJumpArrows );
 
-    draggableNode.addInputListener( this.keyboardDragListener );
-
-    // add the keyboard & focus event listeners from the alert manager (see AlertManager.js)
-    draggableNode.addInputListener( this.keyboardDragListener.initializeAccessibleInputListener() );
-
-    // handle the jump/slide interaction
+    // handler for jump/slide interactions
     const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
       onKeydown( event ) {
         const domEvent = event.domEvent;
@@ -198,8 +194,17 @@ class MagnetNodeWithField extends Node {
       }
     } );
 
-    draggableNode.addInputListener( magnetJumpKeyboardListener );
+    // @private - set up keyboard grab/drag interaction
+    this.grabDragInteraction = new GrabDragInteraction( draggableNode, {
+      listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
+      grabCueOptions: {
 
+        // Position the grab cue above and to the left of the magnet so that it's close but doesn't overlap with the
+        // movement cue arrows and doesn't go off the right edge of the sim when strings are long.
+        right: -20,
+        bottom: -this.magnetNode.height * 0.7
+      }
+    } );
 
     // listener to position the reflected node
     const setReflectedNodeCenter = position => {
