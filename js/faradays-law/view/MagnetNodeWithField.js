@@ -203,7 +203,8 @@ class MagnetNodeWithField extends Node {
         bottom: -this.magnetNode.height * 0.7
       },
       dragCueNode: keyboardInteractionCueNode,
-      successfulDrag: () => magnetDragged
+      successfulDrag: () => magnetDragged,
+      tandem: tandem.createTandem( 'grabDragInteraction' )
     } );
 
     // listener to position the reflected node
