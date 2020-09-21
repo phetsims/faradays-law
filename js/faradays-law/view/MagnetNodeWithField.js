@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
@@ -27,6 +28,7 @@ import MagnetDescriptionNode from './MagnetDescriptionNode.js';
 import MagnetFieldLines from './MagnetFieldLines.js';
 import MagnetInteractionCueNode from './MagnetInteractionCueNode.js';
 import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
+import MagnetMovementArrowsNode from './MagnetMovementArrowsNode.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
@@ -78,7 +80,15 @@ class MagnetNodeWithField extends Node {
 
     this.addChild( draggableNode );
     this.addChild( draggableNodeFocusHighlight );
+
+    // add the magnet to the draggable node
     draggableNode.addChild( this.magnetNode );
+
+    // add the hint that will provide a clue to the user about how the magnet can be moved
+    this.addChild( new MagnetMovementArrowsNode(
+      new Dimension2( this.magnetNode.width, this.magnetNode.height ),
+      model.magnetArrowsVisibleProperty
+    ) );
 
     // magnet reflection - node to indicate the future position when sliding the magnet
     this.reflectedMagnetNode = createMagnetNode( model.magnet );
@@ -203,6 +213,7 @@ class MagnetNodeWithField extends Node {
         bottom: -this.magnetNode.height * 0.7
       },
       dragCueNode: keyboardInteractionCueNode,
+      onGrab: () => { model.magnetArrowsVisibleProperty.set( false ); },
       successfulDrag: () => magnetDragged,
       tandem: tandem.createTandem( 'grabDragInteraction' )
     } );
