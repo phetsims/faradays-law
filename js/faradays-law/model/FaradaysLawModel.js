@@ -57,7 +57,7 @@ function FaradaysLawModel( bounds, tandem ) {
   } );
 
   // @public
-  this.voltmeterVisibleProperty = new BooleanProperty( true, {
+  this.voltmeterVisibleProperty = new BooleanProperty( false, {
     tandem: tandem.createTandem( 'voltmeterVisibleProperty' ),
     phetioDocumentation: 'True if the voltmeter is shown'
   } );
