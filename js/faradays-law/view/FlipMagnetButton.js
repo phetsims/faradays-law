@@ -9,7 +9,6 @@
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
@@ -24,46 +23,47 @@ import MagnetNode from './MagnetNode.js';
 const flipMagnetString = faradaysLawStrings.a11y.flipMagnet;
 const flipPolesString = faradaysLawStrings.a11y.flipPoles;
 
-/**
- * @param {Tandem} tandem
- * @param {Object} [options]
- * @constructor
- */
-function FlipMagnetButton( tandem, options ) {
+class FlipMagnetButton extends RectangularPushButton {
+  /**
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   */
+  constructor( tandem, options ) {
 
-  const contentNode = new VBox( {
-    children: [
-      createCurvedArrow( 0 ),
-      new MagnetNode( false, {
-        width: 74,
-        height: 16,
-        font: new PhetFont( 14 )
-      } ),
-      createCurvedArrow( Math.PI )
-    ],
-    spacing: 1
-  } );
+    const contentNode = new VBox( {
+      children: [
+        createCurvedArrow( 0 ),
+        new MagnetNode( false, {
+          width: 74,
+          height: 16,
+          font: new PhetFont( 14 )
+        } ),
+        createCurvedArrow( Math.PI )
+      ],
+      spacing: 1
+    } );
 
-  RectangularPushButton.call( this, merge( {
-    content: contentNode,
-    baseColor: 'rgb(205,254,195)',
-    minWidth: 118,
-    minHeight: 65,
-    touchAreaXDilation: 10,
-    touchAreaYDilation: 10,
-    tandem: tandem,
-    phetioDocumentation: 'When pressed, changes the orientation of the bar magnet.',
-    innerContent: flipMagnetString,
-    descriptionContent: flipPolesString,
-    appendDescription: true,
-    containerTagName: 'li'
-  }, options ) );
+    super( merge( {
+      content: contentNode,
+      baseColor: 'rgb(205,254,195)',
+      minWidth: 118,
+      minHeight: 65,
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 10,
+      tandem: tandem,
+      phetioDocumentation: 'When pressed, changes the orientation of the bar magnet.',
+      innerContent: flipMagnetString,
+      descriptionContent: flipPolesString,
+      appendDescription: true,
+      containerTagName: 'li'
+    }, options ) );
 
-  this.addAriaDescribedbyAssociation( {
-    otherNode: this,
-    otherElementName: PDOMPeer.DESCRIPTION_SIBLING,
-    thisElementName: PDOMPeer.PRIMARY_SIBLING
-  } );
+    this.addAriaDescribedbyAssociation( {
+      otherNode: this,
+      otherElementName: PDOMPeer.DESCRIPTION_SIBLING,
+      thisElementName: PDOMPeer.PRIMARY_SIBLING
+    } );
+  }
 }
 
 /**
@@ -71,7 +71,7 @@ function FlipMagnetButton( tandem, options ) {
  * @param {number} rotation
  * @returns {Node}
  */
-var createCurvedArrow = function( rotation ) {
+function createCurvedArrow( rotation ) {
 
   // variables for arrow and arc
   const radius = 20;
@@ -101,9 +101,7 @@ var createCurvedArrow = function( rotation ) {
     ],
     rotation: rotation
   } );
-};
+}
 
 faradaysLaw.register( 'FlipMagnetButton', FlipMagnetButton );
-
-inherit( RectangularPushButton, FlipMagnetButton );
 export default FlipMagnetButton;
