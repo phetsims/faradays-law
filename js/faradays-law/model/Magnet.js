@@ -11,7 +11,6 @@
 // modules
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import inherit from '../../../../phet-core/js/inherit.js';
@@ -44,7 +43,7 @@ function Magnet( tandem ) {
     validValues: OrientationEnum.values,
     tandem: tandem.createTandem( 'orientationProperty' ),
     phetioDocumentation: 'The direction the bar magnet is oriented',
-    phetioType: PropertyIO( StringIO ) // Should we create OrientationEnumIO?
+    phetioType: Property.PropertyIO( StringIO ) // Should we create OrientationEnumIO?
   } );
 
   // @public {BooleanProperty} - show field lines for magnet
