@@ -12,6 +12,7 @@ import Screen from '../../../joist/js/Screen.js';
 import faradaysLaw from '../faradaysLaw.js';
 import FaradaysLawConstants from './FaradaysLawConstants.js';
 import FaradaysLawModel from './model/FaradaysLawModel.js';
+import FaradaysLawKeyboardHelpContent from './view/FaradaysLawKeyboardHelpContent.js';
 import FaradaysLawScreenView from './view/FaradaysLawScreenView.js';
 
 class FaradaysLawScreen extends Screen {
@@ -29,6 +30,8 @@ class FaradaysLawScreen extends Screen {
       }, {
         backgroundColorProperty: new Property( 'rgb( 151, 208, 255 )' ),
         tandem: tandem,
+
+        keyboardHelpNode: new FaradaysLawKeyboardHelpContent(),
 
         // Cap large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
         maxDT: 0.1
