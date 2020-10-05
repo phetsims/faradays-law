@@ -6,7 +6,6 @@
  * @author John Blanco (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
@@ -64,11 +63,6 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
    * @param {Object} [options]
    */
   constructor( options ) {
-    options = merge( {
-
-      // icon options
-      arrowKeysScale: 0.55
-    }, options );
 
     // move grabbed magnet row
     const moveMagnetIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
@@ -101,11 +95,6 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
    * @param {Object} [options]
    */
   constructor( options ) {
-    options = merge( {
-
-      // icon options
-      arrowKeysScale: 0.55
-    }, options );
 
     // row with text label and number icons
     const numberKeysIcon = new HBox( {
