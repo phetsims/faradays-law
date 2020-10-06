@@ -78,6 +78,7 @@ function VoltmeterGauge( needleAngleProperty, options ) {
   this.addChild( needleArrowNode );
 
   // sound generators
+  // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
   const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound, {
     initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL,
     initialPlaybackRate: 1.12246204831

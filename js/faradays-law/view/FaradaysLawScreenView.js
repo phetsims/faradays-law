@@ -131,6 +131,7 @@ function FaradaysLawScreenView( model, tandem ) {
   // ------------------------------------------------------------------------------------------------------------------
 
   // sounds for when the magnet bumps into the coils
+  // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
   const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
   soundManager.addSoundGenerator( lowerCoilBumpSoundClip );
   const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );

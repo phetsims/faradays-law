@@ -35,6 +35,7 @@ class VoltageSoundGenerator extends SoundGenerator {
    */
   constructor( voltageProperty, voltmeterVisibleProperty, options ) {
 
+    // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
     options = merge( {
       initialOutputLevel: 0.5
     }, options );
