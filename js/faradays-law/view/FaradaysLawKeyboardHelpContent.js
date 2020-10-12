@@ -33,7 +33,9 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( 'Bar Magnet', 'bar magnet', {
       labelMaxWidth: maxWidth
     } );
-    const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
+    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
+      withCheckboxContent: true
+    } );
     const moveMagnetHelpSection = new MoveMagnetHelpSection( {
       labelMaxWidth: maxWidth
     } );
