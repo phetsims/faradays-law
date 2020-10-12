@@ -37,7 +37,7 @@ class VoltageSoundGenerator extends SoundGenerator {
 
     // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
     options = merge( {
-      initialOutputLevel: 0.5
+      initialOutputLevel: 0.2
     }, options );
 
     super( options );
@@ -58,7 +58,7 @@ class VoltageSoundGenerator extends SoundGenerator {
     } );
 
     // high notes that are played when the voltmeter is visible
-    const highNoteOutputLevelMultiplier = 0.5;
+    const highNoteOutputLevelMultiplier = 0.2;
     const positiveVoltmeterHighTone = new SoundClip( lightBulbToneTop1 );
     soundManager.addSoundGenerator( positiveVoltmeterHighTone );
     const positiveVoltmeterLowTone = new SoundClip( lightBulbToneTop2 );
