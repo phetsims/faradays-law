@@ -11,6 +11,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
+import Display from '../../../../scenery/js/display/Display.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
@@ -26,7 +27,6 @@ import JumpMagnitudeArrowNode from './JumpMagnitudeArrowNode.js';
 import MagnetDescriber from './MagnetDescriber.js';
 import MagnetDescriptionNode from './MagnetDescriptionNode.js';
 import MagnetFieldLines from './MagnetFieldLines.js';
-import MagnetInteractionCueNode from './MagnetInteractionCueNode.js';
 import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
 import MagnetMovementArrowsNode from './MagnetMovementArrowsNode.js';
 import MagnetNode from './MagnetNode.js';
@@ -95,10 +95,6 @@ class MagnetNodeWithField extends Node {
     this.addChild( this.reflectedMagnetNode );
     this.reflectedMagnetNode.opacity = 0.5;
     this.reflectedMagnetNode.visible = false;
-
-    // node with information about how to move magnet from the keyboard
-    const keyboardInteractionCueNode = new MagnetInteractionCueNode();
-    keyboardInteractionCueNode.setKeyPositions( this.magnetNode.bounds );
 
     // pdom descriptions - generates text content and alerts for magnet interactions
     const regionManager = new MagnetRegionManager( model );
@@ -209,15 +205,21 @@ class MagnetNodeWithField extends Node {
       listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
       grabCueOptions: {
 
-        // Position the grab cue above and to the left of the magnet so that it's close but doesn't overlap with the
-        // movement cue arrows and doesn't go off the right edge of the sim when strings are long.
-        right: -20,
+        // position the grab cue directly above the magnet and centered
+        centerX: 0,
         bottom: -this.magnetNode.height * 0.7
       },
-      dragCueNode: keyboardInteractionCueNode,
-      onGrab: () => { model.magnetArrowsVisibleProperty.set( false ); },
+      onGrab: () => { model.magnetArrowsVisibleProperty.set( true ); },
       successfulDrag: () => magnetDragged,
       tandem: tandem.createTandem( 'grabDragInteraction' )
+    } );
+
+    Display.focusProperty.link( focusInfo => {
+      if ( focusInfo && focusInfo.trail.nodes.includes( this ) ) {
+
+        // Turn off the navigation hint when this item gets focus.
+        model.magnetArrowsVisibleProperty.set( false );
+      }
     } );
 
     // listener to position the reflected node

@@ -9,13 +9,12 @@ import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragL
 import faradaysLaw from '../../faradaysLaw.js';
 
 class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
-  // need to implement;
-  // drag
-  // end
-  // jump behavior
-  // this type needs to handle all the keyboard interaction - for now, I suppose it's possible to simply add 2
-  // a11yInputListeners...let's try!
 
+  /**
+   * @param {FaradaysLawModel} model
+   * @param {MagnetRegionManager} regionManager
+   * @param {FaradaysLawAlertManager} alertManager
+   */
   constructor( model, regionManager, alertManager ) {
 
     const drag = vectorDelta => {
@@ -56,6 +55,7 @@ function onKeyup( event ) {
 }
 
 function onFocus( event ) {
+
   // set flag to override the next keyup alert
   this.alertManager.magnetFocusAlert();
   this.regionManager.resetKeyboardStop();
