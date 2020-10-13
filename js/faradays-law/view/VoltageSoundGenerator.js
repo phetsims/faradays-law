@@ -78,11 +78,8 @@ class VoltageSoundGenerator extends SoundGenerator {
           const outputLevel = Utils.clamp( 0, voltageMagnitude - playThreshold, 1 );
           clip.setOutputLevel( outputLevel );
 
-          // top tone, played based on the value of one of the sound configuration settings
-          const onlyPlayHighNoteWhenVoltmeterVisible = phet.faradaysLaw.onlyPlayHighNoteWhenVoltmeterVisibleProperty.value;
-          if ( index === 0 &&
-               ( !onlyPlayHighNoteWhenVoltmeterVisible ||
-                 ( voltmeterVisibleProperty.value && onlyPlayHighNoteWhenVoltmeterVisible ) ) ) {
+          // top tone, which varies based on whether the voltage is positive or negative
+          if ( index === 0 ) {
 
             const topNoteOutputLevel = outputLevel * highNoteOutputLevelMultiplier;
             if ( voltage > 0 ) {

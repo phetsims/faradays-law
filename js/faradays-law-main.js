@@ -10,7 +10,6 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import FaradaysLawScreen from './faradays-law/FaradaysLawScreen.js';
-import FLSoundOptionsDialogContent from './faradays-law/view/FLSoundOptionsDialogContent.js';
 import faradaysLawStrings from './faradaysLawStrings.js';
 
 // constants
@@ -25,8 +24,7 @@ const simOptions = {
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
   },
-  hasKeyboardHelpContent: true,
-  createOptionsDialogContent: tandem => new FLSoundOptionsDialogContent( tandem )
+  hasKeyboardHelpContent: true
 };
 
 // Create and start the sim
