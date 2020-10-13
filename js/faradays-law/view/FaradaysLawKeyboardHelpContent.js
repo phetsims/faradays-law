@@ -18,11 +18,10 @@ import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const moveMagnetString = 'Move grabbed magnet';
-const moveMagnetSlowerString = 'Move magnet slower';
-// const pressAndHoldString = 'Press and hold Arrow key or letter key for continuous movement.';
+const moveMagnetSlowerString = 'Move grabbed<br>magnet slower';
 
 const moveMagnetWithString = 'Move grabbed magnet up, left, down, or right with Arrow keys, or with letter keys W, A, S, or D.';
-const moveMagnetSlowerWithString = 'Move slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D.';
+const moveMagnetSlowerWithString = 'Move grabbed magnet slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D.';
 
 class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -30,7 +29,7 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175;
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( 'Bar Magnet', 'bar magnet', {
+    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( 'Magnet', 'magnet', {
       labelMaxWidth: maxWidth
     } );
     const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
@@ -105,10 +104,10 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
       ],
       spacing: 1
     } );
-    const tempString = 'Auto-Slide grabbed bar magnet<br>left or right at 3 different speeds<br>Number keys start auto-slide<br>or toggle sliding direction.';
+    const tempString = 'Auto-slide grabbed magnet<br>horizontally and toggle<br>slide direction\n';
     const moveGrabbedMagnetRow = KeyboardHelpSection.labelWithIcon( tempString, numberKeysIcon, tempString );
 
-    super( 'Auto-Slide Bar Magnet', [ moveGrabbedMagnetRow ], options );
+    super( 'Auto-Slide Grabbed Bar Magnet', [ moveGrabbedMagnetRow ], options );
   }
 }
 
