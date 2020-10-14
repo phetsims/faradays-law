@@ -86,8 +86,9 @@ class MagnetNodeWithField extends Node {
 
     // add the hint that will provide a clue to the user about how the magnet can be moved
     this.addChild( new MagnetMovementArrowsNode(
-      new Dimension2( this.magnetNode.width, this.magnetNode.height ),
-      model.magnetArrowsVisibleProperty
+      new Dimension2( this.magnetNode.width, this.magnetNode.height ), {
+        visibleProperty: model.magnetArrowsVisibleProperty
+      }
     ) );
 
     // magnet reflection - node to indicate the future position when sliding the magnet

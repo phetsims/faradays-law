@@ -29,10 +29,9 @@ class MagnetMovementArrowsNode extends Node {
 
   /**
    * @param {Dimension2} magnetDimensions
-   * @param {BooleanProperty} visibleProperty - controls the visibility of the node
    * @param {Object} [options]
    */
-  constructor( magnetDimensions, visibleProperty, options ) {
+  constructor( magnetDimensions, options ) {
     const rightArrow = new Path( RIGHT_POINTING_ARROW_SHAPE, {
       fill: ARROW_FILL,
       stroke: ARROW_STROKE,
@@ -54,13 +53,9 @@ class MagnetMovementArrowsNode extends Node {
       top: magnetDimensions.height / 2 + DISTANCE_FROM_MAGNET_TO_ARROW
     } );
 
-    super( merge(
-      {
-        children: [ rightArrow, leftArrow, topArrow, bottomArrow ],
-        visibleProperty: visibleProperty
-      },
-      options
-    ) );
+    super( merge( {
+      children: [ rightArrow, leftArrow, topArrow, bottomArrow ]
+    }, options ) );
   }
 }
 
