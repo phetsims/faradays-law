@@ -11,7 +11,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
-import Display from '../../../../scenery/js/display/Display.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
@@ -201,26 +200,32 @@ class MagnetNodeWithField extends Node {
       }
     } );
 
+    // listener to watch for when this node gets focus through the keyboard nav system
+    const focusListener = {
+      focus: () => {
+
+        // Turn off the movement hint when this item gets focus.
+        model.magnetArrowsVisibleProperty.set( false );
+      }
+    };
+
     // set up keyboard grab/drag interaction
     const grabDragInteraction = new GrabDragInteraction( draggableNode, {
       listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
+      listenersForGrab: [ focusListener ],
       grabCueOptions: {
 
         // position the grab cue directly above the magnet and centered
         centerX: 0,
         bottom: -this.magnetNode.height * 0.7
       },
-      onGrab: () => { model.magnetArrowsVisibleProperty.set( true ); },
+      onGrab: () => {
+        if ( !magnetDragged ) {
+          model.magnetArrowsVisibleProperty.set( true );
+        }
+      },
       successfulDrag: () => magnetDragged,
       tandem: tandem.createTandem( 'grabDragInteraction' )
-    } );
-
-    Display.focusProperty.link( focusInfo => {
-      if ( focusInfo && focusInfo.trail.nodes.includes( this ) ) {
-
-        // Turn off the navigation hint when this item gets focus.
-        model.magnetArrowsVisibleProperty.set( false );
-      }
     } );
 
     // listener to position the reflected node
