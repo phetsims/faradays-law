@@ -50,9 +50,6 @@
   "keyboardHelpDialog.autoSlideGrabbedBarMagnetWith": {
     "value": "Automatically slide the magnet from one slide to the other using the 1, 2, or 3 keys."
   },
-  "xxx": {
-    "value": "xxx"
-  },
   "a11y": {
     "summaryDescription": {
       "value": "The play area has a light bulb circuit, and a movable bar magnet. There are controls that change what is connected to the circuit,  flip the bar magnet, and reset the sim."
