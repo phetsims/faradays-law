@@ -25,7 +25,7 @@ import faradaysLaw from '../../faradaysLaw.js';
 // constants
 const MIN_ANGLE = -Math.PI / 2;
 const MAX_ANGLE = Math.PI / 2;
-const CLICK_SOUND_OUTPUT_LEVEL = 0.35; // empirically determined
+const CLICK_SOUND_OUTPUT_LEVEL = 0.15; // empirically determined
 
 /**
  * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
