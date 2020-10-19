@@ -13,25 +13,19 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import faradaysLaw from '../../faradaysLaw.js';
-
-// TODO: String need to move into string file once finalized, see https://github.com/phetsims/faradays-law/issues/176.
-
-// constants
-const moveMagnetString = 'Move grabbed magnet';
-const moveMagnetSlowerString = 'Move grabbed<br>magnet slower';
-
-const moveMagnetWithString = 'Move grabbed magnet up, left, down, or right with Arrow keys, or with letter keys W, A, S, or D.';
-const moveMagnetSlowerWithString = 'Move grabbed magnet slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D.';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 
 class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   constructor() {
 
     // make all the KeyboardHelpSection consistent in layout
-    const maxWidth = 175;
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( 'Magnet', 'magnet', {
-      labelMaxWidth: maxWidth
-    } );
+    const maxWidth = 175; // empirically determined
+    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
+      faradaysLawStrings.keyboardHelpDialog.barMagnet,
+      faradaysLawStrings.keyboardHelpDialog.magnet,
+      { labelMaxWidth: maxWidth }
+    );
     const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
       withCheckboxContent: true
     } );
@@ -65,22 +59,22 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
 
     // move grabbed magnet row
     const moveMagnetIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const moveMagnetRow = KeyboardHelpSection.labelWithIcon( moveMagnetString, moveMagnetIcon, moveMagnetWithString );
+    const moveMagnetRow = KeyboardHelpSection.labelWithIcon(
+      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnet,
+      moveMagnetIcon,
+      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
+    );
 
     // move magnet slower row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
     const moveMagnetSlowerRow = KeyboardHelpSection.labelWithIconList(
-      moveMagnetSlowerString,
+      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlower,
       [ shiftPlusArrowKeys, shiftPlusWASDKeys ],
-      moveMagnetSlowerWithString
+      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
     );
 
-    // press and hold message row
-    // TODO: The initial design was a line of text by itself, which isn't currently supported, see https://github.com/phetsims/faradays-law/issues/176.
-    // const pressAndHoldMessageRow = new RichText( pressAndHoldString, { font: new PhetFont( 16 ) } );
-
-    super( 'Move Bar Magnet', [ moveMagnetRow, moveMagnetSlowerRow ], options );
+    super( faradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, [ moveMagnetRow, moveMagnetSlowerRow ], options );
   }
 }
 
@@ -104,10 +98,13 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
       ],
       spacing: 1
     } );
-    const tempString = 'Auto-slide grabbed magnet<br>horizontally and toggle<br>slide direction\n';
-    const moveGrabbedMagnetRow = KeyboardHelpSection.labelWithIcon( tempString, numberKeysIcon, tempString );
+    const moveGrabbedMagnetRow = KeyboardHelpSection.labelWithIcon(
+      faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetText,
+      numberKeysIcon,
+      faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
+    );
 
-    super( 'Auto-Slide Grabbed Bar Magnet', [ moveGrabbedMagnetRow ], options );
+    super( faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
   }
 }
 
