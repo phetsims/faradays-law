@@ -8,14 +8,12 @@
  * @author Michael Barlow (PhET Interactive Simulations)
  */
 
-
 // modules
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
 import faradaysLaw from '../../faradaysLaw.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import MagnetDescriber from './MagnetDescriber.js';
 
 // strings
@@ -26,60 +24,66 @@ const fourLoopCoilString = faradaysLawStrings.a11y.fourLoopCoil;
 const twoLoopCoilString = faradaysLawStrings.a11y.twoLoopCoil;
 const voltmeterString = faradaysLawStrings.a11y.voltmeter;
 
-function CircuitDescriptionNode( model, options ) {
+class CircuitDescriptionNode extends Node {
 
-  options = merge( {
-    tagName: 'div',
-    labelTagName: 'h3',
-    labelContent: lightBulbCircuitLabelString
-  }, options );
+  /**
+   * @param {FaradaysLawModel} model
+   * @param {Object} [options]
+   */
+  constructor( model, options ) {
 
-  Node.call( this, options );
+    options = merge( {
+      tagName: 'div',
+      labelTagName: 'h3',
+      labelContent: lightBulbCircuitLabelString
+    }, options );
 
-  const dynamicChildrenNode = new Node();
-  this.addChild( dynamicChildrenNode );
+    super( options );
 
-  const fourCoilOnlyNode = new Node( {
-    tagName: 'p',
-    innerContent: ''
-  } );
+    const dynamicChildrenNode = new Node();
+    this.addChild( dynamicChildrenNode );
 
+    const fourCoilOnlyNode = new Node( {
+      tagName: 'p',
+      innerContent: ''
+    } );
 
-  const otherComponentsNode = new Node( {
-    tagName: 'ul',
-    labelContent: inTheCircuitString,
-    appendDescription: true
-  } );
+    const otherComponentsNode = new Node( {
+      tagName: 'ul',
+      labelContent: inTheCircuitString,
+      appendDescription: true
+    } );
 
-  model.topCoilVisibleProperty.link( showTopCoil => {
-    otherComponentsNode.descriptionContent = MagnetDescriber.getCoilDescription( showTopCoil );
-  } );
+    model.topCoilVisibleProperty.link( showTopCoil => {
+      otherComponentsNode.descriptionContent = MagnetDescriber.getCoilDescription( showTopCoil );
+    } );
 
-  model.voltmeterVisibleProperty.link( showVoltmeter => {
-    fourCoilOnlyNode.innerContent = MagnetDescriber.getFourCoilOnlyDescription( showVoltmeter );
-  } );
+    model.voltmeterVisibleProperty.link( showVoltmeter => {
+      fourCoilOnlyNode.innerContent = MagnetDescriber.getFourCoilOnlyDescription( showVoltmeter );
+    } );
 
-  const lightBulbItem = createListItemNode( lightBulbString );
-  const fourLoopItem = createListItemNode( fourLoopCoilString );
-  const twoLoopItem = createListItemNode( twoLoopCoilString );
-  const voltmeterItem = createListItemNode( voltmeterString );
+    const lightBulbItem = createListItemNode( lightBulbString );
+    const fourLoopItem = createListItemNode( fourLoopCoilString );
+    const twoLoopItem = createListItemNode( twoLoopCoilString );
+    const voltmeterItem = createListItemNode( voltmeterString );
 
-  Property.multilink(
-    [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
-    function( showTopCoil, showVoltmeter ) {
-      if ( !showTopCoil ) {
-        dynamicChildrenNode.children = [ fourCoilOnlyNode ];
+    Property.multilink(
+      [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
+      ( showTopCoil, showVoltmeter ) => {
+        if ( !showTopCoil ) {
+          dynamicChildrenNode.children = [ fourCoilOnlyNode ];
+        }
+        else {
+          const children = [ lightBulbItem ];
+          children.push( fourLoopItem );
+          showTopCoil && children.push( twoLoopItem );
+          showVoltmeter && children.push( voltmeterItem );
+          otherComponentsNode.children = children;
+          dynamicChildrenNode.children = [ otherComponentsNode ];
+        }
       }
-      else {
-        const children = [ lightBulbItem ];
-        children.push( fourLoopItem );
-        showTopCoil && children.push( twoLoopItem );
-        showVoltmeter && children.push( voltmeterItem );
-        otherComponentsNode.children = children;
-        dynamicChildrenNode.children = [ otherComponentsNode ];
-      }
-    }
-  );
+    );
+  }
 }
 
 function createListItemNode( innerContent ) {
@@ -87,6 +91,4 @@ function createListItemNode( innerContent ) {
 }
 
 faradaysLaw.register( 'CircuitDescriptionNode', CircuitDescriptionNode );
-
-inherit( Node, CircuitDescriptionNode );
 export default CircuitDescriptionNode;

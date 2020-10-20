@@ -8,7 +8,6 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -26,20 +25,22 @@ const LINE_DESCRIPTION = [
   { a: 90, b: 25, arrowPositions: [ -Math.PI / 2 ] }
 ];
 
-/**
- * @param {Magnet} magnet - magnet model
- * @param {Tandem} tandem
- * @constructor
- */
-function MagnetFieldLines( magnet, tandem ) {
-  Node.call( this, {
-    tandem: tandem,
-    children: [
-      createSideFieldLines( magnet.orientationProperty, +1 ), // top
-      createSideFieldLines( magnet.orientationProperty, -1 ) // bottom
-    ]
-  } );
-  magnet.fieldLinesVisibleProperty.linkAttribute( this, 'visible' );
+class MagnetFieldLines extends Node {
+
+  /**
+   * @param {Magnet} magnet - magnet model
+   * @param {Tandem} tandem
+   */
+  constructor( magnet, tandem ) {
+    super( {
+      tandem: tandem,
+      children: [
+        createSideFieldLines( magnet.orientationProperty, +1 ), // top
+        createSideFieldLines( magnet.orientationProperty, -1 ) // bottom
+      ]
+    } );
+    magnet.fieldLinesVisibleProperty.linkAttribute( this, 'visible' );
+  }
 }
 
 /**
@@ -47,16 +48,16 @@ function MagnetFieldLines( magnet, tandem ) {
  * @param {Object} [options]
  * @returns {Path}
  */
-const createArrow = function( options ) {
-  return new Path( new Shape()
-      .moveTo( -ARROW_WIDTH, -ARROW_HEIGHT / 2 )
-      .lineTo( 0, 0 )
-      .lineTo( -ARROW_WIDTH, ARROW_HEIGHT / 2 ), {
-      stroke: options.stroke,
-      lineWidth: options.lineWidth
-    }
-  );
-};
+const createArrow = options => new Path(
+  new Shape()
+    .moveTo( -ARROW_WIDTH, -ARROW_HEIGHT / 2 )
+    .lineTo( 0, 0 )
+    .lineTo( -ARROW_WIDTH, ARROW_HEIGHT / 2 ),
+  {
+    stroke: options.stroke,
+    lineWidth: options.lineWidth
+  }
+);
 
 /**
  * Create ellipse with arrows on it.
@@ -67,7 +68,7 @@ const createArrow = function( options ) {
  * @param {Object} [options]
  * @returns {Node}
  */
-const createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientationProperty, options ) {
+const createArcWithArrow = ( radiusX, radiusY, arrowPositions, orientationProperty, options ) => {
   const arcWithArrow = new Node();
   options = merge( {
     stroke: '#ffffff',
@@ -82,7 +83,7 @@ const createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientati
   } ) );
 
   // arrows on arc
-  arrowPositions.forEach( function( angle ) {
+  arrowPositions.forEach( angle => {
     const arrow = createArrow( {
       stroke: options.stroke,
       lineWidth: options.lineWidth
@@ -100,7 +101,7 @@ const createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientati
 
     arrow.rotateAround( arrowPosition, rotationAngle );
 
-    orientationProperty.lazyLink( function() {
+    orientationProperty.lazyLink( () => {
       arrow.rotateAround( arrowPosition, Math.PI );
     } );
     arcWithArrow.addChild( arrow );
@@ -115,13 +116,13 @@ const createArcWithArrow = function( radiusX, radiusY, arrowPositions, orientati
  * @param {number} scaleY - +1/-1 bottom node is vertically flipped
  * @returns {Node}
  */
-var createSideFieldLines = function( orientationProperty, scaleY ) {
+const createSideFieldLines = ( orientationProperty, scaleY ) => {
   const sideFieldLinesContainer = new Node();
 
   const dy = 3;
 
   // each ellipse change a bit position to show a near constant field
-  LINE_DESCRIPTION.forEach( function( line, index ) {
+  LINE_DESCRIPTION.forEach( ( line, index ) => {
     const arc = createArcWithArrow( line.a, line.b, line.arrowPositions, orientationProperty );
     arc.bottom = 2 - index * dy;
     arc.centerX = 0;
@@ -132,6 +133,4 @@ var createSideFieldLines = function( orientationProperty, scaleY ) {
 };
 
 faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
-
-inherit( Node, MagnetFieldLines );
 export default MagnetFieldLines;

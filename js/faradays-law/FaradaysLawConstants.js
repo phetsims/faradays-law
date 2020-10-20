@@ -24,5 +24,4 @@ const FaradaysLawConstants = {
 };
 
 faradaysLaw.register( 'FaradaysLawConstants', FaradaysLawConstants );
-
 export default FaradaysLawConstants;

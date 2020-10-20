@@ -8,7 +8,6 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -16,64 +15,67 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
 import faradaysLaw from '../../faradaysLaw.js';
+import faradaysLawStrings from '../../faradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 
 const faradaysLawNString = faradaysLawStrings[ 'faradays-law' ].n;
 const faradaysLawSString = faradaysLawStrings[ 'faradays-law' ].s;
 
-// constants for magnet
+// constants
+
 // offset for 3D looking, calculated as width*MAGNET_OFFSET_DX_RATIO
 const MAGNET_OFFSET_DX_RATIO = 1 / 35;
 const MAGNET_OFFSET_DY_RATIO = 1 / 15;
 const MAGNET_3D_SHADOW = 0.4;
 
-/**
- * @param {OrientationEnum} orientation - is magnet flipped
- * @param {Object} [options]
- * @constructor
- */
-function MagnetNode( orientation, options ) {
-  Node.call( this, { cursor: 'pointer' } );
+class MagnetNode extends Node {
 
-  // options of magnetNode
-  options = merge( {
-    width: 140,
-    height: 30,
-    font: new PhetFont( 24 ),
-    fontColor: 'white'
-  }, options );
+  /**
+   * @param {OrientationEnum} orientation - is magnet flipped
+   * @param {Object} [options]
+   */
+  constructor( orientation, options ) {
+    super( { cursor: 'pointer' } );
 
-  // create north pole magnet
-  const northPoleLabel = new Text( faradaysLawNString, {
-    font: options.font,
-    fill: options.fontColor
-  } );
-  const northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
-    left: -options.width / 2,
-    centerY: 0
-  } );
-  this.addChild( northPole );
+    // options of magnetNode
+    options = merge( {
+      width: 140,
+      height: 30,
+      font: new PhetFont( 24 ),
+      fontColor: 'white'
+    }, options );
 
-  // create south pole magnet
-  const southPoleLabel = new Text( faradaysLawSString, {
-    font: options.font,
-    fill: options.fontColor
-  } );
-  const southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
-    left: 0,
-    centerY: 0
-  } );
-  this.addChild( southPole );
+    // create north pole magnet
+    const northPoleLabel = new Text( faradaysLawNString, {
+      font: options.font,
+      fill: options.fontColor
+    } );
+    const northPole = drawHalfMagnetNode( options.width, options.height, northPoleLabel, new Color( '#db1e21' ), {
+      left: -options.width / 2,
+      centerY: 0
+    } );
+    this.addChild( northPole );
 
-  // Touch area covers both poles
-  this.touchArea = southPole.bounds.union( northPole.bounds ).dilated( 10 );
+    // create south pole magnet
+    const southPoleLabel = new Text( faradaysLawSString, {
+      font: options.font,
+      fill: options.fontColor
+    } );
+    const southPole = drawHalfMagnetNode( options.width, options.height, southPoleLabel, new Color( '#354d9a' ), {
+      left: 0,
+      centerY: 0
+    } );
+    this.addChild( southPole );
 
-  if ( orientation === OrientationEnum.SN ) {
-    northPole.left = 0;
-    southPole.left = -options.width / 2;
-    northPole.moveToFront();
+    // Touch area covers both poles
+    this.touchArea = southPole.bounds.union( northPole.bounds ).dilated( 10 );
+
+    if ( orientation === OrientationEnum.SN ) {
+      northPole.left = 0;
+      southPole.left = -options.width / 2;
+      northPole.moveToFront();
+    }
   }
 }
 
@@ -85,7 +87,7 @@ function MagnetNode( orientation, options ) {
  * @param {Object} [options]
  * @returns {Node}
  */
-var drawHalfMagnetNode = function( magnetWidth, magnetHeight, label, backgroundColor, options ) {
+const drawHalfMagnetNode = ( magnetWidth, magnetHeight, label, backgroundColor, options ) => {
   const halfMagnetNode = new Node();
 
   // add the top and sides to create a 3D appearance
@@ -119,6 +121,4 @@ var drawHalfMagnetNode = function( magnetWidth, magnetHeight, label, backgroundC
 };
 
 faradaysLaw.register( 'MagnetNode', MagnetNode );
-
-inherit( Node, MagnetNode );
 export default MagnetNode;

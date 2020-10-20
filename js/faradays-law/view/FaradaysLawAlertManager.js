@@ -1,6 +1,5 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
-
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import MagnetDescriber from './MagnetDescriber.js';

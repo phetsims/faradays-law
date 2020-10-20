@@ -10,7 +10,6 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MinusNode from '../../../../scenery-phet/js/MinusNode.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
@@ -27,94 +26,93 @@ const MIN_ANGLE = -Math.PI / 2;
 const MAX_ANGLE = Math.PI / 2;
 const CLICK_SOUND_OUTPUT_LEVEL = 0.15; // empirically determined
 
-/**
- * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
- * @param {Object} [options]
- * @constructor
- */
-function VoltmeterGauge( needleAngleProperty, options ) {
-  Node.call( this );
-  const arcRadius = 55; // radius of voltmeter scale, empirically determined
-  const needleColor = '#3954a5'; // blue
+class VoltmeterGauge extends Node {
 
-  // background panel within which the needle moves
-  const background = new Path( new Shape()
-    .moveTo( 0, 0 )
-    .lineTo( 0, -arcRadius )
-    .moveTo( -arcRadius, 0 )
-    .arc( 0, 0, arcRadius, -Math.PI, 0, false )
-    .lineTo( -arcRadius, 0 )
-    .close(), {
-    stroke: 'black',
-    lineWidth: 1
-  } );
-  this.addChild( background );
+  /**
+   * @param {NumberProperty} needleAngleProperty - angle of needle in voltmeter
+   * @param {Object} [options]
+   */
+  constructor( needleAngleProperty, options ) {
+    super();
+    const arcRadius = 55; // radius of voltmeter scale, empirically determined
+    const needleColor = '#3954a5'; // blue
 
-  // plus and minus signs
-  this.addChild( new PlusNode( {
-    centerX: arcRadius / 2.3,
-    centerY: -arcRadius / 2.5,
-    size: new Dimension2( 12, 2 )
-  } ) );
-  this.addChild( new MinusNode( {
-    centerX: -arcRadius / 2.3,
-    centerY: -arcRadius / 2.5,
-    size: new Dimension2( 12, 2 )
-  } ) );
+    // background panel within which the needle moves
+    const background = new Path( new Shape()
+      .moveTo( 0, 0 )
+      .lineTo( 0, -arcRadius )
+      .moveTo( -arcRadius, 0 )
+      .arc( 0, 0, arcRadius, -Math.PI, 0, false )
+      .lineTo( -arcRadius, 0 )
+      .close(), {
+      stroke: 'black',
+      lineWidth: 1
+    } );
+    this.addChild( background );
 
-  // needle base
-  this.addChild( new Circle( 4, {
-    fill: needleColor
-  } ) );
+    // plus and minus signs
+    this.addChild( new PlusNode( {
+      centerX: arcRadius / 2.3,
+      centerY: -arcRadius / 2.5,
+      size: new Dimension2( 12, 2 )
+    } ) );
+    this.addChild( new MinusNode( {
+      centerX: -arcRadius / 2.3,
+      centerY: -arcRadius / 2.5,
+      size: new Dimension2( 12, 2 )
+    } ) );
 
-  // needle
-  const needleArrowNode = new ArrowNode( 0, 0, 0, -53, {
-    headHeight: 12,
-    headWidth: 8,
-    tailWidth: 2,
-    fill: needleColor,
-    lineWidth: 0
-  } );
-  this.addChild( needleArrowNode );
+    // needle base
+    this.addChild( new Circle( 4, {
+      fill: needleColor
+    } ) );
 
-  // sound generators
-  // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
-  const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound, {
-    initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL,
-    initialPlaybackRate: 1.12246204831
-  } );
-  soundManager.addSoundGenerator( maxPositiveVoltageSoundClip );
-  const maxNegativeVoltageSoundClip = new SoundClip( maxVoltageSound, {
-    initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL
-  } );
-  soundManager.addSoundGenerator( maxNegativeVoltageSoundClip );
+    // needle
+    const needleArrowNode = new ArrowNode( 0, 0, 0, -53, {
+      headHeight: 12,
+      headWidth: 8,
+      tailWidth: 2,
+      fill: needleColor,
+      lineWidth: 0
+    } );
+    this.addChild( needleArrowNode );
 
-  // observers
-  let previousClampedNeedleAngle = needleAngleProperty.value;
-  needleAngleProperty.link( needleAngle => {
+    // sound generators
+    const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound, {
+      initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL,
+      initialPlaybackRate: 1.12246204831
+    } );
+    soundManager.addSoundGenerator( maxPositiveVoltageSoundClip );
+    const maxNegativeVoltageSoundClip = new SoundClip( maxVoltageSound, {
+      initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL
+    } );
+    soundManager.addSoundGenerator( maxNegativeVoltageSoundClip );
 
-    // Set the angle of the needle, making sure that it doesn't exceed the max or min values.
-    const clampedNeedleAngle = Utils.clamp( needleAngle, MIN_ANGLE, MAX_ANGLE );
-    needleArrowNode.rotation = clampedNeedleAngle;
+    // observers
+    let previousClampedNeedleAngle = needleAngleProperty.value;
+    needleAngleProperty.link( needleAngle => {
 
-    // Play a sound when the needle first hits the min or max value, but only if visible.
-    if ( _.some( this.getTrailsTo( phet.joist.display.rootNode ), trail => trail.isVisible() ) ) {
-      if ( clampedNeedleAngle === MAX_ANGLE && previousClampedNeedleAngle < MAX_ANGLE ) {
-        maxPositiveVoltageSoundClip.play();
+      // Set the angle of the needle, making sure that it doesn't exceed the max or min values.
+      const clampedNeedleAngle = Utils.clamp( needleAngle, MIN_ANGLE, MAX_ANGLE );
+      needleArrowNode.rotation = clampedNeedleAngle;
+
+      // Play a sound when the needle first hits the min or max value, but only if visible.
+      if ( _.some( this.getTrailsTo( phet.joist.display.rootNode ), trail => trail.isVisible() ) ) {
+        if ( clampedNeedleAngle === MAX_ANGLE && previousClampedNeedleAngle < MAX_ANGLE ) {
+          maxPositiveVoltageSoundClip.play();
+        }
+        else if ( clampedNeedleAngle === MIN_ANGLE && previousClampedNeedleAngle > MIN_ANGLE ) {
+          maxNegativeVoltageSoundClip.play();
+        }
       }
-      else if ( clampedNeedleAngle === MIN_ANGLE && previousClampedNeedleAngle > MIN_ANGLE ) {
-        maxNegativeVoltageSoundClip.play();
-      }
-    }
 
-    // Save the needle angle for comparison the next time through.
-    previousClampedNeedleAngle = clampedNeedleAngle;
-  } );
+      // Save the needle angle for comparison the next time through.
+      previousClampedNeedleAngle = clampedNeedleAngle;
+    } );
 
-  this.mutate( options );
+    this.mutate( options );
+  }
 }
 
 faradaysLaw.register( 'VoltmeterGauge', VoltmeterGauge );
-
-inherit( Node, VoltmeterGauge );
 export default VoltmeterGauge;

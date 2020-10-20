@@ -8,7 +8,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import fourLoopBackImage from '../../../mipmaps/four-loop-back_png.js';
@@ -39,47 +38,45 @@ COIL_END_COORDINATES_MAP[ CoilTypeEnum.FOUR_COIL ] = {
   bottomEnd: new Vector2( 70, 6 )
 };
 
-/**
- * @param {CoilTypeEnum} coilType - determines which picture must we add to show coil
- * @param {Object} [options]
- * @constructor
- */
-function CoilNode( coilType, options ) {
-  options = options || {};
-  Node.call( this );
+class CoilNode extends Node {
 
-  const scale = 1 / 3;
+  /**
+   * @param {CoilTypeEnum} coilType - determines which picture must we add to show coil
+   * @param {Object} [options]
+   */
+  constructor( coilType, options ) {
+    options = options || {};
+    super();
 
-  const xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
+    const scale = 1 / 3;
 
-  this.addChild( new Image( IMAGE_MAP[ coilType ].backImage, {
-    centerX: xOffset,
-    centerY: 0,
-    scale: scale
-  } ) );
+    const xOffset = CoilNode.xOffset + ( coilType === CoilTypeEnum.TWO_COIL ? CoilNode.twoOffset : 0 );
 
-  // In FaradaysLawScreenView, the front image is detached from this Node and appended to front layer because the
-  // front of the coil must be over magnet and backImage must be under it.
-  // @public
-  this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage, {
-    centerX: xOffset,
-    centerY: 0,
-    scale: scale
-  } );
-  this.addChild( this.frontImage );
+    this.addChild( new Image( IMAGE_MAP[ coilType ].backImage, {
+      centerX: xOffset,
+      centerY: 0,
+      scale: scale
+    } ) );
 
-  this.endRelativePositions = COIL_END_COORDINATES_MAP[ coilType ];
+    // In FaradaysLawScreenView, the front image is detached from this Node and appended to front layer because the
+    // front of the coil must be over magnet and backImage must be under it.
+    // @public
+    this.frontImage = new Image( IMAGE_MAP[ coilType ].frontImage, {
+      centerX: xOffset,
+      centerY: 0,
+      scale: scale
+    } );
+    this.addChild( this.frontImage );
 
-  this.mutate( options );
+    this.endRelativePositions = COIL_END_COORDINATES_MAP[ coilType ];
+
+    this.mutate( options );
+  }
 }
 
+// extra offset is applied to the two-coil image to align with the wires
+CoilNode.twoOffset = 8;
+CoilNode.xOffset = 8;
+
 faradaysLaw.register( 'CoilNode', CoilNode );
-
-inherit( Node, CoilNode, {}, {
-
-  // extra offset is applied to the two-coil image to align with the wires
-  twoOffset: 8,
-  xOffset: 8
-} );
-
 export default CoilNode;

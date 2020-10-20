@@ -8,7 +8,6 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -26,44 +25,70 @@ const DIRECTION_ANGLES = {
   right: Math.PI / 2
 };
 
-function JumpMagnitudeArrowNode( direction, options ) {
+class JumpMagnitudeArrowNode extends Node {
 
-  this.arrows = [];
+  /**
+   * @param {String} direction
+   * @param {Object} [options]
+   */
+  constructor( direction, options ) {
+    super();
 
-  while ( this.arrows.length < 3 ) {
-    this.arrows.push( this.createArrow( direction ) );
-  }
+    this.arrows = [];
 
-  const arrowsContainer = new HBox( {
-    children: this.arrows,
-    spacing: ARROW_SPACING,
-    excludeInvisibleChildrenFromBounds: false
-  } );
+    while ( this.arrows.length < 3 ) {
+      this.arrows.push( JumpMagnitudeArrowNode.createArrow( direction ) );
+    }
 
-  if ( direction === 'left' ) {
-    this.arrows = this.arrows.reverse();
-  }
+    const arrowsContainer = new HBox( {
+      children: this.arrows,
+      spacing: ARROW_SPACING,
+      excludeInvisibleChildrenFromBounds: false
+    } );
 
-  Node.call( this );
-
-  this.addChild( arrowsContainer );
-
-  // position the arrows
-  this.setKeyPositions = function( nodeBounds ) {
     if ( direction === 'left' ) {
-      arrowsContainer.rightCenter = nodeBounds.leftCenter.plusXY( -NODE_PADDING, 0 );
+      this.arrows = this.arrows.reverse();
     }
-    else {
-      arrowsContainer.leftCenter = nodeBounds.rightCenter.plusXY( NODE_PADDING, 0 );
+
+    this.addChild( arrowsContainer );
+
+    // position the arrows
+    this.setKeyPositions = nodeBounds => {
+      if ( direction === 'left' ) {
+        arrowsContainer.rightCenter = nodeBounds.leftCenter.plusXY( -NODE_PADDING, 0 );
+      }
+      else {
+        arrowsContainer.leftCenter = nodeBounds.rightCenter.plusXY( NODE_PADDING, 0 );
+      }
+    };
+  }
+
+  /**
+   * @param {number} magnitude
+   * @public
+   */
+  showCue( magnitude ) {
+    assert && assert( magnitude <= this.arrows.length );
+    for ( let i = 0; i < magnitude; i++ ) {
+      this.arrows[ i ].visible = true;
     }
-  };
-}
+  }
 
-faradaysLaw.register( 'JumpMagnitudeArrowNode', JumpMagnitudeArrowNode );
+  /**
+   * @public
+   */
+  hideCue() {
+    for ( let i = 0; i < this.arrows.length; i++ ) {
+      this.arrows[ i ].visible = false;
+    }
+  }
 
-inherit( Node, JumpMagnitudeArrowNode, {
-
-  createArrow: function( direction ) {
+  /**
+   * @param direction
+   * @returns {Path}
+   * @private
+   */
+  static createArrow( direction ) {
     const arrowShape = new Shape();
     arrowShape.moveTo( ARROW_HEIGHT / 2, 0 ).lineTo( ARROW_HEIGHT, ARROW_WIDTH ).lineTo( 0, ARROW_WIDTH ).close();
     const arrowIcon = new Path( arrowShape, {
@@ -78,19 +103,8 @@ inherit( Node, JumpMagnitudeArrowNode, {
     arrowIcon.visible = false;
 
     return arrowIcon;
-  },
-
-  showCue: function( magnitude ) {
-    for ( let i = 0; i < magnitude; i++ ) {
-      this.arrows[ i ].visible = true;
-    }
-  },
-
-  hideCue: function() {
-    for ( let i = 0; i < this.arrows.length; i++ ) {
-      this.arrows[ i ].visible = false;
-    }
   }
-} );
+}
 
+faradaysLaw.register( 'JumpMagnitudeArrowNode', JumpMagnitudeArrowNode );
 export default JumpMagnitudeArrowNode;

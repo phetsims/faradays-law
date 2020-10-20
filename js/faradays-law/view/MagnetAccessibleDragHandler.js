@@ -11,7 +11,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import faradaysLaw from '../../faradaysLaw.js';
@@ -34,86 +33,82 @@ DIRECTION_REVERSE_MAPPINGS[ RIGHT ] = LEFT;
 DIRECTION_REVERSE_MAPPINGS[ UP ] = DOWN;
 DIRECTION_REVERSE_MAPPINGS[ DOWN ] = UP;
 
-/**
- * @param {Property.<Vector2>} positionProperty - in model coordinate frame, updated based on the keyboard drag commands
- * @param {Object} [options]
- * @constructor
- */
-function MagnetAccessibleDragHandler( positionProperty, options ) {
-  const self = this;
-
-  options = merge( {
-    onDrag: function() {}, // supplemental function called each time a drag step occurs
-    startDrag: function() {} // supplemental function called at the beginning of each drag
-  }, options );
-
-  // @private
-  this.onDrag = options.onDrag;
-
-  // @private
-  this.positionProperty = positionProperty;
+class MagnetAccessibleDragHandler {
 
   /**
-   * The model of the drag handler, manages the state of the speed and direction
-   * @private
-   * @type {{direction: number|null, speedIndex: number}}
+   * @param {Property.<Vector2>} positionProperty - in model coordinate frame, updated based on the keyboard drag commands
+   * @param {Object} [options]
    */
-  this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
+  constructor( positionProperty, options ) {
 
-  const stopMovement = function() {
-    self.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
-  };
-  const incrementSpeed = function() {
-    if ( self.model.speedIndex !== SPEEDS.length - 1 ) {
-      self.model.speedIndex += 1;
-    }
-  };
+    options = merge( {
+      onDrag: () => {}, // supplemental function called each time a drag step occurs
+      startDrag: () => {} // supplemental function called at the beginning of each drag
+    }, options );
 
-  // switch the direction of motion 180 degrees
-  const reverseDirection = function() {
-    if ( LEGAL_DIRECTIONS.indexOf( self.model.direction ) >= 0 ) {
-      self.model.direction = DIRECTION_REVERSE_MAPPINGS[ self.model.direction ];
-    }
-  };
+    // @private
+    this.onDrag = options.onDrag;
 
-  this.keydown = function( event ) {
-    const domEvent = event.domEvent;
+    // @private
+    this.positionProperty = positionProperty;
 
-    options.startDrag();
+    /**
+     * The model of the drag handler, manages the state of the speed and direction
+     * @private
+     * @type {{direction: number|null, speedIndex: number}}
+     */
+    this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
 
-    if ( KeyboardUtils.isArrowKey( domEvent.keyCode ) ) {
-      if ( self.model.direction === domEvent.keyCode ) {
-        incrementSpeed();
-
-        // do nothing with direction, because the model direction is already set to the correct direction.
+    const stopMovement = () => {
+      this.model = { direction: DIRECTION_NOT_MOVING, speedIndex: SPEED_INDEX_NOT_MOVING };
+    };
+    const incrementSpeed = () => {
+      if ( this.model.speedIndex !== SPEEDS.length - 1 ) {
+        this.model.speedIndex += 1;
       }
-      else if ( self.model.direction === DIRECTION_NOT_MOVING ) {
-        self.model.direction = domEvent.keyCode;
-        incrementSpeed();
+    };
+
+    // switch the direction of motion 180 degrees
+    const reverseDirection = () => {
+      if ( LEGAL_DIRECTIONS.indexOf( this.model.direction ) >= 0 ) {
+        this.model.direction = DIRECTION_REVERSE_MAPPINGS[ this.model.direction ];
+      }
+    };
+
+    this.keydown = event => {
+      const domEvent = event.domEvent;
+
+      options.startDrag();
+
+      if ( KeyboardUtils.isArrowKey( domEvent.keyCode ) ) {
+        if ( this.model.direction === domEvent.keyCode ) {
+          incrementSpeed();
+
+          // do nothing with direction, because the model direction is already set to the correct direction.
+        }
+        else if ( this.model.direction === DIRECTION_NOT_MOVING ) {
+          this.model.direction = domEvent.keyCode;
+          incrementSpeed();
+        }
+        else {
+          stopMovement();
+        }
+      }
+      else if ( domEvent.keyCode === KeyboardUtils.KEY_SPACE ) {
+        reverseDirection();
       }
       else {
         stopMovement();
       }
-    }
-    else if ( domEvent.keyCode === KeyboardUtils.KEY_SPACE ) {
-      reverseDirection();
-    }
-    else {
-      stopMovement();
-    }
-  };
-}
-
-faradaysLaw.register( 'MagnetAccessibleDragHandler', MagnetAccessibleDragHandler );
-
-inherit( Object, MagnetAccessibleDragHandler, {
+    };
+  }
 
   /**
    * Move the magnet with the accessibility controls.
    * @param {number} dt - elapsed time in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
 
     if ( this.model.direction !== DIRECTION_NOT_MOVING ) {
       assert && assert( this.model.speedIndex >= 0 && this.model.speedIndex < SPEEDS.length,
@@ -148,6 +143,7 @@ inherit( Object, MagnetAccessibleDragHandler, {
       this.onDrag();
     }
   }
-} );
+}
 
+faradaysLaw.register( 'MagnetAccessibleDragHandler', MagnetAccessibleDragHandler );
 export default MagnetAccessibleDragHandler;

@@ -8,7 +8,6 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -21,56 +20,57 @@ import FaradaysLawConstants from '../FaradaysLawConstants.js';
 const BULB_POSITION = FaradaysLawConstants.BULB_POSITION;
 const VOLTMETER_POSITION = FaradaysLawConstants.VOLTMETER_POSITION;
 
-/**
- * @param {VoltmeterNode} voltmeterNode
- * @constructor
- */
-function VoltmeterWiresNode( voltmeterNode ) {
-  const self = this;
-  Node.call( this );
+class VoltmeterWiresNode extends Node {
 
-  const wireColor = '#353a89';
-  const wireWidth = 3;
+  /**
+   * @param {VoltmeterNode} voltmeterNode
+   */
+  constructor( voltmeterNode ) {
+    super();
 
-  // variables, used for measuring pads too
-  const leftWireX = VOLTMETER_POSITION.x + voltmeterNode.minusNode.centerX;
-  const rightWireX = VOLTMETER_POSITION.x + voltmeterNode.plusNode.centerX;
-  const wireTop = VOLTMETER_POSITION.y + voltmeterNode.height / 2;
+    const wireColor = '#353a89';
+    const wireWidth = 3;
 
-  // wires goes not to exactly to bulb position, need small deltas
-  const leftWireBottom = BULB_POSITION.y - 23;
-  const rightWireBottom = BULB_POSITION.y - 10;
+    // variables, used for measuring pads too
+    const leftWireX = VOLTMETER_POSITION.x + voltmeterNode.minusNode.centerX;
+    const rightWireX = VOLTMETER_POSITION.x + voltmeterNode.plusNode.centerX;
+    const wireTop = VOLTMETER_POSITION.y + voltmeterNode.height / 2;
 
-  this.addChild( new Path( new Shape()
-    .moveTo( leftWireX, wireTop )
-    .lineTo( leftWireX, leftWireBottom ), {
-    stroke: wireColor,
-    lineWidth: wireWidth
-  } ) );
+    // wires goes not to exactly to bulb position, need small deltas
+    const leftWireBottom = BULB_POSITION.y - 23;
+    const rightWireBottom = BULB_POSITION.y - 10;
 
-  this.addChild( new Path( new Shape()
-    .moveTo( rightWireX, wireTop )
-    .lineTo( rightWireX, rightWireBottom ), {
-    stroke: wireColor,
-    lineWidth: wireWidth
-  } ) );
+    this.addChild( new Path( new Shape()
+      .moveTo( leftWireX, wireTop )
+      .lineTo( leftWireX, leftWireBottom ), {
+      stroke: wireColor,
+      lineWidth: wireWidth
+    } ) );
 
-  this.addChild( createPad( {
-    centerX: leftWireX,
-    centerY: leftWireBottom
-  } ) );
+    this.addChild( new Path( new Shape()
+      .moveTo( rightWireX, wireTop )
+      .lineTo( rightWireX, rightWireBottom ), {
+      stroke: wireColor,
+      lineWidth: wireWidth
+    } ) );
 
-  this.addChild( createPad( {
-    centerX: rightWireX,
-    centerY: rightWireBottom
-  } ) );
+    this.addChild( createPad( {
+      centerX: leftWireX,
+      centerY: leftWireBottom
+    } ) );
 
-  // For PhET-iO, synchronize visibility with the VoltmeterNode
-  const updateVisible = function() {
-    self.visible = voltmeterNode.visible;
-  };
-  voltmeterNode.visibleProperty.lazyLink( updateVisible );
-  updateVisible();
+    this.addChild( createPad( {
+      centerX: rightWireX,
+      centerY: rightWireBottom
+    } ) );
+
+    // For PhET-iO, synchronize visibility with the VoltmeterNode
+    const updateVisible = () => {
+      this.visible = voltmeterNode.visible;
+    };
+    voltmeterNode.visibleProperty.lazyLink( updateVisible );
+    updateVisible();
+  }
 }
 
 /**
@@ -78,7 +78,7 @@ function VoltmeterWiresNode( voltmeterNode ) {
  * @param {Object} [options]
  * @returns {Node}
  */
-var createPad = function( options ) {
+const createPad = options => {
 
   // params
   const baseColor = new Color( '#b4b5b5' );
@@ -113,6 +113,4 @@ var createPad = function( options ) {
 };
 
 faradaysLaw.register( 'VoltmeterWiresNode', VoltmeterWiresNode );
-
-inherit( Node, VoltmeterWiresNode );
 export default VoltmeterWiresNode;
