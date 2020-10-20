@@ -102,11 +102,9 @@ class MagnetNodeWithField extends Node {
     const alertManager = new FaradaysLawAlertManager( describer );
 
     // sound generation
-    // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
     const grabMagnetSoundPlayer = new SoundClip( grabMagnetSound, {
       initialOutputLevel: 0.25 // empirically determined
     } );
-    // TODO - @Ashton-Morris - please adjust level if needed, see https://github.com/phetsims/faradays-law/issues/182
     soundManager.addSoundGenerator( grabMagnetSoundPlayer );
     const releaseMagnetSoundPlayer = new SoundClip( releaseMagnetSound, {
       initialOutputLevel: 0.25 // empirically determined
