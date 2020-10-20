@@ -48,7 +48,7 @@
     "value": "Auto-slide grabbed magnet<br>horizontally and toggle<br>slide direction"
   },
   "keyboardHelpDialog.autoSlideGrabbedBarMagnetWith": {
-    "value": "Automatically slide the magnet from one slide to the other using the 1, 2, or 3 keys."
+    "value": "Automatically slide the magnet from one side to the other using the 1, 2, or 3 keys."
   },
   "a11y": {
     "summaryDescription": {
