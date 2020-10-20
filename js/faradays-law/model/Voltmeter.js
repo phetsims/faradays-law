@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
@@ -17,45 +16,38 @@ const ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the
 const NEEDLE_RESPONSIVENESS = 50;  // needle responsiveness
 const NEEDLE_FRICTION = 10; // friction coefficient, so needle motion looks realistic
 
-/**
- * @param {FaradaysLawModel} model - simulation model
- * @constructor
- */
-function Voltmeter( model ) {
-
-  // @private
-  this.model = model;
-
-  // @private {number} - rad/sec
-  this.needleAngularVelocity = 0;
-
-  // @private {number} - rad/s^2
-  this.needleAngularAcceleration = 0;
-
-  // @private {NumberProperty} - converts emf from the magnets into a force on the needle (which is correlated with the displayed voltage)
-  this.signalProperty = new NumberProperty( 0 );
-
-  // @public {DerivedProperty.<number>}
-  this.needleAngleProperty = new DerivedProperty( [ model.voltageProperty ], function( voltage ) {
-
-    // The voltage and the angle are perfectly matched, in part because the sim is qualitative and
-    // in part because there was no need to separate them, see https://github.com/phetsims/faradays-law/issues/96
-    return voltage;
-  }, {
-    units: 'radians',
-    phetioHighFrequency: true
-  } );
-}
-
-faradaysLaw.register( 'Voltmeter', Voltmeter );
-
-inherit( Object, Voltmeter, {
+class Voltmeter {
 
   /**
-   * Voltmeter needle evolution over time
-   * @param {number} dt - elapsed time in seconds
+   * @param {FaradaysLawModel} model - simulation model
    */
-  step: function( dt ) {
+  constructor( model ) {
+
+    // @private
+    this.model = model;
+
+    // @private {number} - rad/sec
+    this.needleAngularVelocity = 0;
+
+    // @private {number} - rad/s^2
+    this.needleAngularAcceleration = 0;
+
+    // @private {NumberProperty} - converts emf from the magnets into a force on the needle (which is correlated with the displayed voltage)
+    this.signalProperty = new NumberProperty( 0 );
+
+    // @public {DerivedProperty.<number>}
+    this.needleAngleProperty = new DerivedProperty( [ model.voltageProperty ], voltage => voltage, {
+      units: 'radians',
+      phetioHighFrequency: true
+    } );
+  }
+
+  /**
+   * voltmeter needle evolution over time
+   * @param {number} dt - elapsed time in seconds
+   * @public
+   */
+  step( dt ) {
 
     // Calculate the signal, combining the EMF from both coils.  The multiplier (including the sign thereof) is
     // empirically determined to make the needle move the correct amount and direction.
@@ -77,6 +69,7 @@ inherit( Object, Voltmeter, {
       this.needleAngularAcceleration = 0;
     }
   }
-} );
+}
 
+faradaysLaw.register( 'Voltmeter', Voltmeter );
 export default Voltmeter;

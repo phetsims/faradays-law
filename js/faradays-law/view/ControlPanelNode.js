@@ -62,8 +62,9 @@ function ControlPanelNode( model, tandem ) {
 
   // flip magnet button
   this.flipMagnetButton = new FlipMagnetButton( tandem.createTandem( 'flipMagnetButton' ), {
-    listener: function() {
-      model.magnet.orientationProperty.set( OrientationEnum.opposite( model.magnet.orientationProperty.get() ) );
+    listener: () => {
+      const orientation = model.magnet.orientationProperty.value;
+      model.magnet.orientationProperty.set( orientation === OrientationEnum.NS ? OrientationEnum.SN : OrientationEnum.NS );
     },
     bottom: 0,
     right: model.bounds.maxX - 110

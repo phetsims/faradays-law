@@ -6,20 +6,10 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
-const OrientationEnum = {
-  NS: 'NS',
-  SN: 'SN'
-};
-
-OrientationEnum.values = _.keys( OrientationEnum );
-OrientationEnum.opposite = function( value ) {
-  assert && assert( value === OrientationEnum.NS || value === OrientationEnum.SN, 'invalid enum value: ' + value );
-  return value === OrientationEnum.NS ? OrientationEnum.SN : OrientationEnum.NS;
-};
-
-if ( assert ) { Object.freeze( OrientationEnum ); }
+const OrientationEnum = Enumeration.byKeys( [ 'NS', 'SN' ] );
 
 faradaysLaw.register( 'OrientationEnum', OrientationEnum );
 export default OrientationEnum;

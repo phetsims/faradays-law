@@ -6,16 +6,9 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
-const EdgeEnum = {
-  TOP: 'top',
-  BOTTOM: 'bottom',
-  LEFT: 'left',
-  RIGHT: 'right'
-};
-
-if ( assert ) { Object.freeze( EdgeEnum ); }
-
+const EdgeEnum = Enumeration.byKeys( [ 'TOP', 'BOTTOM', 'LEFT', 'RIGHT' ] );
 faradaysLaw.register( 'EdgeEnum', EdgeEnum );
 export default EdgeEnum;

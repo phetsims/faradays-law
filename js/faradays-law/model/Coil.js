@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import OrientationEnum from './OrientationEnum.js';
 
@@ -16,63 +15,60 @@ import OrientationEnum from './OrientationEnum.js';
 // in pixels, set size for transition from B=constant to B=power law
 const NEAR_FIELD_RADIUS = 50;
 
-/**
- * @param {Vector2} position - center of the coil
- * @param {number} numberOfSpirals - number of spirals
- * @param {Magnet} magnet - model of the magnet
- * @constructor
- */
-function Coil( position, numberOfSpirals, magnet ) {
+class Coil {
 
-  // @private
-  this.sense = 1; // sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
+  /**
+   * @param {Vector2} position - center of the coil
+   * @param {number} numberOfSpirals - number of spirals
+   * @param {Magnet} magnet - model of the magnet
+   */
+  constructor( position, numberOfSpirals, magnet ) {
 
-  // @public (read-only)
-  this.position = position;
+    // @private
+    this.sense = 1; // sense of magnet = +1 or -1, simulates flipping of magnet. Magnetic field sign
 
-  // @private - current value of magnetic field
-  this.magneticFieldProperty = new Property( 0 );
+    // @public (read-only)
+    this.position = position;
 
-  // @private - previous value of magnetic field
-  this.previousMagneticFieldProperty = new Property( 0 );
+    // @private - current value of magnetic field
+    this.magneticFieldProperty = new Property( 0 );
 
-  // @public - signal strength in coil = 'electromotive force'
-  this.emfProperty = new Property( 0 );
+    // @private - previous value of magnetic field
+    this.previousMagneticFieldProperty = new Property( 0 );
 
-  // @private
-  this.magnet = magnet;
+    // @public - signal strength in coil = 'electromotive force'
+    this.emfProperty = new Property( 0 );
 
-  // @private
-  this.numberOfSpirals = numberOfSpirals;
+    // @private
+    this.magnet = magnet;
 
-  // set up initial conditions
-  this.updateMagneticField();
+    // @private
+    this.numberOfSpirals = numberOfSpirals;
 
-  // Must be called after updateMagneticField to store the initial value
-  this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
-}
+    // set up initial conditions
+    this.updateMagneticField();
 
-faradaysLaw.register( 'Coil', Coil );
-
-inherit( Object, Coil, {
+    // Must be called after updateMagneticField to store the initial value
+    this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
+  }
 
   /**
    * Restore initial conditions
    * @public
    */
-  reset: function() {
+  reset() {
     this.magneticFieldProperty.reset();
     this.previousMagneticFieldProperty.reset();
     this.emfProperty.reset();
     this.updateMagneticField();
     this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
-  },
+  }
 
   /**
    * Calculate magnetic field with current magnet position
    * @private
    */
-  updateMagneticField: function() {
+  updateMagneticField() {
 
     const sign = this.magnet.orientationProperty.value === OrientationEnum.NS ? -1 : 1;
 
@@ -94,14 +90,14 @@ inherit( Object, Coil, {
       const dx = ( this.magnet.positionProperty.get().x - this.position.x ) / NEAR_FIELD_RADIUS;
       this.magneticFieldProperty.set( sign * ( 3 * dx * dx - rSquared ) / ( rSquared * rSquared ) );
     }
-  },
+  }
 
   /**
    * Evolution of emf in coil over time
    * @param {number} dt - time in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     this.updateMagneticField();
 
     // number of turns in coil (equal to half the number of turns in the graphic image)
@@ -112,6 +108,7 @@ inherit( Object, Coil, {
     this.emfProperty.set( numberOfCoils * changeInMagneticField / dt );
     this.previousMagneticFieldProperty.set( this.magneticFieldProperty.get() );
   }
-} );
+}
 
+faradaysLaw.register( 'Coil', Coil );
 export default Coil;

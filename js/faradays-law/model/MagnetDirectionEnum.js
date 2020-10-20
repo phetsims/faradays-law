@@ -7,34 +7,11 @@
  * @author Michael Barlow
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
-const MagnetDirectionEnum = {
-  LEFT: 'LEFT',
-  RIGHT: 'RIGHT',
-  UP: 'UP',
-  DOWN: 'DOWN',
-  UP_LEFT: 'UP_LEFT',
-  UP_RIGHT: 'UP_RIGHT',
-  DOWN_LEFT: 'DOWN_LEFT',
-  DOWN_RIGHT: 'DOWN_RIGHT',
-
-  /**
-   * Returns true if direction is one of the primary relative directions "up", "down", "left", "right".
-   *
-   * @param {string} direction - one of MagnetDirectionEnum
-   * @returns {Boolean}
-   */
-  isRelativeDirection: direction => {
-    return direction === MagnetDirectionEnum.LEFT ||
-           direction === MagnetDirectionEnum.RIGHT ||
-           direction === MagnetDirectionEnum.UP ||
-           direction === MagnetDirectionEnum.DOWN;
-  }
-};
-
-// verify that enum is immutable, without the runtime penalty in production code
-if ( assert ) { Object.freeze( MagnetDirectionEnum ); }
-
+const MagnetDirectionEnum = Enumeration.byKeys(
+  [ 'LEFT', 'RIGHT', 'UP', 'DOWN', 'UP_LEFT', 'UP_RIGHT', 'DOWN_LEFT', 'DOWN_RIGHT' ]
+);
 faradaysLaw.register( 'MagnetDirectionEnum', MagnetDirectionEnum );
 export default MagnetDirectionEnum;
