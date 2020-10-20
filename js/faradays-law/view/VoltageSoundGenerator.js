@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * A sound generator that produces sounds based on the voltage level.
+ * VoltageSoundGenerator is a sound generator that produces sounds based on the voltage level.
  *
  * @author John Blanco (PhET Interactive Simulations)
  */
@@ -29,22 +29,16 @@ class VoltageSoundGenerator extends SoundGenerator {
 
   /**
    * @param {NumberProperty} voltageProperty
-   * @param {BooleanProperty} voltmeterVisibleProperty
    * @param {Object} [options]
    * @constructor
    */
-  constructor( voltageProperty, voltmeterVisibleProperty, options ) {
+  constructor( voltageProperty, options ) {
 
     options = merge( {
       initialOutputLevel: 0.2
     }, options );
 
     super( options );
-
-    /*
-     TODO: There is a lot of the code below that's not really up to PhET standards and will need substantial cleanup
-     once the sound design is finalized.  See https://github.com/phetsims/faradays-law/issues/161.
-     */
 
     // sound clips that are layered to produce the voltage sound
     const voltageSoundClips = [
@@ -56,18 +50,18 @@ class VoltageSoundGenerator extends SoundGenerator {
       voltageSoundClip.connect( this.masterGainNode );
     } );
 
-    // high notes that are played when the voltmeter is visible
+    // high notes that are played based on the sign of the voltage
     const highNoteOutputLevelMultiplier = 0.2;
     const positiveVoltmeterHighTone = new SoundClip( lightBulbToneTop1 );
     soundManager.addSoundGenerator( positiveVoltmeterHighTone );
     const positiveVoltmeterLowTone = new SoundClip( lightBulbToneTop2 );
     soundManager.addSoundGenerator( positiveVoltmeterLowTone );
 
+    // closure for adjusting the sound based on the voltage
     const voltageListener = voltage => {
 
       const voltageMagnitude = Math.abs( voltage );
 
-      // voltage tone generation
       if ( voltageMagnitude > SOUND_GENERATION_THRESHOLD_VOLTAGE ) {
         voltageSoundClips.forEach( ( clip, index ) => {
           if ( !clip.isPlaying ) {
@@ -125,5 +119,4 @@ class VoltageSoundGenerator extends SoundGenerator {
 }
 
 faradaysLaw.register( 'VoltageSoundGenerator', VoltageSoundGenerator );
-
 export default VoltageSoundGenerator;

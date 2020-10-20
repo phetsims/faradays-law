@@ -143,7 +143,7 @@ class FaradaysLawScreenView extends ScreenView {
     } );
 
     // sound generation for voltage
-    soundManager.addSoundGenerator( new VoltageSoundGenerator( model.voltageProperty, model.voltmeterVisibleProperty ) );
+    soundManager.addSoundGenerator( new VoltageSoundGenerator( model.voltageProperty ) );
   }
 }
 
