@@ -42,7 +42,7 @@
     "value": "Move grabbed magnet slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D."
   },
   "keyboardHelpDialog.autoSlideGrabbedBarMagnet": {
-    "value": "Auto-Slide Grabbed Bar Magnet."
+    "value": "Auto-Slide Grabbed Bar Magnet"
   },
   "keyboardHelpDialog.autoSlideGrabbedBarMagnetText": {
     "value": "Auto-slide grabbed magnet<br>horizontally and toggle<br>slide direction"
