@@ -207,7 +207,9 @@ class MagnetNodeWithField extends Node {
       }
     };
 
-    // set up keyboard grab/drag interaction
+    // Set up keyboard grab/drag interaction.  Note that this does NOT provide a drag cue.  That's because the drag cue
+    // (the four arrows) needed to be visible at times that were not entirely under the control of GrabDragInteraction,
+    // so the visibility is controlled explicitly elsewhere.
     const grabDragInteraction = new GrabDragInteraction( draggableNode, {
       listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
       listenersForGrab: [ focusListener ],
