@@ -222,7 +222,6 @@ class MagnetNodeWithField extends Node {
           model.magnetArrowsVisibleProperty.set( true );
         }
       },
-      showDragCueNode: () => !magnetDragged,
       tandem: tandem.createTandem( 'grabDragInteraction' )
     } );
 
