@@ -20,6 +20,7 @@ import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const SOUND_GENERATION_THRESHOLD_VOLTAGE = 0.01; // in volts, empirically determined, must be greater than zero
+const TONE_OPTIONS = { loop: true, initialOutputLevel: 0 };
 
 // By design, the voltage in this sim hits its max at pi/2 so that it is easy to integrate with the voltmeter, so use
 // that value for the maximum voltage in the calculations for this sound generator.
@@ -40,21 +41,21 @@ class VoltageSoundGenerator extends SoundGenerator {
 
     super( options );
 
-    // sound clips that are layered to produce the voltage sound
+    // sound clips that represent individual tones and that are layered to produce the voltage sound
     const voltageSoundClips = [
-      new SoundClip( lightBulbTone1, { loop: true } ),
-      new SoundClip( lightBulbTone2, { loop: true } ),
-      new SoundClip( lightBulbTone3, { loop: true } )
+      new SoundClip( lightBulbTone1, TONE_OPTIONS ),
+      new SoundClip( lightBulbTone2, TONE_OPTIONS ),
+      new SoundClip( lightBulbTone3, TONE_OPTIONS )
     ];
     voltageSoundClips.forEach( voltageSoundClip => {
       voltageSoundClip.connect( this.masterGainNode );
     } );
 
-    // high notes that are played based on the sign of the voltage
+    // high notes that are played or not based on the sign of the voltage
     const highNoteOutputLevelMultiplier = 0.2;
-    const positiveVoltmeterHighTone = new SoundClip( lightBulbToneTop1 );
+    const positiveVoltmeterHighTone = new SoundClip( lightBulbToneTop1, TONE_OPTIONS );
     soundManager.addSoundGenerator( positiveVoltmeterHighTone );
-    const positiveVoltmeterLowTone = new SoundClip( lightBulbToneTop2 );
+    const positiveVoltmeterLowTone = new SoundClip( lightBulbToneTop2, TONE_OPTIONS );
     soundManager.addSoundGenerator( positiveVoltmeterLowTone );
 
     // closure for adjusting the sound based on the voltage
@@ -63,6 +64,9 @@ class VoltageSoundGenerator extends SoundGenerator {
       const voltageMagnitude = Math.abs( voltage );
 
       if ( voltageMagnitude > SOUND_GENERATION_THRESHOLD_VOLTAGE ) {
+
+        // Set the level for each of the lower tones based on the voltage level.  The lowest tones kick in first (i.e at
+        // the lowest voltage), then the next ones are layered in.
         voltageSoundClips.forEach( ( clip, index ) => {
           if ( !clip.isPlaying ) {
             clip.play();
@@ -70,29 +74,28 @@ class VoltageSoundGenerator extends SoundGenerator {
           const playThreshold = index * ( MAX_VOLTAGE_FOR_CALCULATIONS / voltageSoundClips.length );
           const outputLevel = Utils.clamp( 0, voltageMagnitude - playThreshold, 1 );
           clip.setOutputLevel( outputLevel );
-
-          // top tone, which varies based on whether the voltage is positive or negative
-          if ( index === 0 ) {
-
-            const topNoteOutputLevel = outputLevel * highNoteOutputLevelMultiplier;
-            if ( voltage > 0 ) {
-              if ( !positiveVoltmeterHighTone.isPlaying ) {
-                positiveVoltmeterHighTone.play();
-              }
-              positiveVoltmeterHighTone.setOutputLevel( topNoteOutputLevel );
-              positiveVoltmeterLowTone.stop();
-            }
-            else if ( voltage < 0 ) {
-              if ( !positiveVoltmeterLowTone.isPlaying ) {
-                positiveVoltmeterLowTone.play();
-              }
-              positiveVoltmeterLowTone.setOutputLevel( topNoteOutputLevel );
-              positiveVoltmeterHighTone.stop();
-            }
-          }
         } );
+
+        // top tone, which varies based on whether the voltage is positive or negative
+        const topNoteOutputLevel = Utils.clamp( 0, voltageMagnitude, 1 ) * highNoteOutputLevelMultiplier;
+        if ( voltage > 0 ) {
+          if ( !positiveVoltmeterHighTone.isPlaying ) {
+            positiveVoltmeterHighTone.play();
+          }
+          positiveVoltmeterHighTone.setOutputLevel( topNoteOutputLevel );
+          positiveVoltmeterLowTone.stop();
+        }
+        else if ( voltage < 0 ) {
+          if ( !positiveVoltmeterLowTone.isPlaying ) {
+            positiveVoltmeterLowTone.play();
+          }
+          positiveVoltmeterLowTone.setOutputLevel( topNoteOutputLevel );
+          positiveVoltmeterHighTone.stop();
+        }
       }
       else {
+
+        // The voltage is below the sound generation threshold, so stop all tones.
         voltageSoundClips.forEach( clip => {
           if ( clip.isPlaying ) {
             clip.stop();
