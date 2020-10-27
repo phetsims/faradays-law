@@ -20,6 +20,7 @@ const simOptions = {
     leadDesign: 'Michael Dubson, Bryce Gruneich',
     softwareDevelopment: 'John Blanco, Jonathan Olson',
     team: 'Michael Dubson, Ariel Paul, Kathy Perkins, Amy Rouinfar',
+    soundDesign: 'Ashton Morris',
     qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Bryan Yoelin',
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
