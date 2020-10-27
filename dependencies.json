@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.0-dev.64 Tue Oct 27 2020 11:54:04 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.4.0-dev.65 Tue Oct 27 2020 17:56:18 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "49aa67d01046326d85dcd8f265db91e8753038a1",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "d38dda10a310adab696425e9516342fc2d9bb63d",
+    "sha": "1adcf19146b00c0688156a4c479466cb6653d171",
     "branch": "master"
   },
   "joist": {
@@ -77,11 +77,11 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "1788d7e00f4ec97431c8720f750c09385bcb9a0f",
+    "sha": "26242f2c48e0ca0172663b566e60ec4698d46226",
     "branch": "master"
   },
   "tambo": {
-    "sha": "4f7f458304cff39d64d02574d69b0d5fbaa58535",
+    "sha": "24f0c442d7df8114396d107e4cd563421a6412ba",
     "branch": "master"
   },
   "tandem": {
