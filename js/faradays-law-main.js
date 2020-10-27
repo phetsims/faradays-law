@@ -18,10 +18,11 @@ const faradaysLawTitleString = faradaysLawStrings[ 'faradays-law' ].title;
 const simOptions = {
   credits: {
     leadDesign: 'Michael Dubson, Bryce Gruneich',
-    softwareDevelopment: 'John Blanco, Jonathan Olson',
-    team: 'Michael Dubson, Ariel Paul, Kathy Perkins, Amy Rouinfar',
-    soundDesign: 'Ashton Morris',
+    softwareDevelopment: 'Michael Barlow, John Blanco, Jesse Greenberg, Jonathan Olson',
+    team: 'Michael Dubson, Emily Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith',
+    soundDesign: 'Ashton Morris, Mike Winters',
     qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Bryan Yoelin',
+    contributors: 'Jonathan Hung (Inclusive Design Research Centre)',
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
   },
