@@ -14,7 +14,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
@@ -105,7 +105,7 @@ class ControlPanelNode extends Node {
       labelContent: numberTwoCoilString
     } ];
 
-    const coilRadioButtonGroup = new RadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
+    const coilRadioButtonGroup = new RectangularRadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
       buttonContentXMargin: 20,
       buttonContentYMargin: 4,
       left: 377,
