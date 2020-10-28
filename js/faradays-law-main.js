@@ -18,7 +18,7 @@ const faradaysLawTitleString = faradaysLawStrings[ 'faradays-law' ].title;
 const simOptions = {
   credits: {
     leadDesign: 'Michael Dubson, Bryce Gruneich',
-    softwareDevelopment: 'Michael Barlow, John Blanco, Jesse Greenberg, Jonathan Olson',
+    softwareDevelopment: 'Michael Barlow, John Blanco, Jonathan Olson',
     team: 'Emily Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith',
     soundDesign: 'Ashton Morris, Mike Winters',
     qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Katie Woessner, Bryan Yoelin',
