@@ -19,10 +19,10 @@ const simOptions = {
   credits: {
     leadDesign: 'Michael Dubson, Bryce Gruneich',
     softwareDevelopment: 'Michael Barlow, John Blanco, Jonathan Olson',
-    team: 'Emily Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith',
+    team: 'Emily B. Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith',
     soundDesign: 'Ashton Morris, Mike Winters',
     qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Katie Woessner, Bryan Yoelin',
-    contributors: 'Jonathan Hung (Inclusive Design Research Centre)',
+    contributors: 'Jonathan Hung, Caren Watkins',
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
   },
