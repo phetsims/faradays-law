@@ -45,7 +45,7 @@
     "value": "Auto-Slide Grabbed Bar Magnet"
   },
   "keyboardHelpDialog.autoSlideGrabbedBarMagnetText": {
-    "value": "Auto-slide grabbed magnet<br>horizontally and toggle<br>slide direction"
+    "value": "Auto-slide grabbed<br>magnet horizontally and<br>toggle slide direction"
   },
   "keyboardHelpDialog.autoSlideGrabbedBarMagnetWith": {
     "value": "Auto-slide grabbed magnet horizontally and toggle slide direction with number keys 1, 2, or 3."
