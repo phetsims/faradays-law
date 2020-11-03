@@ -9,7 +9,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
@@ -52,9 +51,6 @@ class MagnetAutoSlideKeyboardListener {
     // @public (read-only) - the position where the magnet will head towards if and when this listener is fired
     this.reflectedPositionProperty = new Vector2Property( Vector2.ZERO );
 
-    // @private - local property that tracks the magnet position
-    this.positionProperty = new Property( model.magnet.positionProperty.value.copy() );
-
     // @private - the position towards which the magnet moves when this object is stepped (if not already there)
     this.targetPosition = new Vector2( 0, 0 );
 
@@ -85,7 +81,6 @@ class MagnetAutoSlideKeyboardListener {
                   intersectedBounds.maxX + HALF_MAGNET_WIDTH;
       }
 
-      this.positionProperty.set( position );
       this.reflectedPositionProperty.set( new Vector2( targetX, position.y ) );
     };
 
@@ -132,7 +127,7 @@ class MagnetAutoSlideKeyboardListener {
           this.isAnimatingProperty.value = true;
 
           const speed = Utils.roundSymmetric( speedToText( this._stepDelta ) );
-          const direction = this.getMagnetDirection( this.positionProperty.get().x - this.targetPosition.x );
+          const direction = this.getMagnetDirection( this.model.magnet.positionProperty.value.x - this.targetPosition.x );
           FaradaysLawAlertManager.magnetSlidingAlert( speed, direction );
         }
       }
@@ -158,14 +153,15 @@ class MagnetAutoSlideKeyboardListener {
     const animating = this.isAnimatingProperty.get();
 
     if ( animating ) {
-      if ( !this.positionProperty.get().equals( this.targetPosition ) ) {
+      const magnetPosition = this.model.magnet.positionProperty.value;
+      if ( !magnetPosition.equals( this.targetPosition ) ) {
 
-        const diffX = this.targetPosition.x - this.positionProperty.get().x;
+        const diffX = this.targetPosition.x - magnetPosition.x;
         const direction = diffX < 0 ? -1 : 1;
 
         const deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );
 
-        let newPosition = this.positionProperty.get().plus( deltaVector );
+        let newPosition = magnetPosition.plus( deltaVector );
 
         newPosition = this._dragBounds.closestPointTo( newPosition );
 
