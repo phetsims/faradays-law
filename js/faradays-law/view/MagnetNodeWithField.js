@@ -32,8 +32,6 @@ import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
 // constants
-const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
-const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 const barMagnetString = faradaysLawStrings.a11y.barMagnet;
 
 /**
@@ -167,9 +165,7 @@ class MagnetNodeWithField extends Node {
 
           const magnitude = Number( domEvent.key );
 
-          const dragBoundsMax = model.bounds.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT ).maxX;
-          if ( model.magnet.positionProperty.get().x < ( dragBoundsMax / 2 ) ) {
-            // point to right
+          if ( model.magnet.positionProperty.get().x < FaradaysLawConstants.TOP_COIL_POSITION.x ) {
             rightJumpArrows.showCue( magnitude );
           }
           else {

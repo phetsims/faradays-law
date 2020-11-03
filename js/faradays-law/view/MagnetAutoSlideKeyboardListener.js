@@ -15,6 +15,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -45,23 +46,30 @@ class MagnetAutoSlideKeyboardListener {
 
     const { mediumSpeed, slowSpeed, fastSpeed } = options;
 
-    // @private
+    // @public (read-only) - true when the magnet is being animated (moved)
     this.isAnimatingProperty = new BooleanProperty( false );
+
+    // @public (read-only) - the position where the magnet will head towards if and when this listener is fired
+    this.reflectedPositionProperty = new Vector2Property( Vector2.ZERO );
+
+    // @private - local property that tracks the magnet position
+    this.positionProperty = new Property( model.magnet.positionProperty.value.copy() );
+
+    // @private - the position towards which the magnet moves when this object is stepped (if not already there)
+    this.targetPosition = new Vector2( 0, 0 );
+
+    // @private
+    this.model = model;
     this._dragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
     this._stepDelta = mediumSpeed;
 
-    // @public
-    this.model = model;
-    this.positionProperty = new Property( model.magnet.positionProperty.get().copy() );
-    this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
-    this.targetPositionVector = new Vector2( 0, 0 );
-
-    // Set the target position in response to the magnet's current position.
+    // Set the reflected position in response to the magnet's current position.
     const setReflectedPosition = position => {
       const leftX = this._dragBounds.minX;
 
       let targetX = position.x >= ( this._dragBounds.maxX / 2 ) ? leftX : this._dragBounds.maxX;
 
+      // Check for cases where the path to the target will bump up against the coils and adjust if needed.
       const magnetPathBounds = new Bounds2(
         Math.min( targetX, position.x ),
         position.y,
@@ -120,11 +128,11 @@ class MagnetAutoSlideKeyboardListener {
       const domEvent = event.domEvent;
       if ( !this.isAnimatingProperty.value ) {
         if ( domEvent.keyCode >= 49 && domEvent.keyCode <= 51 ) {
-          this.targetPositionVector = this.reflectedPositionProperty.get();
+          this.targetPosition = this.reflectedPositionProperty.get();
           this.isAnimatingProperty.value = true;
 
           const speed = Utils.roundSymmetric( speedToText( this._stepDelta ) );
-          const direction = this.getMagnetDirection( this.positionProperty.get().x - this.targetPositionVector.x );
+          const direction = this.getMagnetDirection( this.positionProperty.get().x - this.targetPosition.x );
           FaradaysLawAlertManager.magnetSlidingAlert( speed, direction );
         }
       }
@@ -150,9 +158,9 @@ class MagnetAutoSlideKeyboardListener {
     const animating = this.isAnimatingProperty.get();
 
     if ( animating ) {
-      if ( !this.positionProperty.get().equals( this.targetPositionVector ) ) {
+      if ( !this.positionProperty.get().equals( this.targetPosition ) ) {
 
-        const diffX = this.targetPositionVector.x - this.positionProperty.get().x;
+        const diffX = this.targetPosition.x - this.positionProperty.get().x;
         const direction = diffX < 0 ? -1 : 1;
 
         const deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );
