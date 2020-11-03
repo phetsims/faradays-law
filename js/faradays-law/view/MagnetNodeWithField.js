@@ -26,7 +26,7 @@ import JumpMagnitudeArrowNode from './JumpMagnitudeArrowNode.js';
 import MagnetDescriber from './MagnetDescriber.js';
 import MagnetDescriptionNode from './MagnetDescriptionNode.js';
 import MagnetFieldLines from './MagnetFieldLines.js';
-import MagnetJumpKeyboardListener from './MagnetJumpKeyboardListener.js';
+import MagnetAutoSlideKeyboardListener from './MagnetAutoSlideKeyboardListener.js';
 import MagnetMovementArrowsNode from './MagnetMovementArrowsNode.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
@@ -155,7 +155,7 @@ class MagnetNodeWithField extends Node {
     this.addChild( rightJumpArrows );
 
     // handler for jump/slide interactions
-    const magnetJumpKeyboardListener = new MagnetJumpKeyboardListener( model, {
+    const magnetJumpKeyboardListener = new MagnetAutoSlideKeyboardListener( model, {
       onKeydown( event ) {
         const domEvent = event.domEvent;
 

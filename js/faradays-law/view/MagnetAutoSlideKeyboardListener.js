@@ -1,5 +1,12 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
+/**
+ * MagnetAutoSlideKeyboardListener is a keyboard listener that implement the "auto-slide" behavior, which is where the
+ * user can press keys that will cause the magnet to translate horizontally until it hits an obstacle or the sim bounds.
+ *
+ * @author Michael Barlow (PhET Interactive Simulations)
+ * @author John Blanco (PhET Interactive Simulations)
+ */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -18,24 +25,30 @@ import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 const { LEFT, RIGHT } = MagnetDirectionEnum;
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
+const KEY_CODE_DIGIT_1 = 49;
+const KEY_CODE_DIGIT_2 = 50;
+const KEY_CODE_DIGIT_3 = 51;
 
-class MagnetJumpKeyboardListener {
+class MagnetAutoSlideKeyboardListener {
 
   constructor( model, options ) {
     options = merge( {
-      defaultVelocity: 10, // in model coordinates / step
-      shiftVelocity: 5,
-      fastVelocity: 15,
-      onKeydown: e => {},
-      onKeyup: e => {}
+
+      // speeds, all in model coordinates / step
+      slowSpeed: 5,
+      mediumSpeed: 10,
+      fastSpeed: 15,
+
+      onKeydown: event => {},
+      onKeyup: event => {}
     }, options );
 
-    const { defaultVelocity, shiftVelocity, fastVelocity } = options;
+    const { mediumSpeed, slowSpeed, fastSpeed } = options;
 
     // @private
     this.isAnimatingProperty = new BooleanProperty( false );
     this._dragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
-    this._stepDelta = defaultVelocity;
+    this._stepDelta = mediumSpeed;
 
     // @public
     this.model = model;
@@ -43,7 +56,7 @@ class MagnetJumpKeyboardListener {
     this.reflectedPositionProperty = new Property( this.positionProperty.get().copy() );
     this.targetPositionVector = new Vector2( 0, 0 );
 
-    // set the target position in response to the magnet's
+    // Set the target position in response to the magnet's current position.
     const setReflectedPosition = position => {
       const leftX = this._dragBounds.minX;
 
@@ -70,32 +83,38 @@ class MagnetJumpKeyboardListener {
 
     model.magnet.positionProperty.link( setReflectedPosition );
 
-
+    // key down handler
     this.keydown = event => {
       options.onKeydown( event );
 
       this.isAnimatingProperty.value = false;
 
       // reset stepDelta
-      this._stepDelta = defaultVelocity;
+      this._stepDelta = mediumSpeed;
 
-      // set the stepDelta
+      // Set the stepDelta based on the key that was pressed.
       switch( event.domEvent.keyCode ) {
-        case 49:
-          this._stepDelta = shiftVelocity;
+
+        case KEY_CODE_DIGIT_1:
+          this._stepDelta = slowSpeed;
           break;
-        case 50:
-          this._stepDelta = defaultVelocity;
+
+        case KEY_CODE_DIGIT_2:
+          this._stepDelta = mediumSpeed;
           break;
-        case 51:
-          this._stepDelta = fastVelocity;
+
+        case KEY_CODE_DIGIT_3:
+          this._stepDelta = fastSpeed;
           break;
+
         default:
+          break;
       }
     };
 
-    const speedToText = new LinearFunction( shiftVelocity, fastVelocity, 0, 2, true );
+    const speedToText = new LinearFunction( slowSpeed, fastSpeed, 0, 2, true );
 
+    // key up handler
     this.keyup = event => {
 
       const domEvent = event.domEvent;
@@ -167,5 +186,5 @@ class MagnetJumpKeyboardListener {
   }
 }
 
-faradaysLaw.register( 'MagnetJumpKeyboardListener', MagnetJumpKeyboardListener );
-export default MagnetJumpKeyboardListener;
+faradaysLaw.register( 'MagnetAutoSlideKeyboardListener', MagnetAutoSlideKeyboardListener );
+export default MagnetAutoSlideKeyboardListener;
