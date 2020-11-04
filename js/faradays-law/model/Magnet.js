@@ -30,7 +30,7 @@ class Magnet {
     this.height = FaradaysLawConstants.MAGNET_HEIGHT;
 
     // @public - position of the magnet
-    this.positionProperty = new Vector2Property( new Vector2( 647, 219 ), {
+    this.positionProperty = new Vector2Property( new Vector2( 647, 200 ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioDocumentation: 'The position of the center of the bar magnet in view coordinates',
       phetioHighFrequency: true

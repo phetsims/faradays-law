@@ -200,9 +200,9 @@ class FaradaysLawModel {
     let intersectedRestrictedBounds = null;
 
     // Handle whether one or both coils are visible.
-    const restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
+    let restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
     if ( this.topCoilVisibleProperty.get() ) {
-      restrictedBoundsList.concat( this.topCoilRestrictedBounds );
+      restrictedBoundsList = restrictedBoundsList.concat( this.topCoilRestrictedBounds );
     }
 
     // test against all restricted bounds

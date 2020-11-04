@@ -39,13 +39,13 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
    */
   initializeAccessibleInputListener() {
     return {
-      keyup: onKeyup.bind( this ),
+      keyup: onKeyUp.bind( this ),
       focus: onFocus.bind( this )
     };
   }
 }
 
-function onKeyup( event ) {
+function onKeyUp( event ) {
   const { magnetIsAnimating, magnetStoppedByKeyboard } = this.regionManager;
 
   if ( !magnetIsAnimating && magnetStoppedByKeyboard ) {

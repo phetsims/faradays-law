@@ -19,14 +19,13 @@ import grabMagnetSound from '../../../sounds/grab-magnet_mp3.js';
 import releaseMagnetSound from '../../../sounds/release-magnet_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
-import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FaradaysLawKeyboardDragListener from './FaradaysLawKeyboardDragListener.js';
 import JumpMagnitudeArrowNode from './JumpMagnitudeArrowNode.js';
+import MagnetAutoSlideKeyboardListener from './MagnetAutoSlideKeyboardListener.js';
 import MagnetDescriber from './MagnetDescriber.js';
 import MagnetDescriptionNode from './MagnetDescriptionNode.js';
 import MagnetFieldLines from './MagnetFieldLines.js';
-import MagnetAutoSlideKeyboardListener from './MagnetAutoSlideKeyboardListener.js';
 import MagnetMovementArrowsNode from './MagnetMovementArrowsNode.js';
 import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
@@ -88,11 +87,11 @@ class MagnetNodeWithField extends Node {
       }
     ) );
 
-    // magnet reflection - node to indicate the future position when sliding the magnet
-    this.reflectedMagnetNode = createMagnetNode( model.magnet );
-    this.addChild( this.reflectedMagnetNode );
-    this.reflectedMagnetNode.opacity = 0.5;
-    this.reflectedMagnetNode.visible = false;
+    // magnet slide target - a node to indicate the future position when sliding the magnet
+    this.magnetSlideTargetNode = createMagnetNode( model.magnet );
+    this.addChild( this.magnetSlideTargetNode );
+    this.magnetSlideTargetNode.opacity = 0.5;
+    this.magnetSlideTargetNode.visible = false;
 
     // pdom descriptions - generates text content and alerts for magnet interactions
     const regionManager = new MagnetRegionManager( model );
@@ -154,18 +153,18 @@ class MagnetNodeWithField extends Node {
 
     // handler for jump/slide interactions
     const magnetJumpKeyboardListener = new MagnetAutoSlideKeyboardListener( model, {
-      onKeydown( event ) {
+      onKeyDown( event ) {
         const domEvent = event.domEvent;
 
         // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
         // we want to ensure that we're only listening for the 1,2, and 3 keys
         if ( KeyboardUtils.isNumberKey( domEvent.keyCode ) && Number( domEvent.key ) > 0 && Number( domEvent.key ) <= 3 ) {
-          self.reflectedMagnetNode.visible = true;
+          self.magnetSlideTargetNode.visible = true;
           model.magnetArrowsVisibleProperty.set( false );
 
           const magnitude = Number( domEvent.key );
 
-          if ( model.magnet.positionProperty.get().x < FaradaysLawConstants.TOP_COIL_POSITION.x ) {
+          if ( model.magnet.positionProperty.get().x < magnetJumpKeyboardListener.slideTargetPositionProperty.value.x ) {
             rightJumpArrows.showCue( magnitude );
           }
           else {
@@ -177,9 +176,9 @@ class MagnetNodeWithField extends Node {
           regionManager.stopMagnetAnimationWithKeyboard();
         }
       },
-      onKeyup( event ) {
+      onKeyUp( event ) {
         if ( KeyboardUtils.isNumberKey( event.domEvent.keyCode ) ) {
-          self.reflectedMagnetNode.visible = false;
+          self.magnetSlideTargetNode.visible = false;
         }
         rightJumpArrows.hideCue();
         leftJumpArrows.hideCue();
@@ -223,9 +222,9 @@ class MagnetNodeWithField extends Node {
       tandem: tandem.createTandem( 'grabDragInteraction' )
     } );
 
-    // listener to position the reflected node
-    const setReflectedNodeCenter = position => {
-      this.reflectedMagnetNode.center = this.parentToLocalPoint( position );
+    // listener to position the target node
+    const setSlideTargetNodeCenter = position => {
+      this.magnetSlideTargetNode.center = this.parentToLocalPoint( position );
     };
 
     // observers
@@ -234,16 +233,16 @@ class MagnetNodeWithField extends Node {
       this.magnetNode = createMagnetNode( model.magnet );
       draggableNode.addChild( this.magnetNode );
 
-      // ensure poles on the reflected magnet match that of the original
-      this.reflectedMagnetNode.detach();
-      this.reflectedMagnetNode = createMagnetNode( model.magnet );
-      this.addChild( this.reflectedMagnetNode );
-      this.reflectedMagnetNode.opacity = 0.5;
-      this.reflectedMagnetNode.visible = false;
-      setReflectedNodeCenter( magnetJumpKeyboardListener.reflectedPositionProperty.get() );
+      // ensure poles on the slide target magnet match that of the original
+      this.magnetSlideTargetNode.detach();
+      this.magnetSlideTargetNode = createMagnetNode( model.magnet );
+      this.addChild( this.magnetSlideTargetNode );
+      this.magnetSlideTargetNode.opacity = 0.5;
+      this.magnetSlideTargetNode.visible = false;
+      setSlideTargetNodeCenter( magnetJumpKeyboardListener.slideTargetPositionProperty.get() );
     } );
 
-    magnetJumpKeyboardListener.reflectedPositionProperty.link( setReflectedNodeCenter );
+    magnetJumpKeyboardListener.slideTargetPositionProperty.link( setSlideTargetNodeCenter );
 
     const pdomNode = new MagnetDescriptionNode( model, describer );
     this.addChild( pdomNode );

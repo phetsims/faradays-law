@@ -34,105 +34,172 @@ class MagnetAutoSlideKeyboardListener {
   constructor( model, options ) {
     options = merge( {
 
-      // speeds, all in model coordinates / step
-      slowSpeed: 5,
-      mediumSpeed: 10,
-      fastSpeed: 15,
+      // speeds, all in model coordinates per second
+      slowSpeed: 90, // empirically determined such that the voltmeter doesn't peg when going through bigger coil
+      mediumSpeed: 300,
+      fastSpeed: 500,
 
-      onKeydown: event => {},
-      onKeyup: event => {}
+      onKeyDown: _.noop,
+      onKeyUp: _.noop
     }, options );
 
     const { mediumSpeed, slowSpeed, fastSpeed } = options;
+
+    // Map of the control keys to a speed for each
+    const keyToSpeedMap = new Map( [
+      [ KEY_CODE_DIGIT_1, slowSpeed ],
+      [ KEY_CODE_DIGIT_2, mediumSpeed ],
+      [ KEY_CODE_DIGIT_3, fastSpeed ]
+    ] );
+
+    // Track the up/down state for each of the control keys.
+    this.controlKeyIsDownMap = new Map();
+    for ( const keyCode of keyToSpeedMap.keys() ) {
+      this.controlKeyIsDownMap.set( keyCode, false );
+    }
 
     // @public (read-only) - true when the magnet is being animated (moved)
     this.isAnimatingProperty = new BooleanProperty( false );
 
     // @public (read-only) - the position where the magnet will head towards if and when this listener is fired
-    this.reflectedPositionProperty = new Vector2Property( Vector2.ZERO );
+    this.slideTargetPositionProperty = new Vector2Property( Vector2.ZERO );
 
-    // @private - the position towards which the magnet moves when this object is stepped (if not already there)
-    this.targetPosition = new Vector2( 0, 0 );
+    // @private - speed at which translation of the magnet should occur
+    this.translationSpeed = 0;
 
     // @private
     this.model = model;
     this._dragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
-    this._stepDelta = mediumSpeed;
 
-    // Set the reflected position in response to the magnet's current position.
-    const setReflectedPosition = position => {
-      const leftX = this._dragBounds.minX;
+    // closure to update the slide target position based on the current position and desired direction of travel
+    const updateSlideTarget = preferredDirection => {
+      const magnetPosition = model.magnet.positionProperty.value;
+      const leftMaxX = this._dragBounds.minX;
+      const rightMaxX = this._dragBounds.maxX;
 
-      let targetX = position.x >= ( this._dragBounds.maxX / 2 ) ? leftX : this._dragBounds.maxX;
+      let targetX = preferredDirection === RIGHT ? rightMaxX : leftMaxX;
 
-      // Check for cases where the path to the target will bump up against the coils and adjust if needed.
+      // Create a bounds that represents the path that the magnet would travel to get to the target.
       const magnetPathBounds = new Bounds2(
-        Math.min( targetX, position.x ),
-        position.y,
-        Math.max( targetX, position.x ),
-        position.y
+        Math.min( targetX, magnetPosition.x ),
+        magnetPosition.y,
+        Math.max( targetX, magnetPosition.x ),
+        magnetPosition.y
       ).dilatedXY( HALF_MAGNET_WIDTH - 1, HALF_MAGNET_HEIGHT - 1 );
 
+      // Check for cases where the path to the target will bump up against obstacles and adjust if needed.
       const intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
-
       if ( intersectedBounds ) {
-        targetX = targetX > leftX ?
-                  intersectedBounds.minX - HALF_MAGNET_WIDTH :
-                  intersectedBounds.maxX + HALF_MAGNET_WIDTH;
+        const rightLimitX = intersectedBounds.minX - HALF_MAGNET_WIDTH;
+        const leftLimitX = intersectedBounds.maxX + HALF_MAGNET_WIDTH;
+        if ( preferredDirection === RIGHT ) {
+          if ( magnetPosition.x !== rightLimitX ) {
+            targetX = rightLimitX;
+          }
+          else {
+
+            // The magnet is already at the limit, meaning it must be up against something.  Head the other direction.
+            targetX = leftMaxX;
+          }
+        }
+        else {
+          if ( magnetPosition.x !== leftLimitX ) {
+            targetX = leftLimitX;
+          }
+          else {
+
+            // The magnet is already at the limit, meaning it must be up against something.  Head the other direction.
+            targetX = rightMaxX;
+          }
+        }
       }
 
-      this.reflectedPositionProperty.set( new Vector2( targetX, position.y ) );
+      // Set the new target position.
+      this.slideTargetPositionProperty.set( new Vector2( targetX, magnetPosition.y ) );
     };
 
-    model.magnet.positionProperty.link( setReflectedPosition );
+    // Update the target position when the number of coils changes, since a path may now be blocked or unblocked.
+    model.topCoilVisibleProperty.link( () => {
+      if ( this.isAnimatingProperty.value ) {
+        const direction = model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?
+                          RIGHT :
+                          LEFT;
+        updateSlideTarget( direction );
+      }
+    } );
 
     // key down handler
     this.keydown = event => {
-      options.onKeydown( event );
 
-      this.isAnimatingProperty.value = false;
+      const keyCode = event.domEvent.keyCode;
 
-      // reset stepDelta
-      this._stepDelta = mediumSpeed;
+      if ( keyToSpeedMap.has( keyCode ) ) {
 
-      // Set the stepDelta based on the key that was pressed.
-      switch( event.domEvent.keyCode ) {
+        // Skip the changes if this key is already down.
+        if ( !this.controlKeyIsDownMap.get( keyCode ) ) {
 
-        case KEY_CODE_DIGIT_1:
-          this._stepDelta = slowSpeed;
-          break;
+          // Mark this control key as being down.
+          this.controlKeyIsDownMap.set( keyCode, true );
 
-        case KEY_CODE_DIGIT_2:
-          this._stepDelta = mediumSpeed;
-          break;
+          // Update the slide target.
+          if ( this.isAnimatingProperty.value ) {
 
-        case KEY_CODE_DIGIT_3:
-          this._stepDelta = fastSpeed;
-          break;
+            // An animation is in progress, so reverse it.
+            if ( model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ) {
+              updateSlideTarget( LEFT );
+            }
+            else {
+              updateSlideTarget( RIGHT );
+            }
+          }
+          else {
 
-        default:
-          break;
+            // The magnet is not currently sliding, so start it moving towards the coils.
+            if ( model.magnet.positionProperty.value.x < FaradaysLawConstants.TOP_COIL_POSITION.x ) {
+              updateSlideTarget( RIGHT );
+            }
+            else {
+              updateSlideTarget( LEFT );
+            }
+
+            // Initiate the animation.
+            this.isAnimatingProperty.set( true );
+          }
+
+          // Update the speed at which the magnet will move.
+          this.translationSpeed = keyToSpeedMap.get( keyCode );
+        }
+
+        // Invoke the client-provided handler (this does nothing if the client didn't provide one).
+        options.onKeyDown( event );
+      }
+      else if ( this.isAnimatingProperty.value ) {
+
+        // Any key press that is not one of the control keys should stop the animation.
+        this.isAnimatingProperty.set( false );
       }
     };
 
-    const speedToText = new LinearFunction( slowSpeed, fastSpeed, 0, 2, true );
+    // function for mapping speed linearly, which is then used to map it to text for a11y
+    const speedToText = new LinearFunction( 0, fastSpeed, 0, 200, true );
 
     // key up handler
     this.keyup = event => {
 
-      const domEvent = event.domEvent;
-      if ( !this.isAnimatingProperty.value ) {
-        if ( domEvent.keyCode >= 49 && domEvent.keyCode <= 51 ) {
-          this.targetPosition = this.reflectedPositionProperty.get();
-          this.isAnimatingProperty.value = true;
+      const releasedKeyCode = event.domEvent.keyCode;
 
-          const speed = Utils.roundSymmetric( speedToText( this._stepDelta ) );
-          const direction = this.getMagnetDirection( this.model.magnet.positionProperty.value.x - this.targetPosition.x );
-          FaradaysLawAlertManager.magnetSlidingAlert( speed, direction );
-        }
+      if ( keyToSpeedMap.has( releasedKeyCode ) ) {
+        this.controlKeyIsDownMap.set( releasedKeyCode, false );
+
+        const speedToTextValue = Utils.roundSymmetric( speedToText( this.translationSpeed ) );
+        const direction = this.model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?
+                          RIGHT :
+                          LEFT;
+        FaradaysLawAlertManager.magnetSlidingAlert( speedToTextValue, direction );
       }
 
-      options.onKeyup( event );
+      // Invoke the client-provided handler (this does nothing if the client didn't provide one).
+      options.onKeyUp( event );
     };
 
     // step the drag listener, must be removed in dispose
@@ -150,36 +217,42 @@ class MagnetAutoSlideKeyboardListener {
    * @param {number} dt - in seconds
    */
   step( dt ) {
-    const animating = this.isAnimatingProperty.get();
 
-    if ( animating ) {
-      const magnetPosition = this.model.magnet.positionProperty.value;
-      if ( !magnetPosition.equals( this.targetPosition ) ) {
-
-        const diffX = this.targetPosition.x - magnetPosition.x;
-        const direction = diffX < 0 ? -1 : 1;
-
-        const deltaVector = new Vector2( Math.min( Math.abs( diffX ), this._stepDelta ) * direction, 0 );
-
-        let newPosition = magnetPosition.plus( deltaVector );
-
-        newPosition = this._dragBounds.closestPointTo( newPosition );
-
-        this.model.moveMagnetToPosition( newPosition );
-      }
-      else {
-        this.isAnimatingProperty.value = false;
+    // Determine whether any of the control keys are currently pressed because if they are, the animation should pause.
+    let controlKeyPressed = false;
+    for ( const isKeyDown of this.controlKeyIsDownMap.values() ) {
+      if ( isKeyDown ) {
+        controlKeyPressed = true;
       }
     }
-  }
 
-  /**
-   * @public
-   * @param {number} positionDelta
-   * @returns {string}
-   */
-  getMagnetDirection( positionDelta ) {
-    return positionDelta > 0 ? LEFT : RIGHT;
+    // Move the magnet, but only when animating and none of the control keys are pressed.
+    if ( this.isAnimatingProperty.value && !controlKeyPressed ) {
+      const magnetPosition = this.model.magnet.positionProperty.value;
+      if ( !magnetPosition.equals( this.slideTargetPositionProperty.value ) ) {
+
+        const deltaXToTarget = this.slideTargetPositionProperty.value.x - magnetPosition.x;
+        let unconstrainedNewPosition;
+        if ( Math.abs( deltaXToTarget ) <= dt * this.translationSpeed ) {
+
+          // The magnet is almost to the target position, so just move it there.
+          unconstrainedNewPosition = this.slideTargetPositionProperty.value;
+        }
+        else {
+          const distanceSign = deltaXToTarget < 0 ? -1 : 1;
+          const deltaVector = new Vector2( distanceSign * this.translationSpeed * dt, 0 );
+          unconstrainedNewPosition = magnetPosition.plus( deltaVector );
+        }
+
+        // Make sure the new position doesn't put the magnet outside of the drag bounds.
+        const constrainNewPosition = this._dragBounds.closestPointTo( unconstrainedNewPosition );
+
+        this.model.moveMagnetToPosition( constrainNewPosition );
+      }
+      else {
+        this.isAnimatingProperty.set( false );
+      }
+    }
   }
 
   /**
