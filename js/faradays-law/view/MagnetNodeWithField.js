@@ -256,6 +256,15 @@ class MagnetNodeWithField extends Node {
       regionManager.setMagnetIsAnimating( isAnimating );
     } );
 
+    // while the magnet is being moved from the MagnetAutoSlideKeyboardListener,
+    // make sure that it remains within the displayed bounds with the pan and zoom
+    // feature
+    model.magnet.positionProperty.link( position => {
+      if ( magnetJumpKeyboardListener.isAnimatingProperty.get() ) {
+        phet.joist.sim.panToNode( draggableNode );
+      }
+    } );
+
     this.regionManager = regionManager;
 
     // monitor the model for a reset, perform any local resetting that is necessary
