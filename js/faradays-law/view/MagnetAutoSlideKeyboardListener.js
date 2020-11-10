@@ -85,7 +85,7 @@ class MagnetAutoSlideKeyboardListener {
         magnetPosition.y,
         Math.max( targetX, magnetPosition.x ),
         magnetPosition.y
-      ).dilatedXY( HALF_MAGNET_WIDTH - 1, HALF_MAGNET_HEIGHT - 1 );
+      ).dilatedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
 
       // Check for cases where the path to the target will bump up against obstacles and adjust if needed.
       const intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
@@ -226,7 +226,7 @@ class MagnetAutoSlideKeyboardListener {
       }
     }
 
-    // Move the magnet, but only when animating and none of the control keys are pressed.
+    // If an animation is in progress and none of the control keys are pressed, move the magnet towards the target.
     if ( this.isAnimatingProperty.value && !controlKeyPressed ) {
       const magnetPosition = this.model.magnet.positionProperty.value;
       if ( !magnetPosition.equals( this.slideTargetPositionProperty.value ) ) {
@@ -245,9 +245,9 @@ class MagnetAutoSlideKeyboardListener {
         }
 
         // Make sure the new position doesn't put the magnet outside of the drag bounds.
-        const constrainNewPosition = this._dragBounds.closestPointTo( unconstrainedNewPosition );
+        const constrainedNewPosition = this._dragBounds.closestPointTo( unconstrainedNewPosition );
 
-        this.model.moveMagnetToPosition( constrainNewPosition );
+        this.model.moveMagnetToPosition( constrainedNewPosition );
       }
       else {
         this.isAnimatingProperty.set( false );

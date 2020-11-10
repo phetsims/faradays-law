@@ -10,6 +10,7 @@
 // modules
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import faradaysLaw from '../../faradaysLaw.js';
@@ -47,6 +48,21 @@ class Magnet {
       tandem: tandem.createTandem( 'fieldLinesVisibleProperty' ),
       phetioDocumentation: 'True if the field lines are visible'
     } );
+  }
+
+  /**
+   * Get the bounds of the magnet
+   * @returns {Bounds2}
+   * @public
+   */
+  getBounds() {
+    const currentPosition = this.positionProperty.value;
+    return new Bounds2(
+      currentPosition.x - this.width / 2,
+      currentPosition.y - this.height / 2,
+      currentPosition.x + this.width / 2,
+      currentPosition.y + this.height / 2
+    );
   }
 
   /**

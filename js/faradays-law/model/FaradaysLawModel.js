@@ -217,34 +217,28 @@ class FaradaysLawModel {
   }
 
   /**
-   * @param {Vector2} position - position of magnet
+   * @param {Vector2} proposedPosition - proposed position of magnet.  The magnet will be moved to this location unless
+   * doing so would cause it to go into a restricted area
    * @public
    */
-  moveMagnetToPosition( position ) {
+  moveMagnetToPosition( proposedPosition ) {
 
-    // Check the bounds of the magnet, but subtract 1 to prevent it from passing through the coils vertically
-    // see https://github.com/phetsims/faradays-law/issues/47
-    const magnetBounds = new Bounds2(
-      Math.min( position.x, this.magnet.positionProperty.get().x ),
-      Math.min( position.y, this.magnet.positionProperty.get().y ),
-      Math.max( position.x, this.magnet.positionProperty.get().x ),
-      Math.max( position.y, this.magnet.positionProperty.get().y )
-    ).dilatedXY( this.magnet.width / 2 - 1, this.magnet.height / 2 - 1 );
+    const currentMagnetBounds = this.magnet.getBounds();
+    const positionChange = proposedPosition.minus( this.magnet.positionProperty.value );
+    const projectedMagnetBounds = currentMagnetBounds.shifted( positionChange.x, positionChange.y );
 
     // check intersection with any restricted areas if not intersected yet
     if ( this.intersectedBounds === null ) {
 
-      // if first coil not visible, check only second coil restrictions
-      let restrictedBoundsList;
+      // Make a list of the restricted bounds based on which coils are currently visible.
+      let restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
       if ( this.topCoilVisibleProperty.value ) {
         restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
       }
-      else {
-        restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
-      }
+
       for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
         const restrictedBounds = restrictedBoundsList[ i ];
-        if ( magnetBounds.intersectsBounds( restrictedBounds ) ) {
+        if ( projectedMagnetBounds.intersectsBounds( restrictedBounds ) ) {
 
           // Emit an event to indicate that the magnet has bumped into one of the coils.
           if ( this.bottomCoilRestrictedBounds.includes( restrictedBounds ) ) {
@@ -255,7 +249,7 @@ class FaradaysLawModel {
           }
 
           // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-          const movingDelta = position.minus( this.magnet.positionProperty.get() );
+          const movingDelta = proposedPosition.minus( this.magnet.positionProperty.get() );
           this.intersectedBounds = restrictedBounds.copy();
 
           if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
@@ -287,19 +281,20 @@ class FaradaysLawModel {
       }
     }
 
-    // limit the magnet's position based on bounds with which it intersects
-    if ( this.intersectedBounds && magnetBounds.intersectsBounds( this.intersectedBounds ) ) {
+    // Limit the magnet's position based on bounds with which it intersects and the overall sim area bounds.
+    const newPosition = proposedPosition.copy();
+    if ( this.intersectedBounds && projectedMagnetBounds.intersectsBounds( this.intersectedBounds ) ) {
       if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
-        position.y = this.intersectedBounds.y - this.magnet.height / 2;
+        newPosition.y = this.intersectedBounds.y - this.magnet.height / 2;
       }
       else if ( this.magnetMovingDirection === EdgeEnum.TOP ) {
-        position.y = this.intersectedBounds.maxY + this.magnet.height / 2;
+        newPosition.y = this.intersectedBounds.maxY + this.magnet.height / 2;
       }
       else if ( this.magnetMovingDirection === EdgeEnum.LEFT ) {
-        position.x = this.intersectedBounds.maxX + this.magnet.width / 2;
+        newPosition.x = this.intersectedBounds.maxX + this.magnet.width / 2;
       }
       else if ( this.magnetMovingDirection === EdgeEnum.RIGHT ) {
-        position.x = this.intersectedBounds.x - this.magnet.width / 2;
+        newPosition.x = this.intersectedBounds.x - this.magnet.width / 2;
       }
       else {
         throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
@@ -308,29 +303,39 @@ class FaradaysLawModel {
     else {
       this.intersectedBounds = null;
 
-      // limit the motion of the magnet to be within the sim bounds, which are generally the layout bounds of the view
-      if ( !this.bounds.containsBounds( magnetBounds ) ) {
-        position.x = Math.max( Math.min( position.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
-        position.y = Math.max( Math.min( position.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
+      // Limit the motion of the magnet to be within the sim bounds, which are generally the layout bounds of the view.
+      if ( !this.bounds.containsBounds( projectedMagnetBounds ) ) {
+        newPosition.x = Math.max( Math.min( proposedPosition.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
+        newPosition.y = Math.max( Math.min( proposedPosition.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
       }
+    }
+
+    // Set the resultant position.
+    this.magnet.positionProperty.set( newPosition );
+
+    // Figure out what the bounds ended up being after checking the potential limits.
+    let finalMagnetBounds;
+    if ( newPosition.equals( proposedPosition ) ) {
+      finalMagnetBounds = projectedMagnetBounds;
+    }
+    else {
+      finalMagnetBounds = this.magnet.getBounds();
     }
 
     // Check whether the position has changed such that the magnet has hit a boundary.
     if ( this.previousMagnetBounds &&
-         ( ( this.previousMagnetBounds.maxX < this.bounds.maxX && magnetBounds.maxX >= this.bounds.maxX ) ||
-           ( this.previousMagnetBounds.minX > this.bounds.minX && magnetBounds.minX <= this.bounds.minX ) ||
-           ( this.previousMagnetBounds.maxY < this.bounds.maxY && magnetBounds.maxY >= this.bounds.maxY ) ||
-           ( this.previousMagnetBounds.minY > this.bounds.minY && magnetBounds.minY <= this.bounds.minY )
+         ( ( this.previousMagnetBounds.maxX < this.bounds.maxX && finalMagnetBounds.maxX >= this.bounds.maxX ) ||
+           ( this.previousMagnetBounds.minX > this.bounds.minX && finalMagnetBounds.minX <= this.bounds.minX ) ||
+           ( this.previousMagnetBounds.maxY < this.bounds.maxY && finalMagnetBounds.maxY >= this.bounds.maxY ) ||
+           ( this.previousMagnetBounds.minY > this.bounds.minY && finalMagnetBounds.minY <= this.bounds.minY )
          )
     ) {
       this.edgeBumpEmitter.emit();
     }
 
     // Keep a history of the bounds so that edge bumps can be detected.
-    this.previousMagnetBounds = magnetBounds;
+    this.previousMagnetBounds = finalMagnetBounds;
 
-    // Set the resultant position.
-    this.magnet.positionProperty.set( position );
   }
 }
 
