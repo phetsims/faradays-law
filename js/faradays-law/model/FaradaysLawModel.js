@@ -224,8 +224,8 @@ class FaradaysLawModel {
   moveMagnetToPosition( proposedPosition ) {
 
     const currentMagnetBounds = this.magnet.getBounds();
-    const positionChange = proposedPosition.minus( this.magnet.positionProperty.value );
-    const projectedMagnetBounds = currentMagnetBounds.shifted( positionChange.x, positionChange.y );
+    const proposedTranslation = proposedPosition.minus( this.magnet.positionProperty.value );
+    const projectedMagnetBounds = currentMagnetBounds.shifted( proposedTranslation.x, proposedTranslation.y );
 
     // check intersection with any restricted areas if not intersected yet
     if ( this.intersectedBounds === null ) {
@@ -236,6 +236,7 @@ class FaradaysLawModel {
         restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
       }
 
+      // Test whether the projected bounds intersect with any of the restricted bounds.
       for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
         const restrictedBounds = restrictedBoundsList[ i ];
         if ( projectedMagnetBounds.intersectsBounds( restrictedBounds ) ) {
@@ -249,13 +250,12 @@ class FaradaysLawModel {
           }
 
           // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-          const movingDelta = proposedPosition.minus( this.magnet.positionProperty.get() );
           this.intersectedBounds = restrictedBounds.copy();
 
-          if ( Math.abs( movingDelta.y ) > Math.abs( movingDelta.x ) ) {
+          if ( Math.abs( proposedTranslation.y ) > Math.abs( proposedTranslation.x ) ) {
 
             // vertical direction
-            if ( movingDelta.y > 0 ) {
+            if ( proposedTranslation.y > 0 ) {
               this.magnetMovingDirection = EdgeEnum.BOTTOM;
               this.intersectedBounds.setMaxY( COIL_BOUNDS_EXTENSION_AMOUNT );
             }
@@ -267,7 +267,7 @@ class FaradaysLawModel {
           else {
 
             // horizontal
-            if ( movingDelta.x > 0 ) {
+            if ( proposedTranslation.x > 0 ) {
               this.magnetMovingDirection = EdgeEnum.RIGHT;
               this.intersectedBounds.setMaxX( COIL_BOUNDS_EXTENSION_AMOUNT );
             }
@@ -281,7 +281,7 @@ class FaradaysLawModel {
       }
     }
 
-    // Limit the magnet's position based on bounds with which it intersects and the overall sim area bounds.
+    // Limit the magnet's position if the proposed position would put it in a restricted area or out of the sim bounds.
     const newPosition = proposedPosition.copy();
     if ( this.intersectedBounds && projectedMagnetBounds.intersectsBounds( this.intersectedBounds ) ) {
       if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
@@ -335,7 +335,6 @@ class FaradaysLawModel {
 
     // Keep a history of the bounds so that edge bumps can be detected.
     this.previousMagnetBounds = finalMagnetBounds;
-
   }
 }
 
