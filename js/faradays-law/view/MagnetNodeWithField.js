@@ -218,6 +218,10 @@ class MagnetNodeWithField extends Node {
         if ( !magnetDragged ) {
           model.magnetArrowsVisibleProperty.set( true );
         }
+        grabMagnetSoundPlayer.play();
+      },
+      onRelease: () => {
+        releaseMagnetSoundPlayer.play();
       },
       tandem: tandem.createTandem( 'grabDragInteraction' )
     } );

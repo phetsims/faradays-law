@@ -1,11 +1,10 @@
 // Copyright 2017-2020, University of Colorado Boulder
 
 /**
- * Drag handler for the magnet; there is no special treatment for holding down keys.
- * It is modeled as a "sticky" drag handler. A directional arrow key press moves the magnet at a
- * consistent speed (no need to hold the key down). Each additional press of the same arrow key
- * will increase the velocity of the magnet.
- * Space bar will reverse the direction of the magnet while keeping the same speed.
+ * Drag handler for the magnet; there is no special treatment for holding down keys. It is modeled as a "sticky" drag
+ * handler. A directional arrow key press moves the magnet at a consistent speed (no need to hold the key down). Each
+ * additional press of the same arrow key will increase the velocity of the magnet. Space bar will reverse the direction
+ * of the magnet while keeping the same speed.
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */

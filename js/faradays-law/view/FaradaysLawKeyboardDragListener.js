@@ -1,8 +1,7 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
 /**
- * Type to handle all standard keyboard input. The only exception is the
- * @extends KeyboardDragListener
+ * Type to handle all standard keyboard input. The only exception is the grab-drag interaction.
  */
 
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
