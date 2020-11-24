@@ -53,7 +53,7 @@ function onKeyUp( event ) {
   }
 }
 
-function onFocus( event ) {
+function onFocus() {
 
   // set flag to override the next keyup alert
   this.alertManager.magnetFocusAlert();

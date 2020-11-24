@@ -86,12 +86,12 @@ class FaradaysLawScreenView extends ScreenView {
     this.addChild( new CoilsWiresNode( this, model.topCoilVisibleProperty ) );
 
     // exists for the lifetime of the sim, no need to dispose
-    model.voltmeterVisibleProperty.link( function( showVoltmeter ) {
+    model.voltmeterVisibleProperty.link( showVoltmeter => {
       voltmeterAndWiresNode.visible = showVoltmeter;
     } );
 
     // When PhET-iO Studio makes the voltmeter invisible, we should also uncheck the checkbox.
-    voltmeterAndWiresNode.visibleProperty.lazyLink( function() {
+    voltmeterAndWiresNode.visibleProperty.lazyLink( () => {
       model.voltmeterVisibleProperty.value = voltmeterAndWiresNode.visible;
     } );
 

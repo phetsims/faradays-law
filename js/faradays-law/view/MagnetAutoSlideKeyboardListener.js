@@ -207,7 +207,7 @@ class MagnetAutoSlideKeyboardListener {
     stepTimer.addListener( stepListener );
 
     // @private - called in dispose
-    this._disposeKeyboardDragListener = function() {
+    this._disposeKeyboardDragListener = () => {
       stepTimer.removeListener( stepListener );
     };
   }

@@ -30,7 +30,7 @@ const simOptions = {
 };
 
 // Create and start the sim
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   const sim = new Sim( faradaysLawTitleString, [
     new FaradaysLawScreen( Tandem.ROOT.createTandem( 'faradaysLawScreen' ) )
   ], simOptions );

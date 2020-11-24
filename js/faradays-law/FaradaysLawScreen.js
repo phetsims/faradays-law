@@ -22,15 +22,15 @@ class FaradaysLawScreen extends Screen {
    */
   constructor( tandem ) {
     super(
-      function() {
+      () => {
         return new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, tandem.createTandem( 'model' ) );
       },
-      function( model ) {
+      model => {
         return new FaradaysLawScreenView( model, tandem.createTandem( 'view' ) );
-      }, {
+      },
+      {
         backgroundColorProperty: new Property( 'rgb( 151, 208, 255 )' ),
         tandem: tandem,
-
         keyboardHelpNode: new FaradaysLawKeyboardHelpContent(),
 
         // Cap large dt values, which can occur when the tab containing the sim had been hidden and then re-shown
