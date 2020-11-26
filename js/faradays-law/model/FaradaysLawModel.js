@@ -12,11 +12,13 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Line from '../../../../kite/js/segments/Line.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import CoilTypeEnum from '../view/CoilTypeEnum.js';
 import Coil from './Coil.js';
-import EdgeEnum from './EdgeEnum.js';
 import Magnet from './Magnet.js';
 import Voltmeter from './Voltmeter.js';
 
@@ -28,9 +30,9 @@ const COIL_RESTRICTED_AREA_HEIGHT = 11;
 const TOP_COIL_RESTRICTED_AREA_WIDTH = 25;
 const BOTTOM_COIL_RESTRICTED_AREA_WIDTH = 55;
 
-// Amount that coil bounds are extended to prevent magnet from jumping around the edges, in model units, empirically
-// determined.
-const COIL_BOUNDS_EXTENSION_AMOUNT = 3000;
+// Minimum distance between the magnet and the restricted areas (i.e. the coils) or the motion bounds.  This is used to
+// make sure that the magnet never goes through anything.
+const MIN_MAGNET_TO_OBJECT_DISTANCE = 0.01;
 
 class FaradaysLawModel {
 
@@ -134,12 +136,12 @@ class FaradaysLawModel {
     // @private - see this.moveMagnetToPosition method, used to calculate allowed magnet positions
     this.intersectedBounds = null;
 
-    // @private {EdgeEnum|null} - moving direction of the magnet when intersecting coils
-    this.magnetMovingDirection = null;
-
     // @private {Bounds2|null} - bounds where magnet was set to on the last movement attempt, used to detect transitions
     // between being totally in bounds and reaching the boundary edge
     this.previousMagnetBounds = null;
+
+    // @private {Bounds2|null} - bounds that restricted the magnet's motion the last time its position was set, if any
+    this.previousBoundsThatLimitedMotion = null;
 
     // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
     this.topCoilVisibleProperty.link( showTopCoil => {
@@ -217,124 +219,299 @@ class FaradaysLawModel {
   }
 
   /**
-   * @param {Vector2} proposedPosition - proposed position of magnet.  The magnet will be moved to this location unless
-   * doing so would cause it to go into a restricted area
+   * Given the leading edges for a rectangular moving object, a proposed translation, and the edges from another object
+   * or boundary with which the first one could collide, return a value representing the amount of the translation that
+   * could occur without collision.
+   * @param {{verticalEdge: Line, horizontalEdge: Line }} leadingEdgeLines
+   * @param {Vector2} proposedTranslation
+   * @param {{verticalEdge: Line, horizontalEdge: Line }} obstacleEdgeLines
+   * @returns {Vector2} - either a copy of the proposed translation or, if the obstacle edges would interfere with the
+   * proposed motion, and limited version thereof
+   * @private
+   */
+  checkObjectMotion( leadingEdgeLines, proposedTranslation, obstacleEdgeLines ) {
+
+    // If there is no actual motion proposed, there is nothing to do here.  This is done as an optimization.
+    if ( proposedTranslation.x === 0 && proposedTranslation.y === 0 ) {
+      return proposedTranslation;
+    }
+
+    // Start by assuming that the entire amount of the translation will work.
+    let allowedHorizontalMotion = proposedTranslation.x;
+    let allowedVerticalMotion = proposedTranslation.y;
+
+    // Check the horizontal motion and limit it if necessary.
+    const horizontalDelta = obstacleEdgeLines.verticalEdge.start.x - leadingEdgeLines.verticalEdge.start.x;
+
+    // Test if the restricted bounds are within a distance and on a side where interference could occur.
+    if ( Math.sign( proposedTranslation.x ) === Math.sign( horizontalDelta ) &&
+         Math.abs( proposedTranslation.x ) >= Math.abs( horizontalDelta ) ) {
+
+      // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
+      // other words, would these two lines collide with each other when moved by the proposed translation?
+      const translationScaleFactor = horizontalDelta / proposedTranslation.x;
+      assert && assert( translationScaleFactor < 1, 'if we hit this, something is wrong in the code above' );
+      const scaledDownTranslation = proposedTranslation.timesScalar( translationScaleFactor );
+      const projectedLineStartPoint = leadingEdgeLines.verticalEdge.start.plus( scaledDownTranslation );
+      const projectedLineEndPoint = leadingEdgeLines.verticalEdge.end.plus( scaledDownTranslation );
+
+      // Does the translated leading edge line overlap with the restricted bounds?
+      const edgeLinesOverlap = ( projectedLineEndPoint.y > obstacleEdgeLines.verticalEdge.start.y &&
+                                 projectedLineStartPoint.y < obstacleEdgeLines.verticalEdge.end.y ) ||
+                               ( projectedLineStartPoint.y < obstacleEdgeLines.verticalEdge.end.y &&
+                                 projectedLineEndPoint.y > obstacleEdgeLines.verticalEdge.start.y );
+
+      if ( edgeLinesOverlap ) {
+
+        // The proposed translation would cause the edge lines to collide, so limit the horizontal motion to an amount
+        // where overlap will not occur.
+        allowedHorizontalMotion = Math.sign( horizontalDelta ) === 1 ?
+                                  horizontalDelta - MIN_MAGNET_TO_OBJECT_DISTANCE :
+                                  horizontalDelta + MIN_MAGNET_TO_OBJECT_DISTANCE;
+      }
+    }
+
+    // Check the vertical motion and limit it if necessary.
+    const verticalDelta = obstacleEdgeLines.horizontalEdge.start.y - leadingEdgeLines.horizontalEdge.start.y;
+
+    // Test if the restricted bounds are within a distance and on a side where interference could occur.
+    if ( Math.sign( proposedTranslation.y ) === Math.sign( verticalDelta ) &&
+         Math.abs( proposedTranslation.y ) >= Math.abs( verticalDelta ) ) {
+
+      // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
+      // other words, would these two lines collide with each other when moved by the proposed translation?
+      const translationScaleFactor = verticalDelta / proposedTranslation.y;
+      assert && assert( translationScaleFactor < 1, 'if we hit this, something is wrong in the code above' );
+      const scaledDownTranslation = proposedTranslation.timesScalar( translationScaleFactor );
+      const projectedLineStartPoint = leadingEdgeLines.horizontalEdge.start.plus( scaledDownTranslation );
+      const projectedLineEndPoint = leadingEdgeLines.horizontalEdge.end.plus( scaledDownTranslation );
+
+      // Does the translated leading edge line overlap with the restricted bounds?
+      const edgeLinesOverlap = ( projectedLineEndPoint.x > obstacleEdgeLines.horizontalEdge.start.x &&
+                                 projectedLineStartPoint.x < obstacleEdgeLines.horizontalEdge.end.x ) ||
+                               ( projectedLineStartPoint.x < obstacleEdgeLines.horizontalEdge.end.x &&
+                                 projectedLineEndPoint.x > obstacleEdgeLines.horizontalEdge.start.x );
+
+      if ( edgeLinesOverlap ) {
+
+        // The proposed translation would cause the edge lines to collide, so limit the vertical motion to an amount
+        // where overlap will not occur.
+        allowedVerticalMotion = Math.sign( verticalDelta ) === 1 ?
+                                verticalDelta - MIN_MAGNET_TO_OBJECT_DISTANCE :
+                                verticalDelta + MIN_MAGNET_TO_OBJECT_DISTANCE;
+      }
+    }
+
+    return new Vector2( allowedHorizontalMotion, allowedVerticalMotion );
+  }
+
+  /**
+   * Given a proposed translation, get the horizontal and vertical leading edge lines for the magnet.  For instance,
+   * if the proposed translation is to the right, the right side of the magnet would be the leading edge.  This is used
+   * for collision detection.
+   * @param {Vector2} proposedTranslation
+   * @returns {{horizontalEdge: Line, verticalEdge: Line}} - an object with the horizontal and vertical leading edges
+   * @private
+   */
+  getMagnetLeadingEdgeLines( proposedTranslation ) {
+
+    const currentMagnetBounds = this.magnet.getBounds();
+    let leadingHorizontalEdge;
+    let leadingVerticalEdge;
+
+    if ( proposedTranslation.x > 0 ) {
+
+      // The leading vertical edge is the right side of the magnet.
+      leadingVerticalEdge = new Line(
+        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.minY ),
+        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.maxY )
+      );
+    }
+    else {
+
+      // The leading vertical edge is the left side of the magnet.
+      leadingVerticalEdge = new Line(
+        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.minY ),
+        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.maxY )
+      );
+    }
+
+    if ( proposedTranslation.y > 0 ) {
+
+      // The leading horizontal edge is the bottom of the magnet (increasing Y is in the downward direction).
+      leadingHorizontalEdge = new Line(
+        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.maxY ),
+        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.maxY )
+      );
+    }
+    else {
+
+      // The leading horizontal edge is the top of the magnet (decreasing Y is in the upward direction).
+      leadingHorizontalEdge = new Line(
+        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.minY ),
+        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.minY )
+      );
+    }
+
+    return {
+      horizontalEdge: leadingHorizontalEdge,
+      verticalEdge: leadingVerticalEdge
+    };
+  }
+
+  /**
+   * Get the edges of a rectangular obstacle or container that could potentially block the motion of an object moving
+   * with the proposed translation.
+   * @param {Vector2} proposedTranslation
+   * @param {Bounds2} obstacleOrContainerBounds
+   * @param {boolean} obstacle - If true, return the potentially blocking edges assuming that the obstacle is
+   * potentially in the way of the proposed motion, otherwise assume that the bounds are a container that is limiting
+   * the proposed motion.
+   * @returns {{horizontalEdge: Line, verticalEdge: Line}} - an object with the horizontal and vertical edges with
+   * which an object moving in the proposed direction could potentially collide
+   * @private
+   */
+  getPotentiallyBlockingObstacleEdges( proposedTranslation, obstacleOrContainerBounds, obstacle = true ) {
+
+    let horizontalEdge;
+    let verticalEdge;
+
+    if ( proposedTranslation.x > 0 && obstacle || proposedTranslation.x < 0 && !obstacle ) {
+
+      // The edge that could get in the way is the left side of the object or container.
+      verticalEdge = new Line(
+        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.minY ),
+        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.maxY )
+      );
+    }
+    else {
+
+      // The edge that could get in the way is the right side of the object or container.
+      verticalEdge = new Line(
+        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.minY ),
+        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.maxY )
+      );
+    }
+
+    if ( proposedTranslation.y > 0 && obstacle || proposedTranslation.y < 0 && !obstacle ) {
+
+      // The edge that could get in the way is the top of the object or container (increasing Y is in the downward
+      // direction).
+      horizontalEdge = new Line(
+        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.minY ),
+        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.minY )
+      );
+    }
+    else {
+
+      // The edge that could get in the way is the bottom of the object (decreasing Y is in the upward direction).
+      horizontalEdge = new Line(
+        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.maxY ),
+        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.maxY )
+      );
+    }
+
+    return {
+      horizontalEdge: horizontalEdge,
+      verticalEdge: verticalEdge
+    };
+  }
+
+  /**
+   * Move the magnet to the proposed position unless doing so would cause it to move through obstacles or out of the
+   * sim bounds.  In those cases, limit the motion to what can be allowed.
+   * @param {Vector2} proposedPosition - a proposed position for the magnet
    * @public
    */
   moveMagnetToPosition( proposedPosition ) {
 
-    const currentMagnetBounds = this.magnet.getBounds();
     const proposedTranslation = proposedPosition.minus( this.magnet.positionProperty.value );
-    const projectedMagnetBounds = currentMagnetBounds.shifted( proposedTranslation.x, proposedTranslation.y );
 
-    // check intersection with any restricted areas if not intersected yet
-    if ( this.intersectedBounds === null ) {
+    // Make a list of the restricted bounds that could block the magnet's motion.  This varies based on which coils are
+    // currently visible.
+    let restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
+    if ( this.topCoilVisibleProperty.value ) {
+      restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
+    }
 
-      // Make a list of the restricted bounds based on which coils are currently visible.
-      let restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
-      if ( this.topCoilVisibleProperty.value ) {
-        restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
-      }
+    // Get a set of lines that represent the leading edges of the magnet if it is moved using the proposed translation.
+    const leadingMagnetEdges = this.getMagnetLeadingEdgeLines( proposedTranslation );
 
-      // Test whether the projected bounds intersect with any of the restricted bounds.
-      for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
-        const restrictedBounds = restrictedBoundsList[ i ];
-        if ( projectedMagnetBounds.intersectsBounds( restrictedBounds ) ) {
+    // Test the proposed motion against the potential obstacles, which, in this sim, are the coils.
+    let smallestAllowedTranslation = proposedTranslation.copy();
+    let boundsThatLimitedMotion = null;
+    restrictedBoundsList.forEach( restrictedBounds => {
+      const obstacleEdgeLines = this.getPotentiallyBlockingObstacleEdges( proposedTranslation, restrictedBounds );
+      const allowedTranslation = this.checkObjectMotion(
+        leadingMagnetEdges,
+        proposedTranslation,
+        obstacleEdgeLines
+      );
+      if ( !allowedTranslation.equals( proposedTranslation ) ) {
 
-          // Emit an event to indicate that the magnet has bumped into one of the coils.
-          if ( this.bottomCoilRestrictedBounds.includes( restrictedBounds ) ) {
-            this.coilBumpEmitter.emit( CoilTypeEnum.FOUR_COIL );
-          }
-          else {
-            this.coilBumpEmitter.emit( CoilTypeEnum.TWO_COIL );
-          }
-
-          // extend area so magnet cannot jump through restricted area on other side of it if mouse far enough
-          this.intersectedBounds = restrictedBounds.copy();
-
-          if ( Math.abs( proposedTranslation.y ) > Math.abs( proposedTranslation.x ) ) {
-
-            // vertical direction
-            if ( proposedTranslation.y > 0 ) {
-              this.magnetMovingDirection = EdgeEnum.BOTTOM;
-              this.intersectedBounds.setMaxY( COIL_BOUNDS_EXTENSION_AMOUNT );
-            }
-            else {
-              this.magnetMovingDirection = EdgeEnum.TOP;
-              this.intersectedBounds.setMinY( -COIL_BOUNDS_EXTENSION_AMOUNT );
-            }
-          }
-          else {
-
-            // horizontal
-            if ( proposedTranslation.x > 0 ) {
-              this.magnetMovingDirection = EdgeEnum.RIGHT;
-              this.intersectedBounds.setMaxX( COIL_BOUNDS_EXTENSION_AMOUNT );
-            }
-            else {
-              this.magnetMovingDirection = EdgeEnum.LEFT;
-              this.intersectedBounds.setMinX( -COIL_BOUNDS_EXTENSION_AMOUNT );
-            }
-          }
-          break;
+        // An obstacle was encountered, so limit the allowed motion.
+        if ( smallestAllowedTranslation.magnitude > allowedTranslation.magnitude ) {
+          smallestAllowedTranslation = allowedTranslation;
+          boundsThatLimitedMotion = restrictedBounds;
         }
       }
-    }
+    } );
 
-    // Limit the magnet's position if the proposed position would put it in a restricted area or out of the sim bounds.
-    const newPosition = proposedPosition.copy();
-    if ( this.intersectedBounds && projectedMagnetBounds.intersectsBounds( this.intersectedBounds ) ) {
-      if ( this.magnetMovingDirection === EdgeEnum.BOTTOM ) {
-        newPosition.y = this.intersectedBounds.y - this.magnet.height / 2;
-      }
-      else if ( this.magnetMovingDirection === EdgeEnum.TOP ) {
-        newPosition.y = this.intersectedBounds.maxY + this.magnet.height / 2;
-      }
-      else if ( this.magnetMovingDirection === EdgeEnum.LEFT ) {
-        newPosition.x = this.intersectedBounds.maxX + this.magnet.width / 2;
-      }
-      else if ( this.magnetMovingDirection === EdgeEnum.RIGHT ) {
-        newPosition.x = this.intersectedBounds.x - this.magnet.width / 2;
+    // If the motion was limited due to running into an obstacle, determine if an event should be emitted that indicates
+    // that a coil was bumped.
+    if ( boundsThatLimitedMotion && boundsThatLimitedMotion !== this.previousBoundsThatLimitedMotion ) {
+      if ( this.bottomCoilRestrictedBounds.includes( boundsThatLimitedMotion ) ) {
+        this.coilBumpEmitter.emit( CoilTypeEnum.FOUR_COIL );
       }
       else {
-        throw new Error( 'invalid magnetMovingDirection: ' + this.magnetMovingDirection );
+        this.coilBumpEmitter.emit( CoilTypeEnum.TWO_COIL );
       }
     }
-    else {
-      this.intersectedBounds = null;
 
-      // Limit the motion of the magnet to be within the sim bounds, which are generally the layout bounds of the view.
-      if ( !this.bounds.containsBounds( projectedMagnetBounds ) ) {
-        newPosition.x = Math.max( Math.min( proposedPosition.x, this.bounds.maxX - this.magnet.width / 2 ), this.bounds.x + this.magnet.width / 2 );
-        newPosition.y = Math.max( Math.min( proposedPosition.y, this.bounds.maxY - this.magnet.height / 2 ), this.bounds.y + this.magnet.height / 2 );
-      }
+    // If there were no obstacles encountered, test against the edges of the sim area.  Strictly speaking, this is not
+    // entirely general, but this sim is set up such that it is impossible to encounter edges and obstacles at the same
+    // time, so it isn't necessary to test for both.
+    if ( smallestAllowedTranslation.equals( proposedTranslation ) ) {
+
+      const boundaryEdgeLines = this.getPotentiallyBlockingObstacleEdges( proposedTranslation, this.bounds, false );
+      smallestAllowedTranslation = this.checkObjectMotion(
+        leadingMagnetEdges,
+        proposedTranslation,
+        boundaryEdgeLines
+      );
     }
 
     // Set the resultant position.
+    const newPosition = this.magnet.positionProperty.value.plus( smallestAllowedTranslation );
     this.magnet.positionProperty.set( newPosition );
 
-    // Figure out what the bounds ended up being after checking the potential limits.
-    let finalMagnetBounds;
-    if ( newPosition.equals( proposedPosition ) ) {
-      finalMagnetBounds = projectedMagnetBounds;
-    }
-    else {
-      finalMagnetBounds = this.magnet.getBounds();
-    }
+    // Figure out what the bounds ended up being.
+    const finalMagnetBounds = this.magnet.getBounds();
 
     // Check whether the position has changed such that the magnet has hit a boundary.
-    if ( this.previousMagnetBounds &&
-         ( ( this.previousMagnetBounds.maxX < this.bounds.maxX && finalMagnetBounds.maxX >= this.bounds.maxX ) ||
-           ( this.previousMagnetBounds.minX > this.bounds.minX && finalMagnetBounds.minX <= this.bounds.minX ) ||
-           ( this.previousMagnetBounds.maxY < this.bounds.maxY && finalMagnetBounds.maxY >= this.bounds.maxY ) ||
-           ( this.previousMagnetBounds.minY > this.bounds.minY && finalMagnetBounds.minY <= this.bounds.minY )
-         )
-    ) {
-      this.edgeBumpEmitter.emit();
+    if ( this.previousMagnetBounds ) {
+      const boundsWithMargin = this.bounds.dilated( -MIN_MAGNET_TO_OBJECT_DISTANCE );
+
+      // The following rounding was necessary to work around a floating point issue.
+      const digitsToTest = 10;
+      const previousMagnetBoundsMinX = Utils.toFixedNumber( this.previousMagnetBounds.minX, digitsToTest );
+      const finalMagnetBoundsMinX = Utils.toFixedNumber( finalMagnetBounds.minX, digitsToTest );
+
+      // If the magnet is now up against the bounds, and it wasn't before, fire the edgeBumpEmitter.
+      if ( ( this.previousMagnetBounds.maxX < boundsWithMargin.maxX && finalMagnetBounds.maxX >= boundsWithMargin.maxX ) ||
+           ( previousMagnetBoundsMinX > boundsWithMargin.minX && finalMagnetBoundsMinX <= boundsWithMargin.minX ) ||
+           ( this.previousMagnetBounds.maxY < boundsWithMargin.maxY && finalMagnetBounds.maxY >= boundsWithMargin.maxY ) ||
+           ( this.previousMagnetBounds.minY > boundsWithMargin.minY && finalMagnetBounds.minY <= boundsWithMargin.minY )
+      ) {
+        this.edgeBumpEmitter.emit();
+      }
     }
 
-    // Keep a history of the bounds so that edge bumps can be detected.
+    // Keep a record of the magnet bounds so that edge bumps can be detected.
     this.previousMagnetBounds = finalMagnetBounds;
+
+    // Keep a record of any bounds that limited the motion so we can use them to detect new obstacle bumps.
+    this.previousBoundsThatLimitedMotion = boundsThatLimitedMotion;
   }
 }
 
