@@ -306,108 +306,54 @@ class FaradaysLawModel {
   }
 
   /**
-   * Given a proposed translation, get the horizontal and vertical leading edge lines for the magnet.  For instance,
-   * if the proposed translation is to the right, the right side of the magnet would be the leading edge.  This is used
-   * for collision detection.
+   * Get the edges of a rectangular object that is moving in a particular direction or that is being moved towards.
+   * These edges are generally used to test for collisions between objects.
    * @param {Vector2} proposedTranslation
-   * @returns {{horizontalEdge: Line, verticalEdge: Line}} - an object with the horizontal and vertical leading edges
+   * @param {Bounds2} objectBounds
+   * @param {boolean} externalPerspective - If true, return the edges that would be encountered by something that was
+   * moving towards this object in the direction indicated by the translation.  For example, if the translation
+   * indicates motion that is down and to the right, the top and left edges are returned.  If false, an internal
+   * perspective is assumed and the edges are provided as if the translation is occurring from *inside* the provided
+   * rectangular object.
+   * @returns {{horizontalEdge: Line, verticalEdge: Line}} - an object with horizontal and vertical edges
    * @private
    */
-  getMagnetLeadingEdgeLines( proposedTranslation ) {
-
-    const currentMagnetBounds = this.magnet.getBounds();
-    let leadingHorizontalEdge;
-    let leadingVerticalEdge;
-
-    if ( proposedTranslation.x > 0 ) {
-
-      // The leading vertical edge is the right side of the magnet.
-      leadingVerticalEdge = new Line(
-        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.minY ),
-        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.maxY )
-      );
-    }
-    else {
-
-      // The leading vertical edge is the left side of the magnet.
-      leadingVerticalEdge = new Line(
-        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.minY ),
-        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.maxY )
-      );
-    }
-
-    if ( proposedTranslation.y > 0 ) {
-
-      // The leading horizontal edge is the bottom of the magnet (increasing Y is in the downward direction).
-      leadingHorizontalEdge = new Line(
-        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.maxY ),
-        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.maxY )
-      );
-    }
-    else {
-
-      // The leading horizontal edge is the top of the magnet (decreasing Y is in the upward direction).
-      leadingHorizontalEdge = new Line(
-        new Vector2( currentMagnetBounds.minX, currentMagnetBounds.minY ),
-        new Vector2( currentMagnetBounds.maxX, currentMagnetBounds.minY )
-      );
-    }
-
-    return {
-      horizontalEdge: leadingHorizontalEdge,
-      verticalEdge: leadingVerticalEdge
-    };
-  }
-
-  /**
-   * Get the edges of a rectangular obstacle or container that could potentially block the motion of an object moving
-   * with the proposed translation.
-   * @param {Vector2} proposedTranslation
-   * @param {Bounds2} obstacleOrContainerBounds
-   * @param {boolean} obstacle - If true, return the potentially blocking edges assuming that the obstacle is
-   * potentially in the way of the proposed motion, otherwise assume that the bounds are a container that is limiting
-   * the proposed motion.
-   * @returns {{horizontalEdge: Line, verticalEdge: Line}} - an object with the horizontal and vertical edges with
-   * which an object moving in the proposed direction could potentially collide
-   * @private
-   */
-  getPotentiallyBlockingObstacleEdges( proposedTranslation, obstacleOrContainerBounds, obstacle = true ) {
+  getMotionEdges( proposedTranslation, objectBounds, externalPerspective = true ) {
 
     let horizontalEdge;
     let verticalEdge;
 
-    if ( proposedTranslation.x > 0 && obstacle || proposedTranslation.x < 0 && !obstacle ) {
+    if ( proposedTranslation.x > 0 && externalPerspective || proposedTranslation.x < 0 && !externalPerspective ) {
 
-      // The edge that could get in the way is the left side of the object or container.
+      // The needed edge is the left side of the object or container.
       verticalEdge = new Line(
-        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.minY ),
-        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.maxY )
+        new Vector2( objectBounds.minX, objectBounds.minY ),
+        new Vector2( objectBounds.minX, objectBounds.maxY )
       );
     }
     else {
 
-      // The edge that could get in the way is the right side of the object or container.
+      // The needed edge is the right side of the object or container.
       verticalEdge = new Line(
-        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.minY ),
-        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.maxY )
+        new Vector2( objectBounds.maxX, objectBounds.minY ),
+        new Vector2( objectBounds.maxX, objectBounds.maxY )
       );
     }
 
-    if ( proposedTranslation.y > 0 && obstacle || proposedTranslation.y < 0 && !obstacle ) {
+    if ( proposedTranslation.y > 0 && externalPerspective || proposedTranslation.y < 0 && !externalPerspective ) {
 
-      // The edge that could get in the way is the top of the object or container (increasing Y is in the downward
-      // direction).
+      // The needed edge is the top of the object or container (positive Y is in the downward direction).
       horizontalEdge = new Line(
-        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.minY ),
-        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.minY )
+        new Vector2( objectBounds.minX, objectBounds.minY ),
+        new Vector2( objectBounds.maxX, objectBounds.minY )
       );
     }
     else {
 
-      // The edge that could get in the way is the bottom of the object (decreasing Y is in the upward direction).
+      // The needed edge is the bottom of the object or container (positive Y is in the downward direction).
       horizontalEdge = new Line(
-        new Vector2( obstacleOrContainerBounds.minX, obstacleOrContainerBounds.maxY ),
-        new Vector2( obstacleOrContainerBounds.maxX, obstacleOrContainerBounds.maxY )
+        new Vector2( objectBounds.minX, objectBounds.maxY ),
+        new Vector2( objectBounds.maxX, objectBounds.maxY )
       );
     }
 
@@ -435,13 +381,13 @@ class FaradaysLawModel {
     }
 
     // Get a set of lines that represent the leading edges of the magnet if it is moved using the proposed translation.
-    const leadingMagnetEdges = this.getMagnetLeadingEdgeLines( proposedTranslation );
+    const leadingMagnetEdges = this.getMotionEdges( proposedTranslation, this.magnet.getBounds(), false );
 
     // Test the proposed motion against the potential obstacles, which, in this sim, are the coils.
     let smallestAllowedTranslation = proposedTranslation.copy();
     let boundsThatLimitedMotion = null;
     restrictedBoundsList.forEach( restrictedBounds => {
-      const obstacleEdgeLines = this.getPotentiallyBlockingObstacleEdges( proposedTranslation, restrictedBounds );
+      const obstacleEdgeLines = this.getMotionEdges( proposedTranslation, restrictedBounds );
       const allowedTranslation = this.checkObjectMotion(
         leadingMagnetEdges,
         proposedTranslation,
@@ -473,7 +419,7 @@ class FaradaysLawModel {
     // time, so it isn't necessary to test for both.
     if ( smallestAllowedTranslation.equals( proposedTranslation ) ) {
 
-      const boundaryEdgeLines = this.getPotentiallyBlockingObstacleEdges( proposedTranslation, this.bounds, false );
+      const boundaryEdgeLines = this.getMotionEdges( proposedTranslation, this.bounds, false );
       smallestAllowedTranslation = this.checkObjectMotion(
         leadingMagnetEdges,
         proposedTranslation,
