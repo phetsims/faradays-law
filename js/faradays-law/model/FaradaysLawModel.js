@@ -250,7 +250,7 @@ class FaradaysLawModel {
       // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
       // other words, would these two lines collide with each other when moved by the proposed translation?
       const translationScaleFactor = horizontalDelta / proposedTranslation.x;
-      assert && assert( translationScaleFactor < 1, 'if we hit this, something is wrong in the code above' );
+      assert && assert( translationScaleFactor <= 1, 'if we hit this, something is wrong in the code above' );
       const scaledDownTranslation = proposedTranslation.timesScalar( translationScaleFactor );
       const projectedLineStartPoint = leadingEdgeLines.verticalEdge.start.plus( scaledDownTranslation );
       const projectedLineEndPoint = leadingEdgeLines.verticalEdge.end.plus( scaledDownTranslation );
