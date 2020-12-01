@@ -58,7 +58,7 @@ class MagnetAutoSlideKeyboardListener {
       this.controlKeyIsDownMap.set( keyCode, false );
     }
 
-    // @public (read-only) - true when the magnet is being animated (moved)
+    // @public (read-only) - true when the magnet is being animated (moved) by this object
     this.isAnimatingProperty = new BooleanProperty( false );
 
     // @public (read-only) - the position where the magnet will head towards if and when this listener is fired
@@ -201,6 +201,13 @@ class MagnetAutoSlideKeyboardListener {
       // Invoke the client-provided handler (this does nothing if the client didn't provide one).
       options.onKeyUp( event );
     };
+
+    // Stop the animation if the user starts dragging the magnet.
+    model.magnet.isDraggingProperty.link( isDragging => {
+      if ( isDragging ) {
+        this.isAnimatingProperty.set( false );
+      }
+    } );
 
     // step the drag listener, must be removed in dispose
     const stepListener = this.step.bind( this );

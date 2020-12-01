@@ -48,6 +48,11 @@ class Magnet {
       tandem: tandem.createTandem( 'fieldLinesVisibleProperty' ),
       phetioDocumentation: 'True if the field lines are visible'
     } );
+
+    // @public {BooleanProperty} - whether the user is currently dragging the magnet
+    this.isDraggingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isDraggingProperty' )
+    } );
   }
 
   /**

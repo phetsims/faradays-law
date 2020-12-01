@@ -120,6 +120,7 @@ class MagnetNodeWithField extends Node {
 
       start( event ) {
         grabMagnetSoundPlayer.play();
+        model.magnet.isDraggingProperty.set( true );
         magnetOffset = self.globalToParentPoint( event.pointer.point ).minus( self.translation );
       },
 
@@ -131,7 +132,8 @@ class MagnetNodeWithField extends Node {
         model.moveMagnetToPosition( desiredPosition );
       },
 
-      end( event ) {
+      end() {
+        model.magnet.isDraggingProperty.set( false );
         releaseMagnetSoundPlayer.play();
         alertManager.movementEndAlert();
       }
