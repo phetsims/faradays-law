@@ -240,7 +240,8 @@ class FaradaysLawModel {
     const horizontalDelta = obstacleEdgeLines.verticalEdge.start.x - leadingEdgeLines.verticalEdge.start.x;
 
     // Test if the restricted bounds are within a distance and on a side where interference could occur.
-    if ( ( Math.sign( proposedTranslation.x ) === Math.sign( horizontalDelta ) || horizontalDelta === 0 ) &&
+    if ( Math.abs( proposedTranslation.x ) > 0 &&
+         ( Math.sign( proposedTranslation.x ) === Math.sign( horizontalDelta ) || horizontalDelta === 0 ) &&
          Math.abs( proposedTranslation.x ) >= Math.abs( horizontalDelta ) ) {
 
       // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
@@ -269,7 +270,8 @@ class FaradaysLawModel {
     const verticalDelta = obstacleEdgeLines.horizontalEdge.start.y - leadingEdgeLines.horizontalEdge.start.y;
 
     // Test if the restricted bounds are within a distance and on a side where interference could occur.
-    if ( ( Math.sign( proposedTranslation.y ) === Math.sign( verticalDelta ) || verticalDelta === 0 ) &&
+    if ( Math.abs( proposedTranslation.y ) > 0 &&
+         ( Math.sign( proposedTranslation.y ) === Math.sign( verticalDelta ) || verticalDelta === 0 ) &&
          Math.abs( proposedTranslation.y ) >= Math.abs( verticalDelta ) ) {
 
       // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
