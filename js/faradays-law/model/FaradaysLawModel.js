@@ -30,10 +30,6 @@ const COIL_RESTRICTED_AREA_HEIGHT = 11;
 const TOP_COIL_RESTRICTED_AREA_WIDTH = 25;
 const BOTTOM_COIL_RESTRICTED_AREA_WIDTH = 55;
 
-// Minimum distance between the magnet and the restricted areas (i.e. the coils) or the motion bounds.  This is used to
-// make sure that the magnet never goes through anything.
-const MIN_MAGNET_TO_OBJECT_DISTANCE = 0.01;
-
 class FaradaysLawModel {
 
   /**
@@ -244,7 +240,7 @@ class FaradaysLawModel {
     const horizontalDelta = obstacleEdgeLines.verticalEdge.start.x - leadingEdgeLines.verticalEdge.start.x;
 
     // Test if the restricted bounds are within a distance and on a side where interference could occur.
-    if ( Math.sign( proposedTranslation.x ) === Math.sign( horizontalDelta ) &&
+    if ( ( Math.sign( proposedTranslation.x ) === Math.sign( horizontalDelta ) || horizontalDelta === 0 ) &&
          Math.abs( proposedTranslation.x ) >= Math.abs( horizontalDelta ) ) {
 
       // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
@@ -265,9 +261,7 @@ class FaradaysLawModel {
 
         // The proposed translation would cause the edge lines to collide, so limit the horizontal motion to an amount
         // where overlap will not occur.
-        allowedHorizontalMotion = Math.sign( horizontalDelta ) === 1 ?
-                                  horizontalDelta - MIN_MAGNET_TO_OBJECT_DISTANCE :
-                                  horizontalDelta + MIN_MAGNET_TO_OBJECT_DISTANCE;
+        allowedHorizontalMotion = horizontalDelta;
       }
     }
 
@@ -275,7 +269,7 @@ class FaradaysLawModel {
     const verticalDelta = obstacleEdgeLines.horizontalEdge.start.y - leadingEdgeLines.horizontalEdge.start.y;
 
     // Test if the restricted bounds are within a distance and on a side where interference could occur.
-    if ( Math.sign( proposedTranslation.y ) === Math.sign( verticalDelta ) &&
+    if ( ( Math.sign( proposedTranslation.y ) === Math.sign( verticalDelta ) || verticalDelta === 0 ) &&
          Math.abs( proposedTranslation.y ) >= Math.abs( verticalDelta ) ) {
 
       // Test whether the leading edge line would overlap with the bounds edge if projected to the same location.  In
@@ -296,9 +290,7 @@ class FaradaysLawModel {
 
         // The proposed translation would cause the edge lines to collide, so limit the vertical motion to an amount
         // where overlap will not occur.
-        allowedVerticalMotion = Math.sign( verticalDelta ) === 1 ?
-                                verticalDelta - MIN_MAGNET_TO_OBJECT_DISTANCE :
-                                verticalDelta + MIN_MAGNET_TO_OBJECT_DISTANCE;
+        allowedVerticalMotion = verticalDelta;
       }
     }
 
@@ -432,29 +424,29 @@ class FaradaysLawModel {
     this.magnet.positionProperty.set( newPosition );
 
     // Figure out what the bounds ended up being.
-    const finalMagnetBounds = this.magnet.getBounds();
+    const newMagnetBounds = this.magnet.getBounds();
 
     // Check whether the position has changed such that the magnet has hit a boundary.
     if ( this.previousMagnetBounds ) {
-      const boundsWithMargin = this.bounds.dilated( -MIN_MAGNET_TO_OBJECT_DISTANCE );
+      const magnetMotionBounds = this.bounds;
 
       // The following rounding was necessary to work around a floating point issue.
       const digitsToTest = 10;
       const previousMagnetBoundsMinX = Utils.toFixedNumber( this.previousMagnetBounds.minX, digitsToTest );
-      const finalMagnetBoundsMinX = Utils.toFixedNumber( finalMagnetBounds.minX, digitsToTest );
+      const finalMagnetBoundsMinX = Utils.toFixedNumber( newMagnetBounds.minX, digitsToTest );
 
       // If the magnet is now up against the bounds, and it wasn't before, fire the edgeBumpEmitter.
-      if ( ( this.previousMagnetBounds.maxX < boundsWithMargin.maxX && finalMagnetBounds.maxX >= boundsWithMargin.maxX ) ||
-           ( previousMagnetBoundsMinX > boundsWithMargin.minX && finalMagnetBoundsMinX <= boundsWithMargin.minX ) ||
-           ( this.previousMagnetBounds.maxY < boundsWithMargin.maxY && finalMagnetBounds.maxY >= boundsWithMargin.maxY ) ||
-           ( this.previousMagnetBounds.minY > boundsWithMargin.minY && finalMagnetBounds.minY <= boundsWithMargin.minY )
+      if ( ( this.previousMagnetBounds.maxX < magnetMotionBounds.maxX && newMagnetBounds.maxX >= magnetMotionBounds.maxX ) ||
+           ( previousMagnetBoundsMinX > magnetMotionBounds.minX && finalMagnetBoundsMinX <= magnetMotionBounds.minX ) ||
+           ( this.previousMagnetBounds.maxY < magnetMotionBounds.maxY && newMagnetBounds.maxY >= magnetMotionBounds.maxY ) ||
+           ( this.previousMagnetBounds.minY > magnetMotionBounds.minY && newMagnetBounds.minY <= magnetMotionBounds.minY )
       ) {
         this.edgeBumpEmitter.emit();
       }
     }
 
     // Keep a record of the magnet bounds so that edge bumps can be detected.
-    this.previousMagnetBounds = finalMagnetBounds;
+    this.previousMagnetBounds = newMagnetBounds;
 
     // Keep a record of any bounds that limited the motion so we can use them to detect new obstacle bumps.
     this.previousBoundsThatLimitedMotion = boundsThatLimitedMotion;
