@@ -32,6 +32,7 @@ import MagnetRegionManager from './MagnetRegionManager.js';
 
 // constants
 const barMagnetString = faradaysLawStrings.a11y.barMagnet;
+const GRAB_RELEASE_SOUND_LEVEL = 0.2; // empirically determined
 
 /**
  * @param {FaradaysLawModel} model
@@ -100,11 +101,11 @@ class MagnetNodeWithField extends Node {
 
     // sound generation
     const grabMagnetSoundPlayer = new SoundClip( grabMagnetSound, {
-      initialOutputLevel: 0.25 // empirically determined
+      initialOutputLevel: GRAB_RELEASE_SOUND_LEVEL
     } );
     soundManager.addSoundGenerator( grabMagnetSoundPlayer );
     const releaseMagnetSoundPlayer = new SoundClip( releaseMagnetSound, {
-      initialOutputLevel: 0.25 // empirically determined
+      initialOutputLevel: GRAB_RELEASE_SOUND_LEVEL
     } );
     soundManager.addSoundGenerator( releaseMagnetSoundPlayer );
 
@@ -119,7 +120,6 @@ class MagnetNodeWithField extends Node {
       allowTouchSnag: true,
 
       start( event ) {
-        grabMagnetSoundPlayer.play();
         model.magnet.isDraggingProperty.set( true );
         magnetOffset = self.globalToParentPoint( event.pointer.point ).minus( self.translation );
       },
@@ -134,7 +134,6 @@ class MagnetNodeWithField extends Node {
 
       end() {
         model.magnet.isDraggingProperty.set( false );
-        releaseMagnetSoundPlayer.play();
         alertManager.movementEndAlert();
       }
     } );
