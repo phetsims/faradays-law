@@ -26,7 +26,7 @@ import Voltmeter from './Voltmeter.js';
 
 // Values used for the restricted zones where the magnet can't be dragged due to the presence of the coils.  These
 // numbers were empirically determined based upon how the artwork for the coils appear in the view.
-const COIL_RESTRICTED_AREA_HEIGHT = 11;
+const COIL_RESTRICTED_AREA_HEIGHT = 12;
 const TOP_COIL_RESTRICTED_AREA_WIDTH = 25;
 const BOTTOM_COIL_RESTRICTED_AREA_WIDTH = 55;
 
@@ -77,15 +77,15 @@ class FaradaysLawModel {
     // @public - top coil
     this.topCoil = new Coil( FaradaysLawConstants.TOP_COIL_POSITION, 2, this.magnet );
 
-    // @public (read-only) {Bounds2[]} - Regions where the magnet cannot be dragged.  There are two for each coil, one for
-    // the upper portion of the coil and one for the lower portion.  The hard coded numbers are empirically determined
-    // based upon how the artwork for the coils ended up projecting into the view.
+    // @public (read-only) {Bounds2[]} - Regions where the magnet cannot be dragged.  There are two for each coil, one
+    // for the upper portion of the coil and one for the lower portion.  The hard coded numbers are empirically
+    // determined based upon how the artwork for the coils ended up projecting into the view.
     this.topCoilRestrictedBounds = [
 
       // upper portion of the coil
       Bounds2.rect(
         this.topCoil.position.x - 7,
-        this.topCoil.position.y - 76,
+        this.topCoil.position.y - 78,
         TOP_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       ),
@@ -93,7 +93,7 @@ class FaradaysLawModel {
       // lower portion of the coil
       Bounds2.rect(
         this.topCoil.position.x,
-        this.topCoil.position.y + 67,
+        this.topCoil.position.y + 66,
         TOP_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       )
@@ -102,8 +102,8 @@ class FaradaysLawModel {
 
       // upper portion of the coil
       Bounds2.rect(
-        this.bottomCoil.position.x - 30,
-        this.bottomCoil.position.y - 76,
+        this.bottomCoil.position.x - 31,
+        this.bottomCoil.position.y - 78,
         BOTTOM_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       ),
@@ -111,7 +111,7 @@ class FaradaysLawModel {
       // lower portion of the coil
       Bounds2.rect(
         this.bottomCoil.position.x - 23,
-        this.bottomCoil.position.y + 67,
+        this.bottomCoil.position.y + 66,
         BOTTOM_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       )
