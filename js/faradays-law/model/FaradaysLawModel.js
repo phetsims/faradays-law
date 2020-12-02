@@ -85,7 +85,7 @@ class FaradaysLawModel {
       // upper portion of the coil
       Bounds2.rect(
         this.topCoil.position.x - 7,
-        this.topCoil.position.y - 78,
+        this.topCoil.position.y - 77,
         TOP_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       ),
@@ -93,7 +93,7 @@ class FaradaysLawModel {
       // lower portion of the coil
       Bounds2.rect(
         this.topCoil.position.x,
-        this.topCoil.position.y + 66,
+        this.topCoil.position.y + 65,
         TOP_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       )
@@ -103,7 +103,7 @@ class FaradaysLawModel {
       // upper portion of the coil
       Bounds2.rect(
         this.bottomCoil.position.x - 31,
-        this.bottomCoil.position.y - 78,
+        this.bottomCoil.position.y - 77,
         BOTTOM_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       ),
@@ -111,7 +111,7 @@ class FaradaysLawModel {
       // lower portion of the coil
       Bounds2.rect(
         this.bottomCoil.position.x - 23,
-        this.bottomCoil.position.y + 66,
+        this.bottomCoil.position.y + 65,
         BOTTOM_COIL_RESTRICTED_AREA_WIDTH,
         COIL_RESTRICTED_AREA_HEIGHT
       )
