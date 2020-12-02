@@ -208,6 +208,7 @@ class MagnetNodeWithField extends Node {
     // this capability is not used here, and the drag cue is managed elsewhere.  That's because the drag cue (the four
     // arrows) needed to be visible at times that were not entirely under the control of GrabDragInteraction.
     const grabDragInteraction = new GrabDragInteraction( draggableNode, {
+      objectToGrabString: barMagnetString,
       listenersForDrag: [ keyboardDragListener, magnetJumpKeyboardListener ],
       listenersForGrab: [ focusListener ],
       grabCueOptions: {
