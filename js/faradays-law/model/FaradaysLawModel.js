@@ -12,7 +12,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Line from '../../../../kite/js/segments/Line.js';
 import faradaysLaw from '../../faradaysLaw.js';
@@ -135,9 +134,6 @@ class FaradaysLawModel {
     // @private {Bounds2|null} - bounds where magnet was set to on the last movement attempt, used to detect transitions
     // between being totally in bounds and reaching the boundary edge
     this.previousMagnetBounds = null;
-
-    // @private {Bounds2|null} - bounds that restricted the magnet's motion the last time its position was set, if any
-    this.previousBoundsThatLimitedMotion = null;
 
     // If the magnet intersects the top coil area when the top coil is shown, then reset the magnet.
     this.topCoilVisibleProperty.link( showTopCoil => {
@@ -426,7 +422,6 @@ class FaradaysLawModel {
 
     // Test the proposed motion against the potential obstacles, which, in this sim, are the coils.
     let smallestAllowedTranslation = proposedTranslation.copy();
-    let boundsThatLimitedMotion = null;
     restrictedBoundsList.forEach( restrictedBounds => {
       const obstacleEdgeLines = this.getMotionEdges( proposedTranslation, restrictedBounds );
       const allowedTranslation = this.checkMotionAgainstObstacles(
@@ -439,21 +434,9 @@ class FaradaysLawModel {
         // An obstacle was encountered, so limit the allowed motion.
         if ( smallestAllowedTranslation.magnitude > allowedTranslation.magnitude ) {
           smallestAllowedTranslation = allowedTranslation;
-          boundsThatLimitedMotion = restrictedBounds;
         }
       }
     } );
-
-    // If the motion was limited due to running into an obstacle, determine if an event should be emitted that indicates
-    // that a coil was bumped.
-    if ( boundsThatLimitedMotion && boundsThatLimitedMotion !== this.previousBoundsThatLimitedMotion ) {
-      if ( this.bottomCoilRestrictedBounds.includes( boundsThatLimitedMotion ) ) {
-        this.coilBumpEmitter.emit( CoilTypeEnum.FOUR_COIL );
-      }
-      else {
-        this.coilBumpEmitter.emit( CoilTypeEnum.TWO_COIL );
-      }
-    }
 
     // Test against the edges of the sim area.
     smallestAllowedTranslation = this.checkMotionAgainstBounds(
@@ -462,37 +445,47 @@ class FaradaysLawModel {
       this.bounds
     );
 
-    // Set the resultant position.
+    // Set the resultant position for the magnet.
     const newPosition = this.magnet.positionProperty.value.plus( smallestAllowedTranslation );
     this.magnet.positionProperty.set( newPosition );
 
     // Figure out what the bounds ended up being.
     const newMagnetBounds = this.magnet.getBounds();
 
-    // Check whether the position has changed such that the magnet has hit a boundary.
+    // Check whether the position has changed such that the magnet has hit a boundary or a restricted area.
     if ( this.previousMagnetBounds ) {
-      const magnetMotionBounds = this.bounds;
 
-      // The following rounding was necessary to work around a floating point issue.
-      const digitsToTest = 10;
-      const previousMagnetBoundsMinX = Utils.toFixedNumber( this.previousMagnetBounds.minX, digitsToTest );
-      const finalMagnetBoundsMinX = Utils.toFixedNumber( newMagnetBounds.minX, digitsToTest );
+      const magnetMotionBounds = this.bounds;
 
       // If the magnet is now up against the bounds, and it wasn't before, fire the edgeBumpEmitter.
       if ( ( this.previousMagnetBounds.maxX < magnetMotionBounds.maxX && newMagnetBounds.maxX >= magnetMotionBounds.maxX ) ||
-           ( previousMagnetBoundsMinX > magnetMotionBounds.minX && finalMagnetBoundsMinX <= magnetMotionBounds.minX ) ||
+           ( this.previousMagnetBounds.minX > magnetMotionBounds.minX && newMagnetBounds.minX <= magnetMotionBounds.minX ) ||
            ( this.previousMagnetBounds.maxY < magnetMotionBounds.maxY && newMagnetBounds.maxY >= magnetMotionBounds.maxY ) ||
            ( this.previousMagnetBounds.minY > magnetMotionBounds.minY && newMagnetBounds.minY <= magnetMotionBounds.minY )
       ) {
         this.edgeBumpEmitter.emit();
       }
+
+      // Check whether any restricted bounds have been hit and fire an emitter if so.
+      restrictedBoundsList.forEach( restrictedBounds => {
+        if ( restrictedBounds.intersectsBounds( newMagnetBounds ) ) {
+          if ( !restrictedBounds.intersectsBounds( this.previousMagnetBounds ) ) {
+
+            // The magnet has come into contact with some restricted bounds with which it was NOT in contact during the
+            // previous movement.  Emit the appropriate signal.
+            if ( this.bottomCoilRestrictedBounds.includes( restrictedBounds ) ) {
+              this.coilBumpEmitter.emit( CoilTypeEnum.FOUR_COIL );
+            }
+            else {
+              this.coilBumpEmitter.emit( CoilTypeEnum.TWO_COIL );
+            }
+          }
+        }
+      } );
     }
 
-    // Keep a record of the magnet bounds so that edge bumps can be detected.
+    // Keep a record of the magnet bounds so that bumps can be detected.
     this.previousMagnetBounds = newMagnetBounds;
-
-    // Keep a record of any bounds that limited the motion so we can use them to detect new obstacle bumps.
-    this.previousBoundsThatLimitedMotion = boundsThatLimitedMotion;
   }
 }
 
