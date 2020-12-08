@@ -458,7 +458,7 @@ class FaradaysLawModel {
     // Test against the edges of the sim area.
     smallestAllowedTranslation = this.checkMotionAgainstBounds(
       leadingMagnetEdges,
-      proposedTranslation,
+      smallestAllowedTranslation,
       this.bounds
     );
 
