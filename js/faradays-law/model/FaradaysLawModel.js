@@ -225,7 +225,7 @@ class FaradaysLawModel {
    * proposed motion, and limited version thereof
    * @private
    */
-  checkObjectMotion( leadingEdgeLines, proposedTranslation, obstacleEdgeLines ) {
+  checkMotionAgainstObstacles( leadingEdgeLines, proposedTranslation, obstacleEdgeLines ) {
 
     // If there is no actual motion proposed, there is nothing to do here.  This is done as an optimization.
     if ( proposedTranslation.x === 0 && proposedTranslation.y === 0 ) {
@@ -297,6 +297,53 @@ class FaradaysLawModel {
     }
 
     return new Vector2( allowedHorizontalMotion, allowedVerticalMotion );
+  }
+
+  /**
+   * Given the leading edges for a rectangular moving object, a proposed translation, and the bounds in which the object
+   * needs to be contained, return either the original translation if no interaction would occur with the bounds or a
+   * revised, limited translation that is the amount of motion possible before hitting the bounds.
+   * @param {{verticalEdge: Line, horizontalEdge: Line }} leadingEdgeLines
+   * @param {Vector2} proposedTranslation
+   * @param {Bounds2} bounds
+   * @returns {Vector2} - either a copy of the proposed translation or, if the obstacle edges would interfere with the
+   * proposed motion, and limited version thereof
+   * @private
+   */
+  checkMotionAgainstBounds( leadingEdgeLines, proposedTranslation, bounds ) {
+
+    // If there is no actual motion proposed, there is nothing to do here.  This is done as an optimization.
+    if ( proposedTranslation.x === 0 && proposedTranslation.y === 0 ) {
+      return proposedTranslation;
+    }
+
+    const allowedTranslation = proposedTranslation.copy();
+
+    // x direction
+    if ( proposedTranslation.x > 0 ) {
+      if ( leadingEdgeLines.verticalEdge.start.x + proposedTranslation.x > bounds.maxX ) {
+        allowedTranslation.setX( bounds.maxX - leadingEdgeLines.verticalEdge.start.x );
+      }
+    }
+    else {
+      if ( leadingEdgeLines.verticalEdge.start.x + proposedTranslation.x < bounds.minX ) {
+        allowedTranslation.setX( bounds.minX - leadingEdgeLines.verticalEdge.start.x );
+      }
+    }
+
+    // y direction
+    if ( proposedTranslation.y > 0 ) {
+      if ( leadingEdgeLines.horizontalEdge.start.y + proposedTranslation.y > bounds.maxY ) {
+        allowedTranslation.setY( bounds.maxY - leadingEdgeLines.horizontalEdge.start.y );
+      }
+    }
+    else {
+      if ( leadingEdgeLines.horizontalEdge.start.y + proposedTranslation.y < bounds.minY ) {
+        allowedTranslation.setY( bounds.minY - leadingEdgeLines.horizontalEdge.start.y );
+      }
+    }
+
+    return allowedTranslation;
   }
 
   /**
@@ -382,7 +429,7 @@ class FaradaysLawModel {
     let boundsThatLimitedMotion = null;
     restrictedBoundsList.forEach( restrictedBounds => {
       const obstacleEdgeLines = this.getMotionEdges( proposedTranslation, restrictedBounds );
-      const allowedTranslation = this.checkObjectMotion(
+      const allowedTranslation = this.checkMotionAgainstObstacles(
         leadingMagnetEdges,
         proposedTranslation,
         obstacleEdgeLines
@@ -408,18 +455,12 @@ class FaradaysLawModel {
       }
     }
 
-    // If there were no obstacles encountered, test against the edges of the sim area.  Strictly speaking, this is not
-    // entirely general, but this sim is set up such that it is impossible to encounter edges and obstacles at the same
-    // time, so it isn't necessary to test for both.
-    if ( smallestAllowedTranslation.equals( proposedTranslation ) ) {
-
-      const boundaryEdgeLines = this.getMotionEdges( proposedTranslation, this.bounds, false );
-      smallestAllowedTranslation = this.checkObjectMotion(
-        leadingMagnetEdges,
-        proposedTranslation,
-        boundaryEdgeLines
-      );
-    }
+    // Test against the edges of the sim area.
+    smallestAllowedTranslation = this.checkMotionAgainstBounds(
+      leadingMagnetEdges,
+      proposedTranslation,
+      this.bounds
+    );
 
     // Set the resultant position.
     const newPosition = this.magnet.positionProperty.value.plus( smallestAllowedTranslation );
