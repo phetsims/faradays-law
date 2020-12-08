@@ -154,7 +154,8 @@ class MagnetAutoSlideKeyboardListener {
           }
           else {
 
-            // The magnet is not currently sliding, so start it moving towards the coils.
+            // The magnet is not currently sliding, so start it moving.  It will move towards the coils if there is
+            // room to do so, otherwise it will move away from them.
             if ( model.magnet.positionProperty.value.x < FaradaysLawConstants.TOP_COIL_POSITION.x ) {
               updateSlideTarget( RIGHT );
             }
@@ -254,10 +255,13 @@ class MagnetAutoSlideKeyboardListener {
         // Make sure the new position doesn't put the magnet outside of the drag bounds.
         const constrainedNewPosition = this._dragBounds.closestPointTo( unconstrainedNewPosition );
 
+        // Move the magnet.
         this.model.moveMagnetToPosition( constrainedNewPosition );
-      }
-      else {
-        this.isAnimatingProperty.set( false );
+
+        // If the magnet made it to the target location, the animation is complete.
+        if ( this.model.magnet.positionProperty.value.equals( this.slideTargetPositionProperty.value ) ) {
+          this.isAnimatingProperty.set( false );
+        }
       }
     }
   }
