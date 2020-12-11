@@ -223,7 +223,7 @@
       "value": "Touching {{side}} of {{coil}}."
     },
     "magnetPositionProximityPattern": {
-      "value": "{{magnetPosition}}. {{coilProximity}}."
+      "value": "{{magnetPosition}} {{coilProximity}}"
     },
     "topLeft": {
       "value": "top-left"
