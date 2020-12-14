@@ -69,47 +69,77 @@ class MagnetAutoSlideKeyboardListener {
 
     // @private
     this.model = model;
-    this._dragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
+    this._constrainedDragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
 
-    // closure to update the slide target position based on the current position and desired direction of travel
-    const updateSlideTarget = preferredDirection => {
+    // closure to update the slide target position based on the current position and preferred direction of travel
+    const updateSlideTarget = () => {
+
+      let preferredDirection;
+      if ( this.isAnimatingProperty.value ) {
+
+        // There is an animation in progress, so we want to reverse the direction.
+        preferredDirection = model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?
+                             LEFT :
+                             RIGHT;
+      }
+      else {
+
+        // The magnet is not currently sliding, so start it moving.  It will move towards the coils if there is room to
+        // do so, otherwise it will move away from them.
+        preferredDirection = model.magnet.positionProperty.value.x < FaradaysLawConstants.TOP_COIL_POSITION.x ?
+                             RIGHT :
+                             LEFT;
+      }
+
+      // convenience values
+      const maxXPosition = this._constrainedDragBounds.maxX;
+      const minXPosition = this._constrainedDragBounds.minX;
       const magnetPosition = model.magnet.positionProperty.value;
-      const leftMaxX = this._dragBounds.minX;
-      const rightMaxX = this._dragBounds.maxX;
+      const magnetBounds = model.magnet.getBounds();
 
-      let targetX = preferredDirection === RIGHT ? rightMaxX : leftMaxX;
+      // Set the target X value assuming the magnet can move all the way to the boundary in the preferred direction.
+      let targetX = preferredDirection === RIGHT ? maxXPosition : minXPosition;
 
-      // Create a bounds that represents the path that the magnet would travel to get to the target.
-      const magnetPathBounds = new Bounds2(
-        Math.min( targetX, magnetPosition.x ),
-        magnetPosition.y,
-        Math.max( targetX, magnetPosition.x ),
-        magnetPosition.y
-      ).dilatedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
+      // Create a bounds that represents the path that the leading edge of the magnet would trace out if it moves in the
+      // preferred direction all the way to the bounds.
+      const leadingEdgePath = new Bounds2(
+        preferredDirection === RIGHT ? magnetBounds.maxX : minXPosition - HALF_MAGNET_WIDTH,
+        magnetPosition.y - HALF_MAGNET_HEIGHT,
+        preferredDirection === RIGHT ? maxXPosition + HALF_MAGNET_WIDTH : magnetBounds.minX,
+        magnetPosition.y + HALF_MAGNET_HEIGHT
+      );
 
-      // Check for cases where the path to the target will bump up against obstacles and adjust if needed.
-      const intersectedBounds = model.getIntersectedRestrictedBounds( magnetPathBounds );
+      // Check for cases where the path to the target will bump up against obstacles.
+      const intersectedBounds = model.getIntersectedRestrictedBounds( leadingEdgePath );
       if ( intersectedBounds ) {
-        const rightLimitX = intersectedBounds.minX - HALF_MAGNET_WIDTH;
-        const leftLimitX = intersectedBounds.maxX + HALF_MAGNET_WIDTH;
+
+        // There is an obstacle in the path - adjust the target to adapt.
         if ( preferredDirection === RIGHT ) {
-          if ( magnetPosition.x !== rightLimitX ) {
-            targetX = rightLimitX;
+
+          assert && assert( intersectedBounds.minX >= magnetBounds.maxX, 'should not be in this state when moving right' );
+          if ( intersectedBounds.minX > magnetBounds.maxX ) {
+
+            // There is room to move towards the target in the preferred direction, so adjust the target.
+            targetX = intersectedBounds.minX - HALF_MAGNET_WIDTH;
           }
           else {
 
-            // The magnet is already at the limit, meaning it must be up against something.  Head the other direction.
-            targetX = leftMaxX;
+            // The magnet must be up against an obstacle, so the target needs to be in the other direction.
+            targetX = minXPosition;
           }
         }
         else {
-          if ( magnetPosition.x !== leftLimitX ) {
-            targetX = leftLimitX;
+
+          assert && assert( intersectedBounds.maxX <= magnetBounds.minX, 'should not be in this state when moving left' );
+          if ( intersectedBounds.maxX < magnetBounds.minX ) {
+
+            // There is room to move towards the target in the preferred direction, so adjust the target.
+            targetX = intersectedBounds.maxX + HALF_MAGNET_WIDTH;
           }
           else {
 
-            // The magnet is already at the limit, meaning it must be up against something.  Head the other direction.
-            targetX = rightMaxX;
+            // The magnet must be up against an obstacle, so the target needs to be in the other direction.
+            targetX = maxXPosition;
           }
         }
       }
@@ -118,14 +148,14 @@ class MagnetAutoSlideKeyboardListener {
       this.slideTargetPositionProperty.set( new Vector2( targetX, magnetPosition.y ) );
     };
 
-    // Update the target position when the number of coils changes, since a path may now be blocked or unblocked.
+    // To avoid odd behavior, stop any in-progress animations and update the slide target if the number of coils change.
     model.topCoilVisibleProperty.link( () => {
-      if ( this.isAnimatingProperty.value ) {
-        const direction = model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?
-                          RIGHT :
-                          LEFT;
-        updateSlideTarget( direction );
-      }
+
+      // If an animation is in progress, stop it.
+      this.isAnimatingProperty.set( false );
+
+      // Update the slide target.
+      updateSlideTarget();
     } );
 
     // key down handler
@@ -142,30 +172,10 @@ class MagnetAutoSlideKeyboardListener {
           this.controlKeyIsDownMap.set( keyCode, true );
 
           // Update the slide target.
-          if ( this.isAnimatingProperty.value ) {
+          updateSlideTarget();
 
-            // An animation is in progress, so reverse it.
-            if ( model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ) {
-              updateSlideTarget( LEFT );
-            }
-            else {
-              updateSlideTarget( RIGHT );
-            }
-          }
-          else {
-
-            // The magnet is not currently sliding, so start it moving.  It will move towards the coils if there is
-            // room to do so, otherwise it will move away from them.
-            if ( model.magnet.positionProperty.value.x < FaradaysLawConstants.TOP_COIL_POSITION.x ) {
-              updateSlideTarget( RIGHT );
-            }
-            else {
-              updateSlideTarget( LEFT );
-            }
-
-            // Initiate the animation.
-            this.isAnimatingProperty.set( true );
-          }
+          // Initiate the animation.
+          this.isAnimatingProperty.set( true );
 
           // Update the speed at which the magnet will move.
           this.translationSpeed = keyToSpeedMap.get( keyCode );
@@ -253,15 +263,15 @@ class MagnetAutoSlideKeyboardListener {
         }
 
         // Make sure the new position doesn't put the magnet outside of the drag bounds.
-        const constrainedNewPosition = this._dragBounds.closestPointTo( unconstrainedNewPosition );
+        const constrainedNewPosition = this._constrainedDragBounds.closestPointTo( unconstrainedNewPosition );
 
         // Move the magnet.
         this.model.moveMagnetToPosition( constrainedNewPosition );
+      }
 
-        // If the magnet made it to the target location, the animation is complete.
-        if ( this.model.magnet.positionProperty.value.equals( this.slideTargetPositionProperty.value ) ) {
-          this.isAnimatingProperty.set( false );
-        }
+      // If the magnet is now at the destination, clear the animation flag.
+      if ( magnetPosition.equals( this.slideTargetPositionProperty.value ) ) {
+        this.isAnimatingProperty.set( false );
       }
     }
   }
