@@ -71,7 +71,7 @@ class MagnetAutoSlideKeyboardListener {
     this.model = model;
     this._constrainedDragBounds = FaradaysLawConstants.LAYOUT_BOUNDS.erodedXY( HALF_MAGNET_WIDTH, HALF_MAGNET_HEIGHT );
 
-    // closure to update the slide target position based on the current position and preferred direction of travel
+    // closure to update the slide target position based on the current position and animation state
     const updateSlideTarget = () => {
 
       let preferredDirection;
