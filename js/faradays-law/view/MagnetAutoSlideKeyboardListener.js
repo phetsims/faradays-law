@@ -148,14 +148,12 @@ class MagnetAutoSlideKeyboardListener {
       this.slideTargetPositionProperty.set( new Vector2( targetX, magnetPosition.y ) );
     };
 
-    // To avoid odd behavior, stop any in-progress animations and update the slide target if the number of coils change.
+    // To avoid odd behavior, stop any in-progress animations if the number of coils change.
     model.topCoilVisibleProperty.link( () => {
-
-      // If an animation is in progress, stop it.
-      this.isAnimatingProperty.set( false );
-
-      // Update the slide target.
-      updateSlideTarget();
+      if ( this.isAnimatingProperty.value ) {
+        this.isAnimatingProperty.set( false );
+        this.slideTargetPositionProperty.set( model.magnet.positionProperty.value );
+      }
     } );
 
     // key down handler
