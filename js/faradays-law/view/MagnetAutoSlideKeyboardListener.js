@@ -45,17 +45,17 @@ class MagnetAutoSlideKeyboardListener {
 
     const { mediumSpeed, slowSpeed, fastSpeed } = options;
 
-    // Map of the control keys to a speed for each
+    // map of the auto-slide keys to a speed for each
     const keyToSpeedMap = new Map( [
       [ KEY_CODE_DIGIT_1, slowSpeed ],
       [ KEY_CODE_DIGIT_2, mediumSpeed ],
       [ KEY_CODE_DIGIT_3, fastSpeed ]
     ] );
 
-    // Track the up/down state for each of the control keys.
-    this.controlKeyIsDownMap = new Map();
+    // Track the up/down state for each of the auto-slide keys.
+    this.autoSlideKeyIsDownMap = new Map();
     for ( const keyCode of keyToSpeedMap.keys() ) {
-      this.controlKeyIsDownMap.set( keyCode, false );
+      this.autoSlideKeyIsDownMap.set( keyCode, false );
     }
 
     // @public (read-only) - true when the magnet is being animated (moved) by this object
@@ -164,10 +164,10 @@ class MagnetAutoSlideKeyboardListener {
       if ( keyToSpeedMap.has( keyCode ) ) {
 
         // Skip the changes if this key is already down.
-        if ( !this.controlKeyIsDownMap.get( keyCode ) ) {
+        if ( !this.autoSlideKeyIsDownMap.get( keyCode ) ) {
 
-          // Mark this control key as being down.
-          this.controlKeyIsDownMap.set( keyCode, true );
+          // Mark this key as being down.
+          this.autoSlideKeyIsDownMap.set( keyCode, true );
 
           // Update the slide target.
           updateSlideTarget();
@@ -178,15 +178,15 @@ class MagnetAutoSlideKeyboardListener {
           // Update the speed at which the magnet will move.
           this.translationSpeed = keyToSpeedMap.get( keyCode );
         }
-
-        // Invoke the client-provided handler (this does nothing if the client didn't provide one).
-        options.onKeyDown( event );
       }
       else if ( this.isAnimatingProperty.value ) {
 
-        // Any key press that is not one of the control keys should stop the animation.
+        // Any key press that is not one of the auto-slide keys should stop the animation.
         this.isAnimatingProperty.set( false );
       }
+
+      // Invoke the client-provided handler (this does nothing if the client didn't provide one).
+      options.onKeyDown( event );
     };
 
     // function for mapping speed linearly, which is then used to map it to text for a11y
@@ -198,7 +198,7 @@ class MagnetAutoSlideKeyboardListener {
       const releasedKeyCode = event.domEvent.keyCode;
 
       if ( keyToSpeedMap.has( releasedKeyCode ) ) {
-        this.controlKeyIsDownMap.set( releasedKeyCode, false );
+        this.autoSlideKeyIsDownMap.set( releasedKeyCode, false );
 
         const speedToTextValue = Utils.roundSymmetric( speedToText( this.translationSpeed ) );
         const direction = this.model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?
@@ -209,6 +209,17 @@ class MagnetAutoSlideKeyboardListener {
 
       // Invoke the client-provided handler (this does nothing if the client didn't provide one).
       options.onKeyUp( event );
+    };
+
+    // Handler for the case where the magnet is released from a11y focus.  If a key is down when the magnet is released,
+    // subsequent key up messages won't be received, so we need to clear any keys that are down, see
+    // https://github.com/phetsims/faradays-law/issues/214.
+    this.released = () => {
+
+      // Mark all keys as up.
+      this.autoSlideKeyIsDownMap.forEach( ( value, key ) => {
+        this.autoSlideKeyIsDownMap.set( key, false );
+      } );
     };
 
     // Stop the animation if the user starts dragging the magnet.
@@ -234,16 +245,16 @@ class MagnetAutoSlideKeyboardListener {
    */
   step( dt ) {
 
-    // Determine whether any of the control keys are currently pressed because if they are, the animation should pause.
-    let controlKeyPressed = false;
-    for ( const isKeyDown of this.controlKeyIsDownMap.values() ) {
+    // Determine whether any of the auto-slide keys are currently pressed.
+    let autoSlideKeyPressed = false;
+    for ( const isKeyDown of this.autoSlideKeyIsDownMap.values() ) {
       if ( isKeyDown ) {
-        controlKeyPressed = true;
+        autoSlideKeyPressed = true;
       }
     }
 
-    // If an animation is in progress and none of the control keys are pressed, move the magnet towards the target.
-    if ( this.isAnimatingProperty.value && !controlKeyPressed ) {
+    // If an animation is in progress and none of the auto-slide keys are pressed, move the magnet towards the target.
+    if ( this.isAnimatingProperty.value && !autoSlideKeyPressed ) {
       const magnetPosition = this.model.magnet.positionProperty.value;
       if ( !magnetPosition.equals( this.slideTargetPositionProperty.value ) ) {
 
