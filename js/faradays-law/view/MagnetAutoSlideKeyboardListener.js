@@ -29,6 +29,9 @@ const KEY_CODE_DIGIT_1 = 49;
 const KEY_CODE_DIGIT_2 = 50;
 const KEY_CODE_DIGIT_3 = 51;
 
+// list of key modifiers to check for and make sure are not pressed when handling these keys
+const KEY_MODIFIER_LIST = [ 'Control', 'Alt' ];
+
 class MagnetAutoSlideKeyboardListener {
 
   constructor( model, options ) {
@@ -159,9 +162,15 @@ class MagnetAutoSlideKeyboardListener {
     // key down handler
     this.keydown = event => {
 
+      // check if the key is "modified"
+      let keyModified = false;
+      KEY_MODIFIER_LIST.forEach( modifierArg => {
+        keyModified = keyModified || event.domEvent.getModifierState( modifierArg );
+      } );
+
       const keyCode = event.domEvent.keyCode;
 
-      if ( keyToSpeedMap.has( keyCode ) ) {
+      if ( keyToSpeedMap.has( keyCode ) && !keyModified ) {
 
         // Skip the changes if this key is already down.
         if ( !this.autoSlideKeyIsDownMap.get( keyCode ) ) {
@@ -220,6 +229,9 @@ class MagnetAutoSlideKeyboardListener {
       this.autoSlideKeyIsDownMap.forEach( ( value, key ) => {
         this.autoSlideKeyIsDownMap.set( key, false );
       } );
+
+      // Make sure animation is off.
+      this.isAnimatingProperty.set( false );
     };
 
     // Stop the animation if the user starts dragging the magnet.
