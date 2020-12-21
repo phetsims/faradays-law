@@ -40,6 +40,11 @@ const GRAB_RELEASE_SOUND_LEVEL = 0.2; // empirically determined
  * @constructor
  */
 class MagnetNodeWithField extends Node {
+
+  /**
+   * @param {FaradaysLawModel} model
+   * @param {Tandem} tandem
+   */
   constructor( model, tandem ) {
 
     super();
@@ -223,6 +228,8 @@ class MagnetNodeWithField extends Node {
         grabMagnetSoundPlayer.play();
       },
       onRelease: () => {
+        self.magnetSlideTargetNode.visible = false;
+        magnetJumpKeyboardListener.released();
         releaseMagnetSoundPlayer.play();
       },
       tandem: tandem.createTandem( 'grabDragInteraction' )
