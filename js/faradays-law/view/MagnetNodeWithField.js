@@ -165,8 +165,7 @@ class MagnetNodeWithField extends Node {
         // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
         // we want to ensure that we're only listening for the 1,2, and 3 keys
         if ( KeyboardUtils.isNumberKey( domEvent.keyCode ) && Number( domEvent.key ) > 0 &&
-             Number( domEvent.key ) <= 3 && !domEvent.getModifierState( 'Ctrl' ) &&
-             !domEvent.getModifierState( 'Alt' ) ) {
+             Number( domEvent.key ) <= 3 && !isKeyModified( domEvent ) ) {
 
           self.magnetSlideTargetNode.visible = true;
           model.magnetArrowsVisibleProperty.set( false );
@@ -306,6 +305,17 @@ const createMagnetNode = magnet => {
     height: magnet.height,
     showArrows: true
   } );
+};
+
+/**
+ * Helper function to check a DOM event for whether the key is modified.  This does not check for all modifier keys,
+ * just the ones that we care about for magnet node manipulation.
+ * @returns {boolean}
+ */
+const isKeyModified = domEvent => {
+
+  // TODO: We need to check for whether getModifierState is defined, but so far it's only undefined during fuzzBoard testing, see https://github.com/phetsims/faradays-law/issues/216.
+  return domEvent.getModifierState && ( domEvent.getModifierState( 'Control' ) || domEvent.getModifierState( 'Alt' ) );
 };
 
 faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
