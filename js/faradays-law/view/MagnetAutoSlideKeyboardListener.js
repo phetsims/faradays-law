@@ -165,7 +165,11 @@ class MagnetAutoSlideKeyboardListener {
       // check if the key is "modified"
       let keyModified = false;
       KEY_MODIFIER_LIST.forEach( modifierArg => {
-        keyModified = keyModified || event.domEvent.getModifierState( modifierArg );
+
+        // TODO: We need to check for whether getModifierState is defined, but so far it's only undefined during fuzzBoard testing, see https://github.com/phetsims/faradays-law/issues/216.
+        if ( event.domEvent.getModifierState ) {
+          keyModified = keyModified || event.domEvent.getModifierState( modifierArg );
+        }
       } );
 
       const keyCode = event.domEvent.keyCode;
