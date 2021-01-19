@@ -11,6 +11,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import FocusHighlightFromNode from '../../../../scenery/js/accessibility/FocusHighlightFromNode.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
+import animatedPanZoomSingleton from '../../../../scenery/js/listeners/animatedPanZoomSingleton.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
@@ -278,7 +279,7 @@ class MagnetNodeWithField extends Node {
     // feature
     model.magnet.positionProperty.link( position => {
       if ( magnetJumpKeyboardListener.isAnimatingProperty.get() ) {
-        phet.joist.sim.panToNode( draggableNode );
+        animatedPanZoomSingleton.listener.panToNode( draggableNode );
       }
     } );
 
