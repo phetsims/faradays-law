@@ -314,9 +314,7 @@ const createMagnetNode = magnet => {
  * @returns {boolean}
  */
 const isKeyModified = domEvent => {
-
-  // TODO: We need to check for whether getModifierState is defined, but so far it's only undefined during fuzzBoard testing, see https://github.com/phetsims/faradays-law/issues/217.
-  return domEvent.getModifierState && ( domEvent.getModifierState( 'Control' ) || domEvent.getModifierState( 'Alt' ) );
+  return domEvent.getModifierState( 'Control' ) || domEvent.getModifierState( 'Alt' );
 };
 
 faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
