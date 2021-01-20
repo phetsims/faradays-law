@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.5.0-dev.1 Tue Jan 19 2021 11:38:45 GMT-0700 (Mountain Standard Time)",
+  "comment": "# faradays-law 1.5.0-dev.2 Wed Jan 20 2021 12:06:38 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "3df8c5ff9a465b031f84195a90bbb7e1be10a14d",
     "branch": "master"
@@ -17,11 +17,11 @@
     "branch": "master"
   },
   "dot": {
-    "sha": "4c67d7d4929381f2665c269096150c534a44ec0b",
+    "sha": "8dcdfdd5c2b8fa044c572d4fa5b817df6db5ae20",
     "branch": "master"
   },
   "faradays-law": {
-    "sha": "5eb24ab6a72af7e17f95da006b74dd23a66b79ca",
+    "sha": "0876cb644a4525ee96dec4fd45149c8bc5971e40",
     "branch": "master"
   },
   "joist": {
@@ -61,11 +61,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "298d7af1e805133a8e0540c987d02770a8840532",
+    "sha": "72c5d64e2336f4d43c182e4459366029dc48ba73",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "1a3878075124a41fdf4eaa457f43d64e29ac093e",
+    "sha": "363ba0f72eb6f95109a7829250a417ea07e1608f",
     "branch": "master"
   },
   "sherpa": {
@@ -73,11 +73,11 @@
     "branch": "master"
   },
   "studio": {
-    "sha": "df28effd6ad1aee74710b777079e217fbf8b49af",
+    "sha": "69efcef0b672622841083ca990399fa993207d02",
     "branch": "master"
   },
   "sun": {
-    "sha": "0957106f1a521e57323af4c8ccd900fd69a0c214",
+    "sha": "57ca44eb9624ac1c547b3b2ecc754531824bf648",
     "branch": "master"
   },
   "tambo": {
@@ -85,7 +85,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "97a7a65047d6242047c72030650813235e687327",
+    "sha": "91d75958dfbe52815879882506293eb20f873911",
     "branch": "master"
   },
   "twixt": {
