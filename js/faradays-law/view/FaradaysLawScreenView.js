@@ -113,8 +113,8 @@ class FaradaysLawScreenView extends ScreenView {
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
-    this.pdomPlayAreaNode.accessibleOrder = [ null, this.magnetNodeWithField ];
-    this.pdomControlAreaNode.accessibleOrder = [ controlPanel ];
+    this.pdomPlayAreaNode.pdomOrder = [ null, this.magnetNodeWithField ];
+    this.pdomControlAreaNode.pdomOrder = [ controlPanel ];
 
     // move coils to front
     bottomCoilNode.frontImage.detach();

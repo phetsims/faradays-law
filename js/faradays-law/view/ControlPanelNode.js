@@ -174,7 +174,7 @@ class ControlPanelNode extends Node {
     this.bottom = model.bounds.maxY - 10;
 
     // pdom keyboard nav order
-    this.accessibleOrder = [
+    this.pdomOrder = [
       voltmeterCheckbox,
       fieldLinesCheckbox,
       coilRadioButtonGroup
