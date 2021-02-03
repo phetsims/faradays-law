@@ -16,6 +16,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import MagnetDirectionEnum from '../model/MagnetDirectionEnum.js';
@@ -25,9 +26,11 @@ import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 const { LEFT, RIGHT } = MagnetDirectionEnum;
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
-const KEY_CODE_DIGIT_1 = 49;
-const KEY_CODE_DIGIT_2 = 50;
-const KEY_CODE_DIGIT_3 = 51;
+
+// It is important for these to be {KeyDef}
+const KEY_CODE_DIGIT_1 = KeyboardUtils.KEY_1;
+const KEY_CODE_DIGIT_2 = KeyboardUtils.KEY_2;
+const KEY_CODE_DIGIT_3 = KeyboardUtils.KEY_3;
 
 // list of key modifiers to check for and make sure are not pressed when handling these keys
 const KEY_MODIFIER_LIST = [ 'Control', 'Alt' ];
@@ -57,8 +60,8 @@ class MagnetAutoSlideKeyboardListener {
 
     // Track the up/down state for each of the auto-slide keys.
     this.autoSlideKeyIsDownMap = new Map();
-    for ( const keyCode of keyToSpeedMap.keys() ) {
-      this.autoSlideKeyIsDownMap.set( keyCode, false );
+    for ( const key of keyToSpeedMap.keys() ) {
+      this.autoSlideKeyIsDownMap.set( key, false );
     }
 
     // @public (read-only) - true when the magnet is being animated (moved) by this object
@@ -168,15 +171,15 @@ class MagnetAutoSlideKeyboardListener {
         keyModified = keyModified || event.domEvent.getModifierState( modifierArg );
       } );
 
-      const keyCode = event.domEvent.keyCode;
+      const key = event.domEvent.key.toLowerCase();
 
-      if ( keyToSpeedMap.has( keyCode ) && !keyModified ) {
+      if ( keyToSpeedMap.has( key ) && !keyModified ) {
 
         // Skip the changes if this key is already down.
-        if ( !this.autoSlideKeyIsDownMap.get( keyCode ) ) {
+        if ( !this.autoSlideKeyIsDownMap.get( key ) ) {
 
           // Mark this key as being down.
-          this.autoSlideKeyIsDownMap.set( keyCode, true );
+          this.autoSlideKeyIsDownMap.set( key, true );
 
           // Update the slide target.
           updateSlideTarget();
@@ -185,7 +188,7 @@ class MagnetAutoSlideKeyboardListener {
           this.isAnimatingProperty.set( true );
 
           // Update the speed at which the magnet will move.
-          this.translationSpeed = keyToSpeedMap.get( keyCode );
+          this.translationSpeed = keyToSpeedMap.get( key );
         }
       }
       else if ( this.isAnimatingProperty.value ) {
@@ -204,10 +207,10 @@ class MagnetAutoSlideKeyboardListener {
     // key up handler
     this.keyup = event => {
 
-      const releasedKeyCode = event.domEvent.keyCode;
+      const releasedKey = event.domEvent.key;
 
-      if ( keyToSpeedMap.has( releasedKeyCode ) ) {
-        this.autoSlideKeyIsDownMap.set( releasedKeyCode, false );
+      if ( keyToSpeedMap.has( releasedKey ) ) {
+        this.autoSlideKeyIsDownMap.set( releasedKey, false );
 
         const speedToTextValue = Utils.roundSymmetric( speedToText( this.translationSpeed ) );
         const direction = this.model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?

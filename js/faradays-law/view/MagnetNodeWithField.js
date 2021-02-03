@@ -165,7 +165,7 @@ class MagnetNodeWithField extends Node {
 
         // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
         // we want to ensure that we're only listening for the 1,2, and 3 keys
-        if ( KeyboardUtils.isNumberKey( domEvent.keyCode ) && Number( domEvent.key ) > 0 &&
+        if ( KeyboardUtils.isNumberKey( domEvent.key ) && Number( domEvent.key ) > 0 &&
              Number( domEvent.key ) <= 3 && !isKeyModified( domEvent ) ) {
 
           self.magnetSlideTargetNode.visible = true;
@@ -186,7 +186,7 @@ class MagnetNodeWithField extends Node {
         }
       },
       onKeyUp( event ) {
-        if ( KeyboardUtils.isNumberKey( event.domEvent.keyCode ) ) {
+        if ( KeyboardUtils.isNumberKey( event.domEvent.key ) ) {
           self.magnetSlideTargetNode.visible = false;
         }
         rightJumpArrows.hideCue();
