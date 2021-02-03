@@ -21,7 +21,7 @@ import MagnetRegionManager from './MagnetRegionManager.js';
 
 const { test } = QUnit;
 
-const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.GENERAL.createTandem( 'model' ) );
+const model = new FaradaysLawModel( FaradaysLawConstants.LAYOUT_BOUNDS, Tandem.ROOT_TEST.createTandem( 'model' ) );
 
 QUnit.module( 'MagnetRegionManager' );
 
