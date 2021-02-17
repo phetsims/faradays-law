@@ -51,7 +51,7 @@ class MagnetAutoSlideKeyboardListener {
 
     const { mediumSpeed, slowSpeed, fastSpeed } = options;
 
-    // map of the auto-slide keys to a speed for each
+    // {Map.<KeyDef, number>} - map of the auto-slide keys to a speed for each
     const keyToSpeedMap = new Map( [
       [ KEY_CODE_DIGIT_1, slowSpeed ],
       [ KEY_CODE_DIGIT_2, mediumSpeed ],
@@ -171,7 +171,7 @@ class MagnetAutoSlideKeyboardListener {
         keyModified = keyModified || event.domEvent.getModifierState( modifierArg );
       } );
 
-      const key = event.domEvent.key.toLowerCase();
+      const key = KeyboardUtils.getKeyDef( event.domEvent );
 
       if ( keyToSpeedMap.has( key ) && !keyModified ) {
 
