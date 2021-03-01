@@ -1,7 +1,7 @@
 // Copyright 2014-2020, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Faradays Law' screen.
+ * Scene graph for the 'Faraday's Law' screen.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
@@ -48,7 +48,8 @@ class FaradaysLawScreenView extends ScreenView {
 
     super( {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
-      screenSummaryContent: summaryNode
+      screenSummaryContent: summaryNode,
+      tandem: tandem
     } );
 
     this.pdomPlayAreaNode.addChild( new CircuitDescriptionNode( model ) );
