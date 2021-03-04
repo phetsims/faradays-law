@@ -10,7 +10,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -98,60 +97,32 @@ class MagnetAutoSlideKeyboardListener {
       }
 
       // convenience values
+      const magnetXPosition = model.magnet.positionProperty.value.x;
       const maxXPosition = this._constrainedDragBounds.maxX;
       const minXPosition = this._constrainedDragBounds.minX;
-      const magnetPosition = model.magnet.positionProperty.value;
-      const magnetBounds = model.magnet.getBounds();
 
-      // Set the target X value assuming the magnet can move all the way to the boundary in the preferred direction.
-      let targetX = preferredDirection === RIGHT ? maxXPosition : minXPosition;
-
-      // Create a bounds that represents the path that the leading edge of the magnet would trace out if it moves in the
-      // preferred direction all the way to the bounds.
-      const leadingEdgePath = new Bounds2(
-        preferredDirection === RIGHT ? magnetBounds.maxX : minXPosition - HALF_MAGNET_WIDTH,
-        magnetPosition.y - HALF_MAGNET_HEIGHT,
-        preferredDirection === RIGHT ? maxXPosition + HALF_MAGNET_WIDTH : magnetBounds.minX,
-        magnetPosition.y + HALF_MAGNET_HEIGHT
+      // Start with a translation that would take the magnet all the way to the right or left model bounds.
+      let proposedTranslation = new Vector2(
+        preferredDirection === RIGHT ? maxXPosition - magnetXPosition : minXPosition - magnetXPosition,
+        0
       );
 
-      // Check for cases where the path to the target will bump up against obstacles.
-      const intersectedBounds = model.getIntersectedRestrictedBounds( leadingEdgePath );
-      if ( intersectedBounds ) {
+      // Check whether the proposed translation is viable and, if not, determine what is.
+      let allowableTranslation = model.checkProposedMagnetMotion( proposedTranslation );
 
-        // There is an obstacle in the path - adjust the target to adapt.
-        if ( preferredDirection === RIGHT ) {
-
-          assert && assert( intersectedBounds.minX >= magnetBounds.maxX, 'should not be in this state when moving right' );
-          if ( intersectedBounds.minX > magnetBounds.maxX ) {
-
-            // There is room to move towards the target in the preferred direction, so adjust the target.
-            targetX = intersectedBounds.minX - HALF_MAGNET_WIDTH;
-          }
-          else {
-
-            // The magnet must be up against an obstacle, so the target needs to be in the other direction.
-            targetX = minXPosition;
-          }
-        }
-        else {
-
-          assert && assert( intersectedBounds.maxX <= magnetBounds.minX, 'should not be in this state when moving left' );
-          if ( intersectedBounds.maxX < magnetBounds.minX ) {
-
-            // There is room to move towards the target in the preferred direction, so adjust the target.
-            targetX = intersectedBounds.maxX + HALF_MAGNET_WIDTH;
-          }
-          else {
-
-            // The magnet must be up against an obstacle, so the target needs to be in the other direction.
-            targetX = maxXPosition;
-          }
-        }
+      // If the allowable translation works out to be zero, it means that the magnet is up against an obstacle, so go
+      // the other direction.
+      if ( allowableTranslation.magnitude === 0 ) {
+        preferredDirection = preferredDirection === RIGHT ? LEFT : RIGHT;
+        proposedTranslation = new Vector2(
+          preferredDirection === RIGHT ? maxXPosition - magnetXPosition : minXPosition - magnetXPosition,
+          0
+        );
+        allowableTranslation = model.checkProposedMagnetMotion( proposedTranslation );
       }
 
       // Set the new target position.
-      this.slideTargetPositionProperty.set( new Vector2( targetX, magnetPosition.y ) );
+      this.slideTargetPositionProperty.set( model.magnet.positionProperty.value.plus( allowableTranslation ) );
     };
 
     // To avoid odd behavior, stop any in-progress animations if the number of coils change.

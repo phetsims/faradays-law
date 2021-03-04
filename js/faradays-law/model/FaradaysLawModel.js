@@ -184,7 +184,8 @@ class FaradaysLawModel {
   }
 
   /**
-   * Return one of the model's restricted bounds if it intersects with the given bounds. Can return null.
+   * Tests the provided bounds against the current set of restricted bounds and returns the first one for which there
+   * is an intersection, null if the provided bounds don't intersect with any of the restricted bounds.
    * @param  {Bounds2} bounds
    * @returns {Bounds2|null}
    * @public
@@ -199,7 +200,7 @@ class FaradaysLawModel {
       restrictedBoundsList = restrictedBoundsList.concat( this.topCoilRestrictedBounds );
     }
 
-    // test against all restricted bounds
+    // Test against all restricted bounds.
     for ( let i = 0; i < restrictedBoundsList.length; i++ ) {
       if ( bounds.intersectsBounds( restrictedBoundsList[ i ] ) ) {
         intersectedRestrictedBounds = restrictedBoundsList[ i ];
@@ -401,14 +402,18 @@ class FaradaysLawModel {
   }
 
   /**
-   * Move the magnet to the proposed position unless doing so would cause it to move through obstacles or out of the
-   * sim bounds.  In those cases, limit the motion to what can be allowed.
-   * @param {Vector2} proposedPosition - a proposed position for the magnet
+   * Given a proposed translation, test whether the magnet can be translated by that amount without running into any
+   * restricted areas or hitting the bounds.  If it can, the original proposed translation is returned.  If the magnet
+   * would run into a restricted area or hit the bounds, return a translation that represents the amount of motion that
+   * would move the magnet to the edge of the restriction.
+   * @param {Vector2} proposedTranslation
+   * @returns {Vector2}
    * @public
    */
-  moveMagnetToPosition( proposedPosition ) {
+  checkProposedMagnetMotion( proposedTranslation ) {
 
-    const proposedTranslation = proposedPosition.minus( this.magnet.positionProperty.value );
+    // Get a set of lines that represent the leading edges of the magnet if it is moved using the proposed translation.
+    const leadingMagnetEdges = this.getMotionEdges( proposedTranslation, this.magnet.getBounds(), false );
 
     // Make a list of the restricted bounds that could block the magnet's motion.  This varies based on which coils are
     // currently visible.
@@ -417,10 +422,7 @@ class FaradaysLawModel {
       restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
     }
 
-    // Get a set of lines that represent the leading edges of the magnet if it is moved using the proposed translation.
-    const leadingMagnetEdges = this.getMotionEdges( proposedTranslation, this.magnet.getBounds(), false );
-
-    // Test the proposed motion against the potential obstacles, which, in this sim, are the coils.
+    // Test the proposed motion against the restricted bounds.
     let smallestAllowedTranslation = proposedTranslation.copy();
     restrictedBoundsList.forEach( restrictedBounds => {
       const obstacleEdgeLines = this.getMotionEdges( proposedTranslation, restrictedBounds );
@@ -445,12 +447,35 @@ class FaradaysLawModel {
       this.bounds
     );
 
+    return smallestAllowedTranslation;
+  }
+
+  /**
+   * Move the magnet to the proposed position unless doing so would cause it to move through obstacles or out of the
+   * sim bounds.  In those cases, limit the motion to what can be allowed.  This also fires emitters when the magnet
+   * runs into a restricted area or the sim bounds.
+   * @param {Vector2} proposedPosition - a proposed position for the magnet
+   * @public
+   */
+  moveMagnetToPosition( proposedPosition ) {
+
+    const proposedTranslation = proposedPosition.minus( this.magnet.positionProperty.value );
+
+    // Test the proposed motion against the potential obstacles and the sim bounds.
+    const allowedTranslation = this.checkProposedMagnetMotion( proposedTranslation );
+
     // Set the resultant position for the magnet.
-    const newPosition = this.magnet.positionProperty.value.plus( smallestAllowedTranslation );
+    const newPosition = this.magnet.positionProperty.value.plus( allowedTranslation );
     this.magnet.positionProperty.set( newPosition );
 
     // Figure out what the bounds ended up being.
     const newMagnetBounds = this.magnet.getBounds();
+
+    // Make a list of the active restricted bounds for testing whether the magnet has bumped up against any of them.
+    let restrictedBoundsList = [ ...this.bottomCoilRestrictedBounds ];
+    if ( this.topCoilVisibleProperty.value ) {
+      restrictedBoundsList = this.bottomCoilRestrictedBounds.concat( this.topCoilRestrictedBounds );
+    }
 
     // Check whether the position has changed such that the magnet has hit a boundary or a restricted area.
     if ( this.previousMagnetBounds ) {

@@ -18,12 +18,14 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
 
     const drag = vectorDelta => {
       model.magnetArrowsVisibleProperty.set( false );
-      let newPosition = model.magnet.positionProperty.get().plus( vectorDelta );
-      newPosition = model.bounds.closestPointTo( newPosition );
-      model.moveMagnetToPosition( newPosition );
+
+      // Attempt to move the magnet based on the drag action.  The model will prevent the magnet from going anywhere
+      // that it shouldn't.
+      const proposedPosition = model.magnet.positionProperty.get().plus( vectorDelta );
+      model.moveMagnetToPosition( proposedPosition );
     };
 
-    const end = event => {
+    const end = () => {
       alertManager.movementEndAlert();
     };
 
