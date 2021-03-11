@@ -64,7 +64,7 @@ class FaradaysLawModel {
       phetioDocumentation: 'Voltage indicated by the voltmeter. This drives the needle position and the light bulb brightness.',
       phetioReadOnly: true,
       phetioHighFrequency: true,
-      units: 'volts'
+      units: 'V'
     } );
 
     // @public - the magnet which can be dragged
