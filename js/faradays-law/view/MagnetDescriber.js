@@ -218,7 +218,7 @@ class MagnetDescriber {
     let alert = StringUtils.fillIn( alertPattern, { northSide: northSide, southSide: southSide } );
 
     if ( this._model.magnet.fieldLinesVisibleProperty.get() ) {
-      alert += ' ' + fieldLinesDescriptionUpdatedString;
+      alert += ` ${fieldLinesDescriptionUpdatedString}`;
     }
 
     return alert;
@@ -476,7 +476,7 @@ class MagnetDescriber {
     let alert = StringUtils.fillIn( fieldLinesVisibilityPatternString, { visibility: visibility } );
 
     if ( showLines ) {
-      alert += ' ' + fieldLinesDescriptionUpdatedString;
+      alert += ` ${fieldLinesDescriptionUpdatedString}`;
     }
 
     return alert;
