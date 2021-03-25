@@ -22,7 +22,7 @@ const simOptions = {
     team: 'Emily B. Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith',
     soundDesign: 'Ashton Morris, Mike Winters',
     qualityAssurance: 'Jaspe Arias, Steele Dalton, Brooklyn Lash, Elise Morgan, Liam Mulhall,<br>' +
-                      'Oliver Orejola, Devon Quispe, Katie Woessner, Bryan Yoelin',
+                      'Oliver Orejola, Devon Quispe, Kathryn Woessner, Bryan Yoelin',
     contributors: 'Jonathan Hung & Caren Watkins (Inclusive Design Research Centre)',
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation ' +
             'to HTML5.'
