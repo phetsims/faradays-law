@@ -41,7 +41,7 @@ class FaradaysLawScreenView extends ScreenView {
    */
   constructor( model, tandem ) {
 
-    // PDOM - screen Summary
+    // pdom - screen Summary
     const summaryNode = new Node();
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
     summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
