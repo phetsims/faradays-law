@@ -26,7 +26,7 @@ const { LEFT, RIGHT } = MagnetDirectionEnum;
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 
-// It is important for these to be {KeyDef}
+// event.code for the digit keys used
 const KEY_CODE_DIGIT_1 = KeyboardUtils.KEY_1;
 const KEY_CODE_DIGIT_2 = KeyboardUtils.KEY_2;
 const KEY_CODE_DIGIT_3 = KeyboardUtils.KEY_3;
@@ -50,7 +50,7 @@ class MagnetAutoSlideKeyboardListener {
 
     const { mediumSpeed, slowSpeed, fastSpeed } = options;
 
-    // {Map.<KeyDef, number>} - map of the auto-slide keys to a speed for each
+    // {Map.<string, number>} - map of the auto-slide keys to a speed for each
     const keyToSpeedMap = new Map( [
       [ KEY_CODE_DIGIT_1, slowSpeed ],
       [ KEY_CODE_DIGIT_2, mediumSpeed ],
@@ -142,7 +142,7 @@ class MagnetAutoSlideKeyboardListener {
         keyModified = keyModified || event.domEvent.getModifierState( modifierArg );
       } );
 
-      const key = KeyboardUtils.getKeyDef( event.domEvent );
+      const key = KeyboardUtils.getEventCode( event.domEvent );
 
       if ( keyToSpeedMap.has( key ) && !keyModified ) {
 
