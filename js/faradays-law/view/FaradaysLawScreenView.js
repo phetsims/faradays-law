@@ -52,7 +52,8 @@ class FaradaysLawScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    this.pdomPlayAreaNode.addChild( new CircuitDescriptionNode( model ) );
+    const circuitDescriptionNode = new CircuitDescriptionNode( model );
+    this.addChild( circuitDescriptionNode );
 
     // coils
     const bottomCoilNode = new CoilNode( CoilTypeEnum.FOUR_COIL, {
@@ -114,7 +115,7 @@ class FaradaysLawScreenView extends ScreenView {
     // @private
     this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
-    this.pdomPlayAreaNode.pdomOrder = [ null, this.magnetNodeWithField ];
+    this.pdomPlayAreaNode.pdomOrder = [ circuitDescriptionNode, this.magnetNodeWithField ];
     this.pdomControlAreaNode.pdomOrder = [ controlPanel ];
 
     // move coils to front
