@@ -163,15 +163,28 @@ class MagnetNodeWithField extends Node {
       onKeyDown( event ) {
         const domEvent = event.domEvent;
 
-        // event.key is the string value of the key pressed, e.g. 'a', '4', 'tab', etc...
+        // event.code is the unique value of the key pressed
         // we want to ensure that we're only listening for the 1,2, and 3 keys
-        if ( KeyboardUtils.isNumberKey( domEvent ) && Number( domEvent.key ) > 0 &&
-             Number( domEvent.key ) <= 3 && !isKeyModified( domEvent ) ) {
+        if ( KeyboardUtils.isAnyKeyEvent( domEvent, [ KeyboardUtils.KEY_1, KeyboardUtils.KEY_2, KeyboardUtils.KEY_3 ] ) &&
+             !isKeyModified( domEvent ) ) {
 
           self.magnetSlideTargetNode.visible = true;
           model.magnetArrowsVisibleProperty.set( false );
 
-          const magnitude = Number( domEvent.key );
+          let magnitude;
+          switch( domEvent.code ) {
+            case KeyboardUtils.KEY_1:
+              magnitude = 1;
+              break;
+            case KeyboardUtils.KEY_2:
+              magnitude = 2;
+              break;
+            case KeyboardUtils.KEY_3:
+              magnitude = 3;
+              break;
+            default:
+              assert && assert( false, 'incorrect key code' );
+          }
 
           if ( model.magnet.positionProperty.get().x < magnetJumpKeyboardListener.slideTargetPositionProperty.value.x ) {
             rightJumpArrows.showCue( magnitude );

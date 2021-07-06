@@ -178,7 +178,7 @@ class MagnetAutoSlideKeyboardListener {
     // key up handler
     this.keyup = event => {
 
-      const releasedKey = event.domEvent.key;
+      const releasedKey = event.domEvent.code;
 
       if ( keyToSpeedMap.has( releasedKey ) ) {
         this.autoSlideKeyIsDownMap.set( releasedKey, false );
