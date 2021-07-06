@@ -171,20 +171,8 @@ class MagnetNodeWithField extends Node {
           self.magnetSlideTargetNode.visible = true;
           model.magnetArrowsVisibleProperty.set( false );
 
-          let magnitude;
-          switch( domEvent.code ) {
-            case KeyboardUtils.KEY_1:
-              magnitude = 1;
-              break;
-            case KeyboardUtils.KEY_2:
-              magnitude = 2;
-              break;
-            case KeyboardUtils.KEY_3:
-              magnitude = 3;
-              break;
-            default:
-              assert && assert( false, 'incorrect key code' );
-          }
+          const magnitude = KeyboardUtils.getNumberFromCode( domEvent );
+          assert && assert( typeof magnitude === 'number', 'should be a number' );
 
           if ( model.magnet.positionProperty.get().x < magnetJumpKeyboardListener.slideTargetPositionProperty.value.x ) {
             rightJumpArrows.showCue( magnitude );
