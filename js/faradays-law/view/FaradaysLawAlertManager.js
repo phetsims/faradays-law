@@ -11,14 +11,16 @@
  * https://github.com/phetsims/faradays-law/issues/109
  */
 
+import AlertManager from '../../../../scenery-phet/js/accessibility/describers/AlertManager.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import faradaysLaw from '../../faradaysLaw.js';
 // import MagnetDescriber from './MagnetDescriber.js';
 
 // the alert manager
-class FaradaysLawAlertManager {
+class FaradaysLawAlertManager extends AlertManager {
 
-  constructor( describer ) {
+  constructor( node, describer ) {
+    super( node );
     this.describer = describer;
 
     // @private {Utterance} - utterance for end of a keyboard movement, single utterance
@@ -31,7 +33,7 @@ class FaradaysLawAlertManager {
    */
   magnetFocusAlert() {
     //const alert = this.describer.magnetFocusAlertText;
-    //phet.joist.sim.utteranceQueue.addToBack( alert );
+    //this.alertDescriptionUtterance( alert );
   }
 
   /**
@@ -48,7 +50,7 @@ class FaradaysLawAlertManager {
    */
   flipMagnetAlert( orientation ) {
     //const alert = this.describer.getFlipMagnetAlertText( orientation );
-    //phet.joist.sim.utteranceQueue.addToBack( alert );
+    //this.alertDescriptionUtterance( alert );
   }
 
   /**
@@ -67,7 +69,7 @@ class FaradaysLawAlertManager {
    */
   static voltmeterAttachmentAlert( showVoltmeter ) {
     //const alert = MagnetDescriber.getVoltmeterAttachmentAlertText( showVoltmeter );
-    //phet.joist.sim.utteranceQueue.addToBack( alert );
+    //this.alertDescriptionUtterance( alert );
   }
 
   /**
@@ -76,7 +78,7 @@ class FaradaysLawAlertManager {
    */
   static fieldLinesVisibilityAlert( showLines ) {
     //const alert = MagnetDescriber.getFieldLinesVisibilityAlertText( showLines );
-    //phet.joist.sim.utteranceQueue.addToBack( alert );
+    //this.alertDescriptionUtterance( alert );
   }
 
   /**
@@ -85,7 +87,7 @@ class FaradaysLawAlertManager {
    */
   static coilConnectionAlert( showTopCoil ) {
     //const alert = MagnetDescriber.getCoilConnectionAlertText( showTopCoil );
-    //phet.joist.sim.utteranceQueue.addToBack( alert );
+    //this.alertDescriptionUtterance( alert );
   }
 }
 

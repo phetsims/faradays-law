@@ -103,7 +103,7 @@ class MagnetNodeWithField extends Node {
     // pdom descriptions - generates text content and alerts for magnet interactions
     const regionManager = new MagnetRegionManager( model );
     const describer = new MagnetDescriber( model, regionManager, tandem );
-    const alertManager = new FaradaysLawAlertManager( describer );
+    const alertManager = new FaradaysLawAlertManager( this, describer );
 
     // sound generation
     const grabMagnetSoundPlayer = new SoundClip( grabMagnetSound, {
