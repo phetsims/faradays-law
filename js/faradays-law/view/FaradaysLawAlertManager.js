@@ -44,7 +44,9 @@ class FaradaysLawAlertManager extends Alerter {
    */
   movementEndAlert() {
     this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText();
-    //phet.joist.sim.utteranceQueue.addToFront( this.keyboardMovementUtterance );
+    // this.forEachUtteranceQueue( utteranceQueue => {
+    //   utteranceQueue.addToFront( this.keyboardMovementUtterance );
+    // } );
   }
 
   /**
@@ -63,7 +65,9 @@ class FaradaysLawAlertManager extends Alerter {
    */
   static magnetSlidingAlert( speed, direction ) {
     //const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
-    //phet.joist.sim.utteranceQueue.addToFront( alert );
+    // this.forEachUtteranceQueue( utteranceQueue => {
+    //   utteranceQueue.addToFront( alert );
+    // } );
   }
 
   /**
