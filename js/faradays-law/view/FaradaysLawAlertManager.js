@@ -11,13 +11,13 @@
  * https://github.com/phetsims/faradays-law/issues/109
  */
 
-import AlertManager from '../../../../scenery-phet/js/accessibility/describers/AlertManager.js';
+import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import faradaysLaw from '../../faradaysLaw.js';
 // import MagnetDescriber from './MagnetDescriber.js';
 
 // the alert manager
-class FaradaysLawAlertManager extends AlertManager {
+class FaradaysLawAlertManager extends Alerter {
 
   constructor( node, describer ) {
     super( node );
