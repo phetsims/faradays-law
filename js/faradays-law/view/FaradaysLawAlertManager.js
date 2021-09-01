@@ -20,7 +20,10 @@ import faradaysLaw from '../../faradaysLaw.js';
 class FaradaysLawAlertManager extends Alerter {
 
   constructor( node, describer ) {
-    super( node );
+    super( {
+      descriptionAlertNode: node
+    } );
+
     this.describer = describer;
 
     // @private {Utterance} - utterance for end of a keyboard movement, single utterance
