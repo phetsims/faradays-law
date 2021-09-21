@@ -163,7 +163,7 @@
       "value": "Field lines description updated."
     },
     "fourLoopOnlyFieldStrengthPattern": {
-      "value": "From the magnet\"s position, a {{fieldStrength}} magnetic field is passing through the 4 loop coil."
+      "value": "From the magnet\'s position, a {{fieldStrength}} magnetic field is passing through the 4-loop coil."
     },
     "fieldStrengthIs": {
       "value": "The magnet field strength is:"
