@@ -326,7 +326,7 @@ class MagnetRegionManager {
 
     const distance = this.getDistanceToCoil( vector, coilType );
 
-    return Utils.roundSymmetric( coilProximityToRegion( distance ) );
+    return Utils.roundSymmetric( coilProximityToRegion.evaluate( distance ) );
   }
 
   /**

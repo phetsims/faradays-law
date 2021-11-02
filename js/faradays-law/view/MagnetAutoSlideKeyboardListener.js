@@ -183,7 +183,7 @@ class MagnetAutoSlideKeyboardListener {
       if ( keyToSpeedMap.has( releasedKey ) ) {
         this.autoSlideKeyIsDownMap.set( releasedKey, false );
 
-        const speedToTextValue = Utils.roundSymmetric( speedToText( this.translationSpeed ) );
+        const speedToTextValue = Utils.roundSymmetric( speedToText.evaluate( this.translationSpeed ) );
         const direction = this.model.magnet.positionProperty.value.x < this.slideTargetPositionProperty.value.x ?
                           RIGHT :
                           LEFT;
