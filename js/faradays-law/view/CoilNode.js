@@ -8,8 +8,8 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import fourLoopBackImage from '../../../mipmaps/four-loop-back_png.js';
 import fourLoopFrontImage from '../../../mipmaps/four-loop-front_png.js';
 import twoLoopBackImage from '../../../mipmaps/two-loop-back_png.js';

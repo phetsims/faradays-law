@@ -15,7 +15,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
+import { KeyboardUtils } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import MagnetDirectionEnum from '../model/MagnetDirectionEnum.js';

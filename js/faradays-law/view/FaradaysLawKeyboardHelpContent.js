@@ -11,7 +11,7 @@ import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/K
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
+import { HBox } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 
