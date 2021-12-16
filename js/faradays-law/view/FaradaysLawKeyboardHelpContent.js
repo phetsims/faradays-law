@@ -6,7 +6,7 @@
  * @author John Blanco (PhET Interactive Simulations)
  */
 
-import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
+import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
@@ -26,7 +26,7 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
       faradaysLawStrings.keyboardHelpDialog.magnet,
       { labelMaxWidth: maxWidth }
     );
-    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
+    const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( {
       withCheckboxContent: true
     } );
     const moveMagnetHelpSection = new MoveMagnetHelpSection( {
@@ -39,7 +39,7 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveMagnetHelpSection, autoSlideMagnetHelpSection ] );
 
     const leftContent = [ grabReleaseHelpSection, moveMagnetHelpSection, autoSlideMagnetHelpSection ];
-    const rightContent = [ generalNavigationHelpSection ];
+    const rightContent = [ basicActionsHelpSection ];
     super( leftContent, rightContent, {
       sectionSpacing: 10
     } );
