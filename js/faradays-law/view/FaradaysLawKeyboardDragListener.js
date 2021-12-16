@@ -4,6 +4,7 @@
  * Type to handle all standard keyboard input. The only exception is the grab-drag interaction.
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
@@ -29,7 +30,11 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
       alertManager.movementEndAlert();
     };
 
-    super( { drag: drag, end: end, dragBounds: model.bounds } );
+    super( {
+      drag: drag,
+      end: end,
+      dragBoundsProperty: new Property( model.bounds )
+    } );
 
     this.regionManager = regionManager;
     this.alertManager = alertManager;
