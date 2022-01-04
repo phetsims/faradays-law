@@ -61,9 +61,9 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
     const moveMagnetIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
     const moveMagnetRow = KeyboardHelpSection.labelWithIcon(
       faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnet,
-      moveMagnetIcon,
-      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
-    );
+      moveMagnetIcon, {
+        labelInnerContent: faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
+      } );
 
     // move magnet slower row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
@@ -100,9 +100,9 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
     } );
     const moveGrabbedMagnetRow = KeyboardHelpSection.labelWithIcon(
       faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetText,
-      numberKeysIcon,
-      faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
-    );
+      numberKeysIcon, {
+        labelInnerContent: faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
+      } );
 
     super( faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
   }
