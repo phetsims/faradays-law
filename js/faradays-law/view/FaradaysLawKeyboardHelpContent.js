@@ -70,9 +70,9 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
     const moveMagnetSlowerRow = KeyboardHelpSection.labelWithIconList(
       faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlower,
-      [ shiftPlusArrowKeys, shiftPlusWASDKeys ],
-      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
-    );
+      [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
+        labelInnerContent: faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
+      } );
 
     super( faradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, [ moveMagnetRow, moveMagnetSlowerRow ], options );
   }
