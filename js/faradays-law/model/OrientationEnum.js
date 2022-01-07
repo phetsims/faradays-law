@@ -6,10 +6,10 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
-const OrientationEnum = Enumeration.byKeys( [ 'NS', 'SN' ] );
+const OrientationEnum = EnumerationDeprecated.byKeys( [ 'NS', 'SN' ] );
 
 faradaysLaw.register( 'OrientationEnum', OrientationEnum );
 export default OrientationEnum;

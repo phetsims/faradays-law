@@ -7,10 +7,10 @@
  * @author Michael Barlow
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
-const MagnetDirectionEnum = Enumeration.byKeys(
+const MagnetDirectionEnum = EnumerationDeprecated.byKeys(
   [ 'LEFT', 'RIGHT', 'UP', 'DOWN', 'UP_LEFT', 'UP_RIGHT', 'DOWN_LEFT', 'DOWN_RIGHT' ]
 );
 faradaysLaw.register( 'MagnetDirectionEnum', MagnetDirectionEnum );
