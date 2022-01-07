@@ -1,4 +1,4 @@
-// Copyright 2017-2020, University of Colorado Boulder
+// Copyright 2017-2022, University of Colorado Boulder
 
 /**
  * Possible Edge types in 'Faradays Law' simulation for when a magnet is colliding with a coil during dragging.

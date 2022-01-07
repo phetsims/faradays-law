@@ -1,4 +1,4 @@
-// Copyright 2018-2020, University of Colorado Boulder
+// Copyright 2018-2022, University of Colorado Boulder
 
 /**
  * Possible directions for the magnet in Faraday's Law, magnet can move up, down, left, right,
