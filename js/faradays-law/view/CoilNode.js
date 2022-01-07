@@ -10,21 +10,21 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import fourLoopBackImage from '../../../mipmaps/four-loop-back_png.js';
-import fourLoopFrontImage from '../../../mipmaps/four-loop-front_png.js';
-import twoLoopBackImage from '../../../mipmaps/two-loop-back_png.js';
-import twoLoopFrontImage from '../../../mipmaps/two-loop-front_png.js';
+import fourLoopBack_png from '../../../mipmaps/fourLoopBack_png.js';
+import fourLoopFront_png from '../../../mipmaps/fourLoopFront_png.js';
+import twoLoopBack_png from '../../../mipmaps/twoLoopBack_png.js';
+import twoLoopFront_png from '../../../mipmaps/twoLoopFront_png.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
 
 const IMAGE_MAP = {};
 IMAGE_MAP[ CoilTypeEnum.TWO_COIL ] = {
-  frontImage: twoLoopFrontImage,
-  backImage: twoLoopBackImage
+  frontImage: twoLoopFront_png,
+  backImage: twoLoopBack_png
 };
 IMAGE_MAP[ CoilTypeEnum.FOUR_COIL ] = {
-  frontImage: fourLoopFrontImage,
-  backImage: fourLoopBackImage
+  frontImage: fourLoopFront_png,
+  backImage: fourLoopBack_png
 };
 
 // each coil have 2 ends, coordinates of each end relative to center of the coil

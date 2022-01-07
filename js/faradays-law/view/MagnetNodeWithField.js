@@ -16,8 +16,8 @@ import { DragListener } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import grabMagnetSound from '../../../sounds/grab-magnet_mp3.js';
-import releaseMagnetSound from '../../../sounds/release-magnet_mp3.js';
+import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
+import releaseMagnet_mp3 from '../../../sounds/releaseMagnet_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
@@ -106,11 +106,11 @@ class MagnetNodeWithField extends Node {
     const alertManager = new FaradaysLawAlertManager( this, describer );
 
     // sound generation
-    const grabMagnetSoundPlayer = new SoundClip( grabMagnetSound, {
+    const grabMagnetSoundPlayer = new SoundClip( grabMagnet_mp3, {
       initialOutputLevel: GRAB_RELEASE_SOUND_LEVEL
     } );
     soundManager.addSoundGenerator( grabMagnetSoundPlayer );
-    const releaseMagnetSoundPlayer = new SoundClip( releaseMagnetSound, {
+    const releaseMagnetSoundPlayer = new SoundClip( releaseMagnet_mp3, {
       initialOutputLevel: GRAB_RELEASE_SOUND_LEVEL
     } );
     soundManager.addSoundGenerator( releaseMagnetSoundPlayer );

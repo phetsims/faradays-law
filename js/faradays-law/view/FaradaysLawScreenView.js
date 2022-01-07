@@ -13,8 +13,8 @@ import { Node } from '../../../../scenery/js/imports.js';
 import boundaryReachedSoundPlayer from '../../../../tambo/js/shared-sound-players/boundaryReachedSoundPlayer.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import upperCoilBumpSound from '../../../sounds/coil-bump-high_mp3.js';
-import lowerCoilBumpSound from '../../../sounds/coil-bump-low_mp3.js';
+import coilBumpHigh_mp3 from '../../../sounds/coilBumpHigh_mp3.js';
+import coilBumpLow_mp3 from '../../../sounds/coilBumpLow_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import faradaysLawStrings from '../../faradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
@@ -133,9 +133,9 @@ class FaradaysLawScreenView extends ScreenView {
     // ------------------------------------------------------------------------------------------------------------------
 
     // sounds for when the magnet bumps into the coils
-    const lowerCoilBumpSoundClip = new SoundClip( lowerCoilBumpSound, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
+    const lowerCoilBumpSoundClip = new SoundClip( coilBumpLow_mp3, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
     soundManager.addSoundGenerator( lowerCoilBumpSoundClip );
-    const upperCoilBumpSoundClip = new SoundClip( upperCoilBumpSound, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
+    const upperCoilBumpSoundClip = new SoundClip( coilBumpHigh_mp3, { initialOutputLevel: COIL_BUMP_SOUND_LEVEL } );
     soundManager.addSoundGenerator( upperCoilBumpSoundClip );
     model.coilBumpEmitter.addListener( coilType => {
       coilType === CoilTypeEnum.FOUR_COIL ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();

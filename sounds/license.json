@@ -1,5 +1,5 @@
 {
-  "coil-bump-high.mp3": {
+  "coilBumpHigh.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "coil-bump-low.mp3": {
+  "coilBumpLow.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -15,7 +15,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "grab-magnet.mp3": {
+  "grabMagnet.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -23,7 +23,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-voltage-note-b-flat-4.mp3": {
+  "lightbulbVoltageNoteBFlat4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -31,7 +31,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-voltage-note-c-4.mp3": {
+  "lightbulbVoltageNoteC4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -39,7 +39,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-voltage-note-c-5.mp3": {
+  "lightbulbVoltageNoteC5.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -47,7 +47,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-voltage-note-e-4.mp3": {
+  "lightbulbVoltageNoteE4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -55,7 +55,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "lightbulb-voltage-note-g-4.mp3": {
+  "lightbulbVoltageNoteG4.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -63,7 +63,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "release-magnet.mp3": {
+  "releaseMagnet.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],
@@ -71,7 +71,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris (PhET Interactive Simulations)"
   },
-  "voltage-max-click.mp3": {
+  "voltageMaxClick.mp3": {
     "text": [
       "Copyright 2002-2020 University of Colorado Boulder"
     ],

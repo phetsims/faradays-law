@@ -18,7 +18,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import maxVoltageSound from '../../../sounds/voltage-max-click_mp3.js';
+import voltageMaxClick_mp3 from '../../../sounds/voltageMaxClick_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
@@ -78,12 +78,12 @@ class VoltmeterGauge extends Node {
     this.addChild( needleArrowNode );
 
     // sound generators
-    const maxPositiveVoltageSoundClip = new SoundClip( maxVoltageSound, {
+    const maxPositiveVoltageSoundClip = new SoundClip( voltageMaxClick_mp3, {
       initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL,
       initialPlaybackRate: 1.12246204831
     } );
     soundManager.addSoundGenerator( maxPositiveVoltageSoundClip );
-    const maxNegativeVoltageSoundClip = new SoundClip( maxVoltageSound, {
+    const maxNegativeVoltageSoundClip = new SoundClip( voltageMaxClick_mp3, {
       initialOutputLevel: CLICK_SOUND_OUTPUT_LEVEL
     } );
     soundManager.addSoundGenerator( maxNegativeVoltageSoundClip );

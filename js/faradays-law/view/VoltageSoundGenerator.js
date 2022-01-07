@@ -11,11 +11,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import lightBulbToneTop2Sound from '../../../sounds/lightbulb-voltage-note-b-flat-4_mp3.js';
-import lightBulbTone1Sound from '../../../sounds/lightbulb-voltage-note-c-4_mp3.js';
-import lightBulbToneTop1Sound from '../../../sounds/lightbulb-voltage-note-c-5_mp3.js';
-import lightBulbTone2Sound from '../../../sounds/lightbulb-voltage-note-e-4_mp3.js';
-import lightBulbTone3Sound from '../../../sounds/lightbulb-voltage-note-g-4_mp3.js';
+import lightbulbVoltageNoteBFlat4_mp3 from '../../../sounds/lightbulbVoltageNoteBFlat4_mp3.js';
+import lightbulbVoltageNoteC4_mp3 from '../../../sounds/lightbulbVoltageNoteC4_mp3.js';
+import lightbulbVoltageNoteC5_mp3 from '../../../sounds/lightbulbVoltageNoteC5_mp3.js';
+import lightbulbVoltageNoteE4_mp3 from '../../../sounds/lightbulbVoltageNoteE4_mp3.js';
+import lightbulbVoltageNoteG4_mp3 from '../../../sounds/lightbulbVoltageNoteG4_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
@@ -43,9 +43,9 @@ class VoltageSoundGenerator extends SoundGenerator {
 
     // sound clips that represent individual tones and that are layered to produce the voltage sound
     const voltageSoundClips = [
-      new SoundClip( lightBulbTone1Sound, TONE_OPTIONS ),
-      new SoundClip( lightBulbTone2Sound, TONE_OPTIONS ),
-      new SoundClip( lightBulbTone3Sound, TONE_OPTIONS )
+      new SoundClip( lightbulbVoltageNoteC4_mp3, TONE_OPTIONS ),
+      new SoundClip( lightbulbVoltageNoteE4_mp3, TONE_OPTIONS ),
+      new SoundClip( lightbulbVoltageNoteG4_mp3, TONE_OPTIONS )
     ];
     voltageSoundClips.forEach( voltageSoundClip => {
       voltageSoundClip.connect( this.masterGainNode );
@@ -53,9 +53,9 @@ class VoltageSoundGenerator extends SoundGenerator {
 
     // high notes that are played or not based on the sign of the voltage
     const highNoteOutputLevelMultiplier = 0.2;
-    const positiveVoltmeterHighTone = new SoundClip( lightBulbToneTop1Sound, TONE_OPTIONS );
+    const positiveVoltmeterHighTone = new SoundClip( lightbulbVoltageNoteC5_mp3, TONE_OPTIONS );
     soundManager.addSoundGenerator( positiveVoltmeterHighTone );
-    const positiveVoltmeterLowTone = new SoundClip( lightBulbToneTop2Sound, TONE_OPTIONS );
+    const positiveVoltmeterLowTone = new SoundClip( lightbulbVoltageNoteBFlat4_mp3, TONE_OPTIONS );
     soundManager.addSoundGenerator( positiveVoltmeterLowTone );
 
     // closure for adjusting the sound based on the voltage
