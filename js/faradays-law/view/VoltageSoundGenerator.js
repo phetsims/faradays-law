@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * VoltageSoundGenerator is a sound generator that produces sounds based on the voltage level.
