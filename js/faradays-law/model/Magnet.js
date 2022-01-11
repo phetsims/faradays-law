@@ -9,7 +9,7 @@
 
 // modules
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -38,7 +38,7 @@ class Magnet {
     } );
 
     // @public {BooleanProperty} - true if the magnet is flipped
-    this.orientationProperty = new EnumerationProperty( OrientationEnum, OrientationEnum.NS, {
+    this.orientationProperty = new EnumerationDeprecatedProperty( OrientationEnum, OrientationEnum.NS, {
       tandem: tandem.createTandem( 'orientationProperty' ),
       phetioDocumentation: 'The direction the bar magnet is oriented'
     } );
