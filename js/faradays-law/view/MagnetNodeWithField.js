@@ -148,7 +148,9 @@ class MagnetNodeWithField extends Node {
     model.magnet.positionProperty.linkAttribute( this, 'translation' );
 
     // @private - drag handler for keyboard navigation
-    const keyboardDragListener = new FaradaysLawKeyboardDragListener( model, regionManager, alertManager );
+    const keyboardDragListener = new FaradaysLawKeyboardDragListener( model, regionManager, alertManager, {
+      tandem: tandem.createTandem( 'keyboardDragListener' )
+    } );
 
     // arrows displayed before initiating the sliding/jumping movement
     const leftJumpArrows = new JumpMagnitudeArrowNode( 'left' );

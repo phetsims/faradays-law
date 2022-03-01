@@ -5,6 +5,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import merge from '../../../../phet-core/js/merge.js';
 import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
@@ -14,8 +15,9 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
    * @param {FaradaysLawModel} model
    * @param {MagnetRegionManager} regionManager
    * @param {FaradaysLawAlertManager} alertManager
+   * @param {Object} [options]
    */
-  constructor( model, regionManager, alertManager ) {
+  constructor( model, regionManager, alertManager, options ) {
 
     const drag = vectorDelta => {
       model.magnetArrowsVisibleProperty.set( false );
@@ -30,11 +32,13 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
       alertManager.movementEndAlert();
     };
 
-    super( {
+    options = merge( {
       drag: drag,
       end: end,
       dragBoundsProperty: new Property( model.bounds )
-    } );
+    }, options );
+
+    super( options );
 
     this.regionManager = regionManager;
     this.alertManager = alertManager;
