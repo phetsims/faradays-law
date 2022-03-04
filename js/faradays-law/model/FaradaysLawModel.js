@@ -13,7 +13,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Line from '../../../../kite/js/segments/Line.js';
+import { Line } from '../../../../kite/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import CoilTypeEnum from '../view/CoilTypeEnum.js';

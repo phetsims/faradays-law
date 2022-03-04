@@ -9,7 +9,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Shape from '../../../../kite/js/Shape.js';
+import { Shape } from '../../../../kite/js/imports.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MinusNode from '../../../../scenery-phet/js/MinusNode.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
