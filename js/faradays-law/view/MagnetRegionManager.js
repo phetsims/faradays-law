@@ -9,7 +9,7 @@
  * @author Michael Barlow (PhET Interactive Simulations)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -99,7 +99,7 @@ class MagnetRegionManager {
     this._topCoilFieldStrength = 0;
     this._bottomCoilFiledStrength = 0;
 
-    Property.multilink(
+    Multilink.multilink(
       [ model.topCoilVisibleProperty, model.magnet.positionProperty ],
       ( showTopCoil, position ) => {
         this._adjacentCoil = this.getCoilAdjacentToVector( position, showTopCoil );

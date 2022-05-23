@@ -9,7 +9,7 @@
  */
 
 // modules
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
@@ -67,7 +67,7 @@ class CircuitDescriptionNode extends Node {
     const twoLoopItem = createListItemNode( twoLoopCoilString );
     const voltmeterItem = createListItemNode( voltmeterString );
 
-    Property.multilink(
+    Multilink.multilink(
       [ model.topCoilVisibleProperty, model.voltmeterVisibleProperty ],
       ( showTopCoil, showVoltmeter ) => {
         if ( !showTopCoil ) {
