@@ -127,7 +127,7 @@ class ControlPanelNode extends Node {
     const showVoltmeterLabel = new Text( faradaysLawVoltmeterString, { font: new PhetFont( 16 ) } );
     showVoltmeterLabel.scale( Math.min( 150 / showVoltmeterLabel.width, 1 ) );
 
-    const voltmeterCheckbox = new Checkbox( showVoltmeterLabel, model.voltmeterVisibleProperty, {
+    const voltmeterCheckbox = new Checkbox( model.voltmeterVisibleProperty, showVoltmeterLabel, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY - 20,
       tandem: tandem.createTandem( 'voltmeterCheckbox' ),
@@ -149,7 +149,7 @@ class ControlPanelNode extends Node {
     showFieldLinesLabel.scale( Math.min( 150 / showFieldLinesLabel.width, 1 ) ); // max width empirically determined
 
     // show field lines
-    const fieldLinesCheckbox = new Checkbox( showFieldLinesLabel, model.magnet.fieldLinesVisibleProperty, {
+    const fieldLinesCheckbox = new Checkbox( model.magnet.fieldLinesVisibleProperty, showFieldLinesLabel, {
       x: 174,
       centerY: coilRadioButtonGroup.centerY + 20,
       tandem: tandem.createTandem( 'fieldLinesCheckbox' ),
