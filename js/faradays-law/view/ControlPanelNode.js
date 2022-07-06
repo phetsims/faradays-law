@@ -106,14 +106,16 @@ class ControlPanelNode extends Node {
     } ];
 
     const coilRadioButtonGroup = new RectangularRadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
-      buttonContentXMargin: 20,
-      buttonContentYMargin: 4,
+      radioButtonOptions: {
+        xMargin: 20,
+        yMargin: 4,
+        baseColor: '#cdd5f6', // lavender-ish
+        selectedLineWidth: 3,
+        deselectedLineWidth: 1
+      },
       left: 377,
       bottom: 0,
       orientation: 'horizontal',
-      baseColor: '#cdd5f6', // lavender-ish
-      selectedLineWidth: 3,
-      deselectedLineWidth: 1,
       tandem: tandem.createTandem( 'coilRadioButtonGroup' ),
       phetioDocumentation: 'Radio button group that selects between one or two coils.',
       containerTagName: 'li',
