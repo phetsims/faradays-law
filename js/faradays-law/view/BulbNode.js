@@ -11,11 +11,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import lightBulbBase_png from '../../../../scenery-phet/mipmaps/lightBulbBase_png.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { RadialGradient } from '../../../../scenery/js/imports.js';
+import { Circle, Image, Node, Path, RadialGradient } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants

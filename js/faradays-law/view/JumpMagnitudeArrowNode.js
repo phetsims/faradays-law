@@ -8,9 +8,7 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Path } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 
 // constants

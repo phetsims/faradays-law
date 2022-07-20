@@ -9,11 +9,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
-import { FocusHighlightFromNode } from '../../../../scenery/js/imports.js';
-import { KeyboardUtils } from '../../../../scenery/js/imports.js';
-import { animatedPanZoomSingleton } from '../../../../scenery/js/imports.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { animatedPanZoomSingleton, DragListener, FocusHighlightFromNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
