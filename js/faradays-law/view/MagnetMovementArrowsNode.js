@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * MagnetMovementArrowsNode is a Scenery node that depicts four arrows that are used to provide a hint to the user about
