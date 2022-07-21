@@ -108,8 +108,10 @@ class ControlPanelNode extends Node {
         xMargin: 20,
         yMargin: 4,
         baseColor: '#cdd5f6', // lavender-ish
-        selectedLineWidth: 3,
-        deselectedLineWidth: 1
+        buttonAppearanceStrategyOptions: {
+          selectedLineWidth: 3,
+          deselectedLineWidth: 1
+        }
       },
       left: 377,
       bottom: 0,
