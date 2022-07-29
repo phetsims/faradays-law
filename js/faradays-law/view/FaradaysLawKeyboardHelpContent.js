@@ -24,16 +24,16 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
       faradaysLawStrings.keyboardHelpDialog.barMagnet,
       faradaysLawStrings.keyboardHelpDialog.magnet,
-      { labelMaxWidth: maxWidth }
+      { textMaxWidth: maxWidth }
     );
     const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( {
       withCheckboxContent: true
     } );
     const moveMagnetHelpSection = new MoveMagnetHelpSection( {
-      labelMaxWidth: maxWidth
+      textMaxWidth: maxWidth
     } );
     const autoSlideMagnetHelpSection = new AutoSlideMagnetHelpSection( {
-      labelMaxWidth: maxWidth
+      textMaxWidth: maxWidth
     } );
 
     KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveMagnetHelpSection, autoSlideMagnetHelpSection ] );
