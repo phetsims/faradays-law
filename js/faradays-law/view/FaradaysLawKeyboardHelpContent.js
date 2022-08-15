@@ -7,6 +7,7 @@
  */
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
@@ -59,7 +60,7 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
 
     // move grabbed magnet row
     const moveMagnetIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const moveMagnetRow = KeyboardHelpSection.labelWithIcon(
+    const moveMagnetRow = KeyboardHelpSectionRow.labelWithIcon(
       faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnet,
       moveMagnetIcon, {
         labelInnerContent: faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
@@ -68,7 +69,7 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
     // move magnet slower row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
-    const moveMagnetSlowerRow = KeyboardHelpSection.labelWithIconList(
+    const moveMagnetSlowerRow = KeyboardHelpSectionRow.labelWithIconList(
       faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlower,
       [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
         labelInnerContent: faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
@@ -98,7 +99,7 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
       ],
       spacing: 1
     } );
-    const moveGrabbedMagnetRow = KeyboardHelpSection.labelWithIcon(
+    const moveGrabbedMagnetRow = KeyboardHelpSectionRow.labelWithIcon(
       faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetText,
       numberKeysIcon, {
         labelInnerContent: faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
