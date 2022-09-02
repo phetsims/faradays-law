@@ -13,7 +13,7 @@ import FaradaysLawScreen from './faradays-law/FaradaysLawScreen.js';
 import faradaysLawStrings from './faradaysLawStrings.js';
 
 // constants
-const faradaysLawTitleString = faradaysLawStrings[ 'faradays-law' ].title;
+const faradaysLawTitleStringProperty = faradaysLawStrings[ 'faradays-law' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -32,7 +32,7 @@ const simOptions = {
 
 // Create and start the sim
 simLauncher.launch( () => {
-  const sim = new Sim( faradaysLawTitleString, [
+  const sim = new Sim( faradaysLawTitleStringProperty, [
     new FaradaysLawScreen( Tandem.ROOT.createTandem( 'faradaysLawScreen' ) )
   ], simOptions );
   sim.start();
