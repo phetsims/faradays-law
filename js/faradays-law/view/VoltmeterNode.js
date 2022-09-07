@@ -16,10 +16,10 @@ import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import ShadedRectangle from '../../../../scenery-phet/js/ShadedRectangle.js';
 import { Color, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import VoltmeterGauge from './VoltmeterGauge.js';
 
-const faradaysLawVoltageString = faradaysLawStrings[ 'faradays-law' ].voltage;
+const faradaysLawVoltageString = FaradaysLawStrings[ 'faradays-law' ].voltage;
 
 // constants
 const TERMINAL_COLOR = '#C0C0C0';

@@ -16,7 +16,7 @@ import soundManager from '../../../../tambo/js/soundManager.js';
 import coilBumpHigh_mp3 from '../../../sounds/coilBumpHigh_mp3.js';
 import coilBumpLow_mp3 from '../../../sounds/coilBumpLow_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import BulbNode from './BulbNode.js';
 import CircuitDescriptionNode from './CircuitDescriptionNode.js';
@@ -29,8 +29,8 @@ import VoltageSoundGenerator from './VoltageSoundGenerator.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
 
 // constants
-const summaryDescriptionString = faradaysLawStrings.a11y.summaryDescription;
-const moveMagnetToPlayString = faradaysLawStrings.a11y.moveMagnetToPlay;
+const summaryDescriptionString = FaradaysLawStrings.a11y.summaryDescription;
+const moveMagnetToPlayString = FaradaysLawStrings.a11y.moveMagnetToPlay;
 const COIL_BUMP_SOUND_LEVEL = 0.25;
 
 class FaradaysLawScreenView extends ScreenView {

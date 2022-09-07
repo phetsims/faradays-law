@@ -12,11 +12,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Color, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 
-const faradaysLawNString = faradaysLawStrings[ 'faradays-law' ].n;
-const faradaysLawSString = faradaysLawStrings[ 'faradays-law' ].s;
+const faradaysLawNString = FaradaysLawStrings[ 'faradays-law' ].n;
+const faradaysLawSString = FaradaysLawStrings[ 'faradays-law' ].s;
 
 // constants
 

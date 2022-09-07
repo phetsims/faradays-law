@@ -261,8 +261,8 @@ type StringsType = {
   }
 };
 
-const faradaysLawStrings = getStringModule( 'FARADAYS_LAW' ) as StringsType;
+const FaradaysLawStrings = getStringModule( 'FARADAYS_LAW' ) as StringsType;
 
-faradaysLaw.register( 'faradaysLawStrings', faradaysLawStrings );
+faradaysLaw.register( 'FaradaysLawStrings', FaradaysLawStrings );
 
-export default faradaysLawStrings;
+export default FaradaysLawStrings;

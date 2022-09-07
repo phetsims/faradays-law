@@ -13,16 +13,16 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import MagnetDescriber from './MagnetDescriber.js';
 
 // strings
-const lightBulbCircuitLabelString = faradaysLawStrings.a11y.lightBulbCircuitLabel;
-const lightBulbString = faradaysLawStrings.a11y.lightBulb;
-const inTheCircuitString = faradaysLawStrings.a11y.inTheCircuit;
-const fourLoopCoilString = faradaysLawStrings.a11y.fourLoopCoil;
-const twoLoopCoilString = faradaysLawStrings.a11y.twoLoopCoil;
-const voltmeterString = faradaysLawStrings.a11y.voltmeter;
+const lightBulbCircuitLabelString = FaradaysLawStrings.a11y.lightBulbCircuitLabel;
+const lightBulbString = FaradaysLawStrings.a11y.lightBulb;
+const inTheCircuitString = FaradaysLawStrings.a11y.inTheCircuit;
+const fourLoopCoilString = FaradaysLawStrings.a11y.fourLoopCoil;
+const twoLoopCoilString = FaradaysLawStrings.a11y.twoLoopCoil;
+const voltmeterString = FaradaysLawStrings.a11y.voltmeter;
 
 class CircuitDescriptionNode extends Node {
 

@@ -15,7 +15,7 @@ import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
 import releaseMagnet_mp3 from '../../../sounds/releaseMagnet_mp3.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FaradaysLawKeyboardDragListener from './FaradaysLawKeyboardDragListener.js';
 import JumpMagnitudeArrowNode from './JumpMagnitudeArrowNode.js';
@@ -28,7 +28,7 @@ import MagnetNode from './MagnetNode.js';
 import MagnetRegionManager from './MagnetRegionManager.js';
 
 // constants
-const barMagnetString = faradaysLawStrings.a11y.barMagnet;
+const barMagnetString = FaradaysLawStrings.a11y.barMagnet;
 const GRAB_RELEASE_SOUND_LEVEL = 0.2; // empirically determined
 
 /**

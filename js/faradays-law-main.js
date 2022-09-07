@@ -10,10 +10,10 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import FaradaysLawScreen from './faradays-law/FaradaysLawScreen.js';
-import faradaysLawStrings from './faradaysLawStrings.js';
+import FaradaysLawStrings from './FaradaysLawStrings.js';
 
 // constants
-const faradaysLawTitleStringProperty = faradaysLawStrings[ 'faradays-law' ].titleStringProperty;
+const faradaysLawTitleStringProperty = FaradaysLawStrings[ 'faradays-law' ].titleStringProperty;
 
 const simOptions = {
   credits: {

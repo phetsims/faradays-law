@@ -14,7 +14,7 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 
 class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -23,8 +23,8 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175; // empirically determined
     const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
-      faradaysLawStrings.keyboardHelpDialog.barMagnet,
-      faradaysLawStrings.keyboardHelpDialog.magnet,
+      FaradaysLawStrings.keyboardHelpDialog.barMagnet,
+      FaradaysLawStrings.keyboardHelpDialog.magnet,
       { textMaxWidth: maxWidth }
     );
     const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( {
@@ -61,21 +61,21 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
     // move grabbed magnet row
     const moveMagnetIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
     const moveMagnetRow = KeyboardHelpSectionRow.labelWithIcon(
-      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnet,
+      FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnet,
       moveMagnetIcon, {
-        labelInnerContent: faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
+        labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
       } );
 
     // move magnet slower row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
     const moveMagnetSlowerRow = KeyboardHelpSectionRow.labelWithIconList(
-      faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlower,
+      FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlower,
       [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
-        labelInnerContent: faradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
+        labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
       } );
 
-    super( faradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, [ moveMagnetRow, moveMagnetSlowerRow ], options );
+    super( FaradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, [ moveMagnetRow, moveMagnetSlowerRow ], options );
   }
 }
 
@@ -100,12 +100,12 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
       spacing: 1
     } );
     const moveGrabbedMagnetRow = KeyboardHelpSectionRow.labelWithIcon(
-      faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetText,
+      FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetText,
       numberKeysIcon, {
-        labelInnerContent: faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
+        labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
       } );
 
-    super( faradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
+    super( FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
   }
 }
 

@@ -15,7 +15,7 @@ import { Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilNode from './CoilNode.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
@@ -23,15 +23,15 @@ import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FlipMagnetButton from './FlipMagnetButton.js';
 
 // constants
-const faradaysLawShowFieldLinesString = faradaysLawStrings[ 'faradays-law' ].showFieldLines;
-const faradaysLawVoltmeterString = faradaysLawStrings[ 'faradays-law' ].voltmeter;
-const voltmeterString = faradaysLawStrings.a11y.voltmeter;
-const voltmeterDescriptionString = faradaysLawStrings.a11y.voltmeterDescription;
-const numberOneCoilString = faradaysLawStrings.a11y.numberOneCoil;
-const numberTwoCoilString = faradaysLawStrings.a11y.numberTwoCoil;
-const circuitModeString = faradaysLawStrings.a11y.circuitMode;
-const fieldLinesString = faradaysLawStrings.a11y.fieldLines;
-const fieldLinesDescriptionString = faradaysLawStrings.a11y.fieldLinesDescription;
+const faradaysLawShowFieldLinesString = FaradaysLawStrings[ 'faradays-law' ].showFieldLines;
+const faradaysLawVoltmeterString = FaradaysLawStrings[ 'faradays-law' ].voltmeter;
+const voltmeterString = FaradaysLawStrings.a11y.voltmeter;
+const voltmeterDescriptionString = FaradaysLawStrings.a11y.voltmeterDescription;
+const numberOneCoilString = FaradaysLawStrings.a11y.numberOneCoil;
+const numberTwoCoilString = FaradaysLawStrings.a11y.numberTwoCoil;
+const circuitModeString = FaradaysLawStrings.a11y.circuitMode;
+const fieldLinesString = FaradaysLawStrings.a11y.fieldLines;
+const fieldLinesDescriptionString = FaradaysLawStrings.a11y.fieldLinesDescription;
 
 class ControlPanelNode extends Node {
 

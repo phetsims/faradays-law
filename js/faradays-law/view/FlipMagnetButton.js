@@ -14,11 +14,11 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, PDOMPeer, VBox } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import faradaysLawStrings from '../../faradaysLawStrings.js';
+import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import MagnetNode from './MagnetNode.js';
 
-const flipMagnetString = faradaysLawStrings.a11y.flipMagnet;
-const flipPolesString = faradaysLawStrings.a11y.flipPoles;
+const flipMagnetString = FaradaysLawStrings.a11y.flipMagnet;
+const flipPolesString = FaradaysLawStrings.a11y.flipPoles;
 
 class FlipMagnetButton extends RectangularPushButton {
   /**
