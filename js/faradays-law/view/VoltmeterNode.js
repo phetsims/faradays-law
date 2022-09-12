@@ -66,7 +66,7 @@ class VoltmeterNode extends Node {
     const label = new Text( faradaysLawVoltageString, {
       font: new PhetFont( 18 ),
       fill: 'yellow',
-      tandem: tandem.createTandem( 'label' ),
+      tandem: tandem.createTandem( 'labelText' ),
       phetioDocumentation: 'Text label at the bottom of the voltmeter',
       maxWidth: READOUT_WIDTH // Support PhET-iO
     } );
