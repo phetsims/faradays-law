@@ -77,7 +77,7 @@ class VoltmeterNode extends Node {
     label.centerY = ( readoutBackground.bottom + background.bottom ) * 0.48;
 
     // When the text changes (via PhET-iO), re-center it
-    label.textProperty.lazyLink( () => {
+    label.stringProperty.lazyLink( () => {
       label.centerX = 0;
     } );
     this.addChild( label );
