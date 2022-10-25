@@ -23,10 +23,10 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175; // empirically determined
     const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
-      FaradaysLawStrings.keyboardHelpDialog.barMagnet,
-      FaradaysLawStrings.keyboardHelpDialog.magnet,
-      { textMaxWidth: maxWidth }
-    );
+      FaradaysLawStrings.keyboardHelpDialog.barMagnetStringProperty,
+      FaradaysLawStrings.keyboardHelpDialog.magnetStringProperty, {
+        textMaxWidth: maxWidth
+      } );
     const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( {
       withCheckboxContent: true
     } );
