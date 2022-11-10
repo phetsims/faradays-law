@@ -10,6 +10,7 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import GrabReleaseKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GrabReleaseKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
 import { HBox } from '../../../../scenery/js/imports.js';
@@ -22,7 +23,7 @@ class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175; // empirically determined
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
+    const grabReleaseHelpSection = new GrabReleaseKeyboardHelpSection(
       FaradaysLawStrings.keyboardHelpDialog.barMagnetStringProperty,
       FaradaysLawStrings.keyboardHelpDialog.magnetStringProperty, {
         textMaxWidth: maxWidth
