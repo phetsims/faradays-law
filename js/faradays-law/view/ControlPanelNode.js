@@ -79,7 +79,7 @@ class ControlPanelNode extends Node {
 
     const coilButtonGroupContents = [ {
       value: false,
-      createNode: tandem => new VBox( merge( {
+      createNode: () => new VBox( merge( {
         children: [
           new CoilNode( CoilTypeEnum.TWO_COIL, { visible: false } ),
           new CoilNode( CoilTypeEnum.FOUR_COIL )
@@ -91,7 +91,7 @@ class ControlPanelNode extends Node {
       labelContent: numberOneCoilString
     }, {
       value: true,
-      createNode: tandem => new VBox( merge( {
+      createNode: () => new VBox( merge( {
         children: [
           new CoilNode( CoilTypeEnum.TWO_COIL ),
           new CoilNode( CoilTypeEnum.FOUR_COIL )
