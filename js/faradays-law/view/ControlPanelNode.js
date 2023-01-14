@@ -1,4 +1,4 @@
-// Copyright 2014-2022, University of Colorado Boulder
+// Copyright 2014-2023, University of Colorado Boulder
 
 /**
  * Strip of controls at the bottom of the screen, which are not shown in a visible panel.  It contains controls
