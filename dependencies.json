@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.4.13 Thu Feb 02 2023 11:49:38 GMT-0700 (Mountain Standard Time)",
+  "comment": "# faradays-law 1.4.14-rc.1 Thu Feb 23 2023 18:36:10 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "3df8c5ff9a465b031f84195a90bbb7e1be10a14d",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "6697be48a3396bbd830b02847ca23fd13320365b",
+    "sha": "f249fd8b2684c83c12eef01248a2f33b5cf6816f",
     "branch": "1.4"
   },
   "joist": {
