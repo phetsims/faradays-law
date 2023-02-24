@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "cc671ef2e9cb647a4b413a6283aa160499712e86",
+    "sha": "6697be48a3396bbd830b02847ca23fd13320365b",
     "branch": "1.4"
   },
   "joist": {
@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "c4fcc30bf3c0fbaf7111d116fb62ba5195383229",
+    "sha": "582d1f9e73cdcf5d34093cc6cbdfdc3ae6678036",
     "branch": "HEAD"
   },
   "phetmarks": {
