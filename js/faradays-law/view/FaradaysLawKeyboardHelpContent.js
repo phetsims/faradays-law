@@ -7,10 +7,10 @@
  */
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
-import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
+import GrabReleaseKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GrabReleaseKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
-import GrabReleaseKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GrabReleaseKeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
 import { HBox } from '../../../../scenery/js/imports.js';
@@ -94,9 +94,9 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
     // row with text label and number icons
     const numberKeysIcon = new HBox( {
       children: [
-        new LetterKeyNode( '1' ),
-        new LetterKeyNode( '2' ),
-        new LetterKeyNode( '3' )
+        LetterKeyNode.one(),
+        LetterKeyNode.two(),
+        LetterKeyNode.three()
       ],
       spacing: 1
     } );
