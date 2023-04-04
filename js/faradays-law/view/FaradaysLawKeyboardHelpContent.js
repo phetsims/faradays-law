@@ -76,7 +76,9 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
         labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
       } );
 
-    super( FaradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, [ moveMagnetRow, moveMagnetSlowerRow ], options );
+    const rows = [ moveMagnetRow, moveMagnetSlowerRow ];
+    super( FaradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, rows, options );
+    this.disposeEmitter.addListener( () => rows.forEach( row => row.dispose() ) );
   }
 }
 
@@ -107,6 +109,7 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
       } );
 
     super( FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
+    this.disposeEmitter.addListener( () => moveGrabbedMagnetRow.dispose() );
   }
 }
 
