@@ -78,7 +78,6 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
 
     const rows = [ moveMagnetRow, moveMagnetSlowerRow ];
     super( FaradaysLawStrings.keyboardHelpDialog.moveGrabbedBarMagnet, rows, options );
-    this.disposeEmitter.addListener( () => rows.forEach( row => row.dispose() ) );
   }
 }
 
@@ -109,7 +108,6 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
       } );
 
     super( FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
-    this.disposeEmitter.addListener( () => moveGrabbedMagnetRow.dispose() );
   }
 }
 
