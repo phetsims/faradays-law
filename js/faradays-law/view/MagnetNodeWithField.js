@@ -233,7 +233,6 @@ class MagnetNodeWithField extends Node {
         self.magnetSlideTargetNode.visible = false;
         rightJumpArrows.hideCue();
         leftJumpArrows.hideCue();
-        magnetJumpKeyboardListener.released();
         releaseMagnetSoundPlayer.play();
       },
       tandem: tandem.createTandem( 'grabDragInteraction' )
