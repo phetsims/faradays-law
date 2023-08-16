@@ -9,7 +9,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
-import { animatedPanZoomSingleton, DragListener, FocusHighlightFromNode, InteractiveHighlightingNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
+import { animatedPanZoomSingleton, DragListener, HighlightFromNode, InteractiveHighlightingNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
@@ -56,7 +56,7 @@ class MagnetNodeWithField extends Node {
 
     // pdom
     // create the focus highlight to pass as an option
-    const draggableNodeFocusHighlight = new FocusHighlightFromNode( this.magnetNode ); // overridden once the draggableNode is fully constructed
+    const draggableNodeFocusHighlight = new HighlightFromNode( this.magnetNode ); // overridden once the draggableNode is fully constructed
 
     // the draggable container for the magnet and arrows
     const draggableNode = new InteractiveHighlightingNode( {
