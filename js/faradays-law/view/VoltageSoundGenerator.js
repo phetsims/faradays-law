@@ -48,7 +48,7 @@ class VoltageSoundGenerator extends SoundGenerator {
       new SoundClip( lightbulbVoltageNoteG4_mp3, TONE_OPTIONS )
     ];
     voltageSoundClips.forEach( voltageSoundClip => {
-      voltageSoundClip.connect( this.masterGainNode );
+      voltageSoundClip.connect( this.mainGainNode );
     } );
 
     // high notes that are played or not based on the sign of the voltage
