@@ -63,24 +63,24 @@ class VoltmeterNode extends Node {
     this.addChild( readoutBackground );
 
     // create the label and scale it if it's too long
-    const label = new Text( faradaysLawVoltageString, {
+    const labelText = new Text( faradaysLawVoltageString, {
       font: new PhetFont( 18 ),
       fill: 'yellow',
       tandem: tandem.createTandem( 'labelText' ),
       phetioDocumentation: 'Text label at the bottom of the voltmeter',
       maxWidth: READOUT_WIDTH // Support PhET-iO
     } );
-    label.scale( Math.min( readoutBackground.width / label.width, 1 ) );
+    labelText.scale( Math.min( readoutBackground.width / labelText.width, 1 ) );
 
     // position and add the label
-    label.centerX = 0;
-    label.centerY = ( readoutBackground.bottom + background.bottom ) * 0.48;
+    labelText.centerX = 0;
+    labelText.centerY = ( readoutBackground.bottom + background.bottom ) * 0.48;
 
     // When the text changes (via PhET-iO), re-center it
-    label.stringProperty.lazyLink( () => {
-      label.centerX = 0;
+    labelText.stringProperty.lazyLink( () => {
+      labelText.centerX = 0;
     } );
-    this.addChild( label );
+    this.addChild( labelText );
 
     // add the plus and minus terminals at the bottom
     // @public
