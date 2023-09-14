@@ -89,7 +89,7 @@ class MagnetRegionManager {
     ).eroded( 2 );
 
     // @private
-    // TODO: adjust setting this based on magnet and coil bounds instead of position https://github.com/phetsims/tasks/issues/1129
+    //TODO https://github.com/phetsims/faradays-law/issues/225 adjust setting this based on magnet and coil bounds instead of position
     this._adjacentCoil = CoilTypeEnum.NO_COIL;
     this._touchingCoil =
       this._magnetScreenSide = 'right';
