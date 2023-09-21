@@ -143,10 +143,9 @@ class MagnetRegionManager {
     const listOfRestrictedBounds = this.model.bottomCoilRestrictedBounds.concat( this.model.topCoilRestrictedBounds );
     const i = listOfRestrictedBounds.indexOf( intersectedBounds );
 
-    //TODO https://github.com/phetsims/faradays-law/issues/164 The code below looks wrong.  The return type doesn't
-    // match the header docs, and the whole thing is too tightly coupled to the way bounds are managed in the model.
-    // Also, it seems like it should return null instead of -1 if no intersection is found.
-
+    // TODO The code below looks wrong.  The return type doesn't
+    //   match the header docs, and the whole thing is too tightly coupled to the way bounds are managed in the model.
+    //   Also, it seems like it should return null instead of -1 if no intersection is found. https://github.com/phetsims/faradays-law/issues/164
     if ( i >= 0 ) {
       return coilSides[ i ];
     }
