@@ -68,8 +68,8 @@ new or changed files.
 
 (4) In a new terminal/command prompt, start an http-server
 
-(5) Open in the browser: `http://localhost/faradays-law/faradays-law_en.html` (You will probably need to modify this URL
-based on your HTTP port and relative path.)
+(5) Open in the browser: `http://localhost/faradays-law/faradays-law_en.html` (You will probably need to modify this
+URL based on your HTTP port and relative path.)
 
 #### Optional: Build the simulation into a single file
 
