@@ -277,7 +277,7 @@ class MagnetNodeWithField extends Node {
     // feature
     model.magnet.positionProperty.link( position => {
       if ( magnetJumpKeyboardListener.isAnimatingProperty.get() ) {
-        animatedPanZoomSingleton.listener.panToNode( draggableNode );
+        animatedPanZoomSingleton.listener.panToNode( draggableNode, true );
       }
     } );
 
