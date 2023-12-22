@@ -292,6 +292,9 @@ class MagnetAutoSlideKeyboardListenerX extends KeyboardListener {
   dispose() {
     this._disposeMagnetAutoSlideKeyboardListener();
   }
+
+  // @public @readonly
+  static AUTO_SLIDE_KEYS = AUTO_SLIDE_KEYS;
 }
 
 faradaysLaw.register( 'MagnetAutoSlideKeyboardListenerX', MagnetAutoSlideKeyboardListenerX );

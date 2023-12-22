@@ -9,7 +9,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
-import { animatedPanZoomSingleton, DragListener, HighlightFromNode, InteractiveHighlightingNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
+import { animatedPanZoomSingleton, DragListener, HighlightFromNode, InteractiveHighlightingNode, KeyboardListener, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
@@ -193,6 +193,21 @@ class MagnetNodeWithField extends Node {
       }
     } );
 
+    // A listener that will cancel animation from the MagnetAutoSlideKeyboardListener when keys are released.
+    // Cannot use in the magnetJumpKeyboardListener because KeyboardListener fires on particular key codes and this
+    // needs to fire for all key codes.
+    const cancelAnimationKeyDownListener = {
+      keydown: event => {
+        const englishEventKey = KeyboardListener.eventCodeToEnglishString( event.domEvent.code );
+        const isSlideKey = MagnetAutoSlideKeyboardListener.AUTO_SLIDE_KEYS.includes( englishEventKey );
+
+        // Any key press that is not one of the auto-slide keys should stop the animation.
+        if ( !isSlideKey && magnetJumpKeyboardListener.isAnimatingProperty.value ) {
+          magnetJumpKeyboardListener.isAnimatingProperty.value = false;
+        }
+      }
+    };
+
     // flag that tracks whether the magnet has been dragged since initial load or since a reset
     let magnetDragged = false;
     model.magnet.positionProperty.lazyLink( () => {
@@ -215,7 +230,7 @@ class MagnetNodeWithField extends Node {
     // arrows) needed to be visible at times that were not entirely under the control of GrabDragInteraction.
     const grabDragInteraction = new GrabDragInteraction( draggableNode, keyboardDragListener, {
       objectToGrabString: barMagnetString,
-      listenersForDragState: [ magnetJumpKeyboardListener ],
+      listenersForDragState: [ magnetJumpKeyboardListener, cancelAnimationKeyDownListener ],
       listenersForGrabState: [ focusListener ],
       grabCueOptions: {
 
