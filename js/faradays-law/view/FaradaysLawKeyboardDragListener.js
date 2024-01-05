@@ -2,6 +2,9 @@
 
 /**
  * Type to handle all standard keyboard input. The only exception is the grab-drag interaction.
+ *
+ * @author Michael Kauzmann (PhET Interactive Simulations)
+ * @author John Blanco (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';

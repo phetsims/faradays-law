@@ -1,5 +1,11 @@
 // Copyright 2018-2022, University of Colorado Boulder
 
+/**
+ * A scenery Node that adds PDOM content for screen readers. It uses the scene graph to produce the
+ * necessary markup that makes it easy to read content.
+ *
+ * @author Michael Barlow (PhET Interactive Simulations)
+ */
 
 import { Node } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';

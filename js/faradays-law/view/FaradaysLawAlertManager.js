@@ -9,6 +9,10 @@
  * descriptions are not supported in this release, but we don't want to publish with
  * descriptions that we know would create an unpleasant experience. See
  * https://github.com/phetsims/faradays-law/issues/109
+ *
+ * @author Michael Kauzmann (PhET Interactive Simulations)
+ * @author Jesse Greenberg (PhET Interactive Simulations)
+ * @author Michael Barlow (PhET Interactive Simulations)
  */
 
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
