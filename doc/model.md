@@ -1,4 +1,4 @@
-# Expression Exchange Model Description
+# Faraday's Law Model Description
 
 This is a high-level description of the model used in the Faraday's Law simulation. It it intended for audiences that
 are not necessarily technical.
