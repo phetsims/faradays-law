@@ -9,7 +9,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
-import { animatedPanZoomSingleton, DragListener, HighlightFromNode, InteractiveHighlightingNode, KeyboardListener, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
+import { animatedPanZoomSingleton, DragListener, eventCodeToEnglishString, HighlightFromNode, InteractiveHighlightingNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
@@ -198,7 +198,7 @@ class MagnetNodeWithField extends Node {
     // needs to fire for all key codes.
     const cancelAnimationKeyDownListener = {
       keydown: event => {
-        const englishEventKey = KeyboardListener.eventCodeToEnglishString( event.domEvent.code );
+        const englishEventKey = eventCodeToEnglishString( event.domEvent.code );
         const isSlideKey = MagnetAutoSlideKeyboardListener.AUTO_SLIDE_KEYS.includes( englishEventKey );
 
         // Any key press that is not one of the auto-slide keys should stop the animation.
