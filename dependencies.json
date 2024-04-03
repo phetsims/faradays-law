@@ -1,5 +1,5 @@
 {
-  "comment": "# faradays-law 1.3.31-phetiorc.2 Mon Apr 01 2024 16:34:44 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# faradays-law 1.3.31-phetio Wed Apr 03 2024 10:19:11 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "0a768c10e86f4dfa533046777e2abf43134a10bf",
+    "sha": "22672c29d93f2ac0f543c115dea5936643183275",
     "branch": "1.3-phetio"
   },
   "joist": {
