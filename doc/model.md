@@ -1,6 +1,6 @@
 # Faraday's Law Model Description
 
-This is a high-level description of the model used in the Faraday's Law simulation. It it intended for audiences that
+This is a high-level description of the model used in the Faraday's Law simulation. It is intended for audiences that
 are not necessarily technical.
 
 Qualitatively, faraday's law states that a changing magnetic field through a closed circuit induces an electromotive
