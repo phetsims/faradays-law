@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "5bb6858509436d82e68fd53ded596188be3aea1e",
+    "sha": "d7fa5ef6b9b63943971739000ee1c6a4f6ee3a88",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "ef92b99a9cc39e745f264ad66c323cba06364d5f",
+    "sha": "0b2b68cb17ba683a497b7ec858a9d346128a67d5",
     "branch": "1.3-phetio"
   },
   "joist": {
