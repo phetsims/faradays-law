@@ -27,7 +27,7 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
 
       // Attempt to move the magnet based on the drag action.  The model will prevent the magnet from going anywhere
       // that it shouldn't.
-      const proposedPosition = model.magnet.positionProperty.get().plus( listener.vectorDelta );
+      const proposedPosition = model.magnet.positionProperty.get().plus( listener.modelDelta );
       model.moveMagnetToPosition( proposedPosition );
     };
 
