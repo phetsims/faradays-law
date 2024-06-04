@@ -38,7 +38,10 @@ class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
     options = merge( {
       drag: drag,
       end: end,
-      dragBoundsProperty: new Property( model.bounds )
+      dragBoundsProperty: new Property( model.bounds ),
+      positionProperty: model.magnet.positionProperty,
+      dragSpeed: 300,
+      shiftDragSpeed: 100
     }, options );
 
     super( options );

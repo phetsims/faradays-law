@@ -158,8 +158,7 @@ class MagnetNodeWithField extends Node {
 
     // handler for jump/slide interactions
     const magnetJumpKeyboardListener = new MagnetAutoSlideKeyboardListener( model, {
-      onKeyDown( event ) {
-        const domEvent = event.domEvent;
+      onKeyDown( domEvent ) {
 
         // event.code is the unique value of the key pressed
         // we want to ensure that we're only listening for the 1,2, and 3 keys
@@ -184,8 +183,8 @@ class MagnetNodeWithField extends Node {
           regionManager.stopMagnetAnimationWithKeyboard();
         }
       },
-      onKeyUp( event ) {
-        if ( KeyboardUtils.isNumberKey( event.domEvent ) ) {
+      onKeyUp( domEvent ) {
+        if ( KeyboardUtils.isNumberKey( domEvent ) ) {
           self.magnetSlideTargetNode.visible = false;
         }
         rightJumpArrows.hideCue();

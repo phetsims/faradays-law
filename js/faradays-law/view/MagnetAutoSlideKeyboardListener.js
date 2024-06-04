@@ -52,20 +52,26 @@ class MagnetAutoSlideKeyboardListenerX extends KeyboardListener {
 
     options = merge( {
       keys: AUTO_SLIDE_KEYS,
-      listenerFireTrigger: 'both',
-      callback: event => {
-        const key = event.domEvent.key;
-        if ( event.type === 'keydown' ) {
-          this.handleKeyPressed( key );
-          options.onKeyDown( event );
+      blur: () => {
+        this.handleFocusLost();
+      },
+
+      press: ( event, keysPressed, listener ) => {
+        if ( event ) {
+          const key = event.key;
+          if ( event.type === 'keydown' ) {
+            this.handleKeyPressed( key );
+            options.onKeyDown( event );
+          }
         }
-        else if ( event.type === 'keyup' ) {
+      },
+      release: ( event, keysPressed, listener ) => {
+        if ( event ) {
+          const key = event.key;
+
           this.handleKeyReleased( key );
           options.onKeyUp( event );
         }
-      },
-      blur: () => {
-        this.handleFocusLost();
       },
 
       // client-provided handlers for additional actions on keys up or down
