@@ -10,7 +10,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import boundaryReachedSoundPlayer from '../../../../tambo/js/shared-sound-players/boundaryReachedSoundPlayer.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import coilBumpHigh_mp3 from '../../../sounds/coilBumpHigh_mp3.js';
@@ -140,6 +140,7 @@ class FaradaysLawScreenView extends ScreenView {
     model.coilBumpEmitter.addListener( coilType => {
       coilType === CoilTypeEnum.FOUR_COIL ? lowerCoilBumpSoundClip.play() : upperCoilBumpSoundClip.play();
     } );
+    const boundaryReachedSoundPlayer = sharedSoundPlayers.get( 'boundaryReached' );
     model.edgeBumpEmitter.addListener( () => {
       boundaryReachedSoundPlayer.play();
     } );
