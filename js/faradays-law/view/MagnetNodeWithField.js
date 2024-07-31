@@ -198,7 +198,7 @@ class MagnetNodeWithField extends Node {
     const cancelAnimationKeyDownListener = {
       keydown: event => {
         const englishEventKey = eventCodeToEnglishString( event.domEvent.code );
-        const isSlideKey = MagnetAutoSlideKeyboardListener.AUTO_SLIDE_KEYS.includes( englishEventKey );
+        const isSlideKey = MagnetAutoSlideKeyboardListener.isSlideKeyStroke( englishEventKey );
 
         // Any key press that is not one of the auto-slide keys should stop the animation.
         if ( !isSlideKey && magnetJumpKeyboardListener.isAnimatingProperty.value ) {

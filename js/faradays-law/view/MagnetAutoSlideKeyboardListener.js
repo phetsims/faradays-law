@@ -9,13 +9,14 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { KeyboardListener } from '../../../../scenery/js/imports.js';
+import { HotkeyData, KeyboardListener } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import MagnetDirectionEnum from '../model/MagnetDirectionEnum.js';
@@ -26,6 +27,30 @@ const AUTO_SLIDE_KEYS = [ '1', '2', '3' ];
 const { LEFT, RIGHT } = MagnetDirectionEnum;
 const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
+
+const SLOW_SLIDE_HOTKEY_DATA = new HotkeyData( {
+  keyStringProperties: [ new Property( '1' ) ],
+  binderName: 'Slow auto-slide',
+  repoName: faradaysLaw.name
+} );
+
+const MEDIUM_SLIDE_HOTKEY_DATA = new HotkeyData( {
+  keyStringProperties: [ new Property( '2' ) ],
+  binderName: 'Medium auto-slide',
+  repoName: faradaysLaw.name
+} );
+
+const FAST_SLIDE_HOTKEY_DATA = new HotkeyData( {
+  keyStringProperties: [ new Property( '3' ) ],
+  binderName: 'Fast auto-slide',
+  repoName: faradaysLaw.name
+} );
+
+const SLIDE_HOTKEY_DATA_COLLECTION = [
+  SLOW_SLIDE_HOTKEY_DATA,
+  MEDIUM_SLIDE_HOTKEY_DATA,
+  FAST_SLIDE_HOTKEY_DATA
+];
 
 // speeds, all in model coordinates per second
 const SLOW = 90; // empirically determined such that the voltmeter doesn't peg when going through bigger coil
@@ -51,7 +76,7 @@ class MagnetAutoSlideKeyboardListenerX extends KeyboardListener {
   constructor( model, options ) {
 
     options = merge( {
-      keys: AUTO_SLIDE_KEYS,
+      keyStringProperties: HotkeyData.combineKeyStringProperties( SLIDE_HOTKEY_DATA_COLLECTION ),
       blur: () => {
         this.handleFocusLost();
       },
@@ -299,8 +324,14 @@ class MagnetAutoSlideKeyboardListenerX extends KeyboardListener {
     this._disposeMagnetAutoSlideKeyboardListener();
   }
 
-  // @public @readonly
-  static AUTO_SLIDE_KEYS = AUTO_SLIDE_KEYS;
+  static SLOW_SLIDE_HOTKEY_DATA = SLOW_SLIDE_HOTKEY_DATA;
+  static MEDIUM_SLIDE_HOTKEY_DATA = MEDIUM_SLIDE_HOTKEY_DATA;
+  static FAST_SLIDE_HOTKEY_DATA = FAST_SLIDE_HOTKEY_DATA;
+
+  // @public @static
+  static isSlideKeyStroke( keyStroke ) {
+    return SLIDE_HOTKEY_DATA_COLLECTION.some( hotkeyData => hotkeyData.hasKeyStroke( keyStroke ) );
+  }
 }
 
 faradaysLaw.register( 'MagnetAutoSlideKeyboardListenerX', MagnetAutoSlideKeyboardListenerX );

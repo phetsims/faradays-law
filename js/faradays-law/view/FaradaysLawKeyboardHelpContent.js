@@ -12,10 +12,10 @@ import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/K
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
+import MagnetAutoSlideKeyboardListener from './MagnetAutoSlideKeyboardListener.js';
 
 class FaradaysLawKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -95,9 +95,9 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
     // row with text label and number icons
     const numberKeysIcon = new HBox( {
       children: [
-        LetterKeyNode.one(),
-        LetterKeyNode.two(),
-        LetterKeyNode.three()
+        KeyboardHelpIconFactory.fromHotkeyData( MagnetAutoSlideKeyboardListener.SLOW_SLIDE_HOTKEY_DATA ),
+        KeyboardHelpIconFactory.fromHotkeyData( MagnetAutoSlideKeyboardListener.MEDIUM_SLIDE_HOTKEY_DATA ),
+        KeyboardHelpIconFactory.fromHotkeyData( MagnetAutoSlideKeyboardListener.FAST_SLIDE_HOTKEY_DATA )
       ],
       spacing: 1
     } );
