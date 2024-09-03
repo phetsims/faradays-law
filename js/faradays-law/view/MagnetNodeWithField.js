@@ -229,8 +229,8 @@ class MagnetNodeWithField extends Node {
     // arrows) needed to be visible at times that were not entirely under the control of GrabDragInteraction.
     const grabDragInteraction = new GrabDragInteraction( draggableNode, keyboardDragListener, {
       objectToGrabString: barMagnetString,
-      listenersForDragState: [ magnetJumpKeyboardListener, cancelAnimationKeyDownListener ],
-      listenersForGrabState: [ focusListener ],
+      listenersWhileDraggable: [ magnetJumpKeyboardListener, cancelAnimationKeyDownListener ],
+      listenersWhileGrabbable: [ focusListener ],
       grabCueOptions: {
 
         // position the grab cue directly above the magnet and centered
