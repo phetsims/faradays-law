@@ -38,7 +38,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../faradays-law/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
