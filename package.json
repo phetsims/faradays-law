@@ -25,11 +25,5 @@
     "simulation": true,
     "supportsOutputJS": true,
     "published": true
-  },
-  "eslintConfig": {
-    "extends": "../chipper/eslint/sim_eslintrc.js",
-    "rules": {
-      "no-view-imported-from-model": "off"
-    }
   }
 }
