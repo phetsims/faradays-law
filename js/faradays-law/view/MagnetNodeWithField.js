@@ -8,6 +8,7 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/grab-drag/GrabDragInteraction.js';
 import { animatedPanZoomSingleton, DragListener, eventCodeToEnglishString, HighlightFromNode, InteractiveHighlightingNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
@@ -40,9 +41,10 @@ class MagnetNodeWithField extends Node {
 
   /**
    * @param {FaradaysLawModel} model
+   * @param {Node} interactionCueLayer
    * @param {Tandem} tandem
    */
-  constructor( model, tandem ) {
+  constructor( model, interactionCueLayer, tandem ) {
 
     super();
 
@@ -227,16 +229,12 @@ class MagnetNodeWithField extends Node {
     // Set up keyboard grab/drag interaction.  Note that, while GrabDragInteraction supports management of the drag cue,
     // this capability is not used here, and the drag cue is managed elsewhere.  That's because the drag cue (the four
     // arrows) needed to be visible at times that were not entirely under the control of GrabDragInteraction.
-    const grabDragInteraction = new GrabDragInteraction( draggableNode, keyboardDragListener, {
+    const grabDragInteraction = new GrabDragInteraction( draggableNode, keyboardDragListener, interactionCueLayer, {
       objectToGrabString: barMagnetString,
       listenersWhileGrabbed: [ magnetJumpKeyboardListener, cancelAnimationKeyDownListener ],
       listenersWhileIdle: [ focusListener ],
-      grabCueOptions: {
-
-        // position the grab cue directly above the magnet and centered
-        centerX: 0,
-        bottom: -this.magnetNode.height * 0.7
-      },
+      grabCuePosition: 'top',
+      grabCueOffset: new Vector2( 0, -7 ),
       onGrab: () => {
         if ( !magnetDragged ) {
           model.magnetArrowsVisibleProperty.set( true );

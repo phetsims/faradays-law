@@ -112,8 +112,11 @@ class FaradaysLawScreenView extends ScreenView {
     // voltmeter added
     this.addChild( voltmeterAndWiresNode );
 
+    // top layer for interaction cues
+    const interactionCueLayer = new Node();
+
     // @private
-    this.magnetNodeWithField = new MagnetNodeWithField( model, tandem.createTandem( 'magnetNode' ) );
+    this.magnetNodeWithField = new MagnetNodeWithField( model, interactionCueLayer, tandem.createTandem( 'magnetNode' ) );
     this.addChild( this.magnetNodeWithField );
     this.pdomPlayAreaNode.pdomOrder = [ circuitDescriptionNode, this.magnetNodeWithField ];
     this.pdomControlAreaNode.pdomOrder = [ controlPanel ];
@@ -127,6 +130,9 @@ class FaradaysLawScreenView extends ScreenView {
     this.addChild( topCoilNode.frontImage );
     topCoilNode.frontImage.center = model.topCoil.position.plus( new Vector2( CoilNode.xOffset + CoilNode.twoOffset, 0 ) );
     model.topCoilVisibleProperty.linkAttribute( topCoilNode.frontImage, 'visible' );
+
+    // Interaction cue layer on top of everything
+    this.addChild( interactionCueLayer );
 
     // ------------------------------------------------------------------------------------------------------------------
     // sound generation
