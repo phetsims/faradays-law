@@ -27,6 +27,7 @@ import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltageSoundGenerator from './VoltageSoundGenerator.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 
 // constants
 const summaryDescriptionString = FaradaysLawStrings.a11y.summaryDescription;
@@ -41,14 +42,12 @@ class FaradaysLawScreenView extends ScreenView {
    */
   constructor( model, tandem ) {
 
-    // pdom - screen Summary
-    const summaryNode = new Node();
-    summaryNode.addChild( new Node( { tagName: 'p', innerContent: summaryDescriptionString } ) );
-    summaryNode.addChild( new Node( { tagName: 'p', innerContent: moveMagnetToPlayString } ) );
-
     super( {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
-      screenSummaryContent: summaryNode,
+      screenSummaryContent: new ScreenSummaryContent( [
+        summaryDescriptionString,
+        moveMagnetToPlayString
+      ] ),
       tandem: tandem
     } );
 
