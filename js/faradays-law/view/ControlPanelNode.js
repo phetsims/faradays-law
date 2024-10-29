@@ -88,7 +88,9 @@ class ControlPanelNode extends Node {
       }, coilButtonGroupOptions ) ),
       tandemName: 'singleCoilRadioButton',
       phetioDocumentation: 'Radio button that selects a single coil.',
-      labelContent: numberOneCoilString
+      options: {
+        accessibleName: numberOneCoilString
+      }
     }, {
       value: true,
       createNode: () => new VBox( merge( {
@@ -100,7 +102,9 @@ class ControlPanelNode extends Node {
       }, coilButtonGroupOptions ) ),
       tandemName: 'doubleCoilRadioButton',
       phetioDocumentation: 'Radio button that selects double coils.',
-      labelContent: numberTwoCoilString
+      options: {
+        accessibleName: numberTwoCoilString
+      }
     } ];
 
     const coilRadioButtonGroup = new RectangularRadioButtonGroup( model.topCoilVisibleProperty, coilButtonGroupContents, {
