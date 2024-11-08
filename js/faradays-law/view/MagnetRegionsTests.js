@@ -8,7 +8,7 @@
  */
 
 // modules
-// const FaradaysLawScreenView = require( '/faradays-law/js/faradays-law/view/FaradaysLawScreenView' );
+// const FaradaysLawScreenView = require( '/faradays-law/js/faradays-law/view/FaradaysLawScreenView.js' );
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
