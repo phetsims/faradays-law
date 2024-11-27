@@ -8,6 +8,7 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
@@ -27,7 +28,6 @@ import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltageSoundGenerator from './VoltageSoundGenerator.js';
 import VoltmeterAndWiresNode from './VoltmeterAndWiresNode.js';
-import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 
 // constants
 const summaryDescriptionString = FaradaysLawStrings.a11y.summaryDescription;
