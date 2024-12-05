@@ -46,7 +46,8 @@ class Magnet {
     // @public {BooleanProperty} - show field lines for magnet
     this.fieldLinesVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'fieldLinesVisibleProperty' ),
-      phetioDocumentation: 'True if the field lines are visible'
+      phetioDocumentation: 'True if the field lines are visible',
+      phetioFeatured: true
     } );
 
     // @public {BooleanProperty} - whether the user is currently dragging the magnet
