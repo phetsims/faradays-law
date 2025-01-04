@@ -44,10 +44,12 @@ class FaradaysLawScreenView extends ScreenView {
 
     super( {
       layoutBounds: FaradaysLawConstants.LAYOUT_BOUNDS,
-      screenSummaryContent: new ScreenSummaryContent( [
-        summaryDescriptionString,
-        moveMagnetToPlayString
-      ] ),
+      screenSummaryContent: new ScreenSummaryContent( {
+        additionalContent: [
+          summaryDescriptionString,
+          moveMagnetToPlayString
+        ]
+      } ),
       tandem: tandem
     } );
 
