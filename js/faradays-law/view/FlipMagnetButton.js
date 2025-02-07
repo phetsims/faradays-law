@@ -8,10 +8,13 @@
  */
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Path, PDOMPeer, VBox } from '../../../../scenery/js/imports.js';
+import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';

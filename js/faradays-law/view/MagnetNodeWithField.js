@@ -10,7 +10,13 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/grab-drag/GrabDragInteraction.js';
-import { animatedPanZoomSingleton, DragListener, eventCodeToEnglishString, HighlightFromNode, InteractiveHighlightingNode, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
+import { eventCodeToEnglishString } from '../../../../scenery/js/accessibility/EnglishStringToCodeMap.js';
+import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
+import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
+import InteractiveHighlightingNode from '../../../../scenery/js/accessibility/voicing/nodes/InteractiveHighlightingNode.js';
+import animatedPanZoomSingleton from '../../../../scenery/js/listeners/animatedPanZoomSingleton.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';

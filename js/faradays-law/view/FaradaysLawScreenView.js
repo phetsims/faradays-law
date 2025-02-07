@@ -10,7 +10,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';

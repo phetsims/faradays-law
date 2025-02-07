@@ -9,11 +9,13 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MinusNode from '../../../../scenery-phet/js/MinusNode.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import { Circle, Node, Path } from '../../../../scenery/js/imports.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import voltageMaxClick_mp3 from '../../../sounds/voltageMaxClick_mp3.js';

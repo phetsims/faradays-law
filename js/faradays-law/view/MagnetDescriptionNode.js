@@ -7,7 +7,7 @@
  * @author Michael Barlow (PhET Interactive Simulations)
  */
 
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 
