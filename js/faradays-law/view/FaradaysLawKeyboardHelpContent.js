@@ -1,4 +1,4 @@
-// Copyright 2020-2024, University of Colorado Boulder
+// Copyright 2020-2025, University of Colorado Boulder
 
 /**
  * content for the "Keyboard Help" dialog that can be brought up from the sim's navigation bar
