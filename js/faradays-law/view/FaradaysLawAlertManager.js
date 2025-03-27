@@ -40,7 +40,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   magnetFocusAlert() {
     //const alert = this.describer.magnetFocusAlertText;
-    //this.alertDescriptionUtterance( alert );
+    //this.addAccessibleResponse( alert );
   }
 
   /**
@@ -48,7 +48,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   movementEndAlert() {
     this.keyboardMovementUtterance.alert = this.describer.magnetMovedAlertText();
-    // this.alertDescriptionUtterance(  this.keyboardMovementUtterance );
+    // this.addAccessibleResponse(  this.keyboardMovementUtterance );
   }
 
   /**
@@ -57,7 +57,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   flipMagnetAlert( orientation ) {
     //const alert = this.describer.getFlipMagnetAlertText( orientation );
-    //this.alertDescriptionUtterance( alert );
+    //this.addAccessibleResponse( alert );
   }
 
   /**
@@ -67,7 +67,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   static magnetSlidingAlert( speed, direction ) {
     //const alert = MagnetDescriber.getMagnetSlidingAlertText( speed, direction );
-    // this.alertDescriptionUtterance(  alert );
+    // this.addAccessibleResponse(  alert );
   }
 
   /**
@@ -76,7 +76,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   static voltmeterAttachmentAlert( showVoltmeter ) {
     //const alert = MagnetDescriber.getVoltmeterAttachmentAlertText( showVoltmeter );
-    //this.alertDescriptionUtterance( alert );
+    //this.addAccessibleResponse( alert );
   }
 
   /**
@@ -85,7 +85,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   static fieldLinesVisibilityAlert( showLines ) {
     //const alert = MagnetDescriber.getFieldLinesVisibilityAlertText( showLines );
-    //this.alertDescriptionUtterance( alert );
+    //this.addAccessibleResponse( alert );
   }
 
   /**
@@ -94,7 +94,7 @@ class FaradaysLawAlertManager extends Alerter {
    */
   static coilConnectionAlert( showTopCoil ) {
     //const alert = MagnetDescriber.getCoilConnectionAlertText( showTopCoil );
-    //this.alertDescriptionUtterance( alert );
+    //this.addAccessibleResponse( alert );
   }
 }
 
