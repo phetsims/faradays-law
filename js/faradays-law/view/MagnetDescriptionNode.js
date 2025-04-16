@@ -70,9 +70,7 @@ class MagnetDescriptionNode extends Node {
     } );
 
     const fieldLinesDescriptionNode = new Node( {
-      labelTagName: 'h3',
-      labelContent: fieldLinesString,
-      tagName: 'div',
+      accessibleHeading: fieldLinesString,
       children: [ fourLoopOnlyStrengthNode, twoLoopStrengthListNode ]
     } );
 

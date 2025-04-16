@@ -33,9 +33,7 @@ class CircuitDescriptionNode extends Node {
   constructor( model, options ) {
 
     options = merge( {
-      tagName: 'div',
-      labelTagName: 'h3',
-      labelContent: lightBulbCircuitLabelString
+      accessibleHeading: lightBulbCircuitLabelString
     }, options );
 
     super( options );
