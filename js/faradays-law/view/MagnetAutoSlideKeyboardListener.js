@@ -9,7 +9,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -30,19 +29,19 @@ const HALF_MAGNET_WIDTH = FaradaysLawConstants.MAGNET_WIDTH / 2;
 const HALF_MAGNET_HEIGHT = FaradaysLawConstants.MAGNET_HEIGHT / 2;
 
 const SLOW_SLIDE_HOTKEY_DATA = new HotkeyData( {
-  keyStringProperties: [ new Property( '1' ) ],
+  keys: [ '1' ],
   binderName: 'Slow auto-slide',
   repoName: faradaysLaw.name
 } );
 
 const MEDIUM_SLIDE_HOTKEY_DATA = new HotkeyData( {
-  keyStringProperties: [ new Property( '2' ) ],
+  keys: [ '2' ],
   binderName: 'Medium auto-slide',
   repoName: faradaysLaw.name
 } );
 
 const FAST_SLIDE_HOTKEY_DATA = new HotkeyData( {
-  keyStringProperties: [ new Property( '3' ) ],
+  keys: [ '3' ],
   binderName: 'Fast auto-slide',
   repoName: faradaysLaw.name
 } );
