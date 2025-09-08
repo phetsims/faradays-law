@@ -16,7 +16,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import MagnetDirectionEnum from '../model/MagnetDirectionEnum.js';
-import CoilTypeEnum from './CoilTypeEnum.js';
+import CoilTypeEnum from '../model/CoilTypeEnum.js';
 
 // constants
 const NUMBER_OF_ROWS = 3;

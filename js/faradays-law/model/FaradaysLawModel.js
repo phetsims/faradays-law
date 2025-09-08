@@ -16,7 +16,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { Line } from '../../../../kite/js/segments/Segment.js';
 import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
-import CoilTypeEnum from '../view/CoilTypeEnum.js';
+import CoilTypeEnum from './CoilTypeEnum.js';
 import Coil from './Coil.js';
 import Magnet from './Magnet.js';
 import Voltmeter from './Voltmeter.js';

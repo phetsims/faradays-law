@@ -20,7 +20,7 @@ import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilNode from './CoilNode.js';
-import CoilTypeEnum from './CoilTypeEnum.js';
+import CoilTypeEnum from '../model/CoilTypeEnum.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FlipMagnetButton from './FlipMagnetButton.js';
 

@@ -23,7 +23,7 @@ import BulbNode from './BulbNode.js';
 import CircuitDescriptionNode from './CircuitDescriptionNode.js';
 import CoilNode from './CoilNode.js';
 import CoilsWiresNode from './CoilsWiresNode.js';
-import CoilTypeEnum from './CoilTypeEnum.js';
+import CoilTypeEnum from '../model/CoilTypeEnum.js';
 import ControlPanelNode from './ControlPanelNode.js';
 import MagnetNodeWithField from './MagnetNodeWithField.js';
 import VoltageSoundGenerator from './VoltageSoundGenerator.js';

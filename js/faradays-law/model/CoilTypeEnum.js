@@ -1,7 +1,7 @@
 // Copyright 2014-2022, University of Colorado Boulder
 
 /**
- * Possible Coil types in 'Faradays Law' simulation.
+ * Possible Coil types in 'Faraday's Law' simulation.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)

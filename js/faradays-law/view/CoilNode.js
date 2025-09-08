@@ -15,7 +15,7 @@ import fourLoopFront_png from '../../../mipmaps/fourLoopFront_png.js';
 import twoLoopBack_png from '../../../mipmaps/twoLoopBack_png.js';
 import twoLoopFront_png from '../../../mipmaps/twoLoopFront_png.js';
 import faradaysLaw from '../../faradaysLaw.js';
-import CoilTypeEnum from './CoilTypeEnum.js';
+import CoilTypeEnum from '../model/CoilTypeEnum.js';
 
 const IMAGE_MAP = {};
 IMAGE_MAP[ CoilTypeEnum.TWO_COIL ] = {
