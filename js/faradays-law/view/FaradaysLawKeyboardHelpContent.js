@@ -64,7 +64,7 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
     const moveMagnetRow = KeyboardHelpSectionRow.labelWithIcon(
       FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnet,
       moveMagnetIcon, {
-        labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
+        accessibleRowDescriptionProperty: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetWith
       } );
 
     // move magnet slower row
@@ -104,7 +104,7 @@ class AutoSlideMagnetHelpSection extends KeyboardHelpSection {
     const moveGrabbedMagnetRow = KeyboardHelpSectionRow.labelWithIcon(
       FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetText,
       numberKeysIcon, {
-        labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
+        accessibleRowDescriptionProperty: FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnetWith
       } );
 
     super( FaradaysLawStrings.keyboardHelpDialog.autoSlideGrabbedBarMagnet, [ moveGrabbedMagnetRow ], options );
