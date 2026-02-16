@@ -73,7 +73,7 @@ class MoveMagnetHelpSection extends KeyboardHelpSection {
     const moveMagnetSlowerRow = KeyboardHelpSectionRow.labelWithIconList(
       FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlower,
       [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
-        labelInnerContent: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
+        accessibleRowDescriptionProperty: FaradaysLawStrings.keyboardHelpDialog.moveGrabbedMagnetSlowerWith
       } );
 
     const rows = [ moveMagnetRow, moveMagnetSlowerRow ];
