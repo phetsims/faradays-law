@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "61e25d8016edc9430394cb5cc07b671bf18bb8ee",
+    "sha": "a085b05227dea75df249b07958fd192b1e018440",
     "branch": "HEAD"
   },
   "chipper": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "d228abf55b04c102e446d32e93ac4c19b04344b5",
+    "sha": "4306dcf8a4030485d2bd55cf23c24ec8a43d85a8",
     "branch": "1.3-phetio"
   },
   "joist": {
