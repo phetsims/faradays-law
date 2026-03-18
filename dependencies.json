@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "de465e31a4f2b248429c6bc238d0d0547efd13f3",
+    "sha": "18671fe05524c9a95ee2dee184a9213c6a176265",
     "branch": "HEAD"
   },
   "chipper": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "2f487c6ac578873dd64ecf852d40af276c9345ea",
+    "sha": "de1b95fd30bbdd64956c76c6016c2fdf0be35d54",
     "branch": "1.4"
   },
   "joist": {
