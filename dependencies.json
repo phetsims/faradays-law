@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "faradays-law": {
-    "sha": "0ef4f76da78e6d4fe4e8c9e715b6f51b4bafdc70",
+    "sha": "8f150eaeef63358df0b63aa94a3c6a0da4bf62a2",
     "branch": "1.4"
   },
   "joist": {
-    "sha": "9ba40e59b25eb7eae9b22b89c07a32deaded350c",
+    "sha": "e435dfce2c1939c76ff756cdc56a124854338eb6",
     "branch": "HEAD"
   },
   "kite": {
