@@ -9,7 +9,6 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilTypeEnum from '../model/CoilTypeEnum.js';
@@ -530,5 +529,4 @@ class MagnetDescriber {
   }
 }
 
-faradaysLaw.register( 'MagnetDescriber', MagnetDescriber );
 export default MagnetDescriber;

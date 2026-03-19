@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const ARROW_HEIGHT = 20; // dimensions for the arrow
@@ -106,5 +105,4 @@ class JumpMagnitudeArrowNode extends Node {
   }
 }
 
-faradaysLaw.register( 'JumpMagnitudeArrowNode', JumpMagnitudeArrowNode );
 export default JumpMagnitudeArrowNode;

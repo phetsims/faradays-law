@@ -13,7 +13,6 @@ import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprec
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import OrientationEnum from './OrientationEnum.js';
 
@@ -82,5 +81,4 @@ class Magnet {
   }
 }
 
-faradaysLaw.register( 'Magnet', Magnet );
 export default Magnet;

@@ -18,7 +18,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import VoltmeterGauge from './VoltmeterGauge.js';
 
@@ -122,5 +121,4 @@ class VoltmeterNode extends Node {
   }
 }
 
-faradaysLaw.register( 'VoltmeterNode', VoltmeterNode );
 export default VoltmeterNode;

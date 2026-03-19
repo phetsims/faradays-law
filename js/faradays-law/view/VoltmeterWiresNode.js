@@ -13,7 +13,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 
 // constants
@@ -112,5 +111,4 @@ const createPad = options => {
   return pad;
 };
 
-faradaysLaw.register( 'VoltmeterWiresNode', VoltmeterWiresNode );
 export default VoltmeterWiresNode;

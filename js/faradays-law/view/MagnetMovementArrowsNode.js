@@ -13,7 +13,6 @@ import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const ARROW_FILL = new Color( 0xB2FCB7 );
@@ -59,5 +58,4 @@ class MagnetMovementArrowsNode extends Node {
   }
 }
 
-faradaysLaw.register( 'MagnetMovementArrowsNode', MagnetMovementArrowsNode );
 export default MagnetMovementArrowsNode;

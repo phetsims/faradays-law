@@ -8,7 +8,6 @@
  */
 
 import Node from '../../../../scenery/js/nodes/Node.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 
 const barMagnetIsString = FaradaysLawStrings.a11y.barMagnetIs;
@@ -115,5 +114,4 @@ class MagnetDescriptionNode extends Node {
   }
 }
 
-faradaysLaw.register( 'MagnetDescriptionNode', MagnetDescriptionNode );
 export default MagnetDescriptionNode;

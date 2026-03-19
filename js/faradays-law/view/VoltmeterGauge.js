@@ -19,7 +19,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import voltageMaxClick_mp3 from '../../../sounds/voltageMaxClick_mp3.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const MIN_ANGLE = -Math.PI / 2;
@@ -114,5 +113,4 @@ class VoltmeterGauge extends Node {
   }
 }
 
-faradaysLaw.register( 'VoltmeterGauge', VoltmeterGauge );
 export default VoltmeterGauge;

@@ -6,7 +6,6 @@
  * @author Michael Barlow (PhET Interactive Simulations)
  */
 
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 
 // strings
@@ -34,5 +33,4 @@ const MagnetPositionStringsEnum = [
 
 if ( assert ) { Object.feeze( MagnetPositionStringsEnum ); }
 
-faradaysLaw.register( 'MagnetPositionStringsEnum', MagnetPositionStringsEnum );
 export default MagnetPositionStringsEnum;

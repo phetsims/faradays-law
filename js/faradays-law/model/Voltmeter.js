@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const ACTIVITY_THRESHOLD = 1E-3; // Used to prevent perpetual oscillation of the needle, value empirically determined.
@@ -71,5 +70,4 @@ class Voltmeter {
   }
 }
 
-faradaysLaw.register( 'Voltmeter', Voltmeter );
 export default Voltmeter;

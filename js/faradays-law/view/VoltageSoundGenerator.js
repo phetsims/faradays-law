@@ -16,7 +16,6 @@ import lightbulbVoltageNoteC4_mp3 from '../../../sounds/lightbulbVoltageNoteC4_m
 import lightbulbVoltageNoteC5_mp3 from '../../../sounds/lightbulbVoltageNoteC5_mp3.js';
 import lightbulbVoltageNoteE4_mp3 from '../../../sounds/lightbulbVoltageNoteE4_mp3.js';
 import lightbulbVoltageNoteG4_mp3 from '../../../sounds/lightbulbVoltageNoteG4_mp3.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const SOUND_GENERATION_THRESHOLD_VOLTAGE = 0.01; // in volts, empirically determined, must be greater than zero
@@ -121,5 +120,4 @@ class VoltageSoundGenerator extends SoundGenerator {
   }
 }
 
-faradaysLaw.register( 'VoltageSoundGenerator', VoltageSoundGenerator );
 export default VoltageSoundGenerator;

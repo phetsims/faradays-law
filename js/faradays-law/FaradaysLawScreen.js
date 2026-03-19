@@ -9,7 +9,6 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
-import faradaysLaw from '../faradaysLaw.js';
 import FaradaysLawConstants from './FaradaysLawConstants.js';
 import FaradaysLawModel from './model/FaradaysLawModel.js';
 import FaradaysLawKeyboardHelpContent from './view/FaradaysLawKeyboardHelpContent.js';
@@ -40,5 +39,4 @@ class FaradaysLawScreen extends Screen {
   }
 }
 
-faradaysLaw.register( 'FaradaysLawScreen', FaradaysLawScreen );
 export default FaradaysLawScreen;

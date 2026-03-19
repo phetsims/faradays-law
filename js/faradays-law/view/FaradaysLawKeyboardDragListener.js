@@ -10,7 +10,6 @@
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 class FaradaysLawKeyboardDragListener extends KeyboardDragListener {
 
@@ -77,5 +76,4 @@ function onFocus() {
   this.regionManager.resetKeyboardStop();
 }
 
-faradaysLaw.register( 'FaradaysLawKeyboardDragListener', FaradaysLawKeyboardDragListener );
 export default FaradaysLawKeyboardDragListener;

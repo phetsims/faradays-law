@@ -17,7 +17,6 @@
 
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import faradaysLaw from '../../faradaysLaw.js';
 // import MagnetDescriber from './MagnetDescriber.js';
 
 // the alert manager
@@ -98,5 +97,4 @@ class FaradaysLawAlertManager extends Alerter {
   }
 }
 
-faradaysLaw.register( 'FaradaysLawAlertManager', FaradaysLawAlertManager );
 export default FaradaysLawAlertManager;

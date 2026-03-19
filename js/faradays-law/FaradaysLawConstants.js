@@ -8,7 +8,6 @@
 
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
-import faradaysLaw from '../faradaysLaw.js';
 
 // constants
 const BULB_POSITION = new Vector2( 190, 200 );
@@ -27,5 +26,4 @@ const FaradaysLawConstants = {
   BOTTOM_COIL_POSITION: new Vector2( 448, 310 )
 };
 
-faradaysLaw.register( 'FaradaysLawConstants', FaradaysLawConstants );
 export default FaradaysLawConstants;

@@ -16,7 +16,6 @@ import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import coilBumpHigh_mp3 from '../../../sounds/coilBumpHigh_mp3.js';
 import coilBumpLow_mp3 from '../../../sounds/coilBumpLow_mp3.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import BulbNode from './BulbNode.js';
@@ -157,5 +156,4 @@ class FaradaysLawScreenView extends ScreenView {
   }
 }
 
-faradaysLaw.register( 'FaradaysLawScreenView', FaradaysLawScreenView );
 export default FaradaysLawScreenView;

@@ -21,7 +21,6 @@ import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import grabMagnet_mp3 from '../../../sounds/grabMagnet_mp3.js';
 import releaseMagnet_mp3 from '../../../sounds/releaseMagnet_mp3.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import FaradaysLawAlertManager from './FaradaysLawAlertManager.js';
 import FaradaysLawKeyboardDragListener from './FaradaysLawKeyboardDragListener.js';
@@ -333,5 +332,4 @@ const isKeyModified = domEvent => {
   return domEvent.getModifierState( 'Control' ) || domEvent.getModifierState( 'Alt' );
 };
 
-faradaysLaw.register( 'MagnetNodeWithField', MagnetNodeWithField );
 export default MagnetNodeWithField;

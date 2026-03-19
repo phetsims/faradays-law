@@ -334,5 +334,4 @@ class MagnetAutoSlideKeyboardListenerX extends KeyboardListener {
   }
 }
 
-faradaysLaw.register( 'MagnetAutoSlideKeyboardListenerX', MagnetAutoSlideKeyboardListenerX );
 export default MagnetAutoSlideKeyboardListenerX;

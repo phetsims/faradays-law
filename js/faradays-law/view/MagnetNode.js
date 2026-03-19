@@ -15,7 +15,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 
@@ -120,5 +119,4 @@ const drawHalfMagnetNode = ( magnetWidth, magnetHeight, label, backgroundColor, 
   return halfMagnetNode;
 };
 
-faradaysLaw.register( 'MagnetNode', MagnetNode );
 export default MagnetNode;

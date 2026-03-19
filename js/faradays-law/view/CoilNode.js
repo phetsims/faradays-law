@@ -14,7 +14,6 @@ import fourLoopBack_png from '../../../mipmaps/fourLoopBack_png.js';
 import fourLoopFront_png from '../../../mipmaps/fourLoopFront_png.js';
 import twoLoopBack_png from '../../../mipmaps/twoLoopBack_png.js';
 import twoLoopFront_png from '../../../mipmaps/twoLoopFront_png.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import CoilTypeEnum from '../model/CoilTypeEnum.js';
 
 const IMAGE_MAP = {};
@@ -78,5 +77,4 @@ class CoilNode extends Node {
 CoilNode.twoOffset = 8;
 CoilNode.xOffset = 8;
 
-faradaysLaw.register( 'CoilNode', CoilNode );
 export default CoilNode;

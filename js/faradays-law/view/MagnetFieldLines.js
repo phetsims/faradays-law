@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const ARROW_WIDTH = 16;
@@ -132,5 +131,4 @@ const createSideFieldLines = ( orientationProperty, scaleY ) => {
   return sideFieldLinesContainer;
 };
 
-faradaysLaw.register( 'MagnetFieldLines', MagnetFieldLines );
 export default MagnetFieldLines;

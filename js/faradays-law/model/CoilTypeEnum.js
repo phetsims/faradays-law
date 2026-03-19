@@ -8,9 +8,7 @@
  */
 
 import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 const CoilTypeEnum = EnumerationDeprecated.byKeys( [ 'TWO_COIL', 'FOUR_COIL', 'NO_COIL' ] );
 
-faradaysLaw.register( 'CoilTypeEnum', CoilTypeEnum );
 export default CoilTypeEnum;

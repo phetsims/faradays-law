@@ -16,7 +16,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
-import faradaysLaw from '../../faradaysLaw.js';
 
 // constants
 const BULB_BODY_HEIGHT = 125 - 45;
@@ -153,5 +152,4 @@ class BulbNode extends Node {
   }
 }
 
-faradaysLaw.register( 'BulbNode', BulbNode );
 export default BulbNode;

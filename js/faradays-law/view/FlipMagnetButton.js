@@ -16,7 +16,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import MagnetNode from './MagnetNode.js';
 
@@ -103,5 +102,4 @@ function createCurvedArrow( rotation ) {
   } );
 }
 
-faradaysLaw.register( 'FlipMagnetButton', FlipMagnetButton );
 export default FlipMagnetButton;

@@ -14,7 +14,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Line } from '../../../../kite/js/segments/Segment.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import CoilTypeEnum from './CoilTypeEnum.js';
 import Coil from './Coil.js';
@@ -514,5 +513,4 @@ class FaradaysLawModel {
   }
 }
 
-faradaysLaw.register( 'FaradaysLawModel', FaradaysLawModel );
 export default FaradaysLawModel;

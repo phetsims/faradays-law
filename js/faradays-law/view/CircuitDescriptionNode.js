@@ -12,7 +12,6 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import MagnetDescriber from './MagnetDescriber.js';
 
@@ -88,5 +87,4 @@ function createListItemNode( innerContent ) {
   return new Node( { tagName: 'li', innerContent: innerContent } );
 }
 
-faradaysLaw.register( 'CircuitDescriptionNode', CircuitDescriptionNode );
 export default CircuitDescriptionNode;

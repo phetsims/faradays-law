@@ -16,7 +16,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawStrings from '../../FaradaysLawStrings.js';
 import OrientationEnum from '../model/OrientationEnum.js';
 import CoilNode from './CoilNode.js';
@@ -190,5 +189,4 @@ class ControlPanelNode extends Node {
   }
 }
 
-faradaysLaw.register( 'ControlPanelNode', ControlPanelNode );
 export default ControlPanelNode;

@@ -13,7 +13,6 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Utils from '../../../../dot/js/Utils.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import FaradaysLawConstants from '../FaradaysLawConstants.js';
 import MagnetDirectionEnum from '../model/MagnetDirectionEnum.js';
 import CoilTypeEnum from '../model/CoilTypeEnum.js';
@@ -454,5 +453,4 @@ class MagnetRegionManager {
   }
 }
 
-faradaysLaw.register( 'MagnetRegionManager', MagnetRegionManager );
 export default MagnetRegionManager;

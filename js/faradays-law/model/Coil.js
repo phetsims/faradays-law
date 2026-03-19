@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import faradaysLaw from '../../faradaysLaw.js';
 import OrientationEnum from './OrientationEnum.js';
 
 // constants
@@ -110,5 +109,4 @@ class Coil {
   }
 }
 
-faradaysLaw.register( 'Coil', Coil );
 export default Coil;
