@@ -144,4 +144,6 @@ type StringsType = {
 
 const FaradaysLawStrings = getStringModule( 'FARADAYS_LAW' ) as StringsType;
 
+faradaysLaw.register( 'FaradaysLawStrings', FaradaysLawStrings );
+
 export default FaradaysLawStrings;
